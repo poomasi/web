@@ -41,6 +41,9 @@ export default defineConfig({
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
       '@routes': path.resolve(__dirname, 'src/routes'),
+      '@styles': path.resolve(__dirname, 'src/styles'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
     },
   },
 })

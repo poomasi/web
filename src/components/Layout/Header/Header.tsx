@@ -24,14 +24,12 @@ export default function Header() {
 
 const HeaderContainer = styled.div`
   position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 5% 0 5%;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
   width: 100%;
   height: 5rem;
   color: #333;
-
+  background-color: #fff;
   z-index: 999;
 `

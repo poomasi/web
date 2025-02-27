@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material'
 import { RecoilRoot } from 'recoil'
-import { GlobalStyle, globalTheme } from './styles'
+import { globalTheme } from '@styles/global-theme'
+import { GlobalStyle } from '@styles/GlobalStyle'
 import { Router } from './routes'
 
 function App() {

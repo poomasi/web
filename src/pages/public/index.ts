@@ -1,2 +1,5 @@
 export * from './landing-page'
 export * from './login-page'
+export * from './ProfilesSection'
+export * from './ProfileCard'
+// export * from './footer-section'
