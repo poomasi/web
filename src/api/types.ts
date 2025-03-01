@@ -10,6 +10,7 @@ export interface KakaoLoginResponse {
 }
 
 export interface AccountListResponse {
+  public_id: string
   nickname: string
   name: string
   profile_image: string
