@@ -8,7 +8,6 @@ import { ProfilesSection } from '@pages/public/ProfilesSection'
 import { Footer } from '@components/Layout/Footer/Footer'
 
 export function LandingPage() {
-  console.log('LandingPage 렌더링됨')
   return (
     <div>
       <Container>

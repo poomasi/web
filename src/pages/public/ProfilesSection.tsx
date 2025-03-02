@@ -18,13 +18,6 @@ export function ProfilesSection() {
     ;(async () => {
       try {
         const response = await RequestApi.accounts.getAccountList()
-
-        console.log('API 응답 데이터:', response)
-
-        if (response.length > 0) {
-          console.log('첫 번째 데이터 구조:', response[0])
-        }
-
         setAccountList(Array.isArray(response) ? response : [])
       } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error)
@@ -33,6 +26,7 @@ export function ProfilesSection() {
       // setAccountList(await RequestApi.accounts.getAccountList())
     })()
   }, [])
+  console.log('Account List:', accountList)
 
   return (
     <Container>
@@ -54,8 +48,9 @@ export function ProfilesSection() {
         <PeopleContainer container style={{ margin: '0 auto' }}>
           {accountList
             .filter((account) => selectedField === '전체' || account?.field === selectedField)
-            .map((account, index) => (
-              <ProfileCard key={account.public_id || index} profileData={account} />
+            .map((account) => (
+              // console.log(Public ID:`, account.public_id);
+              <ProfileCard key={account.public_id} profileData={account} />
             ))}
         </PeopleContainer>
       </div>

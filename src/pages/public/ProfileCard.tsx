@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import isPropValid from '@emotion/is-prop-valid'
 import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +28,7 @@ export function ProfileCard({ profileData }: Props) {
   }
 
   return (
-    <Container isVacation={profileData.is_vacation} onClick={handleProfileClick}>
+    <Container $isVacation={profileData.is_vacation} onClick={handleProfileClick}>
       {profileData.is_vacation && (
         <TextBlurOverlay>
           <div style={{ fontSize: '100px' }}>🏖</div> 휴가를 떠났어요 :D
@@ -53,8 +54,10 @@ export function ProfileCard({ profileData }: Props) {
   )
 }
 
-// 🔹 휴가 여부에 따라 스타일 변경
-const Container = styled(Card)<{ isVacation: boolean }>`
+// 🔹 휴가 여부에 따라 스타일 변경 (prop을 DOM에 전달되지 않도록 `$isVacation` 사용)
+const Container = styled(Card, {
+  shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'isVacation',
+})<{ $isVacation: boolean }>`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   margin: 10px 17px 10px 3px;
   width: 180px;
@@ -62,8 +65,8 @@ const Container = styled(Card)<{ isVacation: boolean }>`
   position: relative;
   overflow: hidden;
 
-  ${({ isVacation }) =>
-    isVacation &&
+  ${({ $isVacation }) =>
+    $isVacation &&
     `
     filter: blur(5px);
     -webkit-filter: blur(5px);

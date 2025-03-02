@@ -20,7 +20,7 @@ export const RequestApi = {
         const data = await response.json()
 
         //Array.isArray(): 배열인지 체크하는 메소드
-        return Array.isArray(data) ? data : [data]
+        return Array.isArray(data.data) ? data.data : []
       } catch (error) {
         console.error('API 호출 중 오류 발생:', error)
         return []
