@@ -24,7 +24,7 @@ const Seperator = styled.div`
   height: 4px;
   width: 30px;
   background-color: black;
-  margin-top: 7px;
+  margin-top: 5rem;
   margin-bottom: 16px;
 `
 const SubHead = styled.div`
@@ -38,6 +38,7 @@ const SubHead = styled.div`
 const Description = styled.div`
   line-height: 1.6;
   font-size: 17px;
+  height: 30vh;
 
   @media (max-width: 520px) {
     font-size: 15px;

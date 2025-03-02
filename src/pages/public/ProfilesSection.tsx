@@ -64,13 +64,13 @@ const Container = styled.div`
 
 const Seperator = styled.div`
   height: 4px;
-  width: 30px;
+  width: 1.875rem;
   background-color: black;
   margin-top: 7px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 `
 const SubHead = styled.div`
-  font-size: 30px;
+  font-size: 1.875rem;
   margin-bottom: 13px;
 `
 
@@ -81,4 +81,6 @@ const BadgeContainer = styled(Grid)`
 const PeopleContainer = styled(Grid)`
   width: 100%;
   display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
 `

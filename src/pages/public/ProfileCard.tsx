@@ -28,7 +28,7 @@ export function ProfileCard({ profileData }: Props) {
   }
 
   return (
-    <Container $isVacation={profileData.is_vacation} onClick={handleProfileClick}>
+    <Container isVacation={profileData.is_vacation} onClick={handleProfileClick}>
       {profileData.is_vacation && (
         <TextBlurOverlay>
           <div style={{ fontSize: '100px' }}>🏖</div> 휴가를 떠났어요 :D
@@ -54,19 +54,22 @@ export function ProfileCard({ profileData }: Props) {
   )
 }
 
-// 🔹 휴가 여부에 따라 스타일 변경 (prop을 DOM에 전달되지 않도록 `$isVacation` 사용)
 const Container = styled(Card, {
   shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'isVacation',
-})<{ $isVacation: boolean }>`
+})<{ isVacation: boolean }>`
+  padding: 1rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 10px 17px 10px 3px;
-  width: 180px;
-  height: 332px;
-  position: relative;
+  /* margin: 10px 17px 10px 3px; */
+  gap: 2rem;
+  width: 11.25rem;
+  height: 20.75rem;
+  /* position: relative; */
   overflow: hidden;
+  margin-top: 1.5rem;
+  border-radius: 5%;
 
-  ${({ $isVacation }) =>
-    $isVacation &&
+  ${({ isVacation }) =>
+    isVacation &&
     `
     filter: blur(5px);
     -webkit-filter: blur(5px);
@@ -75,8 +78,8 @@ const Container = styled(Card, {
   `}
 
   @media (max-width: 520px) {
-    width: 150px;
-    height: 300px;
+    width: 9.375rem;
+    height: 18.75rem;
   }
 
   @media (max-width: 380px) {
@@ -88,7 +91,7 @@ const Container = styled(Card, {
 const ProfilePictureWrapper = styled.div`
   display: flex;
   width: 100%;
-  border-radius: 50%;
+  border-radius: 6%;
   overflow: hidden;
 `
 
@@ -99,13 +102,13 @@ const ProfileImage = styled.img`
 `
 
 const ProfileName = styled.div`
-  margin-top: 20px;
-  font-size: 20px;
+  margin-top: 1.25rem;
+  font-size: 1.25rem;
   font-weight: bold;
 `
 
 const ProfileField = styled.div`
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: bold;
   color: var(--gray-color);
 
