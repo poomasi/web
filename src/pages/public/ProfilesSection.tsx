@@ -31,7 +31,7 @@ export function ProfilesSection() {
   return (
     <Container>
       <Seperator />
-      <SubHead>품앗이꾼</SubHead>
+      <SubHead>품앗이꾼test</SubHead>
 
       <BadgeContainer>
         <Badge onClick={() => handleClickBadge('전체')} word={'전체'} />
