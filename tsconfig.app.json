@@ -12,7 +12,9 @@
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
       "@api/*": ["api/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"]
     },
 
     /* Bundler mode */
