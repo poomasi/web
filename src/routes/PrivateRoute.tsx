@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from '@components/Layout/Layout'
 
-export default function PrivateRoute() {
+export function PrivateRoute() {
   return (
     <Routes>
       <Route element={<Layout />}>

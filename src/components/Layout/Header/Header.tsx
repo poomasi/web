@@ -9,7 +9,9 @@ export default function Header() {
     window.location.href = ''
   }
 
-  const accountToken: string | null = useRecoilValue(accountTokenState)
+  const accountToken = useRecoilValue(accountTokenState) as string | null
+
+  // const accountToken: string | null = useRecoilValue(accountTokenState)
 
   const handleLogout = () => {
     localStorage.removeItem('public_id')
