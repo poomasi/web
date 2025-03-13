@@ -13,5 +13,5 @@ export const accountTokenState = atom<string | null>({
 
 /*
 ✅ account_token을 어떻게 활용할 수 있을까?
-단순히 localStorage에 저장하는 것만으로 끝나는 게 아니라, API 호출 시 인증(Authorization)에 사용할 수 있어!
+단순히 localStorage에 저장하는 것만으로 끝나는 게 아니라, API 호출 시 인증(Authorization)에 사용할 수 있다!
 */

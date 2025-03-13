@@ -3,10 +3,11 @@ import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
 
 export function KakaoLogin() {
-  const location = useLocation()
+  const location = useLocation() //현재 페이지의 URL 정보를 가져오기
 
   const beforeLoginUrl: string = location.pathname
 
+  //사용자가 현재 페이지에서 카카오 로그인을 진행하면, 로그인 후 다시 원래 페이지로 돌아갈 수 있도록
   if (!beforeLoginUrl.includes('kakao-login-callback')) {
     localStorage.setItem('before_login_url', beforeLoginUrl)
   }
