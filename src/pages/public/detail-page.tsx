@@ -57,14 +57,18 @@ export function DetailPage() {
   const navigate = useNavigate()
   const { id } = useParams()
   // const [isLoading, setIsLoading]: [boolean, Function] = useState(false)     ESLint 규칙에서 에러남,Function 타입은 너무 포괄적이기때문
+
+  /*
+  TypeScript가 자동으로 타입 추론이 가능하지만, useState<T>()를 꼭 사용해야 하는 경우가 있다.
+  1. 초기값이 null 또는 undefined인 경우
+  2. 배열 또는 객체 상태를 다룰 때
+  */
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [account, setAccount] = useState<AccountResponse | undefined>(undefined)
   const [qnas, setQnas] = useState<GetQnaListResponse[]>([])
-  const [qnaListType, setQnaListType] = useState<QnaListType>(QnaListType.ALL)
+  const [qnaListType, setQnaListType] = useState<QnaListType>(QnaListType.ALL) //타입을 업데이트..? why??
 
-  /**
-   * Question info
-   */
+  //Question info
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
 
@@ -72,11 +76,34 @@ export function DetailPage() {
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.대학생)
   const [isMajor, setIsMajor] = useState<boolean>(true)
 
-  const handleClickBadge = (word: string) => {
+  /* ***벨로그에 정리하기***
+  에러: 'string' 형식의 인수는 'SetStateAction<QnaListType>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
+  
+  원인: setQnaListType은 QnaListType타입만 받도록 되어있는데, string으로 받으라고 해서.
+
+  해결방법01: word의 값이 ALL이거나 ME이면 string을 QnaListType으로 변환
+  
+  🔍 설명
+  >word는 string을, setQnaListType은 QnaListType 타입을 기대하고 있다.
+  >"ALL"과 "ME"가 string이지만, TypeScript는 QnaListType과 string을 다르게 취급함.
+  >따라서, string을 QnaListType으로 변환해야 오류가 안 난다.
+
+  의문점: 그럼 변환하는게 아니라 애초에 word를 QnaListType로 정의하면 되는거 아닌가?
+  >word의 값이 항상 QnaListType에서 올 경우 이렇게 해도 된다.
+  */
+  const handleClickBadge = (word: QnaListType) => {
     setQnaListType(word)
   }
 
-  const handleQuestionTextChange = (event: any) => {
+  /*
+  에러: Unexpected any. Specify a different type. eslint(@typescript-eslint/no-explicit-any)
+  
+  원인: event의 타입이 any로 설정되어 있어서 TypeScript ESLint에서 경고 발생함
+
+  해결방법: event의 타입을 명확하게 지정하기!
+  > input 요소에서 발생하는 이벤트이므로, React.ChangeEvent<HTMLInputElement>로 타입을 지정
+  */
+  const handleQuestionTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= QUESTION_MAX_LENGTH) {
       setQuestionText(event.target.value)
     }
@@ -84,10 +111,44 @@ export function DetailPage() {
   const handleIsSecretChange = () => {
     setIsSecret((prev: boolean) => !prev)
   }
-  const handleCareerYearChange = (event: any) => {
-    setCareerYear(event.target.value)
+  /* ***더 공부하기***
+  에러: 'string' 형식의 인수는 'SetStateAction<CareerYearType>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
+
+  원인: event.target.value는 string 타입인데 setCareerYear은 CareerYearType로 이미 설정해둬서 이걸 기다리고 있기 때문이다.
+
+  🤔의문점: "왜 event.target.value는 string 타입일까? HTMLSelectElement인데?"
+  👉 HTMLSelectElement 자체는 여러 속성을 가질 수 있지만, value 속성은 항상 string 타입으로 정의됨.
+  👉 HTMLSelectElement의 여러 속성: options, selectedIndex 등..
+
+  
+  의문점: 그럼 처음부터 그냥 React.ChangeEvent<HTMLOptionsCollection> 쓰면 안되나?
+  >안됌, HTMLOptionsCollection은 <select> 요소 내부의 <option>들을 관리하는 컬렉션 객체, onChange 이벤트의 타입으로 사용할 수 없다....??? 무슨 소리일까..
+  */
+  const handleCareerYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCareerYear(event.target.value as CareerYearType)
   }
+  /*
   const handleIsMajorChange = (e: any, value: boolean) => {
+    setIsMajor(value)
+  }
+  에러: 'e'이(가) 선언은 되었지만 해당 값이 읽히지는 않았습니다.ts(6133)
+
+  원인: e 매개변수를 선언했지만, handleIsMajorChange 함수에서 e를 사용하지 않아서 발생
+
+  의문점01: 왜 사용을 안하지? onChange에서 e받아서 상태 업데이트 해줘야 하는거 아닌가?
+  >지금 코드에서는 e.target.value를 읽을 필요가 없기 때문에 e를 생략해도 괜찮습니다.
+  >e가 필요한 경우: <input> 같은 요소에서 사용자가 입력한 값을 상태로 저장해야 할 때
+  >필요하지 않은 경우: RadioButton, Checkbox처럼 미리 정해진 값으로 상태를 변경할 때
+
+  의문점02: 그래도 이해가 안가는데 handleIsMajorChange 함수에서 왜 e를 사용하지 않은 거지?? 
+  1. e(이벤트 객체)는 언제 필요한가?
+  일반적으로 e는 사용자가 입력한 값을 읽어야 할 때 필요하다.
+  예를 들어, input 필드에서 입력된 텍스트 값을 가져와서 상태를 업데이트하려면 e.target.value가 필요함.
+  2. Radio 버튼은 e가 필요 없는 이유
+  지금 코드에서 사용하는 <Radio> 버튼은 값이 미리 정해져 있다.
+  즉, 사용자가 버튼을 클릭했을 때 "전공"이면 true, "비전공"이면 false를 저장하면 됩니다.
+  */
+  const handleIsMajorChange = (value: boolean) => {
     setIsMajor(value)
   }
 
@@ -118,7 +179,24 @@ export function DetailPage() {
 
         const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
         setQnas(qnas)
-      } catch (error: any) {
+      } catch (error: unknown) {
+        /* ***더 공부하기***
+        catch (error: any)
+        
+        에러: 
+        1. 'error' is defined but never used.eslint@typescript-eslint/no-unused-vars,
+        2. any: Unexpected any. Specify a different type.
+
+        원인: catch 블록에서 error 변수를 선언했지만, 그 값을 어디에서도 사용하지 않아서
+
+        해결방법: console로 확인해주는 코드 추가, throw "에러 발생!" 같은 문자열이 들어오면 error.message에서 런타임 오류가 발생할 수 있으므로 안전장치 추가하기
+        */
+
+        //의문점 throw "에러 발생!"이 생기는 조건은 뭐지? > 내가 throw을 설정안해줘도, 코드로 안 적어줘도 특정 상황에서 자동으로 실행되거나 출력될수 있어? >일부 코드 실행 중에 자동으로 예외가 발생하면 JavaScript 엔진 자체가 내부적으로 throw를 사용한다.
+        if (error instanceof Error) {
+          console.error('질문 등록에 실패했습니다!', error)
+        }
+
         setIsErrorToastOpen(true)
         setErrorToastMessage('질문 등록에 실패했습니다!')
       }
@@ -127,7 +205,11 @@ export function DetailPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    /*
+    에러: 'AccountListResponse[]' 형식의 인수는 'SetStateAction<AccountResponse | undefined>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
 
+    원인: RequestApi.accounts.getAccount(id)은 배열[]을 반환하는데 setAccount는 AccountResponse타입을 기다리고 있기때문이다.
+    */
     setIsLoading(true)
     ;(async () => {
       try {
@@ -137,7 +219,10 @@ export function DetailPage() {
         const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
         setQnas(qnas)
         setIsLoading(false)
-      } catch (error: any) {
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error('', error)
+        }
         setIsLoading(false)
         navigate(-1)
       }
@@ -238,14 +323,19 @@ export function DetailPage() {
                     </FormControl>
 
                     <RadioGroup row style={{ marginLeft: '7px' }}>
-                      <FormControlLabel
+                      {/* <FormControlLabel
                         value="전공"
                         control={<Radio size="small" checked={isMajor} onChange={(e) => handleIsMajorChange(e, true)} />}
+                        label="전공"
+                      /> */}
+                      <FormControlLabel
+                        value="전공"
+                        control={<Radio size="small" checked={isMajor} onChange={() => handleIsMajorChange(true)} />}
                         label="전공"
                       />
                       <FormControlLabel
                         value="비전공"
-                        control={<Radio size="small" checked={!isMajor} onChange={(e) => handleIsMajorChange(e, false)} />}
+                        control={<Radio size="small" checked={!isMajor} onChange={() => handleIsMajorChange(false)} />}
                         label="비전공"
                       />
                     </RadioGroup>
