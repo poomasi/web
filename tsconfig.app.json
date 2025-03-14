@@ -14,7 +14,8 @@
       "@api/*": ["api/*"],
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@hooks/*": ["hooks/*"]
     },
 
     /* Bundler mode */

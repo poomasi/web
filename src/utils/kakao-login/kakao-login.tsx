@@ -10,6 +10,7 @@ export function KakaoLogin() {
   //사용자가 현재 페이지에서 카카오 로그인을 진행하면, 로그인 후 다시 원래 페이지로 돌아갈 수 있도록
   if (!beforeLoginUrl.includes('kakao-login-callback')) {
     localStorage.setItem('before_login_url', beforeLoginUrl)
+    //사용자가 로그인하기 전의 페이지 URL을 localStorage에 저장
   }
 
   return (
