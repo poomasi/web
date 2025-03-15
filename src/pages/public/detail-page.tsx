@@ -56,15 +56,14 @@ export function DetailPage() {
 
   const navigate = useNavigate()
   const { id } = useParams()
-  // const [isLoading, setIsLoading]: [boolean, Function] = useState(false)     ESLint 규칙에서 에러남,Function 타입은 너무 포괄적이기때문
-
+  // const [isLoading, setIsLoading]: [boolean, Function] = useState(false)     ESLint 규칙에서 에러남,Function 타입은 너무 포괄적이기때문, ESLint 규칙..??
   /*
   TypeScript가 자동으로 타입 추론이 가능하지만, useState<T>()를 꼭 사용해야 하는 경우가 있다.
   1. 초기값이 null 또는 undefined인 경우
   2. 배열 또는 객체 상태를 다룰 때
   */
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [account, setAccount] = useState<AccountResponse | undefined>(undefined)
+  const [account, setAccount] = useState<Array<AccountListResponse> | undefined>(undefined)
   const [qnas, setQnas] = useState<GetQnaListResponse[]>([])
   const [qnaListType, setQnaListType] = useState<QnaListType>(QnaListType.ALL) //타입을 업데이트..? why??
 
