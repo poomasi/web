@@ -1,6 +1,6 @@
 import { HttpMethod, AccountType } from '@api/enums'
 import requestHandler from '@api/request-handler'
-import { KakaoLoginResponse, AccountListResponse } from '@api/types'
+import { KakaoLoginResponse, AccountListResponse, AccountResponse } from '@api/types'
 
 const PATH = '/accounts'
 
@@ -14,6 +14,9 @@ export const AccountsApi = {
   },
 
   getAccount: async (id?: string) => {
-    return await requestHandler<Array<AccountListResponse>>({ url: PATH + `/${id}` })
+    return await requestHandler<Array<AccountResponse>>({ url: PATH + `/${id}` })
   },
+  // getAccount: async (id?: string) => {
+  //   return await requestHandler<Array<AccountListResponse>>({ url: PATH + `/${id}` })
+  // },
 }

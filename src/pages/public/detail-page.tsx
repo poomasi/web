@@ -63,7 +63,9 @@ export function DetailPage() {
   2. 배열 또는 객체 상태를 다룰 때
   */
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [account, setAccount] = useState<Array<AccountListResponse> | undefined>(undefined)
+  // const [account, setAccount] = useState<Array<AccountResponse> | undefined>(undefined)
+  const [account, setAccount] = useState<AccountResponse | undefined>(undefined)
+
   const [qnas, setQnas] = useState<GetQnaListResponse[]>([])
   const [qnaListType, setQnaListType] = useState<QnaListType>(QnaListType.ALL) //타입을 업데이트..? why??
 
@@ -205,7 +207,9 @@ export function DetailPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
     /*
-    에러: 'AccountListResponse[]' 형식의 인수는 'SetStateAction<AccountResponse | undefined>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
+    에러: 'AccountListResponse[]' 형식의 인수는 'SetStateAction<AccountResponse[] | undefined>' 형식의 매개 변수에 할당될 수 없습니다.
+    'AccountListResponse[]' 형식은 'AccountResponse[]' 형식에 할당할 수 없습니다.
+    'AccountListResponse' 형식에 'AccountResponse' 형식의 id, description 속성이 없습니다.ts(2345)
 
     원인: RequestApi.accounts.getAccount(id)은 배열[]을 반환하는데 setAccount는 AccountResponse타입을 기다리고 있기때문이다.
     */
@@ -226,14 +230,14 @@ export function DetailPage() {
         navigate(-1)
       }
     })()
-  }, [])
+  }, [id, navigate, qnaListType])
 
   useEffect(() => {
     ;(async () => {
       const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
       setQnas(qnas)
     })()
-  }, [qnaListType])
+  }, [id, qnaListType])
 
   return (
     <Container>
@@ -250,6 +254,10 @@ export function DetailPage() {
 
                 <HeaderBody>
                   <ProfileSection>
+                    {/* 에러: 'AccountResponse[]' 형식에 'name' 속성이 없습니다.
+
+                    
+                     */}
                     <HeaderName>{account?.name}</HeaderName>
                     <HeaderField>{account?.field}</HeaderField>
                   </ProfileSection>
