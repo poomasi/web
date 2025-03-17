@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 const instance: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_POOMASI_BACEND_BASE_URL,
   timeout: 3000,
 })
 

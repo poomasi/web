@@ -220,6 +220,7 @@ export function DetailPage() {
         setAccount(account)
 
         const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+
         setQnas(qnas)
         setIsLoading(false)
       } catch (error: unknown) {
@@ -235,9 +236,14 @@ export function DetailPage() {
   useEffect(() => {
     ;(async () => {
       const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+
       setQnas(qnas)
     })()
   }, [id, qnaListType])
+
+  if (qnas) {
+    console.log('>>>', qnas)
+  }
 
   return (
     <Container>

@@ -1,7 +1,4 @@
 /**
- * Supabase
- */
-/**
  * Internal Services
  */
 export interface KakaoLoginResponse {
