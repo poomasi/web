@@ -108,7 +108,11 @@ export function DetailPage() {
     /*
     ChangeEvent<HTMLInputElement>) => { 
     에러: (event: React.ChangeEvent<HTMLInputElement>) => void' 형식은
-'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
+    'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
+
+    원인: const QuestionArea = styled.textarea` 즉 textarea로 만들어놓고 이벤트를 input으로 해둬서! input은 한줄만 입력가능하고, textarea는 여러줄 입력이 가능해서 textarea를 써야함
+
+    해결: HTMLTextAreaElement로 변경
     */
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -260,6 +264,12 @@ export function DetailPage() {
   // if (qnas) {
   //   console.log('>>>', qnas)
   // }
+
+  useEffect(() => {
+    console.log('qnas 값:', qnas)
+    console.log('qnas 타입:', typeof qnas)
+    console.log('qnas가 배열인가?', Array.isArray(qnas))
+  }, [qnas])
 
   return (
     <Container>
@@ -414,6 +424,12 @@ export function DetailPage() {
                     아직 질문이 없네요 :D
                   </div>
                 ) : (
+                  /*
+                  에러: TypeError: qnas.map is not a function
+
+                  원인: qnas이 배열이 아니라서
+
+                  */
                   qnas.map((qna: GetQnaListResponse) => (
                     <QnaSection key={qna.public_id}>
                       {qna.is_secret && qna.questioner_public_id !== publicId ? (
