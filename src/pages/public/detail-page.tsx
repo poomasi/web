@@ -104,7 +104,14 @@ export function DetailPage() {
   해결방법: event의 타입을 명확하게 지정하기!
   > input 요소에서 발생하는 이벤트이므로, React.ChangeEvent<HTMLInputElement>로 타입을 지정
   */
-  const handleQuestionTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuestionTextChange = (
+    /*
+    ChangeEvent<HTMLInputElement>) => { 
+    에러: (event: React.ChangeEvent<HTMLInputElement>) => void' 형식은
+'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
+    */
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     if (event.target.value.length <= QUESTION_MAX_LENGTH) {
       setQuestionText(event.target.value)
     }
