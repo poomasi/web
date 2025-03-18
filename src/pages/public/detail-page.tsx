@@ -166,6 +166,15 @@ export function DetailPage() {
     }
     ;(async () => {
       try {
+        // await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
+        /*
+        에러: string | undefined' 형식은 'string' 형식에 할당할 수 없습니다.
+
+        원인: id는 const { id } = useParams() 즉, 현재 URL에 있는 파라미터 값을 가져오고 있다. 
+        주의: useParams()는 항상 URL에서 값을 가져오는 거라, URL에 id가 없으면 undefined가 됨
+
+        해결방법: PostQnaParams 타입정의한 거에 undefined 추가 
+        */
         await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
 
         setQuestionText('')
@@ -241,9 +250,9 @@ export function DetailPage() {
     })()
   }, [id, qnaListType])
 
-  if (qnas) {
-    console.log('>>>', qnas)
-  }
+  // if (qnas) {
+  //   console.log('>>>', qnas)
+  // }
 
   return (
     <Container>
@@ -317,6 +326,9 @@ export function DetailPage() {
 
                 <QuestionArea
                   value={questionText}
+                  /*
+                  에러:'(event: React.ChangeEvent<HTMLInputElement>) => void' 형식은 'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
+                  */
                   onChange={handleQuestionTextChange}
                   placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
                 />
