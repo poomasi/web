@@ -1,14 +1,23 @@
 import { Route, Routes } from 'react-router-dom'
 import { LandingPage, LoginPage } from '../pages'
-import { DetailPage } from '@pages/public/detail-page'
 import Layout from '@components/Layout/Layout'
+import { isMobile } from 'react-device-detect'
 
 export function PublicRoute() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="*" element={<LandingPage />} />
-        <Route path="login" element={<LoginPage />} />
+        {isMobile ? (
+          <>
+            <Route path="*" element={<LandingPage />} />
+            <Route path="login" element={<LoginPage />} />
+          </>
+        ) : (
+          <>
+            <Route path="*" element={<LandingPage />} />
+            <Route path="login" element={<LoginPage />} />
+          </>
+        )}
       </Route>
     </Routes>
   )
