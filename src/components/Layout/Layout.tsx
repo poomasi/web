@@ -1,14 +1,15 @@
 import Header from '@components/Layout/Header/Header'
+import { Outlet } from 'react-router-dom'
 
 interface LayoutProps {
   children?: React.ReactElement
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = () => {
   return (
     <>
       <Header />
-      {children}
+      <Outlet />
     </>
   )
 }
