@@ -2,6 +2,8 @@ import { AccountsApi } from './accounts/accounts-api'
 import { PostsApi } from './posts'
 import { AccountListResponse } from './types'
 
+const token = localStorage.getItem('account_token') ?? ''
+
 //RequestApi는 accounts와 posts 두 개의 키를 가지는 객체
 export const RequestApi = {
   accounts: {
@@ -13,7 +15,7 @@ export const RequestApi = {
         const response = await fetch('https://api.poomasi.kr/api/v1/accounts/?type=ADMIN', {
           method: 'GET',
           headers: {
-            // Accept: 'application/json',
+            Authorization: token,
             // 'Content-Type': 'application/json',
           },
         })

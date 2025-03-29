@@ -15,10 +15,10 @@ const styles = css`
   h3 {
     font-size: 21px;
   }
-  /* pageContainer {
+  pageContainer {
     width: 100%;
     padding: 0 5% 0 5%;
-  } */
+  }
 `
 
 export const GlobalStyle = () => {

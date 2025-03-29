@@ -40,7 +40,8 @@ export function KakaoLoginCallback() {
         const beforeLoginUrl = localStorage.getItem('before_login_url')
         localStorage.removeItem('before_login_url')
 
-        window.location.href = beforeLoginUrl || 'https://poomasi.kr'
+        // window.location.href = beforeLoginUrl || 'https://poomasi.kr'
+        window.location.href = beforeLoginUrl || 'http://localhost:5173'
       } catch (error) {
         console.error('카카오 로그인 에러:', error)
       }
