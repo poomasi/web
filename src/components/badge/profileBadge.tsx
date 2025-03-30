@@ -1,6 +1,12 @@
 import Button from '@mui/material/Button'
 
-export function Badge({ word, onClick }: any) {
+interface ProfileBadgeProps {
+  badgeString: string
+  onClick: () => void
+  selected?: boolean
+}
+
+export function ProfileBadge({ badgeString, onClick, selected }: ProfileBadgeProps) {
   return (
     <Button
       onClick={() => onClick()}
@@ -10,14 +16,14 @@ export function Badge({ word, onClick }: any) {
         marginBottom: '10px',
         padding: '3px 10px',
         borderRadius: '20px',
-        color: 'white',
-        backgroundColor: 'var(--light-gray-color)',
+        color: selected ? '#3ECDBA' : '#9B9EA2',
+        backgroundColor: selected ? '#EBFFFC' : '#F7F7F7',
         '&:hover': {
           backgroundColor: 'var(--gray-color)',
         },
       }}
     >
-      #{word}
+      #{badgeString}
     </Button>
   )
 }
