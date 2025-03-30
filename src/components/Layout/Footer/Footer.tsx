@@ -1,55 +1,81 @@
 import styled from '@emotion/styled'
 
 export function Footer() {
+  const siteInfoTextList = ['사업자정보확인', '웹사이트 이용약관', '개인정보 처리방침']
   return (
-    <>
-      <Seperator />
-      <SubHead>세부 안내</SubHead>
-      <Description>
-        품삯은 따로 받고 있지 않으나,
-        <br />
-        타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요.
-        <br />
-        가능한 빠르게 답변하려 노력하고 있으나,
-        <br />
-        품앗이꾼별 스케줄 이슈로 답변이 늦어질 수도 있다는 점 양해 부탁드립니다.
-        <br />
-        기타 문의 : <Mail href="mailto://poomasiofficial@gmail.com">poomasiofficial@gmail.com</Mail>
-      </Description>
-    </>
+    <FooterContainer>
+      <FooterWrapper>
+        <InquireText>
+          기타 문의 : <Mail href="mailto://poomasiofficial@gmail.com">poomasiofficial@gmail.com</Mail>
+        </InquireText>
+        <SiteInfoList>
+          {siteInfoTextList.map((siteInfo) => {
+            return <SiteInfo key={siteInfo}>{siteInfo}</SiteInfo>
+          })}
+        </SiteInfoList>
+      </FooterWrapper>
+    </FooterContainer>
   )
 }
 
-const Seperator = styled.div`
-  height: 4px;
-  width: 30px;
-  background-color: black;
-  margin-top: 5rem;
-  margin-bottom: 16px;
+const FooterContainer = styled.div`
+  width: 100%;
+  padding: 110px 0;
+  border-top: 1px solid #eaebed;
+  margin-top: 160px;
 `
-const SubHead = styled.div`
-  font-size: 30px;
-  margin-bottom: 13px;
 
-  @media (max-width: 520px) {
-    font-size: 25px;
-  }
+const FooterWrapper = styled.div`
+  width: 1320px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
 `
-const Description = styled.div`
-  line-height: 1.6;
-  font-size: 17px;
-  height: 30vh;
 
-  @media (max-width: 520px) {
-    font-size: 15px;
-  }
+const InquireText = styled.div`
+  color: #4e5053;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
 `
+
 const Mail = styled.a`
   text-decoration: none;
 
   &:hover {
     color: white;
-    background-color: black;
+    background-color: gray;
     transition: 0.5s ease;
+  }
+`
+
+const SiteInfoList = styled.div`
+  display: flex;
+  justify-content: right;
+`
+
+const SiteInfo = styled.div`
+  color: #4e5053;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+
+  &:not(:last-child) {
+    position: relative;
+    padding-right: 10px;
+    margin-right: 10px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      height: 12px; // 원하는 높이로 조정
+      width: 1px;
+      background-color: #4e5053;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 `

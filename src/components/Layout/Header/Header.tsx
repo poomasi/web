@@ -3,6 +3,7 @@ import { accountTokenState } from '@store/account/account-token-store'
 import { useRecoilValue } from 'recoil'
 import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
+import publicLogo from '@assets/images/public-logo.png'
 
 export default function Header() {
   const toHome = () => {
@@ -24,7 +25,7 @@ export default function Header() {
       <HeaderContainer>
         <HeaderContent>
           <div onClick={toHome} style={{ fontSize: '40px', cursor: 'pointer' }}>
-            ㉬
+            <img src={publicLogo} alt="logo" />
           </div>
 
           {accountToken ? (
@@ -55,11 +56,8 @@ export default function Header() {
 
 const HeaderContainer = styled.div`
   position: fixed;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
   width: 100%;
-  height: 5rem;
+  padding: 1rem 0;
   color: #333;
   background-color: #fff;
   z-index: 999;
@@ -68,5 +66,6 @@ const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1200px;
+  width: 100%;
+  padding: 0 10%;
 `

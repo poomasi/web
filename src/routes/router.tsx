@@ -10,16 +10,17 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { PrivateRoute } from '@routes/PrivateRoute'
 import { PublicRoute } from '@routes/PublicRoute'
+import { ROUTES } from '@routes/ROUTE.ts'
 
 const isAuthenticated = false // 인증상태 확인 로직 넣기
 
 const router = createBrowserRouter([
   {
-    path: '/*',
+    path: ROUTES.OTHER,
     element: isAuthenticated ? <PrivateRoute /> : <PublicRoute />,
   },
   {
-    path: '*',
+    path: ROUTES.ALL,
     element: <Navigate to="/" replace />,
   },
 ])

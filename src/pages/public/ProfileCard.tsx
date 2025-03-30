@@ -3,8 +3,9 @@ import isPropValid from '@emotion/is-prop-valid'
 import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
 
-interface ProfileData {
+export interface ProfileData {
   nickname: string
   profile_image: string
   name: string
@@ -16,19 +17,15 @@ interface ProfileData {
   is_vacation: boolean
 }
 
-interface Props {
+interface ProfileCardProps {
   profileData: ProfileData
 }
 
-export function ProfileCard({ profileData }: Props) {
-  const navigate = useNavigate()
-
-  const handleProfileClick = () => {
-    if (!profileData.is_vacation) navigate(`/${profileData.nickname}`)
-  }
+export function ProfileCard({ profileData }: ProfileCardProps) {
+  const { handleProfileClick } = useProfileCard()
 
   return (
-    <Container isVacation={profileData.is_vacation} onClick={handleProfileClick}>
+    <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)}>
       {profileData.is_vacation && (
         <TextBlurOverlay>
           <div style={{ fontSize: '100px' }}>🏖</div> 휴가를 떠났어요 :D
@@ -38,18 +35,20 @@ export function ProfileCard({ profileData }: Props) {
       <ProfilePictureWrapper>
         <ProfileImage src={profileData.profile_image} alt={'profile-image'} />
       </ProfilePictureWrapper>
-      <ProfileName>{profileData.name}</ProfileName>
-      <ProfileField>{profileData.field}</ProfileField>
+      <ProfileIntroContainer>
+        <ProfileName>{profileData.name}</ProfileName>
+        <ProfileField>{profileData.field}</ProfileField>
 
-      <ProfileHistory>
-        <ProfileHistoryItem>{profileData.company1}</ProfileHistoryItem>
-        <ProfileHistoryItem>{profileData.job1}</ProfileHistoryItem>
-      </ProfileHistory>
+        <ProfileHistory>
+          <ProfileHistoryItem>{profileData.company1}</ProfileHistoryItem>
+          <ProfileHistoryItem>{profileData.job1}</ProfileHistoryItem>
+        </ProfileHistory>
 
-      <ProfileHistory>
-        <ProfileHistoryItem>{profileData.company2}</ProfileHistoryItem>
-        <ProfileHistoryItem>{profileData.job2}</ProfileHistoryItem>
-      </ProfileHistory>
+        <ProfileHistory>
+          <ProfileHistoryItem>{profileData.company2}</ProfileHistoryItem>
+          <ProfileHistoryItem>{profileData.job2}</ProfileHistoryItem>
+        </ProfileHistory>
+      </ProfileIntroContainer>
     </Container>
   )
 }
@@ -57,12 +56,12 @@ export function ProfileCard({ profileData }: Props) {
 const Container = styled(Card, {
   shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'isVacation',
 })<{ isVacation: boolean }>`
-  padding: 1rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   /* margin: 10px 17px 10px 3px; */
   gap: 2rem;
-  width: 11.25rem;
-  height: 20.75rem;
+  width: 243px;
+  height: 428px;
+  padding: 30px;
   /* position: relative; */
   overflow: hidden;
   margin-top: 1.5rem;
@@ -91,7 +90,7 @@ const Container = styled(Card, {
 const ProfilePictureWrapper = styled.div`
   display: flex;
   width: 100%;
-  border-radius: 6%;
+  border-radius: 100px;
   overflow: hidden;
 `
 
@@ -101,16 +100,27 @@ const ProfileImage = styled.img`
   object-fit: contain;
 `
 
+const ProfileIntroContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const ProfileName = styled.div`
   margin-top: 1.25rem;
-  font-size: 1.25rem;
-  font-weight: bold;
+  color: #0e0e0e;
+  text-align: center;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 150%; /* 36px */
 `
 
 const ProfileField = styled.div`
-  font-size: 1.0625rem;
+  font-size: 18px;
   font-weight: bold;
-  color: var(--gray-color);
+  color: #068372;
 
   @media (max-width: 380px) {
     font-size: 16px;
@@ -126,8 +136,9 @@ const ProfileHistory = styled.div`
 `
 
 const ProfileHistoryItem = styled.div`
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
 `
 
 const TextBlurOverlay = styled.div`
