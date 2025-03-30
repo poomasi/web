@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import Grid from '@mui/material/Grid'
 import { ProfileCard } from '@pages/public/ProfileCard.tsx'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
