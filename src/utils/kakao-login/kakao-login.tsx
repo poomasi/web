@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
+import kakaoLogo from '@assets/images/kakao-logo.svg'
 
 export function KakaoLogin() {
   const location = useLocation() //현재 페이지의 URL 정보를 가져오기
@@ -15,7 +16,7 @@ export function KakaoLogin() {
 
   return (
     <KakaoLoginButton onClick={() => (window.location.href = KAKAO_LOGIN_URL)}>
-      <KakaoIcon src="/assets/kakao-login-icon.png" alt="카카오 로그인 아이콘" />
+      <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
       카카오 로그인
     </KakaoLoginButton>
   )
