@@ -5,7 +5,7 @@ import { RequestApi } from '@api/request-api.ts'
 export function useProfileList() {
   const [selectedField, setSelectedField] = useState<string | null>(null)
   const [accountList, setAccountList] = useState<AccountListResponse[]>([])
-  const badgeList = ['Web Frontend', 'Backend', 'Fullstack', 'Android', 'iOS', 'Data']
+  const [badgeList, setBadgeList] = useState<string[]>([])
 
   const handleClickBadge = (word: string | null) => {
     setSelectedField(word)
@@ -24,6 +24,13 @@ export function useProfileList() {
   useEffect(() => {
     dataFetch()
   }, [])
+
+  useEffect(() => {
+    if (accountList.length > 0) {
+      const uniqueFields = new Set(accountList.map((account) => account.field))
+      setBadgeList(Array.from(uniqueFields))
+    }
+  }, [accountList])
 
   return {
     selectedField,
