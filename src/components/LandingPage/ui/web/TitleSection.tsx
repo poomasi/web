@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import LandingTitleBackground from '@assets/images/landingPage/landing-title-backgorund.png'
+import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
 
 export default function TitleSection() {
   return (
