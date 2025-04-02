@@ -16,7 +16,7 @@
       "@store/*": ["store/*"],
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
-      "@assets/*": ["assets/*"],
+      "@assets/*": ["assets/*"]
     },
 
     /* Bundler mode */
@@ -32,7 +32,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }

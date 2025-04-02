@@ -1,4 +1,4 @@
 export * from './toast'
-export * from './layout'
+export * from './Layout/Layout'
 export * from './badge'
 export * from './button'
