@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from '@components/Layout/Layout'
-import { ROUTES } from '@routes/ROUTE.ts'
+import { Routers } from '@routes/routers'
 
 export function PrivateRoute() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path={ROUTES.ALL} element={<></>} />
+        <Route path={Routers.ALL} element={<></>} />
       </Route>
     </Routes>
   )

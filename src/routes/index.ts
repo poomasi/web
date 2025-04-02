@@ -1,1 +1,1 @@
-export * from '@routes/Router'
+export * from '@routes/routers'
