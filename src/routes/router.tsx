@@ -10,7 +10,7 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { PrivateRoute } from '@routes/PrivateRoute'
 import { PublicRoute } from '@routes/PublicRoute'
-import { Routers } from '@routes/routers'
+import { Routers } from '@routes/Routerss'
 
 const isAuthenticated = false // 인증상태 확인 로직 넣기..?
 

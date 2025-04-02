@@ -19,6 +19,11 @@ const styles = css`
     width: 100%;
     padding: 0 5% 0 5%;
   }
+  #root {
+    max-width: 375px;
+    margin: 0 auto;
+    background: #fff;
+  }
 `
 
 export const GlobalStyle = () => {

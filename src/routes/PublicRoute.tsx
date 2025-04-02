@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { LandingPage, LoginPage } from '@pages/index'
 import Layout from '@components/Layout/Layout'
-import { Routers } from '@routes/routers'
+import { Routers } from '@routes/Routerss'
 // import { isMobile } from 'react-device-detect'
 
 export function PublicRoute() {
