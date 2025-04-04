@@ -6,6 +6,9 @@ import path from 'path' //npm install --save-dev @types/node
 //vite-plugin-pwa는 설정한 manifest을 기반으로 브라우저가 인식할 수 있게 해준다.
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 3000,
+  },
   plugins: [
     react(),
     VitePWA({

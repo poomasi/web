@@ -2,10 +2,6 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 import { DefaultApiResponse } from '../types/api/DefaultApiResponse.ts'
 
-// global axios default setting
-axios.defaults.baseURL = import.meta.env.VITE_REACT_APP_BASE_URL
-axios.defaults.headers.common['Content-Type'] = 'application/json'
-
 // @ts-ignore
 export interface CustomInstance extends AxiosInstance {
   get<T>(url: string, config?: AxiosRequestConfig): Promise<DefaultApiResponse<T>>
@@ -14,11 +10,20 @@ export interface CustomInstance extends AxiosInstance {
 }
 
 const customAxios: CustomInstance = axios.create({
-  baseURL: import.meta.env.VITE_REACT_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_POOMASI_BACEND_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
   timeout: 1000 * 60, // 1분
+})
+
+customAxios.interceptors.request.use(function (request) {
+  const token = localStorage.getItem('account_token') ?? ''
+  if (token) {
+    console.log('token', token)
+    request.headers.Authorization = token
+  }
+  return request
 })
 
 customAxios.interceptors.response.use(
