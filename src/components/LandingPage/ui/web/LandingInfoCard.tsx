@@ -15,8 +15,8 @@ export function LandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
 }
 
 const LandingInfoCardContainer = styled.div`
-  width: 427px;
-  height: 458px;
+  width: 30%;
+  height: 28.125rem;
   display: flex;
   justify-content: center;
   align-items: center;

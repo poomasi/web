@@ -3,7 +3,7 @@ import { accountTokenState } from '@store/account/account-token-store'
 import { useRecoilValue } from 'recoil'
 import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
-import publicLogo from '@assets/images/public-logo.png'
+import publicLogo from '@assets/svgs/public-logo.svg'
 
 export default function Header() {
   const toHome = () => {
@@ -55,7 +55,7 @@ export default function Header() {
 }
 
 const HeaderContainer = styled.div`
-  position: fixed;
+  position: sticky;
   width: 100%;
   padding: 1rem 0;
   color: #333;
@@ -67,5 +67,5 @@ const HeaderContent = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 10%;
+  padding: 0 1vw;
 `

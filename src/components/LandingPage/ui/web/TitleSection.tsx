@@ -7,9 +7,9 @@ export default function TitleSection() {
       <TitleContainer>
         <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
+        <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
+        <QuestionButton>질문하기</QuestionButton>
       </TitleContainer>
-      <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
-      <QuestionButton>질문하기</QuestionButton>
     </TitleSectionContainer>
   )
 }
@@ -23,9 +23,9 @@ const TitleSectionContainer = styled.div`
   align-items: center;
   background: linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
   background-image: url(${LandingTitleBackground});
-  background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
-  background-position: center; // 이미지를 중앙에 배치
-  background-repeat: no-repeat; // 이미지 반복
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 140px 0;
 `
 

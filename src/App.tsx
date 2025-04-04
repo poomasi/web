@@ -2,17 +2,15 @@ import { ThemeProvider } from '@mui/material'
 import { RecoilRoot } from 'recoil'
 import { globalTheme } from '@styles/global-theme'
 import { GlobalStyle } from '@styles/GlobalStyle'
-import { Router } from '@routes/Router'
+import { Router } from '@routes/router'
 
 function App() {
   return (
     <RecoilRoot>
-      <div style={{ maxWidth: '375px', margin: '0 auto', background: '#fff' }}>
-        <ThemeProvider theme={globalTheme}>
-          <GlobalStyle />
-          <Router />
-        </ThemeProvider>
-      </div>
+      <ThemeProvider theme={globalTheme}>
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
     </RecoilRoot>
   )
 }
