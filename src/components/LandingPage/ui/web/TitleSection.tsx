@@ -7,9 +7,9 @@ export default function TitleSection() {
       <TitleContainer>
         <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
+        <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
+        <QuestionButton>질문하기</QuestionButton>
       </TitleContainer>
-      <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
-      <QuestionButton>질문하기</QuestionButton>
     </TitleSectionContainer>
   )
 }
