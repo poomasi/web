@@ -16,6 +16,7 @@
     "@mui/material": "^6.4.6",
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
+    "prettier": "^3.5.3",
     "react": "18",
     "react-device-detect": "^2.2.3",
     "react-dom": "18",
