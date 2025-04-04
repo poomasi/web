@@ -73,7 +73,7 @@ const IntroduceCardList = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  /* padding: 20px 0; */
+  padding: 20px 0;
   gap: 10px;
-  /* padding-bottom: 160px; */
+  padding-bottom: 160px;
 `

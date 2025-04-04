@@ -1,6 +1,6 @@
 // import { Header } from "../../components/layout/header";
-
-import { Container } from '@styles/global-style'
+import styled from '@emotion/styled'
+// import { Container } from '@styles/global-style'
 import TitleSection from '@components/LandingPage/ui/web/TitleSection.tsx'
 import { PoomCounter } from '@components/LandingPage/ui/web/PoomCounter.tsx'
 import { ProfilesSection } from '@components/LandingPage/ui/web/ProfilesSection.tsx'
@@ -11,7 +11,7 @@ import { LandingDetailGuide } from '@components/LandingPage/ui/web/LandingDetail
 
 export function LandingPage() {
   return (
-    <Container>
+    <PCLandingPageContainer>
       <TitleSection />
       <IntroduceSection />
       <PoomCounter />
@@ -19,6 +19,20 @@ export function LandingPage() {
       <ProfilesSection />
       <LandingDetailGuide />
       <Footer />
-    </Container>
+    </PCLandingPageContainer>
   )
 }
+
+const PCLandingPageContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+// const MobileLandingPageContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10rem;
+//   padding: 0 5vw;
+// `

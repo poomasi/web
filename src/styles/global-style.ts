@@ -1,7 +1,8 @@
-import styled from '@emotion/styled'
+// import styled from '@emotion/styled'
 
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
+// export const Container = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10rem;
+// `
