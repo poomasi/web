@@ -56,8 +56,8 @@ const PoomGuideText = styled.div`
 
 const PoomGuideCardList = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 50px;
+  flex-direction: column;
+  gap: 2.5rem;
   justify-content: center;
   align-items: center;
   width: 100%;

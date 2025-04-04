@@ -66,6 +66,7 @@ const Container = styled(Card, {
   overflow: hidden;
   margin-top: 1.5rem;
   border-radius: 5%;
+  display: flex;
 
   ${({ isVacation }) =>
     isVacation &&
@@ -74,17 +75,15 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `}
-
-  @media (max-width: 520px) {
+  `}/* @media (max-width: 520px) {
     width: 9.375rem;
     height: 18.75rem;
   }
 
   @media (max-width: 380px) {
-    width: 140px;
-    height: 290px;
-  }
+    width: 100%;
+    height: auto;
+  } */
 `
 
 const ProfilePictureWrapper = styled.div`

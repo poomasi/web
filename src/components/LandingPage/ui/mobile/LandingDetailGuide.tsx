@@ -11,7 +11,7 @@ export function LandingDetailGuide() {
       <SectionGuideList>
         {guideTextList.map((guideText) => (
           <GuideText key={guideText}>
-            <img src={detailGuideIcon} /> {guideText}
+            <img src={detailGuideIcon} style={{ width: '5%' }} /> {guideText}
           </GuideText>
         ))}
       </SectionGuideList>
@@ -24,10 +24,10 @@ const LandingDetailGuideContainer = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  gap: 40px;
-  width: 1320px;
-  height: 100%;
-  margin: 60px auto 0;
+  gap: 2.5rem;
+  width: 100%;
+  height: auto;
+  /* margin: 60px auto 0; */
 `
 
 const SectionTitle = styled.div`
@@ -54,14 +54,14 @@ const GuideText = styled.div`
 
   color: #28292a;
 
-  font-size: 22px;
+  font-size: 0.9rem;
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 33px */
   gap: 12px;
 
-  border-radius: 18px;
+  border-radius: 1.125rem;
   background: #f7f7f7;
 
-  padding: 26px 0 26px 36px;
+  padding: 3vw;
 `

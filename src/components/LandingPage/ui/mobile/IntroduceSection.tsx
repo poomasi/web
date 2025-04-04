@@ -63,7 +63,7 @@ const IntroduceText = styled.div`
   color: #0e0e0e;
   text-align: center;
 
-  font-size: 32px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 48px */

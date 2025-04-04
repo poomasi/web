@@ -55,17 +55,16 @@ const Description = styled.div`
 `
 
 const QuestionButton = styled.div`
-  width: 406px;
-  height: 80px;
-  border-radius: 45.5px;
+  width: 100%;
+  height: 3.75rem;
+  border-radius: 2.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   background-color: #3ecdba;
   color: white;
 
-  font-size: 28px;
+  font-size: 1.75rem;
   line-height: 150%;
-  margin-top: 75px;
+  margin-top: 4.6875rem;
 `

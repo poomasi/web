@@ -15,26 +15,27 @@ export function LandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
 }
 
 const LandingInfoCardContainer = styled.div`
-  width: 30%;
-  height: 28.125rem;
+  gap: 1.625rem;
+  width: 100%;
+  height: 20rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 20px;
-  border-radius: 22px;
+  padding: 1.25rem;
+  border-radius: 1.375rem;
   background: #fff;
 `
 
 const InfoCardImage = styled.img`
-  width: 270px;
-  height: 210px;
+  width: auto;
+  height: 45%;
 `
 
 const InfoCardText = styled.div`
-  margin-top: 40px;
+  /* margin-top: 40px; */
   color: #0e0e0e;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 42px */

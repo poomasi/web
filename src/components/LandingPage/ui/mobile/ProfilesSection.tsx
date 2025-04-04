@@ -66,8 +66,8 @@ const BadgeContainer = styled.div`
 `
 
 const PoomProfileCardList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 26px;
-  margin: 2rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.625rem;
+  /* margin: 2rem auto 0; */
 `
