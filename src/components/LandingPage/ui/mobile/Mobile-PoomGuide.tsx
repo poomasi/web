@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export function PoomGuide() {
+export function MobilePoomGuide() {
   return (
     <PoomGuideContainer>
       <PoomGuideTextContainer>

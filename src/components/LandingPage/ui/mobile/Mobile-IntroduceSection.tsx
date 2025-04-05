@@ -5,7 +5,7 @@ import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
 
-export function IntroduceSection() {
+export function MobileIntroduceSection() {
   return (
     <IntroduceSectionContainer>
       <IntroducePoomasi>

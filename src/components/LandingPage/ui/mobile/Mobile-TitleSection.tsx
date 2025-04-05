@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
 
-export default function TitleSection() {
+export function MobileTitleSection() {
   return (
     <TitleSectionContainer>
       <TitleContainer>

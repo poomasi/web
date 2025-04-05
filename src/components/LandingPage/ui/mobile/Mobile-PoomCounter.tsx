@@ -3,7 +3,7 @@ import poomCountBackground from '@assets/images/landingPage/poom-count-backgroun
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
 
-export function PoomCounter() {
+export function MobilePoomCounter() {
   const { qnaCount, accountCount } = usePoomCount()
 
   return (

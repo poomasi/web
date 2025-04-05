@@ -11,7 +11,7 @@ import { LandingDetailGuide } from '@components/LandingPage/ui/web/LandingDetail
 
 export function LandingPage() {
   return (
-    <PCLandingPageContainer>
+    <PageContainer>
       <TitleSection />
       <IntroduceSection />
       <PoomCounter />
@@ -19,14 +19,18 @@ export function LandingPage() {
       <ProfilesSection />
       <LandingDetailGuide />
       <Footer />
-    </PCLandingPageContainer>
+    </PageContainer>
   )
 }
 
-const PCLandingPageContainer = styled.div`
+const PageContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 375px) {
+    gap: 10rem;
+    padding: 0 5vw;
+  }
 `
 
 // const MobileLandingPageContainer = styled.div`

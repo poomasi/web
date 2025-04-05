@@ -5,7 +5,7 @@ interface LandingInfoCardProps {
   imgSrc: string
 }
 
-export function LandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
+export function MobileLandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
   return (
     <LandingInfoCardContainer>
       <InfoCardImage src={imgSrc} />

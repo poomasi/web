@@ -2,7 +2,7 @@ import { useLandingDetailGuide } from '@components/LandingPage/hooks/useLandingD
 import styled from '@emotion/styled'
 import detailGuideIcon from '@assets/images/landingPage/detail-guide-icon.svg'
 
-export function LandingDetailGuide() {
+export function MobileLandingDetailGuide() {
   const { guideTextList } = useLandingDetailGuide()
 
   return (
