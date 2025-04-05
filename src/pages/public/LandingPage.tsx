@@ -8,8 +8,35 @@ import { Footer } from '@components/Layout/Footer/Footer'
 import { IntroduceSection } from '@components/LandingPage/ui/web/IntroduceSection.tsx'
 import { PoomGuide } from '@components/LandingPage/ui/web/PoomGuide.tsx'
 import { LandingDetailGuide } from '@components/LandingPage/ui/web/LandingDetailGuide.tsx'
+import { useEffect, useRef, useState } from 'react'
 
 export function LandingPage() {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const sizeCheckTimer = useRef<NodeJS.Timeout | null>( null);
+
+  const sizeCheckEvent = () => {
+    if(sizeCheckTimer.current){
+      clearTimeout(sizeCheckTimer.current);
+    }
+
+    const timer = setTimeout(function(){
+      // width 가 524인 경우, isMobile 활성화
+      console.log("모바일 화면")
+      setIsMobile(window.innerWidth <= 524);
+    }, 300);
+
+    sizeCheckTimer.current = timer;
+  }
+
+  
+  useEffect(() => {
+    window.addEventListener('resize', sizeCheckEvent);
+    return () => {
+      window.removeEventListener('resize',sizeCheckEvent)
+    }
+  }, []);
+
+
   return (
     <PCLandingPageContainer>
       <TitleSection />
