@@ -2,6 +2,7 @@ import poomCountIcon from '@assets/images/landingPage/poom-count-icon.svg'
 import poomCountBackground from '@assets/images/landingPage/poom-count-background.png'
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
+import { getPcVw } from '@utils/responsive'
 
 export function PoomCounter() {
   const { qnaCount, accountCount } = usePoomCount()
@@ -43,7 +44,7 @@ const PoomExplainText = styled.div`
 `
 
 const PoomCountIconContainer = styled.img`
-  width: 134px;
+  width: ${getPcVw(134)};
   height: 134px;
 `
 

@@ -4,6 +4,7 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
+import { getPcVw } from '@utils/responsive'
 
 export interface ProfileData {
   nickname: string
@@ -57,16 +58,17 @@ const Container = styled(Card, {
   shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'isVacation',
 })<{ isVacation: boolean }>`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* margin: 10px 17px 10px 3px; */
+
   gap: 2rem;
-  width: 243px;
+  width: 100%;
   height: 428px;
-  padding: 30px;
-  /* position: relative; */
+  padding: 30px 0;
+  position: relative;
   overflow: hidden;
   margin-top: 1.5rem;
   border-radius: 5%;
   display: flex;
+  flex-direction: column;
 
   ${({ isVacation }) =>
     isVacation &&
@@ -88,14 +90,16 @@ const Container = styled(Card, {
 
 const ProfilePictureWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  border-radius: 100px;
+  border-radius: 100%;
   overflow: hidden;
 `
 
 const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: ${getPcVw(161)};
+  height: ${getPcVw(161)};
   object-fit: contain;
 `
 

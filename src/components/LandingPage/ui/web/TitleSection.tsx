@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
+import { getPcVh, getPcVw } from '@utils/responsive'
 
 export default function TitleSection() {
   return (
@@ -38,24 +39,16 @@ const TitleContainer = styled.div`
 const Title = styled.div`
   font-size: 80px;
   line-height: 160%;
-
-  @media (max-width: 520px) {
-    font-size: 30px;
-  }
 `
 
 const Description = styled.div`
   padding-top: 10px;
   line-height: 150%;
   font-size: 24px;
-
-  @media (max-width: 520px) {
-    font-size: 15px;
-  }
 `
 
 const QuestionButton = styled.div`
-  width: 406px;
+  width: ${getPcVw(406)};
   height: 80px;
   border-radius: 45.5px;
   display: flex;
