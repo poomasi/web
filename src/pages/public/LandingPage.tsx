@@ -30,6 +30,8 @@ export function LandingPage() {
 
   
   useEffect(() => {
+    // 최초 모바일 여부 확인 로직 추가
+    setIsMobile(window.innerWidth <= 524);
     window.addEventListener('resize', sizeCheckEvent);
     return () => {
       window.removeEventListener('resize',sizeCheckEvent)
