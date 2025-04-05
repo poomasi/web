@@ -40,7 +40,9 @@ export function LandingPage() {
 
 
   return (
-    <PCLandingPageContainer>
+    isMobile ? (
+      // 모바일 컴포넌트
+      <PCLandingPageContainer>
       <TitleSection />
       <IntroduceSection />
       <PoomCounter />
@@ -49,6 +51,18 @@ export function LandingPage() {
       <LandingDetailGuide />
       <Footer />
     </PCLandingPageContainer>
+    ) : (
+      // Pc 랜더링 컴포넌트트
+      <PCLandingPageContainer>
+        <TitleSection />
+        <IntroduceSection />
+        <PoomCounter />
+        <PoomGuide />
+        <ProfilesSection />
+        <LandingDetailGuide />
+        <Footer />
+      </PCLandingPageContainer>
+    )
   )
 }
 
