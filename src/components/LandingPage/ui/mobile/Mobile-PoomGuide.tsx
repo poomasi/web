@@ -1,4 +1,12 @@
 import styled from '@emotion/styled'
+import {getMobileVw, getMobileVh } from '@utils/responsive';
+import {guide01, guide02, guide03} from '@assets/images/landingPage'
+
+const PoomGuideCard = ({ img }: { img: string }) => {
+  return (
+    <CardWrapper style={{ backgroundImage: `url(${img})` }} />
+  );
+};
 
 export function MobilePoomGuide() {
   return (
@@ -8,9 +16,9 @@ export function MobilePoomGuide() {
         <PoomGuideText>로그인 후 도움받고 싶은 품앗이꾼에게 질문을 작성하세요</PoomGuideText>
       </PoomGuideTextContainer>
       <PoomGuideCardList>
-        <PoomGuideCard />
-        <PoomGuideCard />
-        <PoomGuideCard />
+        <PoomGuideCard img={guide01}/>
+        <PoomGuideCard img={guide02}/>
+        <PoomGuideCard img={guide03}/>
       </PoomGuideCardList>
     </PoomGuideContainer>
   )
@@ -21,10 +29,9 @@ const PoomGuideContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 47px;
+  gap: ${getMobileVh(50)};
   width: 100%;
-  height: 472px;
-  margin-top: 160px;
+  padding: ${getMobileVh(40)} 0;
 `
 
 const PoomGuideTextContainer = styled.div`
@@ -39,7 +46,7 @@ const PoomGuideTextContainer = styled.div`
 
 const PoomGuideTitleText = styled.div`
   text-align: center;
-  font-size: 36px;
+  font-size: ${getMobileVw(26)};
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 54px */
@@ -48,7 +55,7 @@ const PoomGuideTitleText = styled.div`
 const PoomGuideText = styled.div`
   color: #0e0e0e;
   text-align: center;
-  font-size: 24px;
+  font-size: ${getMobileVw(14)};
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 36px */
@@ -64,13 +71,14 @@ const PoomGuideCardList = styled.div`
   height: 100%;
 `
 
-const PoomGuideCard = styled.div`
+const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 407px;
-  height: 311px;
+  width: ${getMobileVw(320)};
+  height: ${getMobileVh(220)};
   border-radius: 22px;
-  background: #f7f7f7;
+  background-size: cover;
+  background-position: center;
 `

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
-import { getPcVw } from '@utils/responsive'
+import { getPcVw, getMobileVh, getMobileVw } from '@utils/responsive'
 
 export interface ProfileData {
   nickname: string
@@ -77,15 +77,18 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `}/* @media (max-width: 520px) {
-    width: 9.375rem;
-    height: 18.75rem;
-  }
-
-  @media (max-width: 380px) {
-    width: 100%;
+  `}
+  @media (max-width: 375px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     height: auto;
-  } */
+    width: 100%;
+    overflow: visible;
+    padding: ${getMobileVh(18)} ${getMobileVw(16)};
+    gap: ${getMobileVw(16)};
+    border-radius: 10px;
+  } 
 `
 
 const ProfilePictureWrapper = styled.div`
@@ -95,22 +98,43 @@ const ProfilePictureWrapper = styled.div`
   width: 100%;
   border-radius: 100%;
   overflow: hidden;
+  @media (max-width: 375px) {
+    width: ${getMobileVw(50)};
+  height: ${getMobileVw(50)};
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  } 
 `
 
 const ProfileImage = styled.img`
   width: ${getPcVw(161)};
   height: ${getPcVw(161)};
   object-fit: contain;
+    @media (max-width: 375px) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
 `
 
 const ProfileIntroContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 375px) {
+  align-items: flex-start;
+  justify-content: center;
+  gap: ${getMobileVh(4)};
+}
 `
 
 const ProfileName = styled.div`
-  margin-top: 1.25rem;
+  /* margin-top: 1.25rem; */
   color: #0e0e0e;
   text-align: center;
 
@@ -118,6 +142,9 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
+  @media (max-width:375px) {
+    font-size: ${getMobileVh(20)};
+  }
 `
 
 const ProfileField = styled.div`
@@ -125,8 +152,8 @@ const ProfileField = styled.div`
   font-weight: bold;
   color: #068372;
 
-  @media (max-width: 380px) {
-    font-size: 16px;
+  @media (max-width:375px) {
+    font-size: ${getMobileVh(16)};
   }
 `
 
@@ -136,12 +163,28 @@ const ProfileHistory = styled.div`
   font-weight: bold;
   color: #aaaaaa;
   height: 30px;
+
+  @media (max-width: 375px) {
+    font-size: ${getMobileVh(10)};
+    height: auto;
+    margin-top: 0;
+    display: flex;
+    gap: 10px;
+  }
 `
 
 const ProfileHistoryItem = styled.div`
   font-size: 16px;
   font-weight: bold;
   text-align: center;
+
+  @media (max-width: 375px) {
+    font-size: ${getMobileVh(10)};
+    height: auto;
+    text-align: left;
+    line-height: 1.3;
+
+  }
 `
 
 const TextBlurOverlay = styled.div`

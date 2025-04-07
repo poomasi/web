@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import { ProfileCard } from '@pages/public/ProfileCard.tsx'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
+import { getMobileVh } from '@utils/responsive'
+
 
 export function MobileProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
@@ -63,11 +65,12 @@ const SubHead = styled.div`
 
 const BadgeContainer = styled.div`
   width: 100%;
+  display: flex;
 `
 
 const PoomProfileCardList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.625rem;
+  gap: ${getMobileVh(5)};
   /* margin: 2rem auto 0; */
 `

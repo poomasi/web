@@ -27,8 +27,8 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 375px) {
-    gap: 10rem;
-    padding: 0 5vw;
+    gap: 1rem;
+    /* padding: 0 5vw; */
   }
 `
 
