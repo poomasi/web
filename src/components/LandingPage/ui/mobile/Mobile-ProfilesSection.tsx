@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { ProfileCard } from '@pages/public/ProfileCard.tsx'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
-import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import { useSwiper } from '@components/LandingPage/hooks/useSwiper'
 import { useMemo } from 'react'
 
@@ -50,54 +50,75 @@ export function MobileProfilesSection() {
   )
 }
 
-
-
-
 const ProfilesSectionContainer = styled.div`
-  margin: 160px auto 0;
+  margin-top: ${getMobileVw(40)};
+  padding: 0 ${getMobileVw(20)};
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 `
 
 const SectionTitle = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 100%;
-  gap: 26px;
+  gap: ${getMobileVw(20)};
 `
 
 const SubHead = styled.div`
   color: #0e0e0e;
-  font-size: 36px;
-  font-style: normal;
+  font-size: ${getMobileVw(24)};
   font-weight: 700;
-  line-height: 150%; /* 54px */
+  line-height: 1.5;
 `
 
 const BadgeContainer = styled.div`
   width: 100%;
   display: flex;
-  @media (max-width: 375px) {
-    width: 100%;
-  display: flex;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: auto;
   white-space: nowrap;
+  gap: ${getMobileVw(10)};
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
+
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+    display: none;
   }
-  }
+`
+
+const PaginationBox = styled.div`
+  align-self: flex-end;
+  margin: ${getMobileVw(8)} 0 ${getMobileVw(16)};
+  font-size: ${getMobileVw(13)};
+  color: #888;
 `
 
 const PoomProfileCardList = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: ${getMobileVh(5)};
-  /* margin: 2rem auto 0; */
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: ${getMobileVw(16)};
+  padding-bottom: ${getMobileVw(16)};
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // 👇 ProfileCard가 내부에서 div로 감싸지지 않기 때문에 직접 타겟팅
+  & > * {
+    flex: 0 0 calc(100% / 3);
+    min-width: calc(100% / 3);
+    scroll-snap-align: start;
+
+    @media (max-width: 768px) {
+      flex: 0 0 ${getMobileVw(300)};
+      min-width: ${getMobileVw(300)};
+    }
+  }
 `

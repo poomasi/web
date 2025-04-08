@@ -4,22 +4,25 @@ export function useSwiper(totalItems: number) {
   const swiperRef = useRef<HTMLDivElement>(null) //실제로 스크롤이 가능한 DOM 요소, 이 코드가 실행되고 나면 scrollRef.current는 <div>...</div> 그 요소 자체가 된다.
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const itemsPerPage = 3 
 
   useEffect(() => {
     const swiperElement = swiperRef.current
     if (!swiperElement) return
 
     const updateTotalPageNumber= () => {
-      const pages = Math.ceil(totalItems / itemsPerPage)
+      const swiperElementWidth = swiperElement.offsetWidth //화면너비
+      const swiperWidth = swiperElement.scrollWidth //전체 콘텐츠 의 총 너비 ex)품앗이꾼 리스트 
+
+      
+      const pages = Math.ceil(swiperWidth / swiperElementWidth) // 스와이프할 전체 페이지 수
       setTotalPages(pages)
     }
 
     const updatePageNationNumber = () => {
       const swiperLeft = swiperElement.scrollLeft
-      const containerWidth = swiperElement.offsetWidth
-      const page = Math.round(swiperLeft / containerWidth) + 1
-      setCurrentPage(page)
+      const swiperElementWidth = swiperElement.offsetWidth
+      const page = Math.round(swiperLeft / swiperElementWidth) + 1
+      setCurrentPage(page) //페이지네이션에 표기되는 페이지번호
     }
 
     swiperElement.addEventListener('scroll', updatePageNationNumber)
