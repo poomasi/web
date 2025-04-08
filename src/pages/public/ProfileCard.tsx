@@ -81,9 +81,9 @@ const Container = styled(Card, {
   @media (max-width: 375px) {
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-around;
     height: auto;
-    width: ${getMobileVw(280)};
+    width: 300px;
     overflow: visible;
     padding: ${getMobileVh(18)} ${getMobileVw(16)};
     gap: ${getMobileVw(16)};

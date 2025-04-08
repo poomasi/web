@@ -98,12 +98,11 @@ const PaginationBox = styled.div`
 const PoomProfileCardList = styled.div`
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: ${getMobileVw(16)};
   padding-bottom: ${getMobileVw(16)};
-  width: 100%;
+  /* width: 100%; */
   /* height: 600px; */
   -webkit-overflow-scrolling: touch;
 
