@@ -2,11 +2,22 @@ import styled from '@emotion/styled'
 import { ProfileCard } from '@pages/public/ProfileCard.tsx'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
-import { getMobileVh } from '@utils/responsive'
-
+import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { useSwiper } from '@components/LandingPage/hooks/useSwiper'
+import { useMemo } from 'react'
 
 export function MobileProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
+
+  //페이지네이션 계산용 필터 결과 저장용
+  const filteredForPagination = useMemo(() => {
+    return selectedField === null
+      ? accountList
+      : accountList.filter((account) => account.field === selectedField)
+  }, [accountList, selectedField])
+
+  // 실제 보여주는 리스트
+  const { swiperRef, currentPage, totalPages } = useSwiper(filteredForPagination.length)
 
   return (
     <ProfilesSectionContainer>
@@ -19,8 +30,9 @@ export function MobileProfilesSection() {
           ))}
         </BadgeContainer>
       </SectionTitle>
+      <PaginationBox>{currentPage} / {totalPages}</PaginationBox>
 
-      <PoomProfileCardList>
+      <PoomProfileCardList ref={swiperRef}>
         {accountList
           .filter((account) => {
             if (selectedField === null) {
@@ -37,6 +49,9 @@ export function MobileProfilesSection() {
     </ProfilesSectionContainer>
   )
 }
+
+
+
 
 const ProfilesSectionContainer = styled.div`
   margin: 160px auto 0;
@@ -66,6 +81,18 @@ const SubHead = styled.div`
 const BadgeContainer = styled.div`
   width: 100%;
   display: flex;
+  @media (max-width: 375px) {
+    width: 100%;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  }
 `
 
 const PoomProfileCardList = styled.div`
