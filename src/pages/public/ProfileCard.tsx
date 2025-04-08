@@ -83,12 +83,12 @@ const Container = styled(Card, {
     align-items: center;
     justify-content: flex-start;
     height: auto;
-    width: 100%;
+    width: ${getMobileVw(280)};
     overflow: visible;
     padding: ${getMobileVh(18)} ${getMobileVw(16)};
     gap: ${getMobileVw(16)};
     border-radius: 10px;
-  } 
+  }
 `
 
 const ProfilePictureWrapper = styled.div`
@@ -100,26 +100,25 @@ const ProfilePictureWrapper = styled.div`
   overflow: hidden;
   @media (max-width: 375px) {
     width: ${getMobileVw(50)};
-  height: ${getMobileVw(50)};
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  } 
+    height: ${getMobileVw(50)};
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 const ProfileImage = styled.img`
   width: ${getPcVw(161)};
   height: ${getPcVw(161)};
   object-fit: contain;
-    @media (max-width: 375px) {
+  @media (max-width: 375px) {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
 `
 
 const ProfileIntroContainer = styled.div`
@@ -127,10 +126,10 @@ const ProfileIntroContainer = styled.div`
   flex-direction: column;
   align-items: center;
   @media (max-width: 375px) {
-  align-items: flex-start;
-  justify-content: center;
-  gap: ${getMobileVh(4)};
-}
+    align-items: flex-start;
+    justify-content: center;
+    gap: ${getMobileVh(4)};
+  }
 `
 
 const ProfileName = styled.div`
@@ -142,7 +141,7 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     font-size: ${getMobileVh(20)};
   }
 `
@@ -152,7 +151,7 @@ const ProfileField = styled.div`
   font-weight: bold;
   color: #068372;
 
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     font-size: ${getMobileVh(16)};
   }
 `
@@ -183,7 +182,6 @@ const ProfileHistoryItem = styled.div`
     height: auto;
     text-align: left;
     line-height: 1.3;
-
   }
 `
 
