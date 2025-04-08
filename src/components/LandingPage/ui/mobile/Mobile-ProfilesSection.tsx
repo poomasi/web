@@ -6,18 +6,26 @@ import { getMobileVw } from '@utils/responsive'
 import { useSwiper } from '@components/LandingPage/hooks/useSwiper'
 import { useMemo } from 'react'
 
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size))
+}
+
 export function MobileProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
   //페이지네이션 계산용 필터 결과 저장용
-  const filteredForPagination = useMemo(() => {
-    return selectedField === null
-      ? accountList
-      : accountList.filter((account) => account.field === selectedField)
+  const chunkedList = useMemo(() => {
+    const filtered = selectedField === null ? accountList : accountList.filter((account) => account.field === selectedField)
+    return chunkArray(filtered, 3)
   }, [accountList, selectedField])
+  // const filteredForPagination = useMemo(() => {
+  //   return selectedField === null
+  //     ? accountList
+  //     : accountList.filter((account) => account.field === selectedField)
+  // }, [accountList, selectedField])
 
   // 실제 보여주는 리스트
-  const { swiperRef, currentPage, totalPages } = useSwiper(filteredForPagination.length)
+  const { swiperRef, currentPage, totalPages } = useSwiper(chunkedList.length)
 
   return (
     <ProfilesSectionContainer>
@@ -30,25 +38,31 @@ export function MobileProfilesSection() {
           ))}
         </BadgeContainer>
       </SectionTitle>
-      <PaginationBox>{currentPage} / {totalPages}</PaginationBox>
+
+      <PaginationBox>
+        {currentPage} / {totalPages}
+      </PaginationBox>
 
       <PoomProfileCardList ref={swiperRef}>
-        {accountList
-          .filter((account) => {
-            if (selectedField === null) {
-              return true
-            }
-
-            return account.field === selectedField
-          })
-          .map((account) => (
-            // console.log(Public ID:`, account.public_id);
-            <ProfileCard key={account.public_id} profileData={account} />
-          ))}
+        {chunkedList.map((group, idx) => (
+          <Slide key={idx}>
+            {group.map((account) => (
+              <ProfileCard key={account.public_id} profileData={account} />
+            ))}
+          </Slide>
+        ))}
       </PoomProfileCardList>
     </ProfilesSectionContainer>
   )
 }
+
+const Slide = styled.div`
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: ${getMobileVw(16)};
+`
 
 const ProfilesSectionContainer = styled.div`
   margin-top: ${getMobileVw(40)};
@@ -99,26 +113,16 @@ const PaginationBox = styled.div`
 const PoomProfileCardList = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: ${getMobileVw(16)};
   padding-bottom: ${getMobileVw(16)};
   width: 100%;
+  /* height: 600px; */
   -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
     display: none;
-  }
-
-  // 👇 ProfileCard가 내부에서 div로 감싸지지 않기 때문에 직접 타겟팅
-  & > * {
-    flex: 0 0 calc(100% / 3);
-    min-width: calc(100% / 3);
-    scroll-snap-align: start;
-
-    @media (max-width: 768px) {
-      flex: 0 0 ${getMobileVw(300)};
-      min-width: ${getMobileVw(300)};
-    }
   }
 `
