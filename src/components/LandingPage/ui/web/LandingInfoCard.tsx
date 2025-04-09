@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { getPcVw , getMobileVh } from '@utils/responsive'
+import { getPcVw } from '@utils/responsive'
 
 interface LandingInfoCardProps {
   infoText: string
@@ -27,9 +27,8 @@ const LandingInfoCardContainer = styled.div`
   border-radius: 1.375rem;
   background: #fff;
 
-  @media (max-width: 375px) {
-    height: ${getMobileVh(180)};
-    /* width: ${getMobileVh(800)}; */
+  @media (max-width: 767px) {
+    height: 11.875rem;
   }
 `
 
@@ -45,8 +44,8 @@ const InfoCardText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
-  @media (max-width: 375px) {
-    font-size: ${getMobileVh(20)};
-    line-height: 100%;
+  @media (max-width: 767px) {
+    font-size: 1.125rem;
+    line-height: 120%;
   }
 `

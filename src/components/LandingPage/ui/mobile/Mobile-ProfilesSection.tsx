@@ -9,12 +9,24 @@ import { useMemo } from 'react'
 export function MobileProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
-  //페이지네이션 계산용 필터 결과 저장용
+  //필터링된 배열
   const filteredForPagination = useMemo(() => {
     return selectedField === null ? accountList : accountList.filter((account) => account.field === selectedField)
   }, [accountList, selectedField])
 
-  // 실제 보여주는 리스트
+  //리스트 3개씩 나누기
+  //<T,> 처럼 콤마 ,를 붙여야 TypeScript가 JSX로 인식하지 않고 제네릭으로 이해해요!
+  //[][] → 숫자 배열이 여러 개 들어간 2차원 배열   예: [[1, 2], [3, 4], [5, 6]]
+  const chunkArray = <T,>(arr: T[], targetNumber: number): T[][] => {
+    const result: T[][] = []
+    for (let i = 0; i < arr.length; i += targetNumber) {
+      result.push(arr.slice(i, i + targetNumber))
+    }
+    return result
+  }
+  const chunkedProfiles = chunkArray(filteredForPagination, 3)
+
+  // 실제 보여주는 리스트, totalItems전달
   const { swiperRef, currentPage, totalPages } = useSwiper(filteredForPagination.length)
 
   return (
@@ -28,11 +40,22 @@ export function MobileProfilesSection() {
           ))}
         </BadgeContainer>
       </SectionTitle>
+
       <PaginationBox>
         {currentPage} / {totalPages}
       </PaginationBox>
 
       <PoomProfileCardList ref={swiperRef}>
+        {chunkedProfiles.map((group, index) => (
+          <SnapWrapper key={index} className="swiper-slide">
+            {group.map((account) => (
+              <ProfileCard key={account.public_id} profileData={account} />
+            ))}
+          </SnapWrapper>
+        ))}
+      </PoomProfileCardList>
+
+      {/* <PoomProfileCardList ref={swiperRef}>
         {accountList
           .filter((account) => {
             if (selectedField === null) {
@@ -44,10 +67,19 @@ export function MobileProfilesSection() {
             // console.log(Public ID:`, account.public_id);
             <ProfileCard key={account.public_id} profileData={account} />
           ))}
-      </PoomProfileCardList>
+      </PoomProfileCardList> */}
     </ProfilesSectionContainer>
   )
 }
+
+const SnapWrapper = styled.div`
+  scroll-snap-align: start;
+  flex: 0 0 85%;
+  flex-shrink: 0; // 줄어들지 않도록 고정
+  display: flex;
+  flex-direction: column;
+  /* gap: ${getMobileVw(12)}; */
+`
 
 const ProfilesSectionContainer = styled.div`
   margin-top: ${getMobileVw(40)};
@@ -97,13 +129,13 @@ const PaginationBox = styled.div`
 
 const PoomProfileCardList = styled.div`
   display: flex;
-  flex-direction: row;
+  width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: ${getMobileVw(16)};
   padding-bottom: ${getMobileVw(16)};
-  /* width: 100%; */
-  /* height: 600px; */
+  padding-left: ${getMobileVw(20)}; // 💡 카드 시작 여백
+  padding-right: ${getMobileVw(20)};
   -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {

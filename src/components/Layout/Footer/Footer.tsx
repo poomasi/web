@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { getMobileVw } from '@utils/responsive'
 
 export function Footer() {
   const siteInfoTextList = ['사업자정보확인', '웹사이트 이용약관', '개인정보 처리방침']
@@ -20,16 +21,21 @@ export function Footer() {
 
 const FooterContainer = styled.div`
   width: 100%;
-  /* padding: 110px 0; */
   border-top: 1px solid #eaebed;
-  /* margin-top: 160px; */
+  @media (max-width: 767px) {
+    padding: ${getMobileVw(20)};
+  }
 `
 
 const FooterWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* margin: 0 auto; */
+  @media (max-width: 767px) {
+    font-size: 10px;
+    flex-direction: column;
+    gap: 12px;
+  }
 `
 
 const InquireText = styled.div`
@@ -38,6 +44,9 @@ const InquireText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+  @media (max-width: 767px) {
+    font-size: 12px;
+  }
 `
 
 const Mail = styled.a`
@@ -53,6 +62,10 @@ const Mail = styled.a`
 const SiteInfoList = styled.div`
   display: flex;
   justify-content: right;
+
+  @media (max-width: 767px) {
+    justify-content: flex-start;
+  }
 `
 
 const SiteInfo = styled.div`
@@ -61,6 +74,10 @@ const SiteInfo = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+
+  @media (max-width: 767px) {
+    font-size: 12px;
+  }
 
   &:not(:last-child) {
     position: relative;

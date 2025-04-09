@@ -79,11 +79,13 @@ const Container = styled(Card, {
     pointer-events: none;
   `}
   @media (max-width: 375px) {
+    scroll-snap-align: start;
+    /* flex: 0 0 80%; */
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     height: auto;
-    width: 300px;
+    width: ${getMobileVw(230)};
     overflow: visible;
     padding: ${getMobileVh(18)} ${getMobileVw(16)};
     gap: ${getMobileVw(16)};

@@ -10,6 +10,8 @@ export function useSwiper(totalItems: number) {
     const swiperElement = swiperRef.current
     if (!swiperElement) return
 
+    console.log('swiperRef.current:', swiperElement)
+
     const updateTotalPageNumber = () => {
       const pages = Math.ceil(totalItems / itemsPerPage)
       setTotalPages(pages)
@@ -20,7 +22,7 @@ export function useSwiper(totalItems: number) {
       const containerWidth = swiperElement.offsetWidth
       const page = Math.round(swiperLeft / containerWidth) + 1
       setCurrentPage(page)
-      console.log('containerWidth', containerWidth)
+      console.log('containerWidth', containerWidth) //스크롤 할 때 확인 가능
     }
 
     swiperElement.addEventListener('scroll', updatePageNationNumber)

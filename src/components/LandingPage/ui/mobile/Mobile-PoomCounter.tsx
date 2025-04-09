@@ -2,7 +2,7 @@ import poomCountIcon from '@assets/images/landingPage/poom-count-icon.svg'
 import poomCountBackground from '@assets/images/landingPage/poom-count-background.png'
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
-import {getMobileVh, getMobileVw} from '@utils/responsive';
+import { getMobileVh, getMobileVw } from '@utils/responsive'
 
 export function MobilePoomCounter() {
   const { qnaCount, accountCount } = usePoomCount()
@@ -11,7 +11,8 @@ export function MobilePoomCounter() {
     <CounterContainer>
       <PoomCountIconContainer src={poomCountIcon} />
       <PoomExplainText>
-        현재, <HighlightText>{accountCount}명</HighlightText>과 <HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.
+        현재, <HighlightText>{accountCount}명</HighlightText>과 <br></br>
+        <HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.
       </PoomExplainText>
     </CounterContainer>
   )
@@ -35,12 +36,13 @@ const CounterContainer = styled.div`
 `
 
 const PoomExplainText = styled.div`
+  width: 68%;
   color: #0e0e0e;
-
-  font-size: ${getMobileVh(20)};
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 84px */
+  line-height: 150%;
+  text-align: center;
 `
 
 const PoomCountIconContainer = styled.img`

@@ -4,7 +4,7 @@ import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
 import styled from '@emotion/styled'
-import {getMobileVh} from '@utils/responsive';
+import { getMobileVh } from '@utils/responsive'
 
 export function MobileIntroduceSection() {
   return (
@@ -49,6 +49,9 @@ const IntroducePoomasi = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  @media (max-width: 767px) {
+    margin: 1.875rem 0;
+  }
 `
 
 const IntroduceTitleText = styled.div`

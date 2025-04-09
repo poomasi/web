@@ -38,9 +38,18 @@ const KakaoLoginButton = styled.button`
   &:hover {
     background-color: #ffeb3b;
   }
+
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+  }
 `
 const KakaoIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 10px;
+
+  @media (max-width: 767px) {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
 `

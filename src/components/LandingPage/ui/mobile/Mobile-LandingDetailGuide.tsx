@@ -1,6 +1,7 @@
 import { useLandingDetailGuide } from '@components/LandingPage/hooks/useLandingDetailGuide.ts'
 import styled from '@emotion/styled'
 import detailGuideIcon from '@assets/images/landingPage/detail-guide-icon.svg'
+import { getMobileVw } from '@utils/responsive'
 
 export function MobileLandingDetailGuide() {
   const { guideTextList } = useLandingDetailGuide()
@@ -27,6 +28,10 @@ const LandingDetailGuideContainer = styled.div`
   gap: 2.5rem;
   width: 100%;
   height: auto;
+  @media (max-width: 767px) {
+    padding: 3.125rem ${getMobileVw(20)};
+    gap: 1.5rem;
+  }
   /* margin: 60px auto 0; */
 `
 
@@ -36,6 +41,9 @@ const SectionTitle = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 54px */
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
 `
 
 const SectionGuideList = styled.div`
@@ -64,4 +72,8 @@ const GuideText = styled.div`
   background: #f7f7f7;
 
   padding: 3vw;
+
+  @media (max-width: 767px) {
+    font-size: 0.875rem;
+  }
 `

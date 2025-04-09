@@ -1,12 +1,10 @@
 import styled from '@emotion/styled'
-import {getMobileVw, getMobileVh } from '@utils/responsive';
-import {guide01, guide02, guide03} from '@assets/images/landingPage'
+import { getMobileVw, getMobileVh } from '@utils/responsive'
+import { guide01, guide02, guide03 } from '@assets/images/landingPage'
 
 const PoomGuideCard = ({ img }: { img: string }) => {
-  return (
-    <CardWrapper style={{ backgroundImage: `url(${img})` }} />
-  );
-};
+  return <CardWrapper style={{ backgroundImage: `url(${img})` }} />
+}
 
 export function MobilePoomGuide() {
   return (
@@ -16,9 +14,9 @@ export function MobilePoomGuide() {
         <PoomGuideText>로그인 후 도움받고 싶은 품앗이꾼에게 질문을 작성하세요</PoomGuideText>
       </PoomGuideTextContainer>
       <PoomGuideCardList>
-        <PoomGuideCard img={guide01}/>
-        <PoomGuideCard img={guide02}/>
-        <PoomGuideCard img={guide03}/>
+        <PoomGuideCard img={guide01} />
+        <PoomGuideCard img={guide02} />
+        <PoomGuideCard img={guide03} />
       </PoomGuideCardList>
     </PoomGuideContainer>
   )
@@ -42,6 +40,9 @@ const PoomGuideTextContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  @media (max-width: 767px) {
+    padding: 3.125rem 0;
+  }
 `
 
 const PoomGuideTitleText = styled.div`

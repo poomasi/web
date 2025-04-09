@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import mobileLandingTitleBg from '@assets/images/landingPage/mobile-TitleSectionBg.png'
 //mobileLandingTitleBg로 바로 선언해버리는건가..???
-import {getMobileVh, getMobileVw} from '@utils/responsive';
+import { getMobileVh, getMobileVw } from '@utils/responsive'
 
 export function MobileTitleSection() {
   return (
@@ -18,7 +18,7 @@ export function MobileTitleSection() {
 
 const TitleSectionContainer = styled.div`
   width: 100%;
-  height: ${getMobileVh(600)};
+  height: ${getMobileVh(700)};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,14 +35,17 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  @media (max-width: 767px) {
+    margin: 30px 0;
+  }
 `
 
 const Title = styled.div`
   font-size: 80px;
   line-height: 160%;
 
-  @media (max-width: 520px) {
-    font-size: 30px;
+  @media (max-width: 767px) {
+    font-size: 1.875rem;
   }
 `
 
@@ -51,12 +54,12 @@ const Description = styled.div`
   line-height: 150%;
   font-size: 24px;
 
-  @media (max-width: 520px) {
-    font-size: 15px;
+  @media (max-width: 767px) {
+    font-size: 0.9375rem;
   }
 `
 
-const QuestionButton = styled.div`
+const QuestionButton = styled.button`
   width: 100%;
   height: 3.75rem;
   border-radius: 2.75rem;
@@ -70,8 +73,9 @@ const QuestionButton = styled.div`
   line-height: 150%;
   margin-top: 4.6875rem;
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     width: ${getMobileVw(200)};
-    font-size: ${getMobileVh(28)};
+    height: 2.75rem;
+    font-size: 1rem;
   }
 `
