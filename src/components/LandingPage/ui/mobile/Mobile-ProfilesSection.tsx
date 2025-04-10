@@ -121,7 +121,7 @@ const BadgeContainer = styled.div`
 
 const PaginationBox = styled.div`
   align-self: flex-end;
-  margin: ${getMobileVw(8)} 0 ${getMobileVw(16)};
+  margin-top: ${getMobileVw(8)};
   font-size: ${getMobileVw(13)};
   color: #888;
 `

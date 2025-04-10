@@ -15,12 +15,12 @@ export function LandingPage() {
   const sizeCheckTimer = useRef<NodeJS.Timeout | null>(null)
 
   const sizeCheckEvent = () => {
+    console.log('📏 resize 이벤트 발생')
     if (sizeCheckTimer.current) {
       clearTimeout(sizeCheckTimer.current)
     }
 
     const timer = setTimeout(function () {
-      // width 가 524인 경우, isMobile 활성화
       console.log('모바일 화면')
       setIsMobile(window.innerWidth <= 524)
     }, 300)
