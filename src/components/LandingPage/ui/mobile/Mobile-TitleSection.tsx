@@ -2,15 +2,18 @@ import styled from '@emotion/styled'
 import mobileLandingTitleBg from '@assets/images/landingPage/mobile-TitleSectionBg.png'
 //mobileLandingTitleBg로 바로 선언해버리는건가..???
 import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
 
 export function MobileTitleSection() {
+  const { moveToProfile } = useMoveToProfile()
+
   return (
     <TitleSectionContainer>
       <TitleContainer>
         <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
         <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
-        <QuestionButton>질문하기</QuestionButton>
+        <QuestionButton onClick={() => moveToProfile('profileSection')}>질문하기</QuestionButton>
       </TitleContainer>
     </TitleSectionContainer>
   )

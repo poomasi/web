@@ -30,7 +30,7 @@ export function MobileProfilesSection() {
   const { swiperRef, currentPage, totalPages } = useSwiper(filteredForPagination.length)
 
   return (
-    <ProfilesSectionContainer id="mobile-profiles-section">
+    <ProfilesSectionContainer id="profileSection">
       <SectionTitle>
         <SubHead>품앗이꾼</SubHead>
         <BadgeContainer>

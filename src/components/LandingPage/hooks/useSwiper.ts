@@ -14,7 +14,7 @@ export function useSwiper(totalItems: number) {
     const updateTotalPage = () => {
       const totalPages = Math.ceil(totalItems / itemsPerPage)
       setTotalPages(totalPages)
-      console.log('totalPages:', totalPages)
+      // console.log('totalPages:', totalPages)
     }
 
     const updatePageNation = () => {
@@ -28,7 +28,7 @@ export function useSwiper(totalItems: number) {
       const page = isAtLastPage ? totalPages : Math.round(swiperLeft / containerWidth) + 1
       // console.log('page:', page)
       // console.log('isAtLastPage:', isAtLastPage)
-      console.log('totalPages:', totalPages)
+      // console.log('totalPages:', totalPages)
       setCurrentPage(page)
 
       // console.log('swiperLeft', swiperLeft)
