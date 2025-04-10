@@ -74,6 +74,6 @@ const GuideText = styled.div`
   padding: 3vw;
 
   @media (max-width: 767px) {
-    font-size: 0.875rem;
+    font-size: 12px;
   }
 `

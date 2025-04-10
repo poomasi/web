@@ -26,11 +26,11 @@ export function MobileProfilesSection() {
   }
   const chunkedProfiles = chunkArray(filteredForPagination, 3)
 
-  // 실제 보여주는 리스트, totalItems전달
+  // useSwiper에 전체리스트 갯수를 전달 (훅에서는 totalItems로 받음)
   const { swiperRef, currentPage, totalPages } = useSwiper(filteredForPagination.length)
 
   return (
-    <ProfilesSectionContainer>
+    <ProfilesSectionContainer id="mobile-profiles-section">
       <SectionTitle>
         <SubHead>품앗이꾼</SubHead>
         <BadgeContainer>
@@ -40,12 +40,12 @@ export function MobileProfilesSection() {
           ))}
         </BadgeContainer>
       </SectionTitle>
-
       <PaginationBox>
         {currentPage} / {totalPages}
       </PaginationBox>
-
+      {/* useRef을 이용하며 특정 DOM 요소에 직접 useSwiper훅을 연결 */}
       <PoomProfileCardList ref={swiperRef}>
+        {' '}
         {chunkedProfiles.map((group, index) => (
           <SnapWrapper key={index} className="swiper-slide">
             {group.map((account) => (
@@ -54,7 +54,6 @@ export function MobileProfilesSection() {
           </SnapWrapper>
         ))}
       </PoomProfileCardList>
-
       {/* <PoomProfileCardList ref={swiperRef}>
         {accountList
           .filter((account) => {
@@ -74,7 +73,7 @@ export function MobileProfilesSection() {
 
 const SnapWrapper = styled.div`
   scroll-snap-align: start;
-  flex: 0 0 85%;
+  flex: 0 0 90%;
   flex-shrink: 0; // 줄어들지 않도록 고정
   display: flex;
   flex-direction: column;
@@ -132,7 +131,7 @@ const PoomProfileCardList = styled.div`
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: ${getMobileVw(16)};
+  gap: ${getMobileVw(5)};
   padding-bottom: ${getMobileVw(16)};
   padding-left: ${getMobileVw(20)}; // 💡 카드 시작 여백
   padding-right: ${getMobileVw(20)};

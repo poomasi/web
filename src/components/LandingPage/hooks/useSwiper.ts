@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 export function useSwiper(totalItems: number) {
-  const swiperRef = useRef<HTMLDivElement>(null) //실제로 스크롤이 가능한 DOM 요소, 이 코드가 실행되고 나면 scrollRef.current는 <div>...</div> 그 요소 자체가 된다.
+  const swiperRef = useRef<HTMLDivElement>(null) //useRef를 특정 DOM 요소에 직접 연결
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const itemsPerPage = 3
@@ -9,30 +9,41 @@ export function useSwiper(totalItems: number) {
   useEffect(() => {
     const swiperElement = swiperRef.current
     if (!swiperElement) return
+    // console.log('swiperRef.current:', swiperElement)
 
-    console.log('swiperRef.current:', swiperElement)
-
-    const updateTotalPageNumber = () => {
-      const pages = Math.ceil(totalItems / itemsPerPage)
-      setTotalPages(pages)
+    const updateTotalPage = () => {
+      const totalPages = Math.ceil(totalItems / itemsPerPage)
+      setTotalPages(totalPages)
+      console.log('totalPages:', totalPages)
     }
 
-    const updatePageNationNumber = () => {
+    const updatePageNation = () => {
+      const totalPages = Math.ceil(totalItems / itemsPerPage)
+      // const paddingLeft = parseFloat(getComputedStyle(swiperElement).paddingLeft)
       const swiperLeft = swiperElement.scrollLeft
-      const containerWidth = swiperElement.offsetWidth
-      const page = Math.round(swiperLeft / containerWidth) + 1
+      const containerWidth = swiperElement.offsetWidth //지금보이는 너비
+      const scrollWidth = swiperElement.scrollWidth // 전체 스크롤 가능한 너비
+      const isAtLastPage = swiperLeft + containerWidth >= Math.floor(scrollWidth)
+
+      const page = isAtLastPage ? totalPages : Math.round(swiperLeft / containerWidth) + 1
+      // console.log('page:', page)
+      // console.log('isAtLastPage:', isAtLastPage)
+      console.log('totalPages:', totalPages)
       setCurrentPage(page)
-      console.log('containerWidth', containerWidth) //스크롤 할 때 확인 가능
+
+      // console.log('swiperLeft', swiperLeft)
+      // console.log('containerWidth', containerWidth)
+      // console.log('scrollWidth', scrollWidth)
     }
 
-    swiperElement.addEventListener('scroll', updatePageNationNumber)
-    window.addEventListener('resize', updateTotalPageNumber)
+    swiperElement.addEventListener('scroll', updatePageNation)
+    window.addEventListener('resize', updateTotalPage)
 
-    updateTotalPageNumber() //초기 페이지 수 계산
+    updateTotalPage() //초기 페이지 수 계산
 
     return () => {
-      swiperElement.removeEventListener('scroll', updatePageNationNumber)
-      window.removeEventListener('resize', updateTotalPageNumber)
+      swiperElement.removeEventListener('scroll', updatePageNation)
+      window.removeEventListener('resize', updateTotalPage)
     } //초기화
   }, [totalItems])
 
