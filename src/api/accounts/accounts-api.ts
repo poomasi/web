@@ -1,12 +1,13 @@
 import { HttpMethod, AccountType } from '@api/enums'
 import requestHandler from '@api/request-handler'
 import { KakaoLoginResponse, AccountListResponse, AccountResponse } from '@api/types'
+import customAxios from '@api/customAxios.ts'
 
 const PATH = '/accounts'
 
 export const AccountsApi = {
   postKakaoLogin: async (idToken: string) => {
-    return await requestHandler<KakaoLoginResponse>({ url: PATH + '/kakao-login', method: HttpMethod.POST, data: { id_token: idToken } })
+    return await customAxios.post<{ account_token: string; public_id: string }>(`${PATH}/kakao-login`, { id_token: idToken })
   },
 
   getAccountList: async (type: string = AccountType.ADMIN) => {
