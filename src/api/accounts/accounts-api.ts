@@ -11,11 +11,14 @@ export const AccountsApi = {
   },
 
   getAccountList: async (type: string = AccountType.ADMIN) => {
-    return await requestHandler<Array<AccountListResponse>>({ url: PATH + `/?type=${type}` })
+    return await customAxios.post<AccountListResponse[]>(PATH + `/?type=${type}`, {})
   },
 
+  // Teacher 이라는 API 로 분리해야 함. 그래야 의도가 명확해짐.
+  // 추후 품앗이 관련 데이터를 가져오는 API 들은 TeacherApi 로 분리 예정
+  // 품앗이 데이터 가져오는 API
   getAccount: async (id?: string) => {
-    return await requestHandler<AccountResponse>({ url: PATH + `/${id}` })
+    return await customAxios.get<AccountResponse>(PATH + `/${id}`)
   },
   // getAccount: async (id?: string) => {
   //   return await requestHandler<Array<AccountListResponse>>({ url: PATH + `/${id}` })
