@@ -98,7 +98,6 @@ const ProfilePictureWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  border-radius: 100%;
   overflow: hidden;
   @media (max-width: 375px) {
     width: ${getMobileVw(50)};
@@ -116,6 +115,7 @@ const ProfileImage = styled.img`
   width: ${getPcVw(161)};
   height: ${getPcVw(161)};
   object-fit: contain;
+  border-radius: 100%;
   @media (max-width: 375px) {
     width: 100%;
     height: 100%;
