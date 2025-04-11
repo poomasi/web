@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { getPcVw } from '@utils/responsive'
 
 interface LandingInfoCardProps {
   infoText: string
@@ -22,14 +23,18 @@ const LandingInfoCardContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1.25rem;
+  padding: 1.25rem ${getPcVw(20)};
   border-radius: 1.375rem;
   background: #fff;
+
+  @media (max-width: 767px) {
+    height: 11.875rem;
+  }
 `
 
 const InfoCardImage = styled.img`
   width: auto;
-  height: 45%;
+  height: 70%;
 `
 
 const InfoCardText = styled.div`
@@ -38,5 +43,9 @@ const InfoCardText = styled.div`
   font-size: 1.75rem;
   font-style: normal;
   font-weight: 700;
-  line-height: 150%; /* 42px */
+  line-height: 150%;
+  @media (max-width: 767px) {
+    font-size: 1.125rem;
+    line-height: 120%;
+  }
 `

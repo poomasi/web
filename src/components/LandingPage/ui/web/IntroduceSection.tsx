@@ -4,6 +4,7 @@ import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
+import { getPcVw } from '@utils/responsive'
 
 export function IntroduceSection() {
   return (
@@ -70,10 +71,10 @@ const IntroduceText = styled.div`
 `
 
 const IntroduceCardList = styled.div`
-  width: 100%;
+  width: ${getPcVw(1320)};
   display: flex;
   justify-content: center;
   /* padding: 20px 0; */
-  gap: 10px;
+  gap: ${getPcVw(10)};
   /* padding-bottom: 160px; */
 `

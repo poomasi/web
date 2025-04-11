@@ -2,10 +2,11 @@ import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.
 import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
-import introduceBackground from '@assets/images/landingPage/introduce-background.png'
+import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
 import styled from '@emotion/styled'
+import { getMobileVh } from '@utils/responsive'
 
-export function IntroduceSection() {
+export function MobileIntroduceSection() {
   return (
     <IntroduceSectionContainer>
       <IntroducePoomasi>
@@ -33,27 +34,30 @@ const IntroduceSectionContainer = styled.div`
   justify-content: center;
   width: 100%;
   /* height: 846px; */
-  background-image: url(${introduceBackground});
+  background-image: url(${mobileintroduceBg});
   background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
-  /* padding-top: 160px; */
+  padding: ${getMobileVh(30)} 0;
 `
 
 const IntroducePoomasi = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: ${getMobileVh(28)};
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  @media (max-width: 767px) {
+    margin: 1.875rem 0;
+  }
 `
 
 const IntroduceTitleText = styled.div`
   color: #068372;
   text-align: center;
-  font-size: 36px;
+  font-size: ${getMobileVh(36)};
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 54px */
@@ -70,10 +74,11 @@ const IntroduceText = styled.div`
 `
 
 const IntroduceCardList = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 20px 0;
-  gap: 10px;
-  padding-bottom: 160px;
+  /* padding: 20px 0; */
+  gap: ${getMobileVh(30)};
+  /* padding-bottom: 160px; */
 `
