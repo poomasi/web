@@ -19,14 +19,12 @@ export const PostsApi = {
   postQna: async ({ id, isSecret, careerYear, isMajor, questionText }: PostQnaParams) => {
     //requestHandler: 서버에 데이터를 보내는 함수
     return await customAxios.post<null>(PATH + '/qna', {
-      data: {
-        //질문을 등록하기 위해 서버에 데이터를 보냄
-        nickname: id,
-        is_secret: isSecret,
-        career_year: careerYear,
-        is_major: isMajor,
-        question_text: questionText,
-      },
+      //질문을 등록하기 위해 서버에 데이터를 보냄
+      nickname: id,
+      is_secret: isSecret,
+      career_year: careerYear,
+      is_major: isMajor,
+      question_text: questionText,
     })
   },
 
