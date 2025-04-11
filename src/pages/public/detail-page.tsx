@@ -13,7 +13,7 @@ import styled from '@emotion/styled'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useParams } from 'react-router-dom'
 import { AccountResponse, CareerYearType, GetQnaListResponse, QnaListType, RequestApi } from '@api/index'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -160,69 +160,111 @@ export function DetailPage() {
   지금 코드에서 사용하는 <Radio> 버튼은 값이 미리 정해져 있다.
   즉, 사용자가 버튼을 클릭했을 때 "전공"이면 true, "비전공"이면 false를 저장하면 됩니다.
   */
-  const handleIsMajorChange = (value: boolean) => {
-    setIsMajor(value)
+
+  // 팁 !
+  // useEffect 내부에 function 이 존재한다면, useEffect 에서 어떠한 동작을 실행하는지 보기 어렵습니다.
+  // function 의 경우에는 이렇게 분리하는 것이 보기 좋습니다.
+  // 이렇게 로직 분리하는게 좋습니다.
+
+  // 다음 주 내로, useMutation 활용하여 해당사항은 개선 진행하도록 하겠습니다.
+  // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
+  const postingQuestion = async () => {
+    try {
+      // await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
+      /*
+      에러: string | undefined' 형식은 'string' 형식에 할당할 수 없습니다.
+
+      원인: id는 const { id } = useParams() 즉, 현재 URL에 있는 파라미터 값을 가져오고 있다.
+      주의: useParams()는 항상 URL에서 값을 가져오는 거라, URL에 id가 없으면 undefined가 됨
+
+      해결방법: PostQnaParams 타입정의한 거에 undefined 추가
+      */
+      await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
+
+      setQuestionText('')
+      setIsSecret(false)
+      setCareerYear(CareerYearType.대학생)
+      setIsMajor(true)
+
+      setTimeout(() => {
+        setIsSuccessToastOpen(true)
+        setSuccessToastMessage('질문이 등록되었습니다.')
+      }, 1300)
+
+      const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+
+      setQnas(qnas.data)
+    } catch (error: unknown) {
+      /* ***더 공부하기***
+      catch (error: any)
+
+      에러:
+      1. 'error' is defined but never used.eslint@typescript-eslint/no-unused-vars,
+      2. any: Unexpected any. Specify a different type.
+
+      원인: catch 블록에서 error 변수를 선언했지만, 그 값을 어디에서도 사용하지 않아서
+
+      해결방법: console로 확인해주는 코드 추가, throw "에러 발생!" 같은 문자열이 들어오면 error.message에서 런타임 오류가 발생할 수 있으므로 안전장치 추가하기
+      */
+
+      //의문점 throw "에러 발생!"이 생기는 조건은 뭐지? > 내가 throw을 설정안해줘도, 코드로 안 적어줘도 특정 상황에서 자동으로 실행되거나 출력될수 있어? >일부 코드 실행 중에 자동으로 예외가 발생하면 JavaScript 엔진 자체가 내부적으로 throw를 사용한다.
+      if (error instanceof Error) {
+        console.error('질문 등록에 실패했습니다!', error)
+      }
+
+      setIsErrorToastOpen(true)
+      setErrorToastMessage('질문 등록에 실패했습니다!')
+    }
   }
 
-  const handleQuestionButtonClick = () => {
+  // 팁 !
+  // function 재랜더링 되지 않도록 함.
+  // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
+  const handleQuestionButtonClick = useCallback(async () => {
+    console.log('질문햇나요 ?')
     if (!accountToken) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
     }
+
     if (questionText.length < 10) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문은 10자 이상이어야 합니다!')
       return
     }
-    ;(async () => {
-      try {
-        // await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
-        /*
-        에러: string | undefined' 형식은 'string' 형식에 할당할 수 없습니다.
 
-        원인: id는 const { id } = useParams() 즉, 현재 URL에 있는 파라미터 값을 가져오고 있다.
-        주의: useParams()는 항상 URL에서 값을 가져오는 거라, URL에 id가 없으면 undefined가 됨
+    // 질문 등록
+    await postingQuestion()
+  }, [])
 
-        해결방법: PostQnaParams 타입정의한 거에 undefined 추가
-        */
-        await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
+  // 품앗이꾼 데이터 가져오는 API
+  const getTeacherData = async () => {
+    try {
+      const account = await RequestApi.accounts.getAccount(id)
+      setAccount(account.data)
 
-        setQuestionText('')
-        setIsSecret(false)
-        setCareerYear(CareerYearType.대학생)
-        setIsMajor(true)
-
-        setTimeout(() => {
-          setIsSuccessToastOpen(true)
-          setSuccessToastMessage('질문이 등록되었습니다.')
-        }, 1300)
-
-        const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
-        setQnas(qnas)
-      } catch (error: unknown) {
-        /* ***더 공부하기***
-        catch (error: any)
-
-        에러:
-        1. 'error' is defined but never used.eslint@typescript-eslint/no-unused-vars,
-        2. any: Unexpected any. Specify a different type.
-
-        원인: catch 블록에서 error 변수를 선언했지만, 그 값을 어디에서도 사용하지 않아서
-
-        해결방법: console로 확인해주는 코드 추가, throw "에러 발생!" 같은 문자열이 들어오면 error.message에서 런타임 오류가 발생할 수 있으므로 안전장치 추가하기
-        */
-
-        //의문점 throw "에러 발생!"이 생기는 조건은 뭐지? > 내가 throw을 설정안해줘도, 코드로 안 적어줘도 특정 상황에서 자동으로 실행되거나 출력될수 있어? >일부 코드 실행 중에 자동으로 예외가 발생하면 JavaScript 엔진 자체가 내부적으로 throw를 사용한다.
-        if (error instanceof Error) {
-          console.error('질문 등록에 실패했습니다!', error)
-        }
-
-        setIsErrorToastOpen(true)
-        setErrorToastMessage('질문 등록에 실패했습니다!')
+      setIsLoading(false)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('', error)
       }
-    })()
+      setIsLoading(false)
+    }
   }
+
+  const getTeacherQnaList = async () => {
+    try {
+      const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+      setQnas(qnas.data)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('', error)
+      }
+    }
+  }
+
+  useEffect(() => {}, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -234,42 +276,15 @@ export function DetailPage() {
     원인: RequestApi.accounts.getAccount(id)은 배열[]을 반환하는데 setAccount는 AccountResponse타입을 기다리고 있기때문이다.
     */
     setIsLoading(true)
-    ;(async () => {
-      try {
-        const account = await RequestApi.accounts.getAccount(id)
-        setAccount(account)
-
-        /*const qnas = await RequestApi.posts.getQnaList(qnaListType, id)*/
-
-        setQnas(qnas)
-        setIsLoading(false)
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.error('', error)
-        }
-        setIsLoading(false)
-        /*navigate(-1)*/
-      }
-    })()
+    getTeacherData()
+    // 질문 !
+    // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
+    // 제가 이해한 내용에는 qnaListType 만 있어야 할 것 같은데요
   }, [id, navigate, qnaListType])
 
   useEffect(() => {
-    ;(async () => {
-      const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
-
-      setQnas(qnas)
-    })()
+    getTeacherQnaList()
   }, [id, qnaListType])
-
-  // if (qnas) {
-  //   console.log('>>>', qnas)
-  // }
-
-  useEffect(() => {
-    console.log('qnas 값:', qnas)
-    console.log('qnas 타입:', typeof qnas)
-    console.log('qnas가 배열인가?', Array.isArray(qnas))
-  }, [qnas])
 
   return (
     <Container>
@@ -286,10 +301,6 @@ export function DetailPage() {
 
                 <HeaderBody>
                   <ProfileSection>
-                    {/* 에러: 'AccountResponse[]' 형식에 'name' 속성이 없습니다.
-
-
-                     */}
                     <HeaderName>{account?.name}</HeaderName>
                     <HeaderField>{account?.field}</HeaderField>
                   </ProfileSection>
