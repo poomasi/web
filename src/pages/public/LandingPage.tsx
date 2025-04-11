@@ -7,29 +7,32 @@ import { Footer } from '@components/Layout/Footer/Footer'
 import { IntroduceSection } from '@components/LandingPage/ui/web/IntroduceSection.tsx'
 import { PoomGuide } from '@components/LandingPage/ui/web/PoomGuide.tsx'
 import { LandingDetailGuide } from '@components/LandingPage/ui/web/LandingDetailGuide.tsx'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MobileLandingPage } from '@pages/public/MobileLandingPage'
 
 export function LandingPage() {
+  // const sizeCheckTimer = useRef<NodeJS.Timeout | null>(null)
+
+  //   if (sizeCheckTimer.current) {
+  //     clearTimeout(sizeCheckTimer.current)
+  //   }
+  //   const timer = setTimeout(function () {
+  //     console.log('모바일 화면')
+  //     setIsMobile(window.innerWidth <= 767)
+  //   }, 300)
+
+  //   sizeCheckTimer.current = timer
+  // }
   const [isMobile, setIsMobile] = useState<boolean>(false)
-  const sizeCheckTimer = useRef<NodeJS.Timeout | null>(null)
 
   const sizeCheckEvent = () => {
-    console.log('📏 resize 이벤트 발생')
-    if (sizeCheckTimer.current) {
-      clearTimeout(sizeCheckTimer.current)
+    // console.log('resize 이벤트 발생')
+    if (window.innerWidth <= 767) {
+      setIsMobile(true)
     }
-
-    const timer = setTimeout(function () {
-      console.log('모바일 화면')
-      setIsMobile(window.innerWidth <= 524)
-    }, 300)
-
-    sizeCheckTimer.current = timer
   }
 
   useEffect(() => {
-    // 최초 모바일 여부 확인 로직 추가
     setIsMobile(window.innerWidth <= 767)
     window.addEventListener('resize', sizeCheckEvent)
     return () => {
