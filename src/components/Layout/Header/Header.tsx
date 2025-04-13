@@ -8,7 +8,7 @@ import { getMobileVw } from '@utils/responsive'
 
 export default function Header() {
   const toHome = () => {
-    window.location.href = ''
+    window.location.href = '/'
   }
 
   const accountToken = useRecoilValue(accountTokenState) as string | null
@@ -30,25 +30,7 @@ export default function Header() {
             <LogoImage src={publicLogo} alt="logo" />
           </div>
 
-          {accountToken ? (
-            <KakaoLoginBtn onClick={() => handleLogout()}>로그아웃</KakaoLoginBtn>
-          ) : (
-            // <KakaoLoginBtn
-            //   onClick={() => handleLogout()}
-            //   sx={{
-            //     fontSize: '19px',
-            //     padding: '3px 20px',
-            //     color: 'white',
-            //     backgroundColor: 'black',
-            //     '&:hover': {
-            //       backgroundColor: 'var(--gray-color)',
-            //     },
-            //   }}
-            // >
-            //   로그아웃
-            // </KakaoLoginBtn>
-            <KakaoLogin />
-          )}
+          {accountToken ? <KakaoLoginBtn onClick={() => handleLogout()}>로그아웃</KakaoLoginBtn> : <KakaoLogin />}
         </HeaderContent>
       </HeaderContainer>
 

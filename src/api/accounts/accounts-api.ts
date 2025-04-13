@@ -1,6 +1,6 @@
-import { HttpMethod, AccountType } from '@api/enums'
-import requestHandler from '@api/request-handler'
-import { KakaoLoginResponse, AccountListResponse, AccountResponse } from '@api/types'
+import { AccountType } from '@api/enums'
+// import requestHandler from '@api/request-handler'
+import { AccountListResponse, AccountResponse } from '@api/types'
 import customAxios from '@api/customAxios.ts'
 
 const PATH = '/accounts'

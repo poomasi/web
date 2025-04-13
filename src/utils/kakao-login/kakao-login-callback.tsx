@@ -31,6 +31,7 @@ export function KakaoLoginCallback() {
       // 카카오에서 받은 id_token
       const idToken = response.data.id_token
       const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin(idToken)
+      console.log('카카오 idToken 응답:', idToken)
 
       // localStorage에 사용자 정보 저장
       localStorage.setItem('public_id', kakaoLoginResponse.data.public_id)

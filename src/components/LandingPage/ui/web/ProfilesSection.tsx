@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ProfileCard } from '@pages/public/ProfileCard.tsx'
+import { ProfileCard } from '@components/profileCards/ProfileCard'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
 import { getPcVw } from '@utils/responsive'
