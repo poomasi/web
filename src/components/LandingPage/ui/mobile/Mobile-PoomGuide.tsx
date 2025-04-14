@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { getMobileVw, getMobileVh } from '@utils/responsive'
 import { guide01, guide02, guide03 } from '@assets/images/landingPage'
 
+//props 중 img라는 값을 구조 분해해서 바로 받는다 : 구조 분해 + 타입을 동시에 작성한 문법
 const PoomGuideCard = ({ img }: { img: string }) => {
   return <CardWrapper style={{ backgroundImage: `url(${img})` }} />
 }

@@ -1,12 +1,22 @@
+import { useState } from 'react'
+import styled from '@emotion/styled'
 import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.tsx'
 import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
-import styled from '@emotion/styled'
 import { getMobileVh } from '@utils/responsive'
+import { useCloseBtn } from '@hooks/useCloseBtn'
 
+// const handleModalPopup = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const handleOpen = () => {
+//     setIsOpen(true);
+//   };
+// }
 export function MobileIntroduceSection() {
+  const { handleOpen } = useCloseBtn()
+
   return (
     <IntroduceSectionContainer>
       <IntroducePoomasi>
@@ -18,7 +28,7 @@ export function MobileIntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="Sharing" imgSrc={sharingIcon} />
+        <LandingInfoCard infoText="Sharing" imgSrc={sharingIcon} onClick={handleOpen} />
         <LandingInfoCard infoText="Mentoring" imgSrc={mentoringIcon} />
         <LandingInfoCard infoText="Question" imgSrc={questionIcon} />
       </IntroduceCardList>

@@ -14,9 +14,7 @@ export function MobileLandingPage() {
       <MobileComponents.MobileTitleSection />
       <MobileComponents.MobileIntroduceSection />
       <MobileComponents.MobilePoomCounter />
-      <MobileComponents.MobilePoomGuide />
       <MobileComponents.MobileProfilesSection />
-      <MobileComponents.MobileLandingDetailGuide />
       <Footer />
     </PageContainer>
   )
