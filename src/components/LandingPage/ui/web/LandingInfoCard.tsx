@@ -4,12 +4,13 @@ import { getPcVw } from '@utils/responsive'
 interface LandingInfoCardProps {
   infoText: string
   imgSrc: string
+  onClick?: () => void
 }
 
-export function LandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
+export function LandingInfoCard({ infoText, imgSrc, onClick }: LandingInfoCardProps) {
   return (
-    <LandingInfoCardContainer>
-      <InfoCardImage src={imgSrc} />
+    <LandingInfoCardContainer onClick={onClick}>
+      <InfoCardImage src={imgSrc} alt={infoText} />
       <InfoCardText>{infoText}</InfoCardText>
     </LandingInfoCardContainer>
   )
