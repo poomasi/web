@@ -1,2 +1,2 @@
 export * from './use-toast-clear'
-export * from './useCloseBtn'
+export * from '../components/button/closeButton/useCloseBtn'

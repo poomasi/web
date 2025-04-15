@@ -2,7 +2,24 @@ import guide01 from '@assets/images/landingPage/mobile-landing-guide01.png'
 import guide02 from '@assets/images/landingPage/mobile-landing-guide02.png'
 import guide03 from '@assets/images/landingPage/mobile-landing-guide03.png'
 
-export const modalData = {
+type SwiperModal = {
+  title: string
+  type: 'swiper'
+  contents: { image: string; text: string }[]
+}
+
+type TextModal = {
+  title: string
+  type: 'text'
+  content: string
+}
+
+type ModalInfoType = SwiperModal | TextModal
+
+//Record<K, V>	키가 K이고, 값이 V인 객체
+//'Sharing', 'Mentoring', 'Question' 이 세 개가 key가 되는 객체인데,각각의 값은 모두 ModalInfoType 타입
+
+export const modalData: Record<'Sharing' | 'Mentoring' | 'Question', ModalInfoType> = {
   Sharing: {
     title: '이용방법',
     type: 'swiper',

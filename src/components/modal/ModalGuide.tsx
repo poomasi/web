@@ -1,4 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper/modules'
+// import 'swiper/css/pagination'
 import 'swiper/swiper-bundle.css'
 import styled from '@emotion/styled'
 
@@ -11,7 +13,7 @@ type ModalProps = {
 export function ModalGuide({ type, contents, content }: ModalProps) {
   if (type === 'swiper' && contents) {
     return (
-      <StyledSwiper spaceBetween={16} slidesPerView={1} pagination={{ clickable: true }}>
+      <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
         {contents.map((item, index) => (
           <SwiperSlide key={index}>
             <Slide>
@@ -33,11 +35,17 @@ export function ModalGuide({ type, contents, content }: ModalProps) {
 
 const StyledSwiper = styled(Swiper)`
   width: 100%;
-  max-width: 360px;
+  max-width: 340px;
   margin: 0 auto;
+  background-color: #fff;
+  position: relative;
+
+  .swiper-pagination {
+    bottom: -1%;
+  }
 
   .swiper-pagination-bullet {
-    background-color: #ccc;
+    background-color: #eaebed;
     opacity: 1;
   }
 
@@ -50,14 +58,14 @@ const Slide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  padding: 1rem;
 `
 
 const Image = styled.img`
   width: 70%;
   max-width: 240px;
   height: auto;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 
   @media (max-width: 480px) {
     width: 85%;
@@ -68,10 +76,10 @@ const Text = styled.p`
   font-size: 16px;
   text-align: center;
   line-height: 1.5;
-  color: #333;
+  color: #4e5053;
 
   @media (max-width: 480px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `
 

@@ -1,2 +1,2 @@
 export * from './debounced-button'
-export * from './CloseBtn'
+export * from './closeButton/CloseBtn'
