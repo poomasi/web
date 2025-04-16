@@ -4,14 +4,14 @@ import { AccountListResponse } from './types'
 
 const token = localStorage.getItem('account_token') ?? ''
 
-//RequestApi는 accounts와 posts 두 개의 키를 가지는 객체
+//RequestApi는 두 개의 카테고리로 구성된 API 모듈 객체
 export const RequestApi = {
   accounts: {
     ...AccountsApi,
-    //API 요청 함수
-    //매개변수를 받지 않고 Promise<AccountListResponse[]>를 반환한다
+    //관리자 계정 리스트를 불러오는 함수
     getAccountList: async (): Promise<AccountListResponse[]> => {
       try {
+        //관리자 계정들만 필터링해서 요청
         const response = await fetch('https://api.poomasi.kr/api/v1/accounts/?type=ADMIN', {
           method: 'GET',
           headers: {
