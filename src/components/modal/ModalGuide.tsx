@@ -3,6 +3,7 @@ import { Pagination } from 'swiper/modules'
 // import 'swiper/css/pagination'
 import 'swiper/swiper-bundle.css'
 import styled from '@emotion/styled'
+import ModalReference from '@components/modal/ModalReference.tsx'
 
 type ModalProps = {
   type: 'swiper' | 'text'
@@ -13,23 +14,31 @@ type ModalProps = {
 export function ModalGuide({ type, contents, content }: ModalProps) {
   if (type === 'swiper' && contents) {
     return (
-      <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
-        {contents.map((item, index) => (
-          <SwiperSlide key={index}>
-            <Slide>
-              <Image src={item.image} alt={`guide-step-${index + 1}`} />
-              <Text>{item.text}</Text>
-            </Slide>
-          </SwiperSlide>
-        ))}
-      </StyledSwiper>
+      <ModalReference>
+        <ModalReference.Header onClickClose={() => {}} />
+        <ModalReference.Body>
+          <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
+            {contents.map((item, index) => (
+              <SwiperSlide key={index}>
+                <Slide>
+                  <Image src={item.image} alt={`guide-step-${index + 1}`} />
+                  <Text>{item.text}</Text>
+                </Slide>
+              </SwiperSlide>
+            ))}
+          </StyledSwiper>
+        </ModalReference.Body>
+      </ModalReference>
     )
   }
 
   return (
-    <TextWrapper>
-      <Text>{content}</Text>
-    </TextWrapper>
+    <ModalReference>
+      <ModalReference.Header onClickClose={() => {}} />
+      <ModalReference.Body>
+        <Text>{content}</Text>
+      </ModalReference.Body>
+    </ModalReference>
   )
 }
 

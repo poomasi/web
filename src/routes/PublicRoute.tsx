@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { LandingPage, LoginPage } from '@pages/index'
 import Layout from '@components/Layout/Layout'
 import { Routers } from '@routes/Routerss'
+import { DetailPage } from '@pages/private/DetailPage.tsx'
 // import { isMobile } from 'react-device-detect'
 
 export function PublicRoute() {
@@ -9,7 +10,7 @@ export function PublicRoute() {
     <Routes>
       <Route element={<Layout />}>
         <Route path={Routers.LOGIN} element={<LoginPage />} />
-        {/* <Route path={ROUTES.DETAIL} element={<DetailPage />} /> */}
+        <Route path={Routers.DETAIL} element={<DetailPage />} />
         <Route path={Routers.ALL} element={<LandingPage />} />
       </Route>
     </Routes>

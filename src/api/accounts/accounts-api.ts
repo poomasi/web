@@ -20,7 +20,4 @@ export const AccountsApi = {
   getAccount: async (id?: string) => {
     return await customAxios.get<AccountResponse>(PATH + `/${id}`)
   },
-  // getAccount: async (id?: string) => {
-  //   return await requestHandler<Array<AccountListResponse>>({ url: PATH + `/${id}` })
-  // },
 }

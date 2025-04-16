@@ -1,4 +1,4 @@
-export const Routers = {
+export const ROUTES = {
   LOGIN: '/kakao-login-callback',
   LANDING: '/',
   DETAIL: '/:id',

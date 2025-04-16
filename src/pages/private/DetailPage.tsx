@@ -1,4 +1,4 @@
-import { useToastClear } from '@hooks/use-toast-clear'
+import { useToastClear } from '@hooks/use-toast-clear.ts'
 import {
   isErrorToastOpenState,
   errorToastMessageState,
@@ -6,13 +6,13 @@ import {
   successToastMessageState,
   accountTokenState,
   publicIdState,
-} from '@store/index'
+} from '@store/index.ts'
 import { useRecoilValue, useSetRecoilState, SetterOrUpdater } from 'recoil'
 
 import styled from '@emotion/styled'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useParams } from 'react-router-dom'
-import { AccountResponse, CareerYearType, GetQnaListResponse, QnaAskerType, RequestApi } from '@api/index'
+import { AccountResponse, CareerYearType, GetQnaListResponse, QnaAskerType, RequestApi } from '@api/index.ts'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -122,7 +122,6 @@ export function DetailPage() {
   // function 재랜더링 되지 않도록 함.
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
   const handleQuestionButtonClick = useCallback(async () => {
-    console.log('질문햇나요 ?')
     if (!accountToken) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
@@ -165,17 +164,8 @@ export function DetailPage() {
     }
   }
 
-  useEffect(() => {}, [])
-
   useEffect(() => {
     window.scrollTo(0, 0)
-    /*
-    에러: 'AccountListResponse[]' 형식의 인수는 'SetStateAction<AccountResponse[] | undefined>' 형식의 매개 변수에 할당될 수 없습니다.
-    'AccountListResponse[]' 형식은 'AccountResponse[]' 형식에 할당할 수 없습니다.
-    'AccountListResponse' 형식에 'AccountResponse' 형식의 id, description 속성이 없습니다.ts(2345)
-
-    원인: RequestApi.accounts.getAccount(id)은 배열[]을 반환하는데 setAccount는 AccountResponse타입을 기다리고 있기때문이다.
-    */
     setIsLoading(true)
     getTeacherData()
     // 질문 !
