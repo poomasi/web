@@ -18,7 +18,7 @@ export enum CareerYearType {
   _3년차_이상 = 'S',
 }
 
-export enum QnaListType {
+export enum QnaAskerType {
   ALL = 'ALL',
   ME = 'ME',
 }

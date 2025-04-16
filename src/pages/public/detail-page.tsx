@@ -1,4 +1,4 @@
-import { useToastClear } from '@hooks/toast'
+import { useToastClear } from '@hooks/use-toast-clear'
 import {
   isErrorToastOpenState,
   errorToastMessageState,
@@ -12,7 +12,7 @@ import { useRecoilValue, useSetRecoilState, SetterOrUpdater } from 'recoil'
 import styled from '@emotion/styled'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useParams } from 'react-router-dom'
-import { AccountResponse, CareerYearType, GetQnaListResponse, QnaListType, RequestApi } from '@api/index'
+import { AccountResponse, CareerYearType, GetQnaListResponse, QnaAskerType, RequestApi } from '@api/index'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -56,66 +56,23 @@ export function DetailPage() {
 
   const navigate = useNavigate()
   const { id } = useParams()
-  // const [isLoading, setIsLoading]: [boolean, Function] = useState(false)     ESLint 규칙에서 에러남,Function 타입은 너무 포괄적이기때문, ESLint 규칙..??
-  /*
-  TypeScript가 자동으로 타입 추론이 가능하지만, useState<T>()를 꼭 사용해야 하는 경우가 있다.
-  1. 초기값이 null 또는 undefined인 경우
-  2. 배열 또는 객체 상태를 다룰 때
-  */
   const [isLoading, setIsLoading] = useState<boolean>(false)
   // const [account, setAccount] = useState<Array<AccountResponse> | undefined>(undefined)
-  const [account, setAccount] = useState<AccountResponse | undefined>(undefined)
+  const [account, setAccount] = useState<AccountResponse | undefined>(undefined) //단일정보 업데이트
 
-  const [qnas, setQnas] = useState<GetQnaListResponse[]>([])
-  const [qnaListType, setQnaListType] = useState<QnaListType>(QnaListType.ALL) //타입을 업데이트..? why??
-
-  //Question info
+  const [qnas, setQnas] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
+  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
   const [questionText, setQuestionText] = useState<string>('')
-  const [isSecret, setIsSecret] = useState<boolean>(false)
 
-  // U(대학생), R(취준생), N(신입~3년차), S(3년차 이상)
+  const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.대학생)
   const [isMajor, setIsMajor] = useState<boolean>(true)
 
-  /* ***벨로그에 정리하기***
-  에러: 'string' 형식의 인수는 'SetStateAction<QnaListType>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
-
-  원인: setQnaListType은 QnaListType타입만 받도록 되어있는데, string으로 받으라고 해서.
-
-  해결방법01: word의 값이 ALL이거나 ME이면 string을 QnaListType으로 변환
-
-  🔍 설명
-  >word는 string을, setQnaListType은 QnaListType 타입을 기대하고 있다.
-  >"ALL"과 "ME"가 string이지만, TypeScript는 QnaListType과 string을 다르게 취급함.
-  >따라서, string을 QnaListType으로 변환해야 오류가 안 난다.
-
-  의문점: 그럼 변환하는게 아니라 애초에 word를 QnaListType로 정의하면 되는거 아닌가?
-  >word의 값이 항상 QnaListType에서 올 경우 이렇게 해도 된다.
-  */
-  const handleClickBadge = (word: QnaListType) => {
-    setQnaListType(word)
+  const handleClickBadge = (word: QnaAskerType) => {
+    setQnaAskerType(word)
   }
 
-  /*
-  에러: Unexpected any. Specify a different type. eslint(@typescript-eslint/no-explicit-any)
-
-  원인: event의 타입이 any로 설정되어 있어서 TypeScript ESLint에서 경고 발생함
-
-  해결방법: event의 타입을 명확하게 지정하기!
-  > input 요소에서 발생하는 이벤트이므로, React.ChangeEvent<HTMLInputElement>로 타입을 지정
-  */
-  const handleQuestionTextChange = (
-    /*
-    ChangeEvent<HTMLInputElement>) => {
-    에러: (event: React.ChangeEvent<HTMLInputElement>) => void' 형식은
-    'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
-
-    원인: const QuestionArea = styled.textarea` 즉 textarea로 만들어놓고 이벤트를 input으로 해둬서! input은 한줄만 입력가능하고, textarea는 여러줄 입력이 가능해서 textarea를 써야함
-
-    해결: HTMLTextAreaElement로 변경
-    */
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
+  const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= QUESTION_MAX_LENGTH) {
       setQuestionText(event.target.value)
     }
@@ -123,19 +80,6 @@ export function DetailPage() {
   const handleIsSecretChange = () => {
     setIsSecret((prev: boolean) => !prev)
   }
-  /* ***더 공부하기***
-  에러: 'string' 형식의 인수는 'SetStateAction<CareerYearType>' 형식의 매개 변수에 할당될 수 없습니다.ts(2345)
-
-  원인: event.target.value는 string 타입인데 setCareerYear은 CareerYearType로 이미 설정해둬서 이걸 기다리고 있기 때문이다.
-
-  🤔의문점: "왜 event.target.value는 string 타입일까? HTMLSelectElement인데?"
-  👉 HTMLSelectElement 자체는 여러 속성을 가질 수 있지만, value 속성은 항상 string 타입으로 정의됨.
-  👉 HTMLSelectElement의 여러 속성: options, selectedIndex 등..
-
-
-  의문점: 그럼 처음부터 그냥 React.ChangeEvent<HTMLOptionsCollection> 쓰면 안되나?
-  >안됌, HTMLOptionsCollection은 <select> 요소 내부의 <option>들을 관리하는 컬렉션 객체, onChange 이벤트의 타입으로 사용할 수 없다....??? 무슨 소리일까..
-  */
   const handleCareerYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCareerYear(event.target.value as CareerYearType)
   }
@@ -161,24 +105,9 @@ export function DetailPage() {
   즉, 사용자가 버튼을 클릭했을 때 "전공"이면 true, "비전공"이면 false를 저장하면 됩니다.
   */
 
-  // 팁 !
-  // useEffect 내부에 function 이 존재한다면, useEffect 에서 어떠한 동작을 실행하는지 보기 어렵습니다.
-  // function 의 경우에는 이렇게 분리하는 것이 보기 좋습니다.
-  // 이렇게 로직 분리하는게 좋습니다.
-
-  // 다음 주 내로, useMutation 활용하여 해당사항은 개선 진행하도록 하겠습니다.
   // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
   const postingQuestion = async () => {
     try {
-      // await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
-      /*
-      에러: string | undefined' 형식은 'string' 형식에 할당할 수 없습니다.
-
-      원인: id는 const { id } = useParams() 즉, 현재 URL에 있는 파라미터 값을 가져오고 있다.
-      주의: useParams()는 항상 URL에서 값을 가져오는 거라, URL에 id가 없으면 undefined가 됨
-
-      해결방법: PostQnaParams 타입정의한 거에 undefined 추가
-      */
       await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
 
       setQuestionText('')
@@ -191,23 +120,10 @@ export function DetailPage() {
         setSuccessToastMessage('질문이 등록되었습니다.')
       }, 1300)
 
-      const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+      const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
 
       setQnas(qnas.data)
     } catch (error: unknown) {
-      /* ***더 공부하기***
-      catch (error: any)
-
-      에러:
-      1. 'error' is defined but never used.eslint@typescript-eslint/no-unused-vars,
-      2. any: Unexpected any. Specify a different type.
-
-      원인: catch 블록에서 error 변수를 선언했지만, 그 값을 어디에서도 사용하지 않아서
-
-      해결방법: console로 확인해주는 코드 추가, throw "에러 발생!" 같은 문자열이 들어오면 error.message에서 런타임 오류가 발생할 수 있으므로 안전장치 추가하기
-      */
-
-      //의문점 throw "에러 발생!"이 생기는 조건은 뭐지? > 내가 throw을 설정안해줘도, 코드로 안 적어줘도 특정 상황에서 자동으로 실행되거나 출력될수 있어? >일부 코드 실행 중에 자동으로 예외가 발생하면 JavaScript 엔진 자체가 내부적으로 throw를 사용한다.
       if (error instanceof Error) {
         console.error('질문 등록에 실패했습니다!', error)
       }
@@ -255,7 +171,7 @@ export function DetailPage() {
 
   const getTeacherQnaList = async () => {
     try {
-      const qnas = await RequestApi.posts.getQnaList(qnaListType, id)
+      const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
       setQnas(qnas.data)
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -279,12 +195,12 @@ export function DetailPage() {
     getTeacherData()
     // 질문 !
     // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
-    // 제가 이해한 내용에는 qnaListType 만 있어야 할 것 같은데요
-  }, [id, navigate, qnaListType])
+    // 제가 이해한 내용에는 qnaAskerType 만 있어야 할 것 같은데요
+  }, [id, navigate, qnaAskerType])
 
   useEffect(() => {
     getTeacherQnaList()
-  }, [id, qnaListType])
+  }, [id, qnaAskerType])
 
   return (
     <Container>
@@ -414,8 +330,8 @@ export function DetailPage() {
                 <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '20px' }}>질문 History</div>
 
                 <BadgeContainer>
-                  <ProfileBadge onClick={() => handleClickBadge(QnaListType.ALL)} word={'전체'} />
-                  <ProfileBadge onClick={() => handleClickBadge(QnaListType.ME)} word={'내질문'} />
+                  <ProfileBadge onClick={() => handleClickBadge(QnaAskerType.ALL)} word={'전체'} />
+                  <ProfileBadge onClick={() => handleClickBadge(QnaAskerType.ME)} word={'내질문'} />
                 </BadgeContainer>
 
                 <SolidSeperator />
