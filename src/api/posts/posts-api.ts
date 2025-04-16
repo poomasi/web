@@ -1,5 +1,5 @@
-import { HttpMethod, QnaListType } from '@api/enums'
-import requestHandler from '@api/request-handler'
+import { QnaAskerType } from '@api/enums'
+// import requestHandler from '@api/request-handler'
 import { GetQnaListResponse, GetQnaStatusResponse } from '@api/types'
 import { CareerYearType } from '@api/enums'
 import customAxios from '@api/customAxios.ts'
@@ -29,7 +29,7 @@ export const PostsApi = {
   },
 
   //질문 목록을 가져오는 GET 요청
-  getQnaList: async (type: string = QnaListType.ALL, id?: string) => {
+  getQnaList: async (type: string = QnaAskerType.ALL, id?: string) => {
     return await customAxios.get<GetQnaListResponse[]>(PATH + `/qna?type=${type}&nickname=${id}`) // API 엔드포인트
   },
 
