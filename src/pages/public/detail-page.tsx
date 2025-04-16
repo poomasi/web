@@ -68,42 +68,25 @@ export function DetailPage() {
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.대학생)
   const [isMajor, setIsMajor] = useState<boolean>(true)
 
-  const handleClickBadge = (word: QnaAskerType) => {
+  //전체 or 내질문만 보는 필터
+  const handleFilterByAsker = (word: QnaAskerType) => {
     setQnaAskerType(word)
   }
 
+  //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= QUESTION_MAX_LENGTH) {
       setQuestionText(event.target.value)
     }
   }
+  //비밀 질문 여부 체크: 이게 문제인듯?
   const handleIsSecretChange = () => {
     setIsSecret((prev: boolean) => !prev)
   }
-  const handleCareerYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //개발 경력 필터
+  const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCareerYear(event.target.value as CareerYearType)
   }
-  /*
-  const handleIsMajorChange = (e: any, value: boolean) => {
-    setIsMajor(value)
-  }
-  에러: 'e'이(가) 선언은 되었지만 해당 값이 읽히지는 않았습니다.ts(6133)
-
-  원인: e 매개변수를 선언했지만, handleIsMajorChange 함수에서 e를 사용하지 않아서 발생
-
-  의문점01: 왜 사용을 안하지? onChange에서 e받아서 상태 업데이트 해줘야 하는거 아닌가?
-  >지금 코드에서는 e.target.value를 읽을 필요가 없기 때문에 e를 생략해도 괜찮습니다.
-  >e가 필요한 경우: <input> 같은 요소에서 사용자가 입력한 값을 상태로 저장해야 할 때
-  >필요하지 않은 경우: RadioButton, Checkbox처럼 미리 정해진 값으로 상태를 변경할 때
-
-  의문점02: 그래도 이해가 안가는데 handleIsMajorChange 함수에서 왜 e를 사용하지 않은 거지??
-  1. e(이벤트 객체)는 언제 필요한가?
-  일반적으로 e는 사용자가 입력한 값을 읽어야 할 때 필요하다.
-  예를 들어, input 필드에서 입력된 텍스트 값을 가져와서 상태를 업데이트하려면 e.target.value가 필요함.
-  2. Radio 버튼은 e가 필요 없는 이유
-  지금 코드에서 사용하는 <Radio> 버튼은 값이 미리 정해져 있다.
-  즉, 사용자가 버튼을 클릭했을 때 "전공"이면 true, "비전공"이면 false를 저장하면 됩니다.
-  */
 
   // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
   const postingQuestion = async () => {
@@ -283,7 +266,7 @@ export function DetailPage() {
                       <InputLabel variant="standard" htmlFor="uncontrolled-native">
                         개발 경력
                       </InputLabel>
-                      <NativeSelect value={careerYear} onChange={handleCareerYearChange}>
+                      <NativeSelect value={careerYear} onChange={handleExperienceChange}>
                         <option value={CareerYearType.대학생}>대학생</option>
                         <option value={CareerYearType.취준생}>취준생</option>
                         <option value={CareerYearType.신입_3년차}>신입~3년차</option>
@@ -330,8 +313,8 @@ export function DetailPage() {
                 <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '20px' }}>질문 History</div>
 
                 <BadgeContainer>
-                  <ProfileBadge onClick={() => handleClickBadge(QnaAskerType.ALL)} word={'전체'} />
-                  <ProfileBadge onClick={() => handleClickBadge(QnaAskerType.ME)} word={'내질문'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ALL)} word={'전체'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ME)} word={'내질문'} />
                 </BadgeContainer>
 
                 <SolidSeperator />
