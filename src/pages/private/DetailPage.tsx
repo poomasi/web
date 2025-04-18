@@ -20,7 +20,7 @@ const getCareerYearString = (career_year: string) => {
       return '대학생'
     case CareerYearType.취준생:
       return '취준생'
-    case CareerYearType.신입_3년차:
+    case CareerYearType.JUNIOR:
       return '신입~3년차'
     case CareerYearType._3년차_이상:
       return '3년차 이상'
@@ -63,7 +63,7 @@ export function DetailPage() {
     // 질문 !
     // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
     // 제가 이해한 내용에는 qnaAskerType 만 있어야 할 것 같은데요
-  }, [id, navigate, qnaAskerType])
+  }, [])
 
   useEffect(() => {
     getTeacherQnaList()
@@ -83,13 +83,16 @@ export function DetailPage() {
               <QuestionField />
 
               <QuestionListBody>
-                <div style={{
-                  marginBottom: '10px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  fontWeight: 'bold',
-                  fontSize: '20px'
-                }}>질문 History
+                <div
+                  style={{
+                    marginBottom: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontWeight: 'bold',
+                    fontSize: '20px',
+                  }}
+                >
+                  질문 History
                 </div>
 
                 <BadgeContainer>
@@ -108,7 +111,7 @@ export function DetailPage() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontWeight: 'bold',
-                      fontSize: '24px'
+                      fontSize: '24px',
                     }}
                   >
                     아직 질문이 없네요 :D
@@ -130,13 +133,13 @@ export function DetailPage() {
                               <QnaContentArea readOnly value={qna.question_text} />
                             </div>
                             <br />
-                            <QnaContent style={{
-                              color: 'var(--gray-color)',
-                              display: 'flex',
-                              justifyContent: 'flex-end'
-                            }}>{`${getCareerYearString(
-                              qna.career_year
-                            )} / ${qna.is_major ? '전공' : '비전공'} / ${qna.created_at}`}</QnaContent>
+                            <QnaContent
+                              style={{
+                                color: 'var(--gray-color)',
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                              }}
+                            >{`${getCareerYearString(qna.career_year)} / ${qna.is_major ? '전공' : '비전공'} / ${qna.created_at}`}</QnaContent>
                           </BlurOverlay>
                           <TextBlurOverlay>비밀 질문이에요.</TextBlurOverlay>
                         </QnaCard>
@@ -150,13 +153,13 @@ export function DetailPage() {
 
                             <br />
 
-                            <QnaContent style={{
-                              color: 'var(--gray-color)',
-                              display: 'flex',
-                              justifyContent: 'flex-end'
-                            }}>{`${getCareerYearString(
-                              qna.career_year
-                            )} / ${qna.is_major ? '전공' : '비전공'} / ${qna.created_at}`}</QnaContent>
+                            <QnaContent
+                              style={{
+                                color: 'var(--gray-color)',
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                              }}
+                            >{`${getCareerYearString(qna.career_year)} / ${qna.is_major ? '전공' : '비전공'} / ${qna.created_at}`}</QnaContent>
                           </QnaCard>
                         </div>
                       )}
@@ -212,122 +215,122 @@ export function DetailPage() {
 }
 
 const Container = styled.div`
-    width: 100%;
+  width: 100%;
 
-    padding-top: 80px;
+  padding-top: 80px;
 `
 const PageContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0 5% 0 5%;
-    /* background-color: pink; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 5% 0 5%;
+  /* background-color: pink; */
 `
 const PageContent = styled.div`
-    width: 1200px;
-    margin-bottom: 50px;
+  width: 1200px;
+  margin-bottom: 50px;
 `
 const Seperator = styled.div`
-    height: 4px;
-    width: 100%;
-    border-top: 3px var(--light-gray-color) dashed;
-    margin-top: 30px;
+  height: 4px;
+  width: 100%;
+  border-top: 3px var(--light-gray-color) dashed;
+  margin-top: 30px;
 `
 
 const QuestionListBody = styled.div`
-    margin-top: 70px;
-    width: 100%;
+  margin-top: 70px;
+  width: 100%;
 
-    @media (max-width: 520px) {
-        margin-top: 0;
-    }
+  @media (max-width: 520px) {
+    margin-top: 0;
+  }
 
-    /* background-color: greenyellow; */
+  /* background-color: greenyellow; */
 `
 
 const BadgeContainer = styled(Grid)`
-    width: 100%;
+  width: 100%;
 `
 
 const SolidSeperator = styled.div`
-    height: 4px;
-    width: 100%;
-    border-top: 2px var(--light-gray-color) solid;
-    margin-top: 10px;
+  height: 4px;
+  width: 100%;
+  border-top: 2px var(--light-gray-color) solid;
+  margin-top: 10px;
 `
 
 const QnaSection = styled.div`
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 
-    @media (max-width: 520px) {
-        margin-bottom: 30px;
-    }
+  @media (max-width: 520px) {
+    margin-bottom: 30px;
+  }
 `
 
 const QnaContentArea = styled(TextareaAutosize)`
-    outline: none;
-    font-size: 16px;
-    background-color: #f5f5f5;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    border: none;
-    resize: none;
+  outline: none;
+  font-size: 16px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
 
-    @media (max-width: 520px) {
-        font-size: 14px;
-    }
+  @media (max-width: 520px) {
+    font-size: 14px;
+  }
 `
 
 const QnaContent = styled.div`
-    @media (max-width: 520px) {
-        font-size: 14px;
-    }
+  @media (max-width: 520px) {
+    font-size: 14px;
+  }
 `
 
 const QnaHead = styled.span`
-    margin-top: -6px;
-    font-weight: bold;
-    font-size: 25px;
-    margin-right: 10px;
+  margin-top: -6px;
+  font-weight: bold;
+  font-size: 25px;
+  margin-right: 10px;
 
-    @media (max-width: 520px) {
-        margin-top: -4px;
-        font-size: 20px;
-        margin-right: 5px;
-    }
+  @media (max-width: 520px) {
+    margin-top: -4px;
+    font-size: 20px;
+    margin-right: 5px;
+  }
 `
 
 const QnaCard = styled(Card)`
-    background-color: #f5f5f5;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    padding: 20px;
-    width: 60%;
-    position: relative;
+  background-color: #f5f5f5;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  padding: 20px;
+  width: 60%;
+  position: relative;
 
-    @media (max-width: 520px) {
-        width: 80%;
-    }
+  @media (max-width: 520px) {
+    width: 80%;
+  }
 `
 
 const BlurOverlay = styled.div`
-    width: 100%;
-    height: 100%;
-    filter: blur(7px);
-    -webkit-filter: blur(7px);
+  width: 100%;
+  height: 100%;
+  filter: blur(7px);
+  -webkit-filter: blur(7px);
 `
 const TextBlurOverlay = styled.div`
-    font-size: 24px;
-    word-break: keep-all;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    font-weight: bold;
+  font-size: 24px;
+  word-break: keep-all;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  font-weight: bold;
 `

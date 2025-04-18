@@ -1,20 +1,10 @@
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import NativeSelect from '@mui/material/NativeSelect'
-import { CareerYearType } from '@api/enums.ts'
-import RadioGroup from '@mui/material/RadioGroup'
-import Radio from '@mui/material/Radio'
+import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
 import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
 import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from 'recoil'
-import {
-  errorToastMessageState,
-  isErrorToastOpenState,
-  isSuccessToastOpenState,
-  successToastMessageState
-} from '@store/toast'
+import { errorToastMessageState, isErrorToastOpenState, isSuccessToastOpenState, successToastMessageState } from '@store/toast'
 import { accountTokenState } from '@store/account'
 import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
@@ -45,9 +35,15 @@ export function QuestionField() {
   const handleIsSecretChange = () => {
     setIsSecret((prev: boolean) => !prev)
   }
+
   //개발 경력 필터
   const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCareerYear(event.target.value as CareerYearType)
+  }
+
+  //전공 여부 체크
+  const handleMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setIsMajor(event.target.value === AskerSpecificType.SPECIALTY)
   }
 
   // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
@@ -59,7 +55,7 @@ export function QuestionField() {
       //질문 등록 후, 리셋
       setQuestionText('')
       setIsSecret(false)
-      setCareerYear(CareerYearType.대학생)
+      setCareerYear(CareerYearType.ACADEMIC)
       setIsMajor(true)
 
       setTimeout(() => {
@@ -69,7 +65,7 @@ export function QuestionField() {
 
       //질문 목록 불러오기
       /*const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-      setQnas(qnas.data) // UI에 반영*/
+			setQnas(qnas.data) // UI에 반영*/
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('질문 등록에 실패했습니다!', error)
@@ -100,12 +96,35 @@ export function QuestionField() {
     await postingQuestion()
   }, [])
 
-
   return (
-    <QuestionBody>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <QuestionSection>
+      <QuestionFieldTitle>질문하기</QuestionFieldTitle>
+      <AskerInfo>
+        <SelectContainer>
+          <SelectTitle htmlFor="career-select">개발 경력</SelectTitle>
+          <StyledSelect id="career-select" value={careerYear} onChange={handleExperienceChange}>
+            <option value={CareerYearType.ACADEMIC}>대학생</option>
+            <option value={CareerYearType.JOB_SEEKER}>취준생</option>
+            <option value={CareerYearType.JUNIOR}>신입~3년차</option>
+            <option value={CareerYearType.MIDDLE}>3년차 이상</option>
+          </StyledSelect>
+        </SelectContainer>
+
+        <SelectContainer>
+          <SelectTitle>전공 사항</SelectTitle>
+          <StyledSelect
+            id="specific-type"
+            value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
+            onChange={(e) => setIsMajor(e.target.value === AskerSpecificType.SPECIALTY)}
+          >
+            <option value={AskerSpecificType.SPECIALTY}>전공자</option>
+            <option value={AskerSpecificType.NONE_SPECIALTY}>비전공자</option>
+          </StyledSelect>
+        </SelectContainer>
+      </AskerInfo>
+
+      <QuestionSectionHeader>
         <div style={{ display: 'flex' }}>
-          <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '20px' }}>질문하기</div>
           {questionText.length === 500 ? (
             <div
               style={{
@@ -114,7 +133,7 @@ export function QuestionField() {
                 marginTop: '2px',
                 display: 'flex',
                 alignItems: 'center',
-                color: 'red'
+                color: 'red',
               }}
             >
               {`(${questionText.length} / 500)`}
@@ -127,57 +146,23 @@ export function QuestionField() {
                 marginTop: '2px',
                 display: 'flex',
                 alignItems: 'center',
-                color: 'var(--gray-color)'
+                color: 'var(--gray-color)',
               }}
             >
               {`(${questionText.length} / 500)`}
             </div>
           )}
         </div>
-        <FormControlLabel
-          style={{ margin: '0' }}
-          control={<Switch checked={isSecret} onChange={handleIsSecretChange} />}
-          label="비밀 질문"
-        />
-      </div>
+        <FormControlLabel style={{ margin: '0' }} control={<Switch checked={isSecret} onChange={handleIsSecretChange} />} label="비밀 질문" />
+      </QuestionSectionHeader>
 
       <QuestionArea
         value={questionText}
-        /*
-        에러:'(event: React.ChangeEvent<HTMLInputElement>) => void' 형식은 'ChangeEventHandler<HTMLTextAreaElement>' 형식에 할당할 수 없습니다.
-        */
         onChange={handleQuestionTextChange}
         placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
       />
 
       <div style={{ marginTop: '7px', display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex' }}>
-          <FormControl>
-            <InputLabel variant="standard" htmlFor="uncontrolled-native">
-              개발 경력
-            </InputLabel>
-            <NativeSelect value={careerYear} onChange={handleExperienceChange}>
-              <option value={CareerYearType.대학생}>대학생</option>
-              <option value={CareerYearType.취준생}>취준생</option>
-              <option value={CareerYearType.신입_3년차}>신입~3년차</option>
-              <option value={CareerYearType._3년차_이상}>3년차 이상</option>
-            </NativeSelect>
-          </FormControl>
-
-          <RadioGroup row style={{ marginLeft: '7px' }}>
-            <FormControlLabel
-              value="전공"
-              control={<Radio size="small" checked={isMajor} onChange={() => setIsMajor(true)} />}
-              label="전공"
-            />
-            <FormControlLabel
-              value="비전공"
-              control={<Radio size="small" checked={!isMajor} onChange={() => setIsMajor(false)} />}
-              label="비전공"
-            />
-          </RadioGroup>
-        </div>
-
         <DebouncedButton
           text={'등록'}
           onClick={() => handleQuestionButtonClick()}
@@ -188,36 +173,101 @@ export function QuestionField() {
             fontSize: '16px',
             fontWeight: 'bold',
             borderRadius: '10px',
-            color: 'white'
+            color: 'white',
           }}
         />
       </div>
-    </QuestionBody>
+    </QuestionSection>
   )
 }
 
+const QuestionSection = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  height: 300px;
+  /* background-color: greenyellow; */
+`
 
-const QuestionBody = styled.div`
-    margin-top: 20px;
-    width: 100%;
-    height: 300px;
-    /* background-color: greenyellow; */
+const QuestionSectionHeader = styled.div`
+  display: flex;
+  justify-content: 'space-between';
+`
+
+const QuestionFieldTitle = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+`
+
+const AskerInfo = styled.div`
+  display: flex;
 `
 
 const QuestionArea = styled.textarea`
-    outline-color: #1976d2;
-    font-size: 16px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 60%;
-    border-radius: 10px;
-    resize: none;
-    padding: 20px;
+  outline-color: #1976d2;
+  font-size: 16px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+  resize: none;
+  padding: 20px;
 
-    @media (max-width: 520px) {
-        font-size: 15px;
-        height: 40%;
-    }
-    /* background-color: green; */
+  @media (max-width: 520px) {
+    font-size: 15px;
+    height: 40%;
+  }
+  /* background-color: green; */
+`
+
+const SelectContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 15px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 100px;
+  border: 1px solid #c5c8cd;
+  background: #fff;
+`
+
+const SelectTitle = styled.label`
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+  white-space: nowrap;
+  cursor: pointer; // 커서 포인터 추가
+`
+
+// 스타일링 수정:
+const StyledSelect = styled.select`
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+
+  /* flex 대신 inline-block 사용 */
+  display: inline-block;
+  padding-right: 10px;
+
+  /* 다른 속성들은 유지 */
+  color: #3ecdba;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  height: 24px;
+  padding-top: 3px;
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    color: black;
+  }
 `
