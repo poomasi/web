@@ -51,6 +51,7 @@ const KakaoLoginBtn = styled.button`
   padding: 3px 1.25rem;
   color: white;
   background-color: black;
+  border-radius: 12px;
 
   &:hover {
     background-color: var(--gray-color);
