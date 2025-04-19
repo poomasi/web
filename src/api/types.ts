@@ -38,6 +38,7 @@ export interface GetQnaListResponse {
   question_text: string
   answer_text: string
   questioner_public_id: string
+  answerer_public_id: string;
   created_at: string
 }
 

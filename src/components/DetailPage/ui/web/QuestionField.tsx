@@ -1,5 +1,3 @@
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Switch from '@mui/material/Switch'
 import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
 import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
@@ -88,6 +86,8 @@ export function QuestionField() {
       return
     }
 
+    console.log(questionText);
+
     if (questionText.length < 10) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문은 10자 이상이어야 합니다!')
@@ -96,7 +96,7 @@ export function QuestionField() {
 
     // 질문 등록
     await postingQuestion()
-  }, [accountToken])
+  }, [accountToken, questionText])
 
   return (
     <QuestionSection>
@@ -117,7 +117,7 @@ export function QuestionField() {
           <StyledSelect
             id="specific-type"
             value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
-            onChange={(e) => setIsMajor(e.target.value === AskerSpecificType.SPECIALTY)}
+            onChange={handleMajorChange}
           >
             <option value={AskerSpecificType.SPECIALTY}>전공자</option>
             <option value={AskerSpecificType.NONE_SPECIALTY}>비전공자</option>

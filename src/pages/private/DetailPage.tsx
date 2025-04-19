@@ -16,13 +16,13 @@ import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
 
 const getCareerYearString = (career_year: string) => {
   switch (career_year) {
-    case CareerYearType.대학생:
+    case CareerYearType.ACADEMIC:
       return '대학생'
-    case CareerYearType.취준생:
+    case CareerYearType.JOB_SEEKER:
       return '취준생'
     case CareerYearType.JUNIOR:
       return '신입~3년차'
-    case CareerYearType._3년차_이상:
+    case CareerYearType.MIDDLE:
       return '3년차 이상'
     default:
       return '대학생'
@@ -59,10 +59,9 @@ export function DetailPage() {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-    // 질문 !
-    // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
-    // 제가 이해한 내용에는 qnaAskerType 만 있어야 할 것 같은데요
+    if(publicId === null) {
+      navigate("/");
+    }
   }, [])
 
   useEffect(() => {
@@ -96,8 +95,8 @@ export function DetailPage() {
                 </div>
 
                 <BadgeContainer>
-                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ALL)} word={'전체'} />
-                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ME)} word={'내질문'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ALL)} badgeString={'전체'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ME)} badgeString={'내 질문'} />
                 </BadgeContainer>
 
                 <SolidSeperator />
