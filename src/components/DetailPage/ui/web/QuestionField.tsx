@@ -8,7 +8,7 @@ import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { getPcVw } from '@utils/responsive'
-import optionCheck from "@assets/images/option-check.svg";
+import optionCheck from '@assets/images/option-check.svg'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -20,7 +20,6 @@ export function QuestionField() {
   const setSuccessToastMessage: SetterOrUpdater<string> = useSetRecoilState(successToastMessageState)
   const accountToken: string | null = useRecoilValue(accountTokenState)
   const [questionText, setQuestionText] = useState<string>('')
-
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
@@ -86,8 +85,6 @@ export function QuestionField() {
       return
     }
 
-    console.log(questionText);
-
     if (questionText.length < 10) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문은 10자 이상이어야 합니다!')
@@ -132,19 +129,17 @@ export function QuestionField() {
           placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
         />
         <QuestionOption>
-          <QuestionFieldLength>글자수: (<span>{questionText.length}</span> / 500)</QuestionFieldLength>
+          <QuestionFieldLength>
+            글자수: (<span>{questionText.length}</span> / 500)
+          </QuestionFieldLength>
           <QuestionSecretOption onClick={handleIsSecretChange}>
-            <QuestionCheckbox>
-              {
-                isSecret && <img src={optionCheck}/>
-              }
-            </QuestionCheckbox>
+            <QuestionCheckbox>{isSecret && <img src={optionCheck} />}</QuestionCheckbox>
             <span>비밀질문</span>
           </QuestionSecretOption>
         </QuestionOption>
       </QuestionArea>
 
-      <div style={{marginLeft: 'auto'}}>
+      <div style={{ marginLeft: 'auto' }}>
         <DebouncedButton
           text={'등록'}
           onClick={() => handleQuestionButtonClick()}
@@ -187,10 +182,10 @@ const QuestionArea = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  border: 1px solid var(--Gray-200, #EAEBED);
-  background: #F7F7F7;
+  border: 1px solid var(--Gray-200, #eaebed);
+  background: #f7f7f7;
 
-  padding: 24px ${getPcVw(32)}
+  padding: 24px ${getPcVw(32)};
 `
 
 const QuestionTextField = styled.textarea`
@@ -206,7 +201,7 @@ const QuestionTextField = styled.textarea`
   box-shadow: none !important;
 
   // element 폰트 요소
-  color: #9B9EA2;
+  color: #9b9ea2;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -221,16 +216,15 @@ const QuestionOption = styled.div`
 `
 
 const QuestionFieldLength = styled.div`
-  color: #9B9EA2;
+  color: #9b9ea2;
 
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
 
-
   span {
-    color: #3ECDBA;
+    color: #3ecdba;
   }
 `
 
@@ -244,8 +238,8 @@ const QuestionCheckbox = styled.div`
   height: 24px;
 
   border-radius: 5px;
-  border: 1px solid #C5C8CD;
-  background: #FFFFFF;
+  border: 1px solid #c5c8cd;
+  background: #ffffff;
 `
 
 const SelectContainer = styled.div`
