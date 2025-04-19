@@ -5,25 +5,24 @@ export function useSwiper(totalItems: number) {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
+  const updateTotalPageNumber = () => {
+    const swiperElementWidth = swiperElement.offsetWidth //화면너비
+    const swiperWidth = swiperElement.scrollWidth //전체 콘텐츠 의 총 너비 ex)품앗이꾼 리스트
+
+    const pages = Math.ceil(swiperWidth / swiperElementWidth) // 스와이프할 전체 페이지 수
+    setTotalPages(pages)
+  }
+
+  const updatePageNationNumber = () => {
+    const swiperLeft = swiperElement.scrollLeft
+    const swiperElementWidth = swiperElement.offsetWidth
+    const page = Math.round(swiperLeft / swiperElementWidth) + 1
+    setCurrentPage(page) //페이지네이션에 표기되는 페이지번호
+  }
+
   useEffect(() => {
     const swiperElement = swiperRef.current
     if (!swiperElement) return
-
-    const updateTotalPageNumber= () => {
-      const swiperElementWidth = swiperElement.offsetWidth //화면너비
-      const swiperWidth = swiperElement.scrollWidth //전체 콘텐츠 의 총 너비 ex)품앗이꾼 리스트 
-
-      
-      const pages = Math.ceil(swiperWidth / swiperElementWidth) // 스와이프할 전체 페이지 수
-      setTotalPages(pages)
-    }
-
-    const updatePageNationNumber = () => {
-      const swiperLeft = swiperElement.scrollLeft
-      const swiperElementWidth = swiperElement.offsetWidth
-      const page = Math.round(swiperLeft / swiperElementWidth) + 1
-      setCurrentPage(page) //페이지네이션에 표기되는 페이지번호
-    }
 
     swiperElement.addEventListener('scroll', updatePageNationNumber)
     window.addEventListener('resize', updateTotalPageNumber)
@@ -34,8 +33,7 @@ export function useSwiper(totalItems: number) {
       swiperElement.removeEventListener('scroll', updatePageNationNumber)
       window.removeEventListener('resize', updateTotalPageNumber)
     } //초기화
-  }, [totalItems]) 
+  }, [totalItems, swiperRef])
 
   return { swiperRef, currentPage, totalPages }
 }
-

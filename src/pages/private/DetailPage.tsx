@@ -20,7 +20,7 @@ const getCareerYearString = (career_year: string) => {
       return '대학생'
     case CareerYearType.취준생:
       return '취준생'
-    case CareerYearType.신입_3년차:
+    case CareerYearType.JUNIOR:
       return '신입~3년차'
     case CareerYearType._3년차_이상:
       return '3년차 이상'
@@ -63,7 +63,7 @@ export function DetailPage() {
     // 질문 !
     // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
     // 제가 이해한 내용에는 qnaAskerType 만 있어야 할 것 같은데요
-  }, [id, navigate, qnaAskerType])
+  }, [])
 
   useEffect(() => {
     getTeacherQnaList()
