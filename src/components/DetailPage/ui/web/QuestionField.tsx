@@ -88,6 +88,8 @@ export function QuestionField() {
       return
     }
 
+    console.log(questionText);
+
     if (questionText.length < 10) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('질문은 10자 이상이어야 합니다!')
@@ -96,7 +98,7 @@ export function QuestionField() {
 
     // 질문 등록
     await postingQuestion()
-  }, [accountToken])
+  }, [accountToken, questionText])
 
   return (
     <QuestionSection>

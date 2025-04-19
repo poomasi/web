@@ -59,10 +59,9 @@ export function DetailPage() {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-    // 질문 !
-    // 의존성 배열에 이런 데이터들이 왜 존재하는지 ?
-    // 제가 이해한 내용에는 qnaAskerType 만 있어야 할 것 같은데요
+    if(publicId === null) {
+      navigate("/");
+    }
   }, [])
 
   useEffect(() => {
@@ -96,8 +95,8 @@ export function DetailPage() {
                 </div>
 
                 <BadgeContainer>
-                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ALL)} word={'전체'} />
-                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ME)} word={'내질문'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ALL)} badgeString={'전체'} />
+                  <ProfileBadge onClick={() => handleFilterByAsker(QnaAskerType.ME)} badgeString={'내 질문'} />
                 </BadgeContainer>
 
                 <SolidSeperator />
