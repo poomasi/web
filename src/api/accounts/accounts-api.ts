@@ -7,7 +7,10 @@ const PATH = '/accounts'
 
 export const AccountsApi = {
   postKakaoLogin: async (idToken: string) => {
-    return await customAxios.post<{ account_token: string; public_id: string }>(`${PATH}/kakao-login`, { id_token: idToken })
+    return await customAxios.post<{
+      account_token: string
+      public_id: string
+    }>(`${PATH}/kakao-login`, { id_token: idToken })
   },
 
   getAccountList: async (type: string = AccountType.ADMIN) => {
@@ -17,7 +20,7 @@ export const AccountsApi = {
   // Teacher 이라는 API 로 분리해야 함. 그래야 의도가 명확해짐.
   // 추후 품앗이 관련 데이터를 가져오는 API 들은 TeacherApi 로 분리 예정
   // 품앗이 데이터 가져오는 API
-  getAccount: async (id?: string) => {
+  getAccount: async (id: string) => {
     return await customAxios.get<AccountResponse>(PATH + `/${id}`)
   },
 }
