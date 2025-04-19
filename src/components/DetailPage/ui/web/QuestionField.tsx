@@ -1,5 +1,3 @@
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Switch from '@mui/material/Switch'
 import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
 import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
@@ -119,7 +117,7 @@ export function QuestionField() {
           <StyledSelect
             id="specific-type"
             value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
-            onChange={(e) => setIsMajor(e.target.value === AskerSpecificType.SPECIALTY)}
+            onChange={handleMajorChange}
           >
             <option value={AskerSpecificType.SPECIALTY}>전공자</option>
             <option value={AskerSpecificType.NONE_SPECIALTY}>비전공자</option>

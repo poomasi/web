@@ -16,13 +16,13 @@ import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
 
 const getCareerYearString = (career_year: string) => {
   switch (career_year) {
-    case CareerYearType.대학생:
+    case CareerYearType.ACADEMIC:
       return '대학생'
-    case CareerYearType.취준생:
+    case CareerYearType.JOB_SEEKER:
       return '취준생'
     case CareerYearType.JUNIOR:
       return '신입~3년차'
-    case CareerYearType._3년차_이상:
+    case CareerYearType.MIDDLE:
       return '3년차 이상'
     default:
       return '대학생'
