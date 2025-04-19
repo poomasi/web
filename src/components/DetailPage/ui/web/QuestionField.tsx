@@ -9,6 +9,8 @@ import { accountTokenState } from '@store/account'
 import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { getPcVw } from '@utils/responsive'
+import optionCheck from "@assets/images/option-check.svg";
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -22,7 +24,7 @@ export function QuestionField() {
   const [questionText, setQuestionText] = useState<string>('')
 
   const [isSecret, setIsSecret] = useState<boolean>(false)
-  const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.대학생)
+  const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
 
   //질문글 등록
@@ -94,7 +96,7 @@ export function QuestionField() {
 
     // 질문 등록
     await postingQuestion()
-  }, [])
+  }, [accountToken])
 
   return (
     <QuestionSection>
@@ -123,46 +125,26 @@ export function QuestionField() {
         </SelectContainer>
       </AskerInfo>
 
-      <QuestionSectionHeader>
-        <div style={{ display: 'flex' }}>
-          {questionText.length === 500 ? (
-            <div
-              style={{
-                fontSize: '16px',
-                marginLeft: '3px',
-                marginTop: '2px',
-                display: 'flex',
-                alignItems: 'center',
-                color: 'red',
-              }}
-            >
-              {`(${questionText.length} / 500)`}
-            </div>
-          ) : (
-            <div
-              style={{
-                fontSize: '16px',
-                marginLeft: '3px',
-                marginTop: '2px',
-                display: 'flex',
-                alignItems: 'center',
-                color: 'var(--gray-color)',
-              }}
-            >
-              {`(${questionText.length} / 500)`}
-            </div>
-          )}
-        </div>
-        <FormControlLabel style={{ margin: '0' }} control={<Switch checked={isSecret} onChange={handleIsSecretChange} />} label="비밀 질문" />
-      </QuestionSectionHeader>
+      <QuestionArea>
+        <QuestionTextField
+          value={questionText}
+          onChange={handleQuestionTextChange}
+          placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
+        />
+        <QuestionOption>
+          <QuestionFieldLength>글자수: (<span>{questionText.length}</span> / 500)</QuestionFieldLength>
+          <QuestionSecretOption onClick={handleIsSecretChange}>
+            <QuestionCheckbox>
+              {
+                isSecret && <img src={optionCheck}/>
+              }
+            </QuestionCheckbox>
+            <span>비밀질문</span>
+          </QuestionSecretOption>
+        </QuestionOption>
+      </QuestionArea>
 
-      <QuestionArea
-        value={questionText}
-        onChange={handleQuestionTextChange}
-        placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
-      />
-
-      <div style={{ marginTop: '7px', display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{marginLeft: 'auto'}}>
         <DebouncedButton
           text={'등록'}
           onClick={() => handleQuestionButtonClick()}
@@ -182,15 +164,11 @@ export function QuestionField() {
 }
 
 const QuestionSection = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   width: 100%;
-  height: 300px;
-  /* background-color: greenyellow; */
-`
-
-const QuestionSectionHeader = styled.div`
-  display: flex;
-  justify-content: 'space-between';
+  gap: 20px;
 `
 
 const QuestionFieldTitle = styled.div`
@@ -204,22 +182,70 @@ const AskerInfo = styled.div`
   display: flex;
 `
 
-const QuestionArea = styled.textarea`
-  outline-color: #1976d2;
-  font-size: 16px;
-  margin-top: 5px;
-  box-sizing: border-box;
-  width: 100%;
-  height: 60%;
-  border-radius: 10px;
-  resize: none;
-  padding: 20px;
+const QuestionArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid var(--Gray-200, #EAEBED);
+  background: #F7F7F7;
 
-  @media (max-width: 520px) {
-    font-size: 15px;
-    height: 40%;
+  padding: 24px ${getPcVw(32)}
+`
+
+const QuestionTextField = styled.textarea`
+  // element 디자인 요소소
+  width: 100%;
+  min-height: 270px;
+  resize: none;
+  background: transparent;
+  border-width: 0 0 1px 0;
+
+  // focus 시, 기본 디자인이 노출되는 사항 비활성화
+  outline: none !important;
+  box-shadow: none !important;
+
+  // element 폰트 요소
+  color: #9B9EA2;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+`
+
+const QuestionOption = styled.div`
+  width: 100%;
+  margin: 24px 0 0;
+  display: flex;
+  justify-content: space-between;
+`
+
+const QuestionFieldLength = styled.div`
+  color: #9B9EA2;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+
+
+  span {
+    color: #3ECDBA;
   }
-  /* background-color: green; */
+`
+
+const QuestionSecretOption = styled.div`
+  display: flex;
+  gap: 8px;
+`
+
+const QuestionCheckbox = styled.div`
+  width: 24px;
+  height: 24px;
+
+  border-radius: 5px;
+  border: 1px solid #C5C8CD;
+  background: #FFFFFF;
 `
 
 const SelectContainer = styled.div`
@@ -228,7 +254,6 @@ const SelectContainer = styled.div`
   align-items: center;
   gap: 12px;
   margin-right: 15px;
-  margin-top: 10px;
   padding: 8px 12px;
   border-radius: 100px;
   border: 1px solid #c5c8cd;
