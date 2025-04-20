@@ -10,7 +10,7 @@ import styled from '@emotion/styled'
 import { getPcVw, getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
-// import { Button } from '@mui/material'
+import { Seperator } from '@components/seperator/Seperator'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -161,6 +161,7 @@ export function QuestionField() {
           }}
         />
       </QuestionBtnWrapper>
+      <Seperator />
     </QuestionSection>
   )
 }

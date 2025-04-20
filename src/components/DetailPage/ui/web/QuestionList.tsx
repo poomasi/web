@@ -12,6 +12,7 @@ import { useRecoilValue } from 'recoil'
 import { accountTokenState, publicIdState } from '@store/account'
 import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { colors } from '@styles/foundation/color'
 
 const getCareerYearString = (career_year: string) => {
   switch (career_year) {
@@ -86,10 +87,10 @@ export function QuestionList() {
         </div>
       ) : (
         qnas.map((qna) => (
-          <QnaSection key={qna.public_id}>
+          <QnaSection key={qna.public_id} className="QnaSection">
             {/* 비밀질문 분기 처리 */}
             {qna.is_secret && qna.questioner_public_id !== publicId ? (
-              <QnaCard>
+              <QnaCard className="QnaCard">
                 <BlurOverlay>
                   <QnaHead>Q</QnaHead>
                   <QnaContentArea readOnly value={qna.question_text} />
@@ -109,27 +110,9 @@ export function QuestionList() {
                   <QnaHead className="QnaHead">Q</QnaHead>
                   <QnaContentArea readOnly value={qna.question_text} />
                   <div style={{ display: 'flex' }}>
-                    <div
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: '4px',
-                        backgroundColor: '#EAEBED',
-                        marginRight: '6px',
-                      }}
-                    >
-                      {getCareerYearString(qna.career_year)}
-                    </div>
-                    <div
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: '4px',
-                        backgroundColor: '#EAEBED',
-                        marginRight: '12px',
-                      }}
-                    >
-                      {qna.is_major ? '전공' : '비전공'}
-                    </div>
-                    <div
+                    <QnaContentCareer>{getCareerYearString(qna.career_year)}</QnaContentCareer>
+                    <QnaContentMajor>{qna.is_major ? '전공' : '비전공'}</QnaContentMajor>
+                    <QnaContentDate
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -137,7 +120,7 @@ export function QuestionList() {
                       }}
                     >
                       {dayjs(qna.created_at).format('YYYY-MM-DD')}
-                    </div>
+                    </QnaContentDate>
                   </div>
                 </QnaCard>
               </div>
@@ -245,7 +228,15 @@ const QnaHead = styled.div`
 
   color: #ffffff;
 
-  font-size: 32px;
+  font-size: 2rem;
+
+  @media (max-width: 767px) {
+    width: 1.5rem;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
 `
 
 const QnaCard = styled(Card)`
@@ -261,7 +252,10 @@ const QnaCard = styled(Card)`
   gap: 32px;
 
   @media (max-width: 520px) {
-    width: 80%;
+    width: 85%;
+    border-radius: 20px;
+    padding: 20px 20px 40px;
+    box-shadow: none;
   }
 `
 
@@ -284,4 +278,40 @@ const TextBlurOverlay = styled.div`
   left: 50%;
   text-align: center;
   font-weight: bold;
+`
+
+const QnaContentCareer = styled.div`
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: ${colors.gray200};
+  margin-right: 6px;
+  color: ${colors.gray500};
+
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+  }
+`
+const QnaContentMajor = styled.div`
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: ${colors.gray200};
+  margin-right: 12px;
+  color: ${colors.gray500};
+
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+  }
+`
+
+const QnaContentDate = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 767px) {
+    position: absolute;
+    bottom: 8%;
+    font-size: 0.75rem;
+    color: ${colors.gray500};
+  }
 `
