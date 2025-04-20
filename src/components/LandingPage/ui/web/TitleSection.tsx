@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
-import { getPcVh, getPcVw } from '@utils/responsive'
+import { getPcVw } from '@utils/responsive'
 
 export default function TitleSection() {
   return (

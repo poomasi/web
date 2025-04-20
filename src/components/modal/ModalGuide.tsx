@@ -92,8 +92,8 @@ const Text = styled.p`
   }
 `
 
-const TextWrapper = styled.div`
+/*const TextWrapper = styled.div`
   padding: 16px;
   display: flex;
   justify-content: center;
-`
+`*/
