@@ -5,25 +5,6 @@ import TextareaAutosize from 'react-textarea-autosize'
 export function TeacherIntroduce() {
   const { teacherAccount } = useDetailPageContext()
 
-  // 품앗이꾼 데이터 가져오는 API
-  /*const getTeacherData = async () => {
-		try {
-			console.log('시도함')
-			const account = await RequestApi.accounts.getAccount(id)
-			setTeacherAccount(account.data)
-			setPageLoading(true)
-			console.log('성공 !')
-		} catch (error: unknown) {
-			setIsErrorToastOpen(true)
-			setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
-			navigate('/')
-		}
-	}
-
-	useEffect(() => {
-		getTeacherData()
-	}, [])*/
-
   return (
     <>
       <Header>

@@ -1,50 +1,17 @@
 import { ProfileBadge } from '@components/badge'
 import { QnaAskerType } from '@api/enums.ts'
-import { GetQnaListResponse } from '@api/types.ts'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
-import { useEffect, useState } from 'react'
-import { RequestApi } from '@api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { useAccountStore } from '@store/account'
-import { useParams } from 'react-router-dom'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
+import { useQuestionList } from '@components/DetailPage/model/hooks/useQuestionList.ts'
+import { useAccountStore } from '@store/account'
 
 export function QuestionList() {
-  const { id } = useParams()
   const { teacherAccount } = useDetailPageContext()
   const { publicId } = useAccountStore()
-  const [qnas, setQnas] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
-  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
-
-  const getTeacherQnaList = async () => {
-    try {
-      const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-      setQnas(qnas.data)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('', error)
-      }
-    }
-  }
-
-  const getIsSecretQuestion = (qna: GetQnaListResponse) => {
-    // 비밀질문이 아닌 경우 모두 확인 가능
-    if (qna.is_secret === 0) {
-      return false
-    }
-
-    // 비밀질문인 경우, 본인만 확인가능
-    if (qna.is_secret === 1) {
-      return qna.questioner_public_id !== publicId
-    }
-    return true
-  }
-
-  useEffect(() => {
-    getTeacherQnaList()
-  }, [id, qnaAskerType])
+  const { setQnaAskerType, qnaAskerType, qnaDataList, getIsSecretQuestion } = useQuestionList()
 
   return (
     <QuestionListBody>
@@ -65,7 +32,7 @@ export function QuestionList() {
         <ProfileBadge onClick={() => setQnaAskerType(QnaAskerType.ME)} badgeString={'내 질문'} selected={QnaAskerType.ME === qnaAskerType} />
       </BadgeContainer>
 
-      {qnas.length === 0 ? (
+      {qnaDataList.length === 0 ? (
         <div
           style={{
             width: '100%',
@@ -80,7 +47,7 @@ export function QuestionList() {
           아직 질문이 없네요 :D
         </div>
       ) : (
-        qnas.map((qna) => (
+        qnaDataList.map((qna) => (
           <QnaSection key={qna.public_id}>
             <QuestionCard
               questionText={qna.question_text}
