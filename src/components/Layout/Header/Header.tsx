@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil'
 // import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
 import publicLogo from '@assets/svgs/public-logo.svg'
-import { getMobileVw } from '@utils/responsive'
+import { getMobileVw, getPcVw } from '@utils/responsive'
 
 export default function Header() {
   const toHome = () => {
@@ -65,11 +65,15 @@ const KakaoLoginBtn = styled.button`
 
 const HeaderContainer = styled.div`
   position: sticky;
-  width: 100%;
+  width: ${getPcVw(1320)};
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
   padding: 1rem 0;
   color: #333;
   background-color: #fff;
   z-index: 999;
+
   @media (max-width: 767px) {
     padding: 0 ${getMobileVw(10)};
   }

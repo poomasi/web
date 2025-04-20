@@ -1,31 +1,26 @@
 import styled from '@emotion/styled'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { RequestApi } from '@api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
 import { getMobileVw } from '@utils/responsive'
 
 export function TeacherIntroduce() {
-  const { id } = useParams()
-  const { teacherAccount, setTeacherAccount } = useDetailPageContext()
+  const { teacherAccount } = useDetailPageContext()
 
   // 품앗이꾼 데이터 가져오는 API
-  const getTeacherData = async () => {
-    try {
-      const account = await RequestApi.accounts.getAccount(id)
-      setTeacherAccount(account.data)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('', error)
-      }
-    }
-  }
-
-  useEffect(() => {
-    getTeacherData()
-  }, [])
-
+  /*const getTeacherData = async () => {
+		try {
+			console.log('시도함')
+			const account = await RequestApi.accounts.getAccount(id)
+			setTeacherAccount(account.data)
+			setPageLoading(true)
+			console.log('성공 !')
+		} catch (error: unknown) {
+			setIsErrorToastOpen(true)
+			setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
+			navigate('/')
+		}
+	}
+*/
   return (
     <>
       <Header>
