@@ -3,8 +3,10 @@ import axios from 'axios'
 import { REDIRECT_URI, REST_API_KEY } from './variables'
 import { RequestApi } from '@api/request-api'
 import { useNavigate } from 'react-router-dom'
+import { useAccountStore } from '@store/account'
 
 export function KakaoLoginCallback() {
+  const { setAccountToken, setPublicId } = useAccountStore()
   const navigate = useNavigate()
   // useEffect 내부에서 async 함수 선언 (즉시 실행 함수 제거)
   const fetchToken = async () => {
@@ -34,8 +36,8 @@ export function KakaoLoginCallback() {
       console.log('카카오 idToken 응답:', idToken)
 
       // localStorage에 사용자 정보 저장
-      localStorage.setItem('public_id', kakaoLoginResponse.data.public_id)
-      localStorage.setItem('account_token', kakaoLoginResponse.data.account_token)
+      setPublicId(kakaoLoginResponse.data.public_id)
+      setAccountToken(kakaoLoginResponse.data.account_token)
 
       // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
       const beforeLoginUrl = localStorage.getItem('before_login_url')
