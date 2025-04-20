@@ -154,7 +154,7 @@ export function QuestionList() {
                         style={{ color: 'var(--gray-color)', display: 'flex', justifyContent: 'flex-end' }}
                       >{`품앗이꾼 ${teacherAccount?.name}`}</QnaContent>
                     </BlurOverlay>
-                    <TextBlurOverlay>{accountToken ? '답변은 본인만 확인할 수 있어요 :)' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+                    <TextBlurOverlay>{accountToken ? '비밀질문이에요 :)' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
                   </QnaCard>
                 </div>
               )
@@ -278,6 +278,20 @@ const TextBlurOverlay = styled.div`
   left: 50%;
   text-align: center;
   font-weight: bold;
+  color: #fff;
+  background-color: rgba(78, 80, 83, 0.7);
+  padding: 16px;
+  height: 38px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 767px) {
+    /* margin-bottom: 30px; */
+    font-size: 1rem;
+    font-weight: 500;
+  }
 `
 
 const QnaContentCareer = styled.div`
