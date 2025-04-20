@@ -1,4 +1,5 @@
 import Header from '@components/Layout/Header/Header'
+import { Footer } from '@components/Layout/Footer/Footer'
 import { Outlet } from 'react-router-dom'
 
 interface LayoutProps {
@@ -10,6 +11,7 @@ const Layout: React.FC<LayoutProps> = () => {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   )
 }
