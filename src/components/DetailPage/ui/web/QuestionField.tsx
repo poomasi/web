@@ -135,8 +135,7 @@ export function QuestionField() {
 
       <QuestionBtnWrapper style={{ marginLeft: 'auto' }}>
         <DebouncedButton
-          className="QuestionBtn"
-          text={'질문 등록하기'}
+          text={'등록'}
           onClick={() => handleQuestionButtonClick()}
           variant="contained"
           sx={{
@@ -294,7 +293,7 @@ const StyledSelect = styled.select`
   padding-right: 10px;
 
   /* 다른 속성들은 유지 */
-  color: ${colors.green500};
+  color: #3ecdba;
   font-size: 16px;
   font-weight: 600;
   line-height: 1;
