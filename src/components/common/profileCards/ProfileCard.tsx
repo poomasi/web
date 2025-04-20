@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
-import { getPcVw, getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVh, getMobileVw, getPcVw } from '@utils/responsive.ts'
 
 export interface ProfileData {
   nickname: string
@@ -29,7 +29,8 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
     <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)}>
       {profileData.is_vacation && (
         <TextBlurOverlay>
-          <div style={{ fontSize: '100px' }}>🏖</div> 휴가를 떠났어요 :D
+          <div style={{ fontSize: '100px' }}>🏖</div>
+          휴가를 떠났어요 :D
         </TextBlurOverlay>
       )}
 
@@ -77,8 +78,8 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `}
-  @media (max-width: 375px) {
+  `} @media (
+	max-width: 375px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
