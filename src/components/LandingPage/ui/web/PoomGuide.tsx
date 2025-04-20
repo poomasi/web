@@ -25,7 +25,6 @@ const PoomGuideContainer = styled.div`
   gap: 47px;
   width: 100%;
   height: 472px;
-  margin-top: 160px;
 `
 
 const PoomGuideTextContainer = styled.div`

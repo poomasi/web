@@ -30,15 +30,14 @@ const IntroduceSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 54px;
   justify-content: center;
   width: 100%;
-  /* height: 846px; */
   background-image: url(${introduceBackground});
-  background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
+  background-size: 90%; // 이미지 크기를 80%로 조절
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
-  /* padding-top: 160px; */
+  padding-bottom: 160px;
 `
 
 const IntroducePoomasi = styled.div`
