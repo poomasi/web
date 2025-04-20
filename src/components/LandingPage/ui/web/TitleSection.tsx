@@ -3,13 +3,28 @@ import LandingTitleBackground from '@assets/images/landingPage/landing-title-bac
 import { getPcVw } from '@utils/responsive'
 
 export default function TitleSection() {
+  const handleQuestionButtonClick = () => {
+    // ID로 요소를 찾아 스크롤
+    const element = document.getElementById('profiles-section')
+    if (element) {
+      // sticky header의 높이를 고려하여 스크롤 위치 계산
+      const stickyHeaderHeight = 90 // sticky 요소의 높이(px)를 여기에 입력
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + pageYOffset - stickyHeaderHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      })
+    }
+  }
   return (
     <TitleSectionContainer>
       <TitleContainer>
         <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
         <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
-        <QuestionButton>질문하기</QuestionButton>
+        <QuestionButton onClick={handleQuestionButtonClick}>질문하기</QuestionButton>
       </TitleContainer>
     </TitleSectionContainer>
   )

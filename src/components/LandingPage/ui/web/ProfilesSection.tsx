@@ -8,7 +8,7 @@ export function ProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
   return (
-    <ProfilesSectionContainer>
+    <ProfilesSectionContainer id={'profiles-section'}>
       <SectionTitle>
         <SubHead>품앗이꾼</SubHead>
         <BadgeContainer>
