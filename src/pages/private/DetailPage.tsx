@@ -59,8 +59,8 @@ export function DetailPage() {
   }
 
   useEffect(() => {
-    if(publicId === null) {
-      navigate("/");
+    if (publicId === null) {
+      navigate('/')
     }
   }, [])
 
