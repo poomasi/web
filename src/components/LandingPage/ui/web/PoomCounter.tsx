@@ -18,7 +18,6 @@ export function PoomCounter() {
 }
 
 const CounterContainer = styled.div`
-  margin-top: 160px;
   display: flex;
   flex-direction: column;
   justify-content: center;

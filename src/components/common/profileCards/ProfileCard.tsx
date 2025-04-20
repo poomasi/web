@@ -4,7 +4,8 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
-import { getPcVw, getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVh, getMobileVw, getPcVw } from '@utils/responsive.ts'
+import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 
 export interface ProfileData {
   nickname: string
@@ -23,34 +24,38 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({ profileData }: ProfileCardProps) {
-  const { handleProfileClick } = useProfileCard()
+  const { handleProfileClick, useGuideModal, setUseGuideModal } = useProfileCard()
 
   return (
-    <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)}>
-      {profileData.is_vacation && (
-        <TextBlurOverlay>
-          <div style={{ fontSize: '100px' }}>🏖</div> 휴가를 떠났어요 :D
-        </TextBlurOverlay>
-      )}
+    <>
+      <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)}>
+        {profileData.is_vacation && (
+          <TextBlurOverlay>
+            <div style={{ fontSize: '100px' }}>🏖</div>
+            휴가를 떠났어요 :D
+          </TextBlurOverlay>
+        )}
 
-      <ProfilePictureWrapper>
-        <ProfileImage src={profileData.profile_image} alt={'profile-image'} />
-      </ProfilePictureWrapper>
-      <ProfileIntroContainer>
-        <ProfileName>{profileData.name}</ProfileName>
-        <ProfileField>{profileData.field}</ProfileField>
+        <ProfilePictureWrapper>
+          <ProfileImage src={profileData.profile_image} alt={'profile-image'} />
+        </ProfilePictureWrapper>
+        <ProfileIntroContainer>
+          <ProfileName>{profileData.name}</ProfileName>
+          <ProfileField>{profileData.field}</ProfileField>
 
-        <ProfileHistory>
-          <ProfileHistoryItem>{profileData.company1}</ProfileHistoryItem>
-          <ProfileHistoryItem>{profileData.job1}</ProfileHistoryItem>
-        </ProfileHistory>
+          <ProfileHistory>
+            <ProfileHistoryItem>{profileData.company1}</ProfileHistoryItem>
+            <ProfileHistoryItem>{profileData.job1}</ProfileHistoryItem>
+          </ProfileHistory>
 
-        <ProfileHistory>
-          <ProfileHistoryItem>{profileData.company2}</ProfileHistoryItem>
-          <ProfileHistoryItem>{profileData.job2}</ProfileHistoryItem>
-        </ProfileHistory>
-      </ProfileIntroContainer>
-    </Container>
+          <ProfileHistory>
+            <ProfileHistoryItem>{profileData.company2}</ProfileHistoryItem>
+            <ProfileHistoryItem>{profileData.job2}</ProfileHistoryItem>
+          </ProfileHistory>
+        </ProfileIntroContainer>
+      </Container>
+      {useGuideModal && <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />}
+    </>
   )
 }
 
@@ -77,8 +82,8 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `}
-  @media (max-width: 375px) {
+  `} @media (
+	max-width: 375px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
