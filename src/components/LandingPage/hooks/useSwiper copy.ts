@@ -6,6 +6,9 @@ export function useSwiper(totalItems: number) {
   const [totalPages, setTotalPages] = useState(1)
 
   const updateTotalPageNumber = () => {
+    const swiperElement = swiperRef.current
+    if (!swiperElement) return
+
     const swiperElementWidth = swiperElement.offsetWidth //화면너비
     const swiperWidth = swiperElement.scrollWidth //전체 콘텐츠 의 총 너비 ex)품앗이꾼 리스트
 
@@ -14,6 +17,9 @@ export function useSwiper(totalItems: number) {
   }
 
   const updatePageNationNumber = () => {
+    const swiperElement = swiperRef.current
+    if (!swiperElement) return
+
     const swiperLeft = swiperElement.scrollLeft
     const swiperElementWidth = swiperElement.offsetWidth
     const page = Math.round(swiperLeft / swiperElementWidth) + 1

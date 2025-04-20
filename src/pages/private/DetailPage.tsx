@@ -21,13 +21,19 @@ export function DetailPage() {
   const { id } = useParams()
   const { pageLoading, setTeacherAccount, setPageLoading } = useDetailPageContext()
 
+  // 품앗이꾼 데이터 가져오는 API
   const getTeacherData = async () => {
+    if (id === undefined) {
+      setIsErrorToastOpen(true)
+      setErrorToastMessage('잘못된 접근입니다.')
+      navigate('/')
+      return
+    }
+
     try {
-      console.log('시도함')
       const account = await RequestApi.accounts.getAccount(id)
       setTeacherAccount(account.data)
       setPageLoading(true)
-      console.log('성공 !')
     } catch (error: unknown) {
       setIsErrorToastOpen(true)
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')

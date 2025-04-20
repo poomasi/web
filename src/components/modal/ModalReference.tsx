@@ -6,7 +6,7 @@ type ModalReferenceProps = {
 }
 
 function ModalReference({ children, className }: ModalReferenceProps) {
-  const [defaultClassName, setDefaultClassName] = useState('')
+  const [, setDefaultClassName] = useState('')
 
   useEffect(() => {
     setDefaultClassName(className || '')
