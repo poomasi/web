@@ -6,21 +6,6 @@ import { getMobileVw } from '@utils/responsive'
 export function TeacherIntroduce() {
   const { teacherAccount } = useDetailPageContext()
 
-  // 품앗이꾼 데이터 가져오는 API
-  /*const getTeacherData = async () => {
-		try {
-			console.log('시도함')
-			const account = await RequestApi.accounts.getAccount(id)
-			setTeacherAccount(account.data)
-			setPageLoading(true)
-			console.log('성공 !')
-		} catch (error: unknown) {
-			setIsErrorToastOpen(true)
-			setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
-			navigate('/')
-		}
-	}
-*/
   return (
     <>
       <Header>
@@ -36,7 +21,7 @@ export function TeacherIntroduce() {
           <HeaderJob className="ProfileSection-second">{'現 ' + teacherAccount?.company1 + ' ' + teacherAccount?.job1}</HeaderJob>
         </HeaderBody>
       </Header>
-      <div style={{ marginTop: '30px', fontWeight: 'bold', fontSize: '20px' }}>품앗이꾼 소개</div>
+      <div style={{ marginTop: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>품앗이꾼 소개</div>
       <Description readOnly value={teacherAccount?.description} />
     </>
   )
@@ -52,7 +37,7 @@ const Header = styled.div`
     align-items: center;
     text-align: center;
     border-bottom: 1px solid #eaebed;
-    /* border-top: 1px solid #eaebed; */
+    border-top: 1px solid #eaebed;
     padding: 2.5rem;
   }
 `

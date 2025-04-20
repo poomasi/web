@@ -105,8 +105,8 @@ export function QuestionList() {
               </QnaCard>
             ) : (
               <div>
-                <QnaCard>
-                  <QnaHead>Q</QnaHead>
+                <QnaCard className="QnaCard">
+                  <QnaHead className="QnaHead">Q</QnaHead>
                   <QnaContentArea readOnly value={qna.question_text} />
                   <div style={{ display: 'flex' }}>
                     <div

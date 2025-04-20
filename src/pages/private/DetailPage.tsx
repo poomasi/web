@@ -85,6 +85,9 @@ const PageContainer = styled.div`
 const PageContent = styled.div`
   width: 1200px;
   margin-bottom: 50px;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 const Seperator = styled.div`
   height: 4px;

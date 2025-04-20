@@ -7,8 +7,10 @@ import { accountTokenState } from '@store/account'
 import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { getPcVw } from '@utils/responsive'
+import { getPcVw, getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
+import { colors } from '@styles/foundation/color'
+// import { Button } from '@mui/material'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -96,7 +98,7 @@ export function QuestionField() {
   }, [accountToken, questionText])
 
   return (
-    <QuestionSection>
+    <QuestionSection className="QuestionSection">
       <QuestionFieldTitle>질문하기</QuestionFieldTitle>
       <AskerInfo>
         <SelectContainer>
@@ -122,7 +124,7 @@ export function QuestionField() {
         </SelectContainer>
       </AskerInfo>
 
-      <QuestionArea>
+      <QuestionArea className="QuestionAreaBox">
         <QuestionTextField
           value={questionText}
           onChange={handleQuestionTextChange}
@@ -132,16 +134,17 @@ export function QuestionField() {
           <QuestionFieldLength>
             글자수: (<span>{questionText.length}</span> / 500)
           </QuestionFieldLength>
-          <QuestionSecretOption onClick={handleIsSecretChange}>
-            <QuestionCheckbox>{isSecret && <img src={optionCheck} />}</QuestionCheckbox>
-            <span>비밀질문</span>
-          </QuestionSecretOption>
         </QuestionOption>
       </QuestionArea>
+      <QuestionSecretOption onClick={handleIsSecretChange}>
+        <QuestionCheckbox>{isSecret && <img src={optionCheck} />}</QuestionCheckbox>
+        <span>비밀질문</span>
+      </QuestionSecretOption>
 
-      <div style={{ marginLeft: 'auto' }}>
+      <QuestionBtnWrapper style={{ marginLeft: 'auto' }}>
         <DebouncedButton
-          text={'등록'}
+          className="QuestionBtn"
+          text={'질문 등록하기'}
           onClick={() => handleQuestionButtonClick()}
           variant="contained"
           sx={{
@@ -151,9 +154,13 @@ export function QuestionField() {
             fontWeight: 'bold',
             borderRadius: '10px',
             color: 'white',
+            backgroundColor: '#3ecdba',
+            '@media (max-width:767px)': {
+              width: '100%',
+            },
           }}
         />
-      </div>
+      </QuestionBtnWrapper>
     </QuestionSection>
   )
 }
@@ -164,6 +171,9 @@ const QuestionSection = styled.div`
   margin-top: 20px;
   width: 100%;
   gap: 20px;
+  @media (max-width: 768px) {
+    margin-bottom: ${getMobileVw(40)};
+  }
 `
 
 const QuestionFieldTitle = styled.div`
@@ -171,6 +181,9 @@ const QuestionFieldTitle = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: 20px;
+  @media (max-width: 767px) {
+    font-size: 1.125rem;
+  }
 `
 
 const AskerInfo = styled.div`
@@ -184,8 +197,12 @@ const QuestionArea = styled.div`
   border-radius: 20px;
   border: 1px solid var(--Gray-200, #eaebed);
   background: #f7f7f7;
+  padding: 1.5rem ${getPcVw(32)};
 
-  padding: 24px ${getPcVw(32)};
+  @media (max-width: 767px) {
+    padding: 14px;
+    border-width: 0 0 0 0;
+  }
 `
 
 const QuestionTextField = styled.textarea`
@@ -206,6 +223,10 @@ const QuestionTextField = styled.textarea`
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
+
+  @media (max-width: 767px) {
+    border-width: 0 0 0 0;
+  }
 `
 
 const QuestionOption = styled.div`
@@ -231,6 +252,8 @@ const QuestionFieldLength = styled.div`
 const QuestionSecretOption = styled.div`
   display: flex;
   gap: 8px;
+  color: ${colors.gray500};
+  align-items: center;
 `
 
 const QuestionCheckbox = styled.div`
@@ -257,9 +280,12 @@ const SelectContainer = styled.div`
 const SelectTitle = styled.label`
   font-weight: bold;
   font-size: 16px;
-  color: black;
+  color: ${colors.gray800};
   white-space: nowrap;
   cursor: pointer; // 커서 포인터 추가
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+  }
 `
 
 // 스타일링 수정:
@@ -275,7 +301,7 @@ const StyledSelect = styled.select`
   padding-right: 10px;
 
   /* 다른 속성들은 유지 */
-  color: #3ecdba;
+  color: ${colors.green500};
   font-size: 16px;
   font-weight: 600;
   line-height: 1;
@@ -288,5 +314,18 @@ const StyledSelect = styled.select`
 
   option {
     color: black;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+    padding-top: 0;
+    padding-right: 0;
+  }
+`
+
+const QuestionBtnWrapper = styled.div`
+  @media (max-width: 767px) {
+    margin: 0 !important;
+    width: 100% !important;
   }
 `

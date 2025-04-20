@@ -75,6 +75,7 @@ const HeaderContainer = styled.div`
   z-index: 999;
 
   @media (max-width: 767px) {
+    width: 100%;
     padding: 0 ${getMobileVw(10)};
   }
 `
