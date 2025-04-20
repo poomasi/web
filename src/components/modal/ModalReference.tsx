@@ -1,31 +1,27 @@
-import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive.ts'
 import { CloseButton } from '@components/button'
 
 type ModalReferenceProps = {
   children: React.ReactNode
-  className?: string
   onClick?: () => void
 }
 
-function ModalReference({ children, className, onClick }: ModalReferenceProps) {
-  const [, setDefaultClassName] = useState('')
-
-  useEffect(() => {
-    setDefaultClassName(className || '')
-  }, [className])
-
+function ModalReference({ children, onClick }: ModalReferenceProps) {
   return (
     <div>
       <ModalOverlay onClick={onClick} />
-      <ModalWrapper className={className}>{children}</ModalWrapper>
+      <ModalWrapper>{children}</ModalWrapper>
     </div>
   )
 }
 
 function Header({ onClickClose }: { onClickClose: () => void }) {
-  return <CloseButton onClick={onClickClose} style={{ marginLeft: getMobileVw(300 * 0.8) }}></CloseButton>
+  return (
+    <ModalHeader>
+      <CloseButton onClick={onClickClose}></CloseButton>
+    </ModalHeader>
+  )
 }
 
 function Body({ children }: { children: React.ReactNode }) {
@@ -58,7 +54,9 @@ const ModalOverlay = styled.div`
 const ModalWrapper = styled.section`
   position: fixed;
   top: 15%;
-  left: 10%;
+  left: 50%;
+  // 좌우 정렬을 위해 left를 50%로 설정
+  transform: translate(-50%);
   z-index: 1000;
   width: ${getMobileVw(300)};
   height: auto;
@@ -69,4 +67,12 @@ const ModalWrapper = styled.section`
   align-items: center;
   padding: 1rem;
   border-radius: 1rem;
+`
+
+const ModalHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 1rem;
 `

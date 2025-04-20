@@ -5,8 +5,15 @@ import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
 import { getPcVw } from '@utils/responsive'
+import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
+import { useState } from 'react'
 
 export function IntroduceSection() {
+  const [useGuideModal, setuseGuideModal] = useState(false)
+  const handleUseGuideModalClick = () => {
+    setuseGuideModal(true)
+  }
+
   return (
     <IntroduceSectionContainer>
       <IntroducePoomasi>
@@ -18,10 +25,17 @@ export function IntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="Sharing" imgSrc={sharingIcon} />
+        <LandingInfoCard infoText="Sharing" imgSrc={sharingIcon} onClick={handleUseGuideModalClick} />
         <LandingInfoCard infoText="Mentoring" imgSrc={mentoringIcon} />
         <LandingInfoCard infoText="Question" imgSrc={questionIcon} />
       </IntroduceCardList>
+      {useGuideModal && (
+        <PoomasiGuideModal
+          onClose={() => {
+            setuseGuideModal(false)
+          }}
+        />
+      )}
     </IntroduceSectionContainer>
   )
 }
@@ -34,7 +48,7 @@ const IntroduceSectionContainer = styled.div`
   justify-content: center;
   width: 100%;
   background-image: url(${introduceBackground});
-  background-size: 90%; // 이미지 크기를 80%로 조절
+  background-size: 90%;
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
   padding-bottom: 160px;
