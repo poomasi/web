@@ -1,10 +1,35 @@
-import { atom } from 'recoil'
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
-//토큰이 있으면 로그인 상태, 없으면 로그아웃 상태
-export const accountTokenState = atom<string | null>({
-  key: 'accountTokenState',
-  default: localStorage.getItem('account_token'),
-})
+type AccountTokenStore = {
+  accountToken: string | null
+  setAccountToken: (token: string) => void
+  publicId: string | null
+  setPublicId: (id: string) => void
+  resetAccountToken: () => void
+}
+
+export const useAccountStore = create<AccountTokenStore>()(
+  persist(
+    (set) => ({
+      accountToken: null,
+      publicId: null,
+      setAccountToken: (token) => {
+        set({ accountToken: token })
+      },
+      setPublicId: (id) => {
+        set({ publicId: id })
+      },
+      resetAccountToken: () => {
+        set({ accountToken: null, publicId: null })
+      },
+    }),
+    {
+      name: 'account-token-storage',
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+)
 
 /*
 ✅ "Recoil에서 localStorage 값을 default로 설정하는 이유는?"

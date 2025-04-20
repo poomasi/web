@@ -1,2 +1,1 @@
-export * from './account-token-store'
-export * from './public-id-store'
+export * from './account-token-store.ts'
