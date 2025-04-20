@@ -1,6 +1,4 @@
-import { useToastClear } from '@hooks/use-toast-clear.ts'
-import { errorToastMessageState, isErrorToastOpenState, publicIdState } from '@store/index.ts'
-import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useAccountStore, useToastMessageStore } from '@store/index.ts'
 
 import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -12,10 +10,8 @@ import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
 import { QuestionList } from '@components/DetailPage/ui/web/QuestionList.tsx'
 
 export function DetailPage() {
-  useToastClear()
-  const publicId: string | null = useRecoilValue(publicIdState)
-  const setIsErrorToastOpen: SetterOrUpdater<boolean> = useSetRecoilState(isErrorToastOpenState)
-  const setErrorToastMessage: SetterOrUpdater<string> = useSetRecoilState(errorToastMessageState)
+  const { publicId } = useAccountStore()
+  const { setErrorToastMessage } = useToastMessageStore()
 
   const navigate = useNavigate()
   const { id } = useParams()
@@ -24,7 +20,6 @@ export function DetailPage() {
   // 품앗이꾼 데이터 가져오는 API
   const getTeacherData = async () => {
     if (id === undefined) {
-      setIsErrorToastOpen(true)
       setErrorToastMessage('잘못된 접근입니다.')
       navigate('/')
       return
@@ -35,7 +30,6 @@ export function DetailPage() {
       setTeacherAccount(account.data)
       setPageLoading(true)
     } catch (error: unknown) {
-      setIsErrorToastOpen(true)
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
       navigate('/')
     }
@@ -43,7 +37,6 @@ export function DetailPage() {
 
   useEffect(() => {
     if (publicId === null) {
-      setIsErrorToastOpen(true)
       setErrorToastMessage('로그인을 먼저 진행해주세요.')
       navigate('/')
     }

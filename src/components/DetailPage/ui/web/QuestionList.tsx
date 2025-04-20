@@ -8,8 +8,7 @@ import Card from '@mui/material/Card'
 import { useEffect, useState } from 'react'
 import { RequestApi } from '@api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { useRecoilValue } from 'recoil'
-import { accountTokenState, publicIdState } from '@store/account'
+import { useAccountStore } from '@store/account'
 import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 
@@ -31,8 +30,7 @@ const getCareerYearString = (career_year: string) => {
 export function QuestionList() {
   const { id } = useParams()
   const { teacherAccount } = useDetailPageContext()
-  const accountToken: string | null = useRecoilValue(accountTokenState)
-  const publicId: string | null = useRecoilValue(publicIdState)
+  const { accountToken, publicId } = useAccountStore()
   const [qnas, setQnas] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
 

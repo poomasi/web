@@ -1,36 +1,57 @@
 import * as React from 'react'
+import { useEffect } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from 'recoil'
-import { errorToastMessageState, isErrorToastOpenState, isSuccessToastOpenState, successToastMessageState } from '../../store'
+import { useToastMessageStore } from '../../store'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
 export function Toast() {
-  const isErrorToastOpen: boolean = useRecoilValue(isErrorToastOpenState)
-  const setIsErrorToastOpen: SetterOrUpdater<boolean> = useSetRecoilState(isErrorToastOpenState)
-  const errorToastMessage: string = useRecoilValue(errorToastMessageState)
+  const { errorToastMessage, successToastMessage, removeErrorToastMessage, removeSuccessToastMessage } = useToastMessageStore((state) => state)
 
-  const isSuccessToastOpen: boolean = useRecoilValue(isSuccessToastOpenState)
-  const setIsSuccessToastOpen: SetterOrUpdater<boolean> = useSetRecoilState(isSuccessToastOpenState)
-  const successToastMessage: string = useRecoilValue(successToastMessageState)
+  // 3초 후에 자동으로 토스트 메시지 닫기
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeErrorToastMessage()
+    }, 3000)
 
-  const handleClose = () => {
-    setIsErrorToastOpen(false)
-    setIsSuccessToastOpen(false)
-  }
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [errorToastMessage])
+
+  // 3초 후에 자동으로 토스트 메시지 닫기
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeSuccessToastMessage()
+    }, 3000)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [successToastMessage])
 
   return (
     <>
-      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={isErrorToastOpen} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ marginBottom: '30px' }}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={errorToastMessage !== ''}
+        autoHideDuration={3000}
+        onClose={removeErrorToastMessage}
+      >
+        <Alert onClose={removeErrorToastMessage} severity="error" sx={{ marginBottom: '30px' }}>
           {errorToastMessage}
         </Alert>
       </Snackbar>
-      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={isSuccessToastOpen} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ marginBottom: '30px' }}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={successToastMessage !== ''}
+        autoHideDuration={3000}
+        onClose={removeSuccessToastMessage}
+      >
+        <Alert onClose={removeSuccessToastMessage} severity="success" sx={{ marginBottom: '30px' }}>
           {successToastMessage}
         </Alert>
       </Snackbar>

@@ -1,23 +1,20 @@
 import styled from '@emotion/styled'
-import { accountTokenState } from '@store/account/account-token-store'
-import { useRecoilValue } from 'recoil'
 // import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
 import publicLogo from '@assets/svgs/public-logo.svg'
 import { getMobileVw, getPcVw } from '@utils/responsive'
+import { useAccountStore } from '@store/account'
 
 export default function Header() {
+  const { accountToken, resetAccountToken } = useAccountStore()
   const toHome = () => {
     window.location.href = '/'
   }
 
-  const accountToken = useRecoilValue(accountTokenState) as string | null
-
   // const accountToken: string | null = useRecoilValue(accountTokenState)
 
   const handleLogout = () => {
-    localStorage.removeItem('public_id')
-    localStorage.removeItem('account_token')
+    resetAccountToken()
     window.location.reload()
   }
 

@@ -1,9 +1,8 @@
 import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
 import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
-import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from 'recoil'
-import { errorToastMessageState, isErrorToastOpenState, isSuccessToastOpenState, successToastMessageState } from '@store/toast'
-import { accountTokenState } from '@store/account'
+import { useToastMessageStore } from '@store/toast'
+import { useAccountStore } from '@store/account'
 import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -14,11 +13,8 @@ const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
   const { id } = useParams()
-  const setIsErrorToastOpen: SetterOrUpdater<boolean> = useSetRecoilState(isErrorToastOpenState)
-  const setErrorToastMessage: SetterOrUpdater<string> = useSetRecoilState(errorToastMessageState)
-  const setIsSuccessToastOpen: SetterOrUpdater<boolean> = useSetRecoilState(isSuccessToastOpenState)
-  const setSuccessToastMessage: SetterOrUpdater<string> = useSetRecoilState(successToastMessageState)
-  const accountToken: string | null = useRecoilValue(accountTokenState)
+  const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
+  const { accountToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
@@ -58,7 +54,6 @@ export function QuestionField() {
       setIsMajor(true)
 
       setTimeout(() => {
-        setIsSuccessToastOpen(true)
         setSuccessToastMessage('질문이 등록되었습니다.')
       }, 1300)
 
@@ -70,7 +65,6 @@ export function QuestionField() {
         console.error('질문 등록에 실패했습니다!', error)
       }
 
-      setIsErrorToastOpen(true)
       setErrorToastMessage('질문 등록에 실패했습니다!')
     }
   }
@@ -80,13 +74,11 @@ export function QuestionField() {
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
   const handleQuestionButtonClick = useCallback(async () => {
     if (!accountToken) {
-      setIsErrorToastOpen(true)
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
     }
 
     if (questionText.length < 10) {
-      setIsErrorToastOpen(true)
       setErrorToastMessage('질문은 10자 이상이어야 합니다!')
       return
     }
