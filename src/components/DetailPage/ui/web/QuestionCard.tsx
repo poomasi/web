@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
+import { colors } from '@styles/foundation/color'
 
 type QuestionCardProps = {
   questionText: string
@@ -42,7 +43,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
       <QnaHead>Q</QnaHead>
       <QnaContentArea readOnly value={questionText} />
       <div style={{ display: 'flex' }}>
-        <div
+        <QnaContentCareer
           style={{
             padding: '6px 12px',
             borderRadius: '4px',
@@ -51,8 +52,8 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
           }}
         >
           {getCareerYearString(careerYear)}
-        </div>
-        <div
+        </QnaContentCareer>
+        <QnaContentMajor
           style={{
             padding: '6px 12px',
             borderRadius: '4px',
@@ -61,8 +62,8 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
           }}
         >
           {isMajor ? '전공' : '비전공'}
-        </div>
-        <div
+        </QnaContentMajor>
+        <QnaContentDate
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -70,7 +71,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
           }}
         >
           {dayjs(createdAt).format('YYYY-MM-DD')}
-        </div>
+        </QnaContentDate>
       </div>
     </QnaCard>
   )
@@ -89,7 +90,10 @@ const QnaCard = styled(Card)`
   gap: 32px;
 
   @media (max-width: 520px) {
-    width: 80%;
+    width: 85%;
+    border-radius: 20px;
+    padding: 20px 20px 40px;
+    box-shadow: none;
   }
 `
 
@@ -104,7 +108,15 @@ const QnaHead = styled.div`
 
   color: #ffffff;
 
-  font-size: 32px;
+  font-size: 2rem;
+
+  @media (max-width: 767px) {
+    width: 1.5rem;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
 `
 
 const QnaContentArea = styled(TextareaAutosize)`
@@ -122,7 +134,7 @@ const QnaContentArea = styled(TextareaAutosize)`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 520px) {
+  @media (max-width: 767px) {
     font-size: 14px;
   }
 `
@@ -144,12 +156,51 @@ const BlurOverlay = styled.div`
 const TextBlurOverlay = styled.div`
   font-size: 24px;
   word-break: keep-all;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  top: 50%;
+  left: 50%;
   text-align: center;
   font-weight: bold;
-  z-index: 11;
-  padding: 0 20px;
+  color: #fff;
+  background-color: rgba(78, 80, 83, 0.7);
+  padding: 16px;
+  height: 38px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  @media (max-width: 520px) {
-    font-size: 18px;
+  @media (max-width: 767px) {
+    /* margin-bottom: 30px; */
+    font-size: 1rem;
+    font-weight: 500;
+  }
+`
+const QnaContentCareer = styled.div`
+  @media (max-width: 767px) {
+    font-size: 0.75rem;
+    background-color: ${colors.gray200};
+    margin-right: 6px;
+    color: ${colors.gray500};
+  }
+`
+
+const QnaContentMajor = styled.div`
+  @media (max-width: 767px) {
+    background-color: ${colors.gray200};
+    font-size: 0.75rem;
+    color: ${colors.gray500};
+  }
+`
+const QnaContentDate = styled.div`
+  @media (max-width: 767px) {
+    position: absolute;
+    bottom: 8%;
+    font-size: 0.75rem;
+    color: ${colors.gray500};
   }
 `
