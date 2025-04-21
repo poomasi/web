@@ -37,11 +37,3 @@ const PageContainer = styled.div`
 		padding: 0 5vw;
 	}
 `
-
-// const MobileLandingPageContainer = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 10rem;
-//   padding: 0 5vw;
-// `

@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
-import { colors } from '@styles/foundation/color'
 
 interface AnswerCardProps {
   answerText: string
@@ -19,7 +18,7 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
         {/* 비밀 질문 인 경우, 블러처리 */}
         {!isMyAnswer && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '비밀답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accountToken ? '답변은 본인만 확인할 수 있어요 :)' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
         <QnaHead>A</QnaHead>
@@ -48,13 +47,9 @@ const QnaCard = styled(Card)`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  border: 1px solid ${colors.green500};
 
   @media (max-width: 520px) {
-    width: 85%;
-    border-radius: 20px;
-    padding: 20px 20px 40px;
-    box-shadow: none;
+    width: 80%;
   }
 `
 
@@ -70,14 +65,6 @@ const QnaHead = styled.div`
   color: #ffffff;
 
   font-size: 32px;
-
-  @media (max-width: 767px) {
-    width: 1.5rem;
-    height: 1.5rem;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-  }
 `
 
 const QnaContentArea = styled(TextareaAutosize)`
@@ -117,27 +104,12 @@ const BlurOverlay = styled.div`
 const TextBlurOverlay = styled.div`
   font-size: 24px;
   word-break: keep-all;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  top: 50%;
-  left: 50%;
   text-align: center;
   font-weight: bold;
-  color: #fff;
-  background-color: rgba(78, 80, 83, 0.7);
-  padding: 16px;
-  height: 38px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 11;
+  padding: 0 20px;
 
-  @media (max-width: 767px) {
-    /* margin-bottom: 30px; */
-    font-size: 1rem;
-    font-weight: 500;
+  @media (max-width: 520px) {
+    font-size: 18px;
   }
 `

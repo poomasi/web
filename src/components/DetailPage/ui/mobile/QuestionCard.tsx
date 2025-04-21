@@ -37,7 +37,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
       {/* 비밀 질문 인 경우, 블러처리 */}
       {isSecretQuestion && (
         <BlurOverlay>
-          <TextBlurOverlay>{accountToken ? '비밀질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+          <TextBlurOverlay>{accountToken ? '비밀질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
       <QnaHead>Q</QnaHead>
