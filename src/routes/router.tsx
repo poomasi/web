@@ -7,15 +7,10 @@
 //   return <BrowserRouter>{false ? <PrivateRoute /> : <PublicRoute />}</BrowserRouter>
 // }
 
-import { BrowserRouter, createBrowserRouter, Navigate } from 'react-router-dom'
-import { Routers } from '@routes/Routerss'
-import Layout from '@components/Layout/Layout.tsx'
-import { LandingPage } from '@pages/public'
-import { DetailPageContextProvider } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { DetailPage } from '@pages/private/DetailPage.tsx'
+import { BrowserRouter } from 'react-router-dom'
 import { PublicRoute } from '@routes/PublicRoute.tsx'
 
-const router = createBrowserRouter([
+/*const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
@@ -24,10 +19,10 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-      /*{
-				path: Routers.LOGIN,
-				element: <LoginPage />,
-			},*/
+      {
+        path: Routers.LOGIN,
+        element: <LoginPage />,
+      },
       {
         path: Routers.DETAIL,
         element: (
@@ -43,11 +38,11 @@ const router = createBrowserRouter([
     element: <Navigate to="/" replace />,
     //404 페이지 대신 홈으로 강제 리디렉션
   },
-])
+])*/
 
 export function Router() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={'/'}>
       <PublicRoute />
     </BrowserRouter>
   )
