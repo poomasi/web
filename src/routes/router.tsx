@@ -10,7 +10,7 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { Routers } from '@routes/Routerss'
 import Layout from '@components/Layout/Layout.tsx'
-import { LandingPage, LoginPage } from '@pages/public'
+import { LandingPage } from '@pages/public'
 import { DetailPageContextProvider } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { DetailPage } from '@pages/private/DetailPage.tsx'
 
@@ -23,10 +23,10 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-      {
-        path: Routers.LOGIN,
-        element: <LoginPage />,
-      },
+      /*{
+				path: Routers.LOGIN,
+				element: <LoginPage />,
+			},*/
       {
         path: Routers.DETAIL,
         element: (
