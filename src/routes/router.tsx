@@ -7,13 +7,12 @@
 //   return <BrowserRouter>{false ? <PrivateRoute /> : <PublicRoute />}</BrowserRouter>
 // }
 
-import { BrowserRouter, createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { Routers } from '@routes/Routerss'
 import Layout from '@components/Layout/Layout.tsx'
 import { LandingPage } from '@pages/public'
 import { DetailPageContextProvider } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { DetailPage } from '@pages/private/DetailPage.tsx'
-import { PublicRoute } from '@routes/PublicRoute.tsx'
 
 const router = createBrowserRouter([
   {
@@ -46,9 +45,5 @@ const router = createBrowserRouter([
 ])
 
 export function Router() {
-  return (
-    <BrowserRouter>
-      <PublicRoute />
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />
 }
