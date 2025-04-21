@@ -28,7 +28,7 @@ export function ProfileBadge({ badgeString, onClick, selected }: ProfileBadgePro
 }
 
 const badgeMobileStyles = (selected: boolean) => ({
-  '@media (max-width: 375px)': {
+  '@media (max-width: 767px)': {
     fontSize: getMobileVh(13),
     padding: '4px 12px',
     borderRadius: '20px',

@@ -1,8 +1,9 @@
 import poomCountIcon from '@assets/images/landingPage/poom-count-icon.svg'
-import poomCountBackground from '@assets/images/landingPage/poom-count-background.png'
+import poomCountBackground from '@assets/images/landingPage/mobile-poomCounterBg.png'
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
 import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { colors } from '@styles/foundation/color'
 
 export function MobilePoomCounter() {
   const { qnaCount, accountCount } = usePoomCount()
@@ -36,11 +37,11 @@ const CounterContainer = styled.div`
 `
 
 const PoomExplainText = styled.div`
-  width: 68%;
+  width: 70%;
   color: #0e0e0e;
   font-size: 1.5rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 800;
   line-height: 150%;
   text-align: center;
 `
@@ -51,5 +52,6 @@ const PoomCountIconContainer = styled.img`
 `
 
 const HighlightText = styled.span`
-  color: #6ab04a;
+  color: ${colors.green700};
+  font-weight: 800;
 `

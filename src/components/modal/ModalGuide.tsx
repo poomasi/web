@@ -19,7 +19,7 @@ export function ModalGuide({ type, contents, content, onClose, title }: ModalPro
       <ModalReference onClick={onClose}>
         <ModalReference.Header onClickClose={onClose} />
         <ModalReference.Body>
-          <h2>{title}</h2>
+          <ModalTitle>{title}</ModalTitle>
           <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
             {contents.map((item, index) => (
               <SwiperSlide key={index}>
@@ -46,9 +46,15 @@ export function ModalGuide({ type, contents, content, onClose, title }: ModalPro
   )
 }
 
+const ModalTitle = styled.h4`
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: center;
+`
+
 const StyledSwiper = styled(Swiper)`
   width: 100%;
-  max-width: 340px;
+  max-width: 240px;
   margin: 0 auto;
   background-color: #fff;
   position: relative;
@@ -93,6 +99,7 @@ const Text = styled.p`
 
   @media (max-width: 480px) {
     font-size: 0.875rem;
+    margin-bottom: 1rem;
   }
 `
 

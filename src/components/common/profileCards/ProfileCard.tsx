@@ -28,7 +28,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 
   return (
     <>
-      <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)}>
+      <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)} className="profileCardContainer">
         {profileData.is_vacation && (
           <TextBlurOverlay>
             <div style={{ fontSize: '100px' }}>🏖</div>
@@ -82,14 +82,14 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `} @media (
-	max-width: 375px) {
+  `}
+  @media (max-width: 767px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    height: auto;
+    height: 5.625rem;
     width: ${getMobileVw(230)};
     overflow: visible;
     padding: ${getMobileVh(18)} ${getMobileVw(16)};
@@ -104,7 +104,7 @@ const ProfilePictureWrapper = styled.div`
   justify-content: center;
   width: 100%;
   overflow: hidden;
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     width: ${getMobileVw(50)};
     height: ${getMobileVw(50)};
     border-radius: 50%;
@@ -121,7 +121,7 @@ const ProfileImage = styled.img`
   height: ${getPcVw(161)};
   object-fit: contain;
   border-radius: 100%;
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -132,7 +132,7 @@ const ProfileIntroContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     align-items: flex-start;
     justify-content: center;
     gap: ${getMobileVh(4)};
@@ -148,7 +148,7 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     font-size: ${getMobileVh(20)};
   }
 `
@@ -158,7 +158,7 @@ const ProfileField = styled.div`
   font-weight: bold;
   color: #068372;
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     font-size: ${getMobileVh(16)};
   }
 `
@@ -170,7 +170,7 @@ const ProfileHistory = styled.div`
   color: #aaaaaa;
   height: 30px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     font-size: ${getMobileVh(10)};
     height: auto;
     margin-top: 0;
@@ -184,7 +184,7 @@ const ProfileHistoryItem = styled.div`
   font-weight: bold;
   text-align: center;
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     font-size: ${getMobileVh(10)};
     height: auto;
     text-align: left;
