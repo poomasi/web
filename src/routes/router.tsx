@@ -47,7 +47,7 @@ const router = createBrowserRouter([
 
 export function Router() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <PublicRoute />
     </BrowserRouter>
   )
