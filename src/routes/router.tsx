@@ -7,17 +7,35 @@
 //   return <BrowserRouter>{false ? <PrivateRoute /> : <PublicRoute />}</BrowserRouter>
 // }
 
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import { PrivateRoute } from '@routes/PrivateRoute'
-import { PublicRoute } from '@routes/PublicRoute'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { Routers } from '@routes/Routerss'
-
-const isAuthenticated = false // 인증상태 확인 로직 넣기..?
+import Layout from '@components/Layout/Layout.tsx'
+import { LandingPage, LoginPage } from '@pages/public'
+import { DetailPageContextProvider } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import { DetailPage } from '@pages/private/DetailPage.tsx'
 
 const router = createBrowserRouter([
   {
-    path: Routers.OTHER,
-    element: isAuthenticated ? <PrivateRoute /> : <PublicRoute />,
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <LandingPage />,
+      },
+      {
+        path: Routers.LOGIN,
+        element: <LoginPage />,
+      },
+      {
+        path: Routers.DETAIL,
+        element: (
+          <DetailPageContextProvider>
+            <DetailPage />
+          </DetailPageContextProvider>
+        ),
+      },
+    ],
   },
   {
     path: Routers.ALL,
