@@ -4,14 +4,12 @@ import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RequestApi } from '@api/index.ts'
 import { useEffect } from 'react'
-import { TeacherIntroduce } from '@components/DetailPage/ui/web/TeacherIntroduce.tsx'
+import { TeacherIntroduce } from '@components/DetailPage/ui/mobile/TeacherIntroduce'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
-import { QuestionList } from '@components/DetailPage/ui/web/QuestionList.tsx'
-import { MobileDetailPage } from '@pages/private/MobileDetailPage'
-import { useMobileStore } from '@store/useMobileStore.ts'
+import { QuestionField } from '@components/DetailPage/ui/mobile/QuestionField.tsx'
+import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList.tsx'
 
-export function DetailPage() {
+export function MobileDetailPage() {
   const { publicId } = useAccountStore()
   const { setErrorToastMessage } = useToastMessageStore()
 
@@ -34,6 +32,8 @@ export function DetailPage() {
     } catch (error: unknown) {
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
       navigate('/')
+
+      console.log(error)
     }
   }
 
@@ -47,11 +47,7 @@ export function DetailPage() {
     getTeacherData()
   }, [])
 
-  const { isMobile } = useMobileStore()
-
-  return isMobile ? (
-    <MobileDetailPage />
-  ) : (
+  return (
     <Container>
       <PageContainer>
         <PageContent>
