@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ProfileCard } from '@components/profileCards/ProfileCard'
+import { ProfileCard } from '@components/common/profileCards/ProfileCard'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
 import { getPcVw } from '@utils/responsive'
@@ -8,7 +8,7 @@ export function ProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
   return (
-    <ProfilesSectionContainer>
+    <ProfilesSectionContainer id={'profiles-section'}>
       <SectionTitle>
         <SubHead>품앗이꾼</SubHead>
         <BadgeContainer>

@@ -1,14 +1,13 @@
 import styled from '@emotion/styled'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.tsx'
 import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
-import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVh } from '@utils/responsive'
 import { useCloseBtn } from '@components/button/closeButton/useCloseBtn'
 import { ModalGuide } from '@components/modal/ModalGuide'
-import { CloseButton } from '@components/button/closeButton/CloseBtn'
 import { modalData } from '@components/modal/modalGuide-data'
 
 export function MobileIntroduceSection() {
@@ -47,64 +46,16 @@ export function MobileIntroduceSection() {
         <LandingInfoCard infoText="세부안내" imgSrc={questionIcon} onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
-      {modalInfo && !isClosed && (
-        <div>
-          <ModalOverlay onClick={handleClose} />
-          <ModalWrapper className="modalGuide">
-            <CloseButton onClick={handleClose} style={{ marginLeft: getMobileVw(300 * 0.8) }}></CloseButton>
-            <ModalTitle>{modalInfo.title}</ModalTitle>
-            {modalInfo.type === 'swiper' ? (
-              <ModalGuide type="swiper" contents={modalInfo.contents} />
-            ) : (
-              <ModalGuide type="text" content={modalInfo.content} />
-            )}
-            {/* 에러남: modalInfo의 구조가 type에 따라 달라지는 걸 TypeScript가 확신하지 못해서
-            <ModalGuide type={modalInfo.type} contents={modalInfo.contents} content={modalInfo.content} /> */}
-          </ModalWrapper>
-        </div>
-      )}
+      {modalInfo &&
+        !isClosed &&
+        (modalInfo.type === 'swiper' ? (
+          <ModalGuide type="swiper" contents={modalInfo.contents} onClose={handleClose} title={modalInfo.title} />
+        ) : (
+          <ModalGuide type="text" content={modalInfo.content} onClose={handleClose} title={modalInfo.title} />
+        ))}
     </IntroduceSectionContainer>
   )
 }
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); // 어두운 배경
-  z-index: 999;
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
-`
-
-const ModalWrapper = styled.section`
-  position: fixed;
-  top: 15%;
-  left: 10%;
-  z-index: 1000;
-  width: ${getMobileVw(300)};
-  height: auto;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 1rem;
-`
-const ModalTitle = styled.h4`
-  color: #333;
-  font-size: 1rem;
-  /* margin-: 1rem; */
-`
 
 const IntroduceSectionContainer = styled.div`
   display: flex;

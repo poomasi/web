@@ -9,14 +9,17 @@ type ModalProps = {
   type: 'swiper' | 'text'
   contents?: { image: string; text: string }[]
   content?: string
+  onClose: () => void
+  title: string
 }
 
-export function ModalGuide({ type, contents, content }: ModalProps) {
+export function ModalGuide({ type, contents, content, onClose, title }: ModalProps) {
   if (type === 'swiper' && contents) {
     return (
-      <ModalReference>
-        <ModalReference.Header onClickClose={() => {}} />
+      <ModalReference onClick={onClose}>
+        <ModalReference.Header onClickClose={onClose} />
         <ModalReference.Body>
+          <h2>{title}</h2>
           <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
             {contents.map((item, index) => (
               <SwiperSlide key={index}>
@@ -33,9 +36,10 @@ export function ModalGuide({ type, contents, content }: ModalProps) {
   }
 
   return (
-    <ModalReference>
-      <ModalReference.Header onClickClose={() => {}} />
+    <ModalReference onClick={onClose}>
+      <ModalReference.Header onClickClose={onClose} />
       <ModalReference.Body>
+        <h2>{title}</h2>
         <Text>{content}</Text>
       </ModalReference.Body>
     </ModalReference>

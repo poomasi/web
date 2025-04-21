@@ -43,6 +43,22 @@ const LogoImage = styled.img`
   }
 `
 
+// const HeaderContainer = styled.div`
+//   height: 90px;
+//   padding: 0 ${getPcVw(300)};
+//   background-color: #fff;
+
+//   display: flex;
+//   justify-content: space-between;
+
+//   position: sticky;
+//   top: 0;
+//   margin: 0 auto;
+
+//   color: #333;
+//   z-index: 999;
+// `
+
 const KakaoLoginBtn = styled.button`
   font-size: 1.1875rem;
   padding: 3px 1.25rem;
@@ -81,5 +97,4 @@ const HeaderContent = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 1vw;
 `

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import closeIcon from './close-button.svg'
-import { getMobileVw } from '@utils/responsive'
 
 type CloseButtonProps = {
   onClick: () => void
@@ -20,7 +19,6 @@ export const CloseButton = ({ onClick, style }: CloseButtonProps) => {
 }
 
 const CloseBtn = styled.button`
-  /* margin-left: ${getMobileVw(300 * 0.9)}; */
   width: 1rem;
   height: 1rem;
   background: none;
