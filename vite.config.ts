@@ -8,8 +8,9 @@ import checker from 'vite-plugin-checker' //npm install --save-dev @types/node
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: '0.0.0.0',
-    port: 3000,
+    host: true,
+    // host: '0.0.0.0',
+    port: 5173,
   },
   plugins: [
     react(),
