@@ -41,11 +41,11 @@ export const modalData: Record<'Sharing' | 'Mentoring' | 'Question', ModalInfoTy
   Mentoring: {
     title: '품앗이 규칙',
     type: 'text',
-    content: '품앗은 받고 잊지 않아요. 대신 서로 돕고 마음을 나누는 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.',
+    content: '품앗은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.',
   },
   Question: {
     title: '세부 안내',
     type: 'text',
-    content: '품앗이꾼을 빨리 매칭드리기 위해 노력하고 있어요. 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D',
+    content: '품앗이꾼은 빠르게 답변드리기 위해 노력하고 있어요. 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D',
   },
 }

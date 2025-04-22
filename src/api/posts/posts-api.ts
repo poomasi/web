@@ -1,7 +1,6 @@
-import { QnaAskerType } from '@api/enums'
+import { CareerYearType, QnaAskerType } from '@api/enums'
 // import requestHandler from '@api/request-handler'
 import { GetQnaListResponse, GetQnaStatusResponse } from '@api/types'
-import { CareerYearType } from '@api/enums'
 import customAxios from '@api/customAxios.ts'
 
 const PATH = '/posts'
@@ -12,6 +11,11 @@ interface PostQnaParams {
   careerYear: CareerYearType
   isMajor: boolean
   questionText: string
+}
+
+type PostQnaAnswerResponse = {
+  public_id: string
+  answer_text: string
 }
 
 export const PostsApi = {
@@ -35,5 +39,14 @@ export const PostsApi = {
 
   getQnaStatus: async () => {
     return await customAxios.get<GetQnaStatusResponse>(PATH + `/qna/status`)
+  },
+
+  // @ 태경
+  // id 는 로그인 한 사람 아이디를 넣으면 됩니다.
+  // useAccountStore 에서 가져오면 됩니다.
+  postQnaAnswer: async (id: string, answerText: string) => {
+    return await customAxios.post<PostQnaAnswerResponse>(PATH + `/qna/${id}/answer`, {
+      answer_text: answerText,
+    })
   },
 }

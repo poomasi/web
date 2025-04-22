@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { REDIRECT_URI, REST_API_KEY } from './variables'
 import { RequestApi } from '@api/request-api'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 
 export function KakaoLoginCallback() {
   const { setAccountToken, setPublicId } = useAccountStore()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   // useEffect 내부에서 async 함수 선언 (즉시 실행 함수 제거)
   const fetchToken = async () => {
     try {
@@ -43,7 +43,8 @@ export function KakaoLoginCallback() {
       const beforeLoginUrl = localStorage.getItem('before_login_url')
       localStorage.removeItem('before_login_url')
 
-      navigate(beforeLoginUrl || 'https://poomasi.kr')
+      window.location.href = beforeLoginUrl || 'https://poomasi.kr'
+      // navigate(beforeLoginUrl || 'https://poomasi.kr')
     } catch (error) {
       console.error('카카오 로그인 에러:', error)
     }

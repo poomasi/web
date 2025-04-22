@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { getMobileVw, getPcVw } from '@utils/responsive'
+import { colors } from '@styles/foundation/color'
 
 export function Footer() {
   return (
@@ -29,16 +30,19 @@ const FooterWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: ${getPcVw(300)};
+  color: ${colors.gray600};
 
   @media (max-width: 767px) {
     font-size: 10px;
     flex-direction: column;
     gap: 12px;
+    padding-left: 0;
+    height: auto;
   }
 `
 
 const InquireText = styled.div`
-  color: #4e5053;
+  color: ${colors.gray600};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -50,6 +54,7 @@ const InquireText = styled.div`
 
 const Mail = styled.a`
   text-decoration: none;
+  color: ${colors.gray600};
 
   &:hover {
     color: white;

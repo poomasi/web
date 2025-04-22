@@ -19,7 +19,7 @@ export function ModalGuide({ type, contents, content, onClose, title }: ModalPro
       <ModalReference onClick={onClose}>
         <ModalReference.Header onClickClose={onClose} />
         <ModalReference.Body>
-          <h2>{title}</h2>
+          <ModalTitle>{title}</ModalTitle>
           <StyledSwiper spaceBetween={16} slidesPerView={1} modules={[Pagination]} pagination={{ clickable: true }}>
             {contents.map((item, index) => (
               <SwiperSlide key={index}>
@@ -39,16 +39,25 @@ export function ModalGuide({ type, contents, content, onClose, title }: ModalPro
     <ModalReference onClick={onClose}>
       <ModalReference.Header onClickClose={onClose} />
       <ModalReference.Body>
-        <h2>{title}</h2>
-        <Text>{content}</Text>
+        <ModalTitle>{title}</ModalTitle>
+        <TextDeco>{content}</TextDeco>
       </ModalReference.Body>
     </ModalReference>
   )
 }
 
+const ModalTitle = styled.h4`
+  @media (max-width: 767px) {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 5px;
+  }
+`
+
 const StyledSwiper = styled(Swiper)`
   width: 100%;
-  max-width: 340px;
+  max-width: 280px;
   margin: 0 auto;
   background-color: #fff;
   position: relative;
@@ -80,8 +89,8 @@ const Image = styled.img`
   height: auto;
   margin-bottom: 1rem;
 
-  @media (max-width: 480px) {
-    width: 85%;
+  @media (max-width: 767px) {
+    width: 100%;
   }
 `
 
@@ -89,10 +98,20 @@ const Text = styled.p`
   font-size: 16px;
   text-align: center;
   line-height: 1.5;
-  color: #4e5053;
+  color: #28292a;
 
-  @media (max-width: 480px) {
+  @media (max-width: 767px) {
     font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+`
+const TextDeco = styled.p`
+  @media (max-width: 767px) {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 20px;
+    padding: 1rem;
   }
 `
 
