@@ -1,10 +1,11 @@
 // src/hooks/useKeyboardHeight.ts
 import { useEffect, useState } from 'react'
 
-export function useKeyboardHeight(): number {
+export function useKeyboardHeight(isMobile: boolean): number {
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0)
 
   useEffect(() => {
+    if (!isMobile) return
     const handleResize = () => {
       if (window.visualViewport) {
         const heightDiff = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop //툴바값 오프셋으로 뺌

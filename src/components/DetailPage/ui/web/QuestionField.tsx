@@ -10,11 +10,14 @@ import { getPcVw, getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
+import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 
 const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
+  const { isMobile } = useMobileStore()
+  const keyboardHeight = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accountToken } = useAccountStore()
@@ -22,7 +25,6 @@ export function QuestionField() {
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
-  const keyboardHeight = useKeyboardHeight()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -321,7 +323,7 @@ const StyledSelect = styled.select`
 const QuestionBtnWrapper = styled.div<{ keyboardHeight: number }>`
   margin-left: auto;
 
-  @media (max-width: 767px) {
+  /* @media (max-width: 767px) {
     position: fixed;
     bottom: ${({ keyboardHeight }) => `${keyboardHeight + 16}px`};
     left: 0;
@@ -329,5 +331,5 @@ const QuestionBtnWrapper = styled.div<{ keyboardHeight: number }>`
     padding: 0 16px;
     z-index: 999;
     transition: bottom 0.3s ease;
-  }
+  } */
 `
