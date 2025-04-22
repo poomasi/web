@@ -5,7 +5,7 @@ import Card from '@mui/material/Card'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
 import { getMobileVh, getMobileVw, getPcVw } from '@utils/responsive.ts'
-import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
+// import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 // import { useMobileStore } from '@store/useMobileStore'
 // import { ModalGuide } from '@components/modal'
 // import {modalData} from '@components/modal/modalGuide-data'
@@ -27,7 +27,8 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({ profileData }: ProfileCardProps) {
-  const { handleProfileClick, useGuideModal, setUseGuideModal } = useProfileCard()
+  const { handleProfileClick } = useProfileCard()
+  // const { handleProfileClick, useGuideModal, setUseGuideModal } = useProfileCard()
   // const isMobile = useMobileStore((state) => state.isMobile)
 
   return (
@@ -70,7 +71,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
           <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />
         )
       )} */}
-      {useGuideModal && <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />}
+      {/* {useGuideModal && <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />} */}
     </>
   )
 }
