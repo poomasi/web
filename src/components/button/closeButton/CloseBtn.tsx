@@ -30,4 +30,9 @@ const CloseBtn = styled.button`
     width: 100%;
     height: 100%;
   }
+
+  @media (max-width: 767px) {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
 `
