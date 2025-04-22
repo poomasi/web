@@ -12,7 +12,7 @@ import { MobileDetailPage } from '@pages/private/MobileDetailPage'
 import { useMobileStore } from '@store/useMobileStore.ts'
 
 export function DetailPage() {
-  const { publicId } = useAccountStore()
+  // const { publicId } = useAccountStore()
   const { setErrorToastMessage } = useToastMessageStore()
 
   const navigate = useNavigate()
@@ -38,10 +38,10 @@ export function DetailPage() {
   }
 
   useEffect(() => {
-    if (publicId === null) {
-      setErrorToastMessage('로그인을 먼저 진행해주세요.')
-      navigate('/')
-    }
+    // if (publicId === null) {
+    //   setErrorToastMessage('로그인을 먼저 진행해주세요.')
+    //   navigate('/')
+    // }
 
     scroll(0, 0)
     getTeacherData()
