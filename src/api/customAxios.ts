@@ -1,11 +1,14 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 import { DefaultApiResponse } from '../types/api/DefaultApiResponse.ts'
+import { useAccountStore } from '@store/account'
 
 // @ts-ignore
 export interface CustomInstance extends AxiosInstance {
   get<T>(url: string, config?: AxiosRequestConfig): Promise<DefaultApiResponse<T>>
+
   post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<DefaultApiResponse<T>>
+
   patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<DefaultApiResponse<T>>
 }
 
@@ -18,7 +21,7 @@ const customAxios: CustomInstance = axios.create({
 })
 
 customAxios.interceptors.request.use(function (request) {
-  const token = localStorage.getItem('account_token') ?? ''
+  const token = useAccountStore.getState().accountToken
   if (token) {
     console.log('token', token)
     request.headers.Authorization = token
