@@ -7,8 +7,8 @@ export function useKeyboardHeight(): number {
   useEffect(() => {
     const handleResize = () => {
       if (window.visualViewport) {
-        const heightDiff = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop
-        setKeyboardHeight(heightDiff > 100 ? heightDiff : 0) // 100px 이상일 때만 감지
+        const heightDiff = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop //툴바값 오프셋으로 뺌
+        setKeyboardHeight(heightDiff > 30 ? heightDiff : 0)
       }
     }
 
