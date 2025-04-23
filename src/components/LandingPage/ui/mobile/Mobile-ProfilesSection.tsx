@@ -9,14 +9,10 @@ import { useMemo } from 'react'
 export function MobileProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
-  //필터링된 배열
   const filteredForPagination = useMemo(() => {
     return selectedField === null ? accountList : accountList.filter((account) => account.field === selectedField)
   }, [accountList, selectedField])
 
-  //리스트 3개씩 나누기
-  //<T,> 처럼 콤마 ,를 붙여야 TypeScript가 JSX로 인식하지 않고 제네릭으로 이해해요!
-  //[][] → 숫자 배열이 여러 개 들어간 2차원 배열   예: [[1, 2], [3, 4], [5, 6]]
   const chunkArray = <T,>(arr: T[], targetNumber: number): T[][] => {
     const result: T[][] = []
     for (let i = 0; i < arr.length; i += targetNumber) {
@@ -54,19 +50,6 @@ export function MobileProfilesSection() {
           </SnapWrapper>
         ))}
       </PoomProfileCardList>
-      {/* <PoomProfileCardList ref={swiperRef}>
-        {accountList
-          .filter((account) => {
-            if (selectedField === null) {
-              return true
-            }
-            return account.field === selectedField
-          })
-          .map((account) => (
-            // console.log(Public ID:`, account.public_id);
-            <ProfileCard key={account.public_id} profileData={account} />
-          ))}
-      </PoomProfileCardList> */}
     </ProfilesSectionContainer>
   )
 }

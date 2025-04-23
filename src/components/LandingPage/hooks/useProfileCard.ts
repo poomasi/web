@@ -6,13 +6,17 @@ import { useAccountStore } from '@store/account'
 export function useProfileCard() {
   const navigate = useNavigate()
   const { accountToken } = useAccountStore((state) => state)
-  const [useGuideModal, setUseGuideModal] = useState(false)
+  const [useGuideModal, setUseGuideModal] = useState(false) //모달띄울지말지 결정
+  const [selectedCardKey, setSelectedCardKey] = useState<'Sharing' | 'Mentoring' | 'Question' | null>(null)
 
   const handleProfileClick = (profile: ProfileData) => {
     if (accountToken === null) {
       setUseGuideModal(true)
+      setSelectedCardKey('Sharing')
+      // console.log('useGuideModal 실행됨:', useGuideModal)
       return
     }
+    setSelectedCardKey('Sharing')
 
     if (!profile.is_vacation) navigate(`/${profile.nickname}`)
   }
@@ -21,5 +25,6 @@ export function useProfileCard() {
     handleProfileClick,
     useGuideModal,
     setUseGuideModal,
+    selectedCardKey,
   }
 }

@@ -10,10 +10,14 @@ import { getPcVw, getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
+import { useMobileStore } from '@store/useMobileStore.ts'
+import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 
 const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
+  const { isMobile } = useMobileStore()
+  const keyboardHeight = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accountToken } = useAccountStore()
@@ -133,9 +137,9 @@ export function QuestionField() {
         <span>비밀질문</span>
       </QuestionSecretOption>
 
-      <QuestionBtnWrapper style={{ marginLeft: 'auto' }}>
+      <QuestionBtnWrapper style={{ marginLeft: 'auto' }} className="MobileWrapper">
         <DebouncedButton
-          text={'등록'}
+          text={'질문 등록하기'}
           onClick={() => handleQuestionButtonClick()}
           variant="contained"
           sx={{
@@ -149,6 +153,16 @@ export function QuestionField() {
             '@media (max-width:767px)': {
               width: '100%',
             },
+            ...(isMobile && keyboardHeight > 0
+              ? {
+                  position: 'fixed',
+                  bottom: `${keyboardHeight + 10}px`, // 키보드 위 여유공간
+                  // left: '16px',
+                  right: '1px',
+                  zIndex: 9999,
+                  // width: `100%`,
+                }
+              : {}),
           }}
         />
       </QuestionBtnWrapper>
@@ -156,6 +170,13 @@ export function QuestionField() {
     </QuestionSection>
   )
 }
+const QuestionBtnWrapper = styled.div`
+  @media (max-width: 767px) {
+    transition: bottom 0.3s ease;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+`
 
 const QuestionSection = styled.div`
   display: flex;
@@ -312,12 +333,5 @@ const StyledSelect = styled.select`
     font-size: 0.75rem;
     padding-top: 0;
     padding-right: 0;
-  }
-`
-
-const QuestionBtnWrapper = styled.div`
-  @media (max-width: 767px) {
-    margin: 0 !important;
-    width: 100% !important;
   }
 `

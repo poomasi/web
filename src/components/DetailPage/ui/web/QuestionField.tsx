@@ -10,10 +10,14 @@ import { getPcVw, getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
+import { useMobileStore } from '@store/useMobileStore.ts'
+import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 
 const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
+  const { isMobile } = useMobileStore()
+  const keyboardHeight = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accountToken } = useAccountStore()
@@ -133,7 +137,7 @@ export function QuestionField() {
         <span>비밀질문</span>
       </QuestionSecretOption>
 
-      <QuestionBtnWrapper style={{ marginLeft: 'auto' }}>
+      <QuestionBtnWrapper keyboardHeight={keyboardHeight} style={{ marginLeft: 'auto' }}>
         <DebouncedButton
           text={'등록'}
           onClick={() => handleQuestionButtonClick()}
@@ -147,7 +151,7 @@ export function QuestionField() {
             color: 'white',
             backgroundColor: '#3ecdba',
             '@media (max-width:767px)': {
-              width: '100%',
+              bottom: `${keyboardHeight + 16}px`,
             },
           }}
         />
@@ -165,6 +169,7 @@ const QuestionSection = styled.div`
   gap: 20px;
   @media (max-width: 768px) {
     margin-bottom: ${getMobileVw(40)};
+    paddingbottom: 40px;
   }
 `
 
@@ -315,9 +320,16 @@ const StyledSelect = styled.select`
   }
 `
 
-const QuestionBtnWrapper = styled.div`
-  @media (max-width: 767px) {
-    margin: 0 !important;
-    width: 100% !important;
-  }
+const QuestionBtnWrapper = styled.div<{ keyboardHeight: number }>`
+  margin-left: auto;
+
+  /* @media (max-width: 767px) {
+    position: fixed;
+    bottom: ${({ keyboardHeight }) => `${keyboardHeight + 16}px`};
+    left: 0;
+    width: 100%;
+    padding: 0 16px;
+    z-index: 999;
+    transition: bottom 0.3s ease;
+  } */
 `

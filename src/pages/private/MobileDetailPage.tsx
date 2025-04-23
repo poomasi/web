@@ -48,7 +48,7 @@ export function MobileDetailPage() {
   }, [])
 
   return (
-    <Container>
+    <Container className="mobileDetailPage">
       <PageContainer>
         <PageContent>
           {!pageLoading ? (

@@ -14,9 +14,7 @@ function App() {
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= 767)
-
     window.addEventListener('resize', sizeCheckEvent)
-
     return () => {
       window.removeEventListener('resize', sizeCheckEvent)
     }
