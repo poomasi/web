@@ -5,10 +5,10 @@ import Card from '@mui/material/Card'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
 import { getMobileVh, getMobileVw, getPcVw } from '@utils/responsive.ts'
-// import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
-// import { useMobileStore } from '@store/useMobileStore'
-// import { ModalGuide } from '@components/modal'
-// import {modalData} from '@components/modal/modalGuide-data'
+import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
+import { useMobileStore } from '@store/useMobileStore'
+import { ModalGuide } from '@components/modal'
+import { modalData } from '@components/modal/modalGuide-data'
 
 export interface ProfileData {
   nickname: string
@@ -27,10 +27,10 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({ profileData }: ProfileCardProps) {
-  const { handleProfileClick } = useProfileCard()
-  // const { handleProfileClick, useGuideModal, setUseGuideModal } = useProfileCard()
-  // const isMobile = useMobileStore((state) => state.isMobile)
+  const { handleProfileClick, useGuideModal, setUseGuideModal, selectedCardKey } = useProfileCard()
 
+  const isMobile = useMobileStore((state) => state.isMobile)
+  const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null
   return (
     <>
       <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)} className="profileCardContainer">
@@ -59,19 +59,13 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
           </ProfileHistory>
         </ProfileIntroContainer>
       </Container>
-      {/* {useGuideModal && (
-        isMobile ? (
-          <ModalGuide
-            type={modalData.type}
-            title={modalData.title}
-            contents={modalData.contents}
-            onClose={() => setUseGuideModal(false)}
-          />
+      {useGuideModal &&
+        modalInfo &&
+        (isMobile && modalInfo.type === 'swiper' ? (
+          <ModalGuide type="swiper" title={modalInfo.title} contents={modalInfo.contents} onClose={() => setUseGuideModal(false)} />
         ) : (
           <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />
-        )
-      )} */}
-      {/* {useGuideModal && <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />} */}
+        ))}
     </>
   )
 }
