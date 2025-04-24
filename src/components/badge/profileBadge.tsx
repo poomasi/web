@@ -20,6 +20,7 @@ export function ProfileBadge({ badgeString, onClick, selected }: ProfileBadgePro
         color: selected ? '#3ECDBA' : '#9B9EA2',
         backgroundColor: selected ? '#EBFFFC' : '#F7F7F7',
         ...badgeMobileStyles(selected ?? false),
+        boxShadow: 'none',
       }}
     >
       #{badgeString}

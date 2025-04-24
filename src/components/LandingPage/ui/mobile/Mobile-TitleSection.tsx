@@ -21,7 +21,7 @@ export function MobileTitleSection() {
 
 const TitleSectionContainer = styled.div`
   width: 100%;
-  height: ${getMobileVh(700)};
+  height: ${getMobileVh(448)}; //주의
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,6 +56,7 @@ const Description = styled.div`
   padding-top: 10px;
   line-height: 150%;
   font-size: 24px;
+  color: #4e5053;
 
   @media (max-width: 767px) {
     font-size: 0.9375rem;
@@ -80,5 +81,6 @@ const QuestionButton = styled.button`
     width: ${getMobileVw(200)};
     height: 2.75rem;
     font-size: 1rem;
+    margin-top: 24px;
   }
 `

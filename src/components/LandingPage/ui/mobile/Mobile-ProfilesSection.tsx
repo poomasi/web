@@ -79,6 +79,9 @@ const SectionTitle = styled.div`
   align-items: flex-start;
   width: 100%;
   gap: ${getMobileVw(20)};
+  @media (max-width: 767px) {
+    gap: 1rem;
+  }
 `
 
 const SubHead = styled.div`

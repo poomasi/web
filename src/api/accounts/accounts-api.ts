@@ -10,6 +10,7 @@ export const AccountsApi = {
     return await customAxios.post<{
       account_token: string
       public_id: string
+      account_type: 'ADMIN' | 'USER'
     }>(`${PATH}/kakao-login`, { id_token: idToken })
   },
 

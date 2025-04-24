@@ -35,7 +35,7 @@ const LandingInfoCardContainer = styled.div`
 
 const InfoCardImage = styled.img`
   width: auto;
-  height: 70%;
+  height: 60%;
 `
 
 const InfoCardText = styled.div`

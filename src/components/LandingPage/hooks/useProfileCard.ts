@@ -12,7 +12,7 @@ export function useProfileCard() {
   const handleProfileClick = (profile: ProfileData) => {
     if (accountToken === null) {
       setUseGuideModal(true)
-      setSelectedCardKey('Sharing')
+      setSelectedCardKey('Sharing') //이게 문제였다...ㅠㅠㅠ해결완료...나중에 벨로그회고
       // console.log('useGuideModal 실행됨:', useGuideModal)
       return
     }

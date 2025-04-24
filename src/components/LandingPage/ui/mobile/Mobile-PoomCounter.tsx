@@ -34,20 +34,25 @@ const CounterContainer = styled.div`
   width: 100%;
   height: auto;
   padding: ${getMobileVh(30)};
+
+  @media (max-width: 767px) {
+    gap: 1rem;
+    padding: 2.375rem 3.625rem;
+  }
 `
 
 const PoomExplainText = styled.div`
-  width: 70%;
+  width: 93%;
   color: #0e0e0e;
   font-size: 1.5rem;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 150%;
   text-align: center;
 `
 
 const PoomCountIconContainer = styled.img`
-  width: ${getMobileVw(120)};
+  width: ${getMobileVw(72)};
   height: auto;
 `
 

@@ -12,6 +12,7 @@ import { useAccountStore } from '@store/account'
 import { useParams } from 'react-router-dom'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
+import { AnswerEditor } from '@components/DetailPage/ui/mobile/AnswerEditor'
 
 export function QuestionList() {
   const { id } = useParams()
@@ -92,8 +93,13 @@ export function QuestionList() {
               isSecretQuestion={getIsSecretQuestion(qna)}
             />
 
-            {qna.answer_text && (
+            {/* {qna.answer_text && (
               <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
+            )} */}
+            {qna.answer_text ? (
+              <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
+            ) : (
+              <AnswerEditor qnaId={qna.public_id} onSuccess={getTeacherQnaList} />
             )}
           </QnaSection>
         ))

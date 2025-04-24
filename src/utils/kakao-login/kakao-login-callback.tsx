@@ -6,9 +6,9 @@ import { RequestApi } from '@api/request-api'
 import { useAccountStore } from '@store/account'
 
 export function KakaoLoginCallback() {
-  const { setAccountToken, setPublicId } = useAccountStore()
+  const { setAccountToken, setPublicId, setAccountType } = useAccountStore()
   // const navigate = useNavigate()
-  // useEffect 내부에서 async 함수 선언 (즉시 실행 함수 제거)
+
   const fetchToken = async () => {
     try {
       // URL에서 'code' 파라미터 추출
@@ -38,6 +38,8 @@ export function KakaoLoginCallback() {
       // localStorage에 사용자 정보 저장
       setPublicId(kakaoLoginResponse.data.public_id)
       setAccountToken(kakaoLoginResponse.data.account_token)
+      setAccountType(kakaoLoginResponse.data.account_type)
+      console.log('응답 account_type:', kakaoLoginResponse.data.account_type)
 
       // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
       const beforeLoginUrl = localStorage.getItem('before_login_url')

@@ -7,6 +7,9 @@ type AccountTokenStore = {
   publicId: string | null
   setPublicId: (id: string) => void
   resetAccountToken: () => void
+  // 추가
+  accountType: 'ADMIN' | 'USER' | null
+  setAccountType: (type: 'ADMIN' | 'USER') => void
 }
 
 export const useAccountStore = create<AccountTokenStore>()(
@@ -14,14 +17,16 @@ export const useAccountStore = create<AccountTokenStore>()(
     (set) => ({
       accountToken: null,
       publicId: null,
-      setAccountToken: (token) => {
-        set({ accountToken: token })
-      },
-      setPublicId: (id) => {
-        set({ publicId: id })
-      },
+      accountType: null, // 초기값
+      setAccountToken: (token) => set({ accountToken: token }),
+      setPublicId: (id) => set({ publicId: id }),
+      setAccountType: (type) => set({ accountType: type }), // 함수 추가
       resetAccountToken: () => {
-        set({ accountToken: null, publicId: null })
+        set({
+          accountToken: null,
+          publicId: null,
+          accountType: null, // 리셋할 때도 초기화
+        })
       },
     }),
     {

@@ -41,9 +41,9 @@ export function MobileIntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="이용방법" imgSrc={sharingIcon} onClick={() => updateModalKey('Sharing')} />
+        <LandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={() => updateModalKey('Sharing')} />
         <LandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={() => updateModalKey('Mentoring')} />
-        <LandingInfoCard infoText="세부안내" imgSrc={questionIcon} onClick={() => updateModalKey('Question')} />
+        <LandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
       {modalInfo &&
@@ -70,6 +70,9 @@ const IntroduceSectionContainer = styled.div`
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
   padding: 1.875rem 0;
+  @media (max-width: 767px) {
+    gap: 0;
+  }
 `
 
 const IntroducePoomasi = styled.div`
@@ -82,6 +85,7 @@ const IntroducePoomasi = styled.div`
   height: 100%;
   @media (max-width: 767px) {
     margin: 1.875rem 0;
+    gap: 0.8rem;
   }
 `
 
@@ -110,6 +114,6 @@ const IntroduceCardList = styled.div`
   flex-direction: column;
   justify-content: center;
   /* padding: 20px 0; */
-  gap: ${getMobileVh(30)};
+  gap: 0.75rem;
   /* padding-bottom: 160px; */
 `
