@@ -1,27 +1,28 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useAccountStore } from '@store/account'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
 import { ProfileBadge } from '@components/badge'
-import { QnaAskerType } from '@api/enums.ts'
-import { GetQnaListResponse } from '@api/types.ts'
+import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard'
+import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard'
+import { RequestApi } from '@api/request-api'
+import { GetQnaListResponse } from '@api/types'
+import { QnaAskerType } from '@api/enums'
+import { colors } from '@styles/foundation/color'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
-// import TextareaAutosize from 'react-textarea-autosize'
-// import Card from '@mui/material/Card'
-import { useEffect, useState } from 'react'
-import { RequestApi } from '@api/request-api.ts'
-import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { useAccountStore } from '@store/account'
-import { useParams } from 'react-router-dom'
-import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
-import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
-// import { AnswerEditor } from '@components/DetailPage/ui/mobile/AnswerEditor'
-import { AnswerModal } from '@components/DetailPage/ui/mobile/AnswerModal'
+import SendIcon from '@mui/icons-material/Send'
 
 export function QuestionList() {
   const { id } = useParams()
   const { teacherAccount } = useDetailPageContext()
   const { publicId, accountType } = useAccountStore()
+
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
-  const [selectedQnaId, setSelectedQnaId] = useState<string | null>(null)
+
+  const [replyTexts, setReplyTexts] = useState<Record<string, string>>({})
+  const [focusedId, setFocusedId] = useState<string | null>(null)
 
   const getTeacherQnaList = async () => {
     try {
@@ -45,6 +46,19 @@ export function QuestionList() {
       return qna.questioner_public_id !== publicId
     }
     return true
+  }
+
+  const handleReplySubmit = async (qnaId: string) => {
+    const text = replyTexts[qnaId]?.trim()
+    if (!text) return
+
+    try {
+      await RequestApi.posts.postQnaAnswer(qnaId, text)
+      setReplyTexts((prev) => ({ ...prev, [qnaId]: '' }))
+      getTeacherQnaList()
+    } catch (err) {
+      console.error('댓글 등록 실패:', err)
+    }
   }
 
   useEffect(() => {
@@ -85,43 +99,93 @@ export function QuestionList() {
           아직 질문이 없네요 :D
         </div>
       ) : (
-        qnaDataList.map((qna) => (
-          <QnaSection key={qna.public_id}>
-            <QuestionCard
-              questionText={qna.question_text}
-              careerYear={qna.career_year}
-              isMajor={qna.is_major === 0}
-              createdAt={qna.created_at}
-              isSecretQuestion={getIsSecretQuestion(qna)}
-            />
+        qnaDataList.map((qna) => {
+          // console.log('accountType:', accountType)
+          // console.log('qna.answer_text:', qna.answer_text)
 
-            {qna.answer_text ? (
-              <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
-            ) : (
-              <>{accountType === 'ADMIN' && <AnswerButton onClick={() => setSelectedQnaId(qna.public_id)}>답글달기</AnswerButton>}</>
-            )}
-          </QnaSection>
-        ))
+          return (
+            <QnaSection key={qna.public_id}>
+              <QuestionCard
+                questionText={qna.question_text}
+                careerYear={qna.career_year}
+                isMajor={qna.is_major === 0}
+                createdAt={qna.created_at}
+                isSecretQuestion={getIsSecretQuestion(qna)}
+              />
+
+              {qna.answer_text ? (
+                <AnswerCard
+                  answerText={qna.answer_text}
+                  isMyAnswer={publicId === qna.questioner_public_id}
+                  teacherName={teacherAccount?.name ?? ''}
+                />
+              ) : (
+                accountType === 'ADMIN' && (
+                  <ReplyTextareaWrapper>
+                    <ReplyTextarea
+                      value={replyTexts[qna.public_id] || ''}
+                      onChange={(e) =>
+                        setReplyTexts((prev) => ({
+                          ...prev,
+                          [qna.public_id]: e.target.value,
+                        }))
+                      }
+                      onFocus={() => setFocusedId(qna.public_id)}
+                      onBlur={() => setFocusedId(null)}
+                      isFocused={focusedId === qna.public_id}
+                      placeholder="답글을 입력해주세요."
+                      maxLength={500}
+                    />
+                    <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
+                      {' '}
+                      <SendIcon />
+                    </ReplyButton>
+                  </ReplyTextareaWrapper>
+                )
+              )}
+            </QnaSection>
+          )
+        })
       )}
-      {/* 답변등록모달 */}
-      {selectedQnaId && <AnswerModal qnaId={selectedQnaId} onClose={() => setSelectedQnaId(null)} onSuccess={getTeacherQnaList} />}
     </QuestionListBody>
   )
 }
 
-export const AnswerButton = styled.button`
-  background-color: #c6eee7;
-  border: none;
-  border-radius: 10px;
-  padding: 6px 12px;
-  font-weight: 600;
-  color: #13756f;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #a7e4db;
+const ReplyTextareaWrapper = styled.div`
+  display: flex;
+  @media (max-width: 767px) {
+    gap: 14px;
   }
+`
+
+const ReplyTextarea = styled.textarea<{ isFocused: boolean }>`
+  height: ${(props) => (props.isFocused ? '100px' : '20px')};
+  resize: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: height 0.2s ease;
+  color: ${colors.gray500};
+  @media (max-width: 767px) {
+    width: 80%;
+    resize: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+`
+
+const ReplyButton = styled.button`
+  margin-top: 8px;
+  background-color: ${colors.green200};
+  color: ${colors.green600};
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 `
 
 const QuestionListBody = styled.div`
