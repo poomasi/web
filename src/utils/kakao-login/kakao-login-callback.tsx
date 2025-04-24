@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { REDIRECT_URI, REST_API_KEY } from './variables'
 import { RequestApi } from '@api/request-api'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 
 export function KakaoLoginCallback() {
   const { setAccountToken, setPublicId, setAccountType } = useAccountStore()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const fetchToken = async () => {
     try {
@@ -16,7 +16,7 @@ export function KakaoLoginCallback() {
       const code = search.get('code')
       const grantType = 'authorization_code'
 
-      //POST 요청에 필요한 파라미터 생성
+      // 1. 카카오에서 access_token + id_token 받기
       const response = await axios.post(
         'https://kauth.kakao.com/oauth/token',
         new URLSearchParams({
@@ -30,22 +30,38 @@ export function KakaoLoginCallback() {
         },
       )
 
-      // 카카오에서 받은 id_token
+      // 2. 카카오 id_token을 백엔드로 전달
       const idToken = response.data.id_token
       const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin(idToken)
       console.log('카카오 idToken 응답:', idToken)
+      console.log('응답 account_type:', kakaoLoginResponse.data.account_type)
+
+      // 3. 백엔드 응답에서 토큰 및 ID 추출
+      const accountToken = kakaoLoginResponse.data.account_token
+      const publicId = kakaoLoginResponse.data.public_id
+
+      // 4. 토큰 디코딩으로 account_type 추출
+      const payloadBase64 = accountToken.split('.')[1]
+      const decodedPayload = JSON.parse(atob(payloadBase64))
+      const accountTypeFromToken = decodedPayload.account_type
+      console.log('디코딩된 account_type:', accountTypeFromToken)
 
       // localStorage에 사용자 정보 저장
-      setPublicId(kakaoLoginResponse.data.public_id)
-      setAccountToken(kakaoLoginResponse.data.account_token)
-      setAccountType(kakaoLoginResponse.data.account_type)
-      console.log('응답 account_type:', kakaoLoginResponse.data.account_type)
+      setPublicId(publicId)
+      setAccountToken(accountToken)
+      setAccountType(accountTypeFromToken)
+
+      console.log('account_token:', accountToken)
+      console.log('public_id:', publicId)
+      // setPublicId(kakaoLoginResponse.data.public_id)
+      // setAccountToken(kakaoLoginResponse.data.account_token)
+      // setAccountType(kakaoLoginResponse.data.account_type)
 
       // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
       const beforeLoginUrl = localStorage.getItem('before_login_url')
       localStorage.removeItem('before_login_url')
-
-      window.location.href = beforeLoginUrl || 'https://poomasi.kr'
+      navigate(beforeLoginUrl || 'http://localhost:3000')
+      // window.location.href = beforeLoginUrl || 'http://localhost:3000'
       // navigate(beforeLoginUrl || 'https://poomasi.kr')
     } catch (error) {
       console.error('카카오 로그인 에러:', error)
@@ -54,6 +70,7 @@ export function KakaoLoginCallback() {
 
   //kakao로부터 라다이렉트 당해서 진입했을 때 발동
   useEffect(() => {
+    console.log('KakaoLoginCallback 렌더됨')
     fetchToken()
   }, [])
 

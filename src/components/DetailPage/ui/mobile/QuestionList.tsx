@@ -12,14 +12,16 @@ import { useAccountStore } from '@store/account'
 import { useParams } from 'react-router-dom'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
-import { AnswerEditor } from '@components/DetailPage/ui/mobile/AnswerEditor'
+// import { AnswerEditor } from '@components/DetailPage/ui/mobile/AnswerEditor'
+import { AnswerModal } from '@components/DetailPage/ui/mobile/AnswerModal'
 
 export function QuestionList() {
   const { id } = useParams()
   const { teacherAccount } = useDetailPageContext()
-  const { publicId } = useAccountStore()
+  const { publicId, accountType } = useAccountStore()
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
+  const [selectedQnaId, setSelectedQnaId] = useState<string | null>(null)
 
   const getTeacherQnaList = async () => {
     try {
@@ -93,20 +95,34 @@ export function QuestionList() {
               isSecretQuestion={getIsSecretQuestion(qna)}
             />
 
-            {/* {qna.answer_text && (
-              <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
-            )} */}
             {qna.answer_text ? (
               <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
             ) : (
-              <AnswerEditor qnaId={qna.public_id} onSuccess={getTeacherQnaList} />
+              <>{accountType === 'ADMIN' && <AnswerButton onClick={() => setSelectedQnaId(qna.public_id)}>답글달기</AnswerButton>}</>
             )}
           </QnaSection>
         ))
       )}
+      {/* 답변등록모달 */}
+      {selectedQnaId && <AnswerModal qnaId={selectedQnaId} onClose={() => setSelectedQnaId(null)} onSuccess={getTeacherQnaList} />}
     </QuestionListBody>
   )
 }
+
+export const AnswerButton = styled.button`
+  background-color: #c6eee7;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-weight: 600;
+  color: #13756f;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #a7e4db;
+  }
+`
 
 const QuestionListBody = styled.div`
   margin-top: 70px;
