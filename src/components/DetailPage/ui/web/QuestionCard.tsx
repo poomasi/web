@@ -49,6 +49,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             borderRadius: '4px',
             backgroundColor: '#EAEBED',
             marginRight: '6px',
+            color: '#727478',
           }}
         >
           {getCareerYearString(careerYear)}
@@ -59,6 +60,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             borderRadius: '4px',
             backgroundColor: '#EAEBED',
             marginRight: '12px',
+            color: '#727478',
           }}
         >
           {isMajor ? '전공' : '비전공'}

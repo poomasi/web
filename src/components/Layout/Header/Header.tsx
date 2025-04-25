@@ -56,10 +56,11 @@ const KakaoLoginBtn = styled.button`
   }
 
   @media (max-width: 767px) {
-    width: ${getMobileVw(80)};
+    width: 5rem;
     padding: 7px 12px;
-    height: auto;
-    font-size: 1rem;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 6px;
   }
 `
 

@@ -120,9 +120,9 @@ const PoomProfileCardList = styled.div`
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: ${getMobileVw(40)};
+  gap: ${getMobileVw(30)};
   padding-bottom: ${getMobileVw(16)};
-  padding-left: ${getMobileVw(20)}; // 💡 카드 시작 여백
+  /* padding-left: ${getMobileVw(20)};  */
   padding-right: ${getMobileVw(20)};
   -webkit-overflow-scrolling: touch;
 

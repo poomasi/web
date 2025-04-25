@@ -101,7 +101,7 @@ const Container = styled(Card, {
     align-items: center;
     justify-content: flex-start;
     height: 7.5rem;
-    width: ${getMobileVw(280)};
+    width: ${getMobileVw(300)};
     overflow: visible;
     padding: 1.125rem ${getMobileVw(16)};
     gap: ${getMobileVw(16)};

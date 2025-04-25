@@ -152,6 +152,8 @@ export function QuestionField() {
             backgroundColor: '#3ecdba',
             '@media (max-width:767px)': {
               width: '100%',
+              boxShadow: 'none',
+              height: '48px',
             },
             ...(isMobile && keyboardHeight > 0
               ? {
@@ -160,7 +162,6 @@ export function QuestionField() {
                   // left: '16px',
                   right: '1px',
                   zIndex: 9999,
-                  // width: `100%`,
                 }
               : {}),
           }}
