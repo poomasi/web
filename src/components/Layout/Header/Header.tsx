@@ -43,27 +43,11 @@ const LogoImage = styled.img`
   }
 `
 
-// const HeaderContainer = styled.div`
-//   height: 90px;
-//   padding: 0 ${getPcVw(300)};
-//   background-color: #fff;
-
-//   display: flex;
-//   justify-content: space-between;
-
-//   position: sticky;
-//   top: 0;
-//   margin: 0 auto;
-
-//   color: #333;
-//   z-index: 999;
-// `
-
 const KakaoLoginBtn = styled.button`
   font-size: 1.1875rem;
   padding: 3px 1.25rem;
-  color: white;
-  background-color: black;
+  color: #08ae98;
+  background-color: #fff;
   border-radius: 12px;
   border: 1.5px solid #3ecdba;
 
@@ -72,8 +56,10 @@ const KakaoLoginBtn = styled.button`
   }
 
   @media (max-width: 767px) {
-    width: ${getMobileVw(110)};
+    width: ${getMobileVw(80)};
+    padding: 7px 12px;
     height: auto;
+    font-size: 1rem;
   }
 `
 
@@ -91,6 +77,7 @@ const HeaderContainer = styled.div`
   @media (max-width: 767px) {
     width: 100%;
     padding: 0 ${getMobileVw(10)};
+    margin: 12px 0;
   }
 `
 const HeaderContent = styled.div`

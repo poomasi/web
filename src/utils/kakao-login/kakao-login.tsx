@@ -41,6 +41,7 @@ const KakaoLoginButton = styled.button`
 
   @media (max-width: 767px) {
     font-size: 0.75rem;
+    font-weight: 500;
   }
 `
 const KakaoIcon = styled.img`

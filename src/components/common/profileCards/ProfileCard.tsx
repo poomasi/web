@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
-import { getMobileVh, getMobileVw, getPcVw } from '@utils/responsive.ts'
+import { getMobileVw, getPcVw } from '@utils/responsive.ts'
 import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 import { useMobileStore } from '@store/useMobileStore'
 import { ModalGuide } from '@components/modal'
@@ -100,12 +100,13 @@ const Container = styled(Card, {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    height: 5.625rem;
-    width: ${getMobileVw(250)};
+    height: 7.5rem;
+    width: ${getMobileVw(280)};
     overflow: visible;
-    padding: ${getMobileVh(18)} ${getMobileVw(16)};
+    padding: 1.125rem ${getMobileVw(16)};
     gap: ${getMobileVw(16)};
-    border-radius: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
   }
 `
 
@@ -116,8 +117,8 @@ const ProfilePictureWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   @media (max-width: 767px) {
-    width: ${getMobileVw(50)};
-    height: ${getMobileVw(50)};
+    width: ${getMobileVw(64)};
+    height: ${getMobileVw(64)};
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -146,7 +147,7 @@ const ProfileIntroContainer = styled.div`
   @media (max-width: 767px) {
     align-items: flex-start;
     justify-content: center;
-    gap: ${getMobileVh(4)};
+    gap: 6px;
   }
 `
 
@@ -160,7 +161,7 @@ const ProfileName = styled.div`
   font-weight: 800;
   line-height: 150%; /* 36px */
   @media (max-width: 767px) {
-    font-size: ${getMobileVh(20)};
+    font-size: 1rem;
   }
 `
 
@@ -170,7 +171,7 @@ const ProfileField = styled.div`
   color: #068372;
 
   @media (max-width: 767px) {
-    font-size: ${getMobileVh(16)};
+    font-size: 14px;
   }
 `
 
@@ -182,7 +183,6 @@ const ProfileHistory = styled.div`
   height: 30px;
 
   @media (max-width: 767px) {
-    font-size: ${getMobileVh(10)};
     height: auto;
     margin-top: 0;
     display: flex;
@@ -196,7 +196,7 @@ const ProfileHistoryItem = styled.div`
   text-align: center;
 
   @media (max-width: 767px) {
-    font-size: ${getMobileVh(10)};
+    font-size: 10px;
     height: auto;
     text-align: left;
     line-height: 1.3;
