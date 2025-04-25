@@ -114,9 +114,3 @@ const TextDeco = styled.p`
     padding: 1rem;
   }
 `
-
-/*const TextWrapper = styled.div`
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-`*/

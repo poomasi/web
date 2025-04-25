@@ -40,7 +40,7 @@ const ModalOverlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4); // 어두운 배경
-  z-index: 999;
+  z-index: 99999;
   opacity: 0;
   animation: fadeIn 0.3s forwards;
 
@@ -48,6 +48,14 @@ const ModalOverlay = styled.div`
     to {
       opacity: 1;
     }
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
 
@@ -57,7 +65,7 @@ const ModalWrapper = styled.section`
   left: 50%;
   // 좌우 정렬을 위해 left를 50%로 설정
   transform: translate(-50%);
-  z-index: 1000;
+  z-index: 9999999999;
   width: ${getMobileVw(300)};
   height: auto;
   background-color: #fff;
