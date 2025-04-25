@@ -35,19 +35,6 @@ export function QuestionList() {
     }
   }
 
-  const getIsSecretQuestion = (qna: GetQnaListResponse) => {
-    // 비밀질문이 아닌 경우 모두 확인 가능
-    if (qna.is_secret === 0) {
-      return false
-    }
-
-    // 비밀질문인 경우, 본인만 확인가능
-    if (qna.is_secret === 1) {
-      return qna.questioner_public_id !== publicId
-    }
-    return true
-  }
-
   const handleReplySubmit = async (qnaId: string) => {
     const text = replyTexts[qnaId]?.trim()
     if (!text) return
@@ -105,13 +92,7 @@ export function QuestionList() {
 
           return (
             <QnaSection key={qna.public_id}>
-              <QuestionCard
-                questionText={qna.question_text}
-                careerYear={qna.career_year}
-                isMajor={qna.is_major === 0}
-                createdAt={qna.created_at}
-                isSecretQuestion={getIsSecretQuestion(qna)}
-              />
+              <QuestionCard question={qna} key={qna.public_id} />
 
               {qna.answer_text ? (
                 <AnswerCard

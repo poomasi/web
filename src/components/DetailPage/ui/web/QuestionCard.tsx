@@ -1,47 +1,58 @@
 import dayjs from 'dayjs'
 import { CareerYearType } from '@api/enums.ts'
-import { useCallback } from 'react'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
+import { GetQnaListResponse } from '@api/types.ts'
+import { useCallback } from 'react'
 
 type QuestionCardProps = {
-  questionText: string
-  isSecretQuestion: boolean
-  careerYear: string
-  isMajor: boolean
-  createdAt: string
+  question: GetQnaListResponse
 }
 
-export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isSecretQuestion }: QuestionCardProps) {
-  const { accountToken } = useAccountStore()
-  const getCareerYearString = useCallback((career_year: string) => {
-    switch (career_year) {
-      case CareerYearType.ACADEMIC:
-        return '대학생'
-      case CareerYearType.JOB_SEEKER:
-        return '취준생'
-      case CareerYearType.JUNIOR:
-        return '신입~3년차'
-      case CareerYearType.MIDDLE:
-        return '3년차 이상'
-      default:
-        return '대학생'
+export const getCareerYearString = (career_year: string) => {
+  switch (career_year) {
+    case CareerYearType.ACADEMIC:
+      return '대학생'
+    case CareerYearType.JOB_SEEKER:
+      return '취준생'
+    case CareerYearType.JUNIOR:
+      return '신입~3년차'
+    case CareerYearType.MIDDLE:
+      return '3년차 이상'
+    default:
+      return '대학생'
+  }
+}
+
+export function QuestionCard({ question }: QuestionCardProps) {
+  const { accountToken, publicId } = useAccountStore()
+
+  const getIsSecretQuestion = useCallback(() => {
+    // 비밀질문이 아닌 경우 모두 확인 가능
+    if (question.is_secret === 0) {
+      return false
     }
+
+    // 비밀질문인 경우, 본인만 확인가능
+    if (question.is_secret === 1) {
+      return question.questioner_public_id !== publicId
+    }
+    return true
   }, [])
 
   return (
-    <QnaCard>
+    <QnaCard className={'qna-card'}>
       {/* 비밀 질문 인 경우, 블러처리 */}
-      {isSecretQuestion && (
+      {getIsSecretQuestion() && (
         <BlurOverlay>
           <TextBlurOverlay>{accountToken ? '비밀질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
       <QnaHead>Q</QnaHead>
-      <QnaContentArea readOnly value={questionText} />
+      <QnaContentArea readOnly value={question.question_text} />
       <div style={{ display: 'flex' }}>
         <QnaContentCareer
           style={{
@@ -52,7 +63,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             color: '#727478',
           }}
         >
-          {getCareerYearString(careerYear)}
+          {getCareerYearString(question.career_year)}
         </QnaContentCareer>
         <QnaContentMajor
           style={{
@@ -63,7 +74,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             color: '#727478',
           }}
         >
-          {isMajor ? '전공' : '비전공'}
+          {question.is_major ? '전공' : '비전공'}
         </QnaContentMajor>
         <QnaContentDate
           style={{
@@ -72,7 +83,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             alignItems: 'center',
           }}
         >
-          {dayjs(createdAt).format('YYYY-MM-DD')}
+          {dayjs(question.created_at).format('YYYY-MM-DD')}
         </QnaContentDate>
       </div>
     </QnaCard>
