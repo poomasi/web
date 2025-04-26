@@ -51,6 +51,7 @@ const ModalOverlay = styled.div`
   }
 
   @media (max-width: 767px) {
+    position: sticky;
     width: 100%;
     height: 100%;
     display: flex;
