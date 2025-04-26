@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { getMobileVw, getPcVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import { colors } from '@styles/foundation/color'
 
 export function Footer() {
@@ -29,7 +29,7 @@ const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: ${getPcVw(300)};
+  padding-left: 300px;
   color: ${colors.gray600};
 
   @media (max-width: 767px) {

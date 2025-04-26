@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 // import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
 import publicLogo from '@assets/svgs/public-logo.svg'
-import { getMobileVw, getPcVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import { useAccountStore } from '@store/account'
 
 export default function Header() {
@@ -66,11 +66,12 @@ const KakaoLoginBtn = styled.button`
 
 const HeaderContainer = styled.div`
   position: sticky;
-  width: ${getPcVw(1320)};
+  width: 100%;
+  padding: 1rem 300px;
   margin: 0 auto;
+  top: 0;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
   color: #333;
   background-color: #fff;
   z-index: 999;

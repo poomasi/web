@@ -6,7 +6,7 @@ import { useAccountStore } from '@store/account'
 import { RequestApi } from '@api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { getPcVw, getMobileVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
@@ -171,6 +171,7 @@ export function QuestionField() {
     </QuestionSection>
   )
 }
+
 const QuestionBtnWrapper = styled.div`
   @media (max-width: 767px) {
     transition: bottom 0.3s ease;
@@ -211,7 +212,7 @@ const QuestionArea = styled.div`
   border-radius: 20px;
   border: 1px solid var(--Gray-200, #eaebed);
   background: #f7f7f7;
-  padding: 1.5rem ${getPcVw(32)};
+  padding: 1.5rem 32px;
 
   @media (max-width: 767px) {
     padding: 14px;

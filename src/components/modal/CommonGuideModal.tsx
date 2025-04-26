@@ -1,6 +1,5 @@
 import ModalReference from '@components/modal/ModalReference.tsx'
 import styled from '@emotion/styled'
-import { getPcVw } from '@utils/responsive.ts'
 
 type CommonGuideModalProps = {
   title: string
@@ -21,7 +20,7 @@ export function CommonGuideModal({ title, content, onCloseClick }: CommonGuideMo
 }
 
 const CommonGuideModalContainer = styled(ModalReference)`
-  width: ${getPcVw(1075)};
+  width: 1075px;
 `
 
 const CommonGuideModalBody = styled.div`

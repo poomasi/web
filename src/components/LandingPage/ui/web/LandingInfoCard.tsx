@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { getPcVw } from '@utils/responsive'
 
 interface LandingInfoCardProps {
   infoText: string
@@ -24,7 +23,7 @@ const LandingInfoCardContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1.25rem ${getPcVw(20)};
+  padding: 1.25rem 20px;
   border-radius: 1.375rem;
   background: #fff;
 
