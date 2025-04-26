@@ -1,9 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 
 export const globalTheme = createTheme({
-  typography: {
-    fontFamily: 'Pretendard',
-  },
+  typography: {},
   palette: {},
   components: {},
 })

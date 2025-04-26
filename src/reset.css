@@ -3,6 +3,11 @@
    License: none (public domain)
 */
 
+@font-face {
+	font-family: "SUIT";
+	src: url("assets/fonts/SUIT-Regular.otf") format("opentype");
+}
+
 html,
 body,
 div,
@@ -89,7 +94,7 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'SUIT', sans-serif;
 	vertical-align: baseline;
 
 	/* padding box problem */
@@ -156,7 +161,6 @@ a {
 div,
 span,
 textarea {
-	font-family: 'Pretendard';
 	font-weight: normal;
 }
 
