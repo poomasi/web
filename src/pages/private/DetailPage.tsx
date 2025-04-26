@@ -3,7 +3,7 @@ import { useAccountStore, useToastMessageStore } from '@store/index.ts'
 import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RequestApi } from '@api/index.ts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { TeacherIntroduce } from '@components/DetailPage/ui/web/TeacherIntroduce.tsx'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
@@ -12,12 +12,13 @@ import { MobileDetailPage } from '@pages/private/MobileDetailPage'
 import { useMobileStore } from '@store/useMobileStore.ts'
 
 export function DetailPage() {
-  const { publicId } = useAccountStore()
+  const { publicId, accountType } = useAccountStore()
   const { setErrorToastMessage } = useToastMessageStore()
+  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 
   const navigate = useNavigate()
   const { id } = useParams()
-  const { pageLoading, setTeacherAccount, setPageLoading } = useDetailPageContext()
+  const { pageLoading, setTeacherAccount, setPageLoading, teacherAccount } = useDetailPageContext()
 
   // 품앗이꾼 데이터 가져오는 API
   const getTeacherData = async () => {
@@ -47,6 +48,12 @@ export function DetailPage() {
     getTeacherData()
   }, [])
 
+  useEffect(() => {
+    if (teacherAccount) {
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === 'ADMIN')
+    }
+  }, [teacherAccount])
+
   const { isMobile } = useMobileStore()
 
   return isMobile ? (
@@ -63,7 +70,7 @@ export function DetailPage() {
 
               <Seperator />
 
-              <QuestionField />
+              {!isAnswerAuthority && <QuestionField />}
 
               <QuestionList />
             </>
