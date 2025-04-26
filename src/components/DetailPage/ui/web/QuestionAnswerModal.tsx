@@ -4,6 +4,10 @@ import styled from '@emotion/styled'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { useState } from 'react'
 import { DebouncedButton } from '@components/button'
+import { RequestApi } from '@api/request-api.ts'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import { useToastMessageStore } from '@store/toast'
+import axios from 'axios'
 
 type QuestionAnswerModalProps = {
   question: GetQnaListResponse
@@ -12,6 +16,8 @@ type QuestionAnswerModalProps = {
 
 export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionAnswerModalProps) {
   const [answerText, setAnswerText] = useState<string>('')
+  const { setIsQuestionListFetched } = useDetailPageContext()
+  const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
 
   // 답변글 등록
   const handleAnswerTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -20,7 +26,47 @@ export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionA
     }
   }
 
-  const handleAnswerButtonClick = () => {}
+  const handleAnswerButtonClick = async () => {
+    if (!answerText) {
+      alert('댓글을 입력해주세요.')
+      return
+    }
+
+    try {
+      await RequestApi.posts.postQnaAnswer(question.public_id, answerText)
+      setIsQuestionListFetched(true)
+      setAnswerModalClose()
+      setSuccessToastMessage('댓글 등록이 완료되었습니다.')
+    } catch (err) {
+      // axios 에러 타입 체크
+      if (axios.isAxiosError(err)) {
+        // AxiosError 타입으로 처리
+        if (err.response) {
+          const statusCode = err.response.status
+
+          if (statusCode === 400) {
+            setErrorToastMessage('답변을 등록할 수 있는 계정이 아닙니다. 로그인 후 다시 시도해주세요.')
+            return
+          }
+
+          if (statusCode === 401) {
+            setErrorToastMessage('인증에 실패했습니다. 다시 로그인해주세요.')
+            return
+          }
+
+          if (statusCode === 404) {
+            setErrorToastMessage('답변을 등록한 QNA 정보를 찾을 수 없습니다. 잠시 후 다시 시도해주세요.')
+            return
+          }
+        } else if (err.request) {
+          setErrorToastMessage('서버 응답 문제가 발생했습니다. 잠시 후 다시 시도해주세요.')
+          return
+        }
+      }
+
+      setErrorToastMessage('댓글 등록에 실패했습니다.')
+    }
+  }
 
   return (
     <CommonGuideModalContainer>

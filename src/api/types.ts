@@ -20,7 +20,7 @@ export interface AccountListResponse {
 }
 
 export interface AccountResponse {
-  id: string
+  public_id: string
   name: string
   profile_image: string
   field: string

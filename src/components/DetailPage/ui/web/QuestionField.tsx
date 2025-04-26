@@ -12,6 +12,7 @@ import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
 import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -21,6 +22,7 @@ export function QuestionField() {
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accountToken } = useAccountStore()
+  const { setIsQuestionListFetched } = useDetailPageContext()
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
@@ -61,6 +63,7 @@ export function QuestionField() {
 
       setTimeout(() => {
         setSuccessToastMessage('질문이 등록되었습니다.')
+        setIsQuestionListFetched(true)
       }, 1300)
 
       //질문 목록 불러오기

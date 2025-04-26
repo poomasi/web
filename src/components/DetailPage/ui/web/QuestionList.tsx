@@ -16,11 +16,12 @@ import { useAccountStore } from '@store/account'
 
 export function QuestionList() {
   const { id } = useParams()
-  const { publicId } = useAccountStore()
-  const { teacherAccount } = useDetailPageContext()
+  const { publicId, accountType } = useAccountStore()
+  const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } = useDetailPageContext()
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
   const [answerModalData, setAnswerModalData] = useState<GetQnaListResponse | null>(null)
+  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 
   const getTeacherQnaList = async () => {
     try {
@@ -40,6 +41,18 @@ export function QuestionList() {
   useEffect(() => {
     getTeacherQnaList()
   }, [id, qnaAskerType])
+
+  useEffect(() => {
+    if (teacherAccount) {
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === 'ADMIN')
+    }
+  }, [teacherAccount])
+
+  useEffect(() => {
+    if (isQuestionListFetched) {
+      getTeacherQnaList().finally(() => setIsQuestionListFetched(false))
+    }
+  }, [isQuestionListFetched])
 
   return (
     <QuestionListBody>
@@ -79,7 +92,7 @@ export function QuestionList() {
           <QnaSection key={qna.public_id}>
             <QuestionArea>
               <QuestionCard question={qna} key={qna.public_id} />
-              <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
+              {isAnswerAuthority && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
             </QuestionArea>
 
             {qna.answer_text && (

@@ -6,6 +6,8 @@ interface DetailPageProviderProps {
   setTeacherAccount: (accountRes: AccountResponse) => void
   pageLoading: boolean
   setPageLoading: (loading: boolean) => void
+  isQuestionListFetched: boolean
+  setIsQuestionListFetched: (isFetched: boolean) => void
 }
 
 const DetailPageContext = createContext<DetailPageProviderProps>({
@@ -13,11 +15,14 @@ const DetailPageContext = createContext<DetailPageProviderProps>({
   setTeacherAccount: () => {},
   pageLoading: false,
   setPageLoading: () => {},
+  isQuestionListFetched: false,
+  setIsQuestionListFetched: () => {},
 })
 
 export function DetailPageContextProvider({ children }: PropsWithChildren) {
   const [account, setAccount] = useState<AccountResponse | null>(null)
   const [pageLoading, setPageLoading] = useState<boolean>(false)
+  const [isQuestionListFetched, setIsQuestionListFetched] = useState<boolean>(false)
 
   const providerValue: DetailPageProviderProps = {
     teacherAccount: account,
@@ -26,6 +31,8 @@ export function DetailPageContextProvider({ children }: PropsWithChildren) {
     },
     pageLoading,
     setPageLoading,
+    isQuestionListFetched,
+    setIsQuestionListFetched,
   }
 
   return <DetailPageContext.Provider value={providerValue}>{children}</DetailPageContext.Provider>
