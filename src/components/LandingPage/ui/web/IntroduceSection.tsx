@@ -4,7 +4,6 @@ import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
-import { getPcVw } from '@utils/responsive'
 import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 import { useState } from 'react'
 import { CommonGuideModal } from '@components/modal/CommonGuideModal.tsx'
@@ -112,10 +111,10 @@ const IntroduceText = styled.div`
 `
 
 const IntroduceCardList = styled.div`
-  width: ${getPcVw(1320)};
+  width: 1320px;
   display: flex;
   justify-content: center;
   /* padding: 20px 0; */
-  gap: ${getPcVw(10)};
+  gap: 10px;
   /* padding-bottom: 160px; */
 `

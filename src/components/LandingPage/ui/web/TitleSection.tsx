@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
-import { getPcVw } from '@utils/responsive'
 
 export default function TitleSection() {
   const handleQuestionButtonClick = () => {
@@ -63,7 +62,7 @@ const Description = styled.div`
 `
 
 const QuestionButton = styled.div`
-  width: ${getPcVw(406)};
+  width: 406px;
   height: 80px;
   border-radius: 45.5px;
   display: flex;

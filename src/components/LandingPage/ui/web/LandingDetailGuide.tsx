@@ -1,7 +1,6 @@
 import { useLandingDetailGuide } from '@components/LandingPage/hooks/useLandingDetailGuide.ts'
 import styled from '@emotion/styled'
 import detailGuideIcon from '@assets/images/landingPage/detail-guide-icon.svg'
-import { getPcVw } from '@utils/responsive'
 
 export function LandingDetailGuide() {
   const { guideTextList } = useLandingDetailGuide()
@@ -26,7 +25,7 @@ const LandingDetailGuideContainer = styled.div`
   align-items: start;
   justify-content: center;
   gap: 40px;
-  width: ${getPcVw(1320)};
+  width: 1320px;
   height: 100%;
   margin: 60px auto 0;
 `

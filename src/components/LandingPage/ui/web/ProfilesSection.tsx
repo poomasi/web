@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import { ProfileCard } from '@components/common/profileCards/ProfileCard'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
-import { getPcVw } from '@utils/responsive'
 
 export function ProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
@@ -38,7 +37,7 @@ export function ProfilesSection() {
 }
 
 const ProfilesSectionContainer = styled.div`
-  width: ${getPcVw(1320)};
+  width: 1320px;
   margin: 160px auto 0;
   display: flex;
   flex-direction: column;
@@ -68,7 +67,7 @@ const BadgeContainer = styled.div`
 `
 
 const PoomProfileCardList = styled.div`
-  width: ${getPcVw(1320)};
+  width: 1320px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 26px;

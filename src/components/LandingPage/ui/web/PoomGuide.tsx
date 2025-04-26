@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { getPcVw } from '@utils/responsive'
 
 export function PoomGuide() {
   return (
@@ -57,7 +56,7 @@ const PoomGuideText = styled.div`
 const PoomGuideCardList = styled.div`
   display: flex;
   flex-direction: row;
-  gap: ${getPcVw(50)};
+  gap: 50px;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -69,7 +68,7 @@ const PoomGuideCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: ${getPcVw(407)};
+  width: 407px;
   height: 311px;
   border-radius: 22px;
   background: #f7f7f7;

@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import guide01 from '@assets/images/landingPage/mobile-landing-guide01.png'
 import guide02 from '@assets/images/landingPage/mobile-landing-guide02.png'
 import guide03 from '@assets/images/landingPage/mobile-landing-guide03.png'
-import { getPcVw } from '@utils/responsive.ts'
 
 type PoomasiGuideModalProps = {
   onClose: () => void
@@ -44,7 +43,7 @@ export function PoomasiGuideModal({ onClose }: PoomasiGuideModalProps) {
 }
 
 const PoomasiGuideModalContainer = styled(ModalReference)`
-  width: ${getPcVw(1200)};
+  width: 1200px;
 `
 
 const ModalTitle = styled.div`

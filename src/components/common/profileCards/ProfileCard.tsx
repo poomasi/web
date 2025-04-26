@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from '@components/LandingPage/hooks/useProfileCard.ts'
-import { getMobileVw, getPcVw } from '@utils/responsive.ts'
+import { getMobileVw } from '@utils/responsive.ts'
 import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 import { useMobileStore } from '@store/useMobileStore'
 import { ModalGuide } from '@components/modal'
@@ -93,8 +93,8 @@ const Container = styled(Card, {
     -webkit-filter: blur(5px);
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-  `}
-  @media (max-width: 767px) {
+  `} @media (
+	max-width: 767px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
@@ -129,8 +129,8 @@ const ProfilePictureWrapper = styled.div`
 `
 
 const ProfileImage = styled.img`
-  width: ${getPcVw(161)};
-  height: ${getPcVw(161)};
+  width: 161px;
+  height: 161px;
   object-fit: contain;
   border-radius: 100%;
   @media (max-width: 767px) {
