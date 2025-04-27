@@ -81,7 +81,7 @@ const ModalOverlay = styled.div`
 
 const ModalWrapper = styled.section`
   position: fixed;
-  top: 50%;
+  top: 22%;
   left: 50%;
   transform: translate(-50%);
   z-index: 9999999999;
