@@ -33,8 +33,13 @@ const LandingInfoCardContainer = styled.div`
 `
 
 const InfoCardImage = styled.img`
-  width: 80%;
-  height: 60%;
+  width: 65%;
+  height: 48%;
+
+  @media (max-width: 767px) {
+    width: 80%;
+    height: 60%;
+  }
 `
 
 const InfoCardText = styled.div`
