@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive.ts'
 import { CloseButton } from '@components/button'
+import { useMobileStore } from '@store/useMobileStore'
 
 type ModalReferenceProps = {
   children: React.ReactNode
@@ -8,8 +9,15 @@ type ModalReferenceProps = {
 }
 
 function ModalReference({ children, onClick }: ModalReferenceProps) {
-  return (
-    <div>
+  const isMobile = useMobileStore((state) => state.isMobile)
+
+  return isMobile ? (
+    <ModalContainer>
+      <ModalOverlay onClick={onClick} />
+      <ModalWrapper>{children}</ModalWrapper>
+    </ModalContainer>
+  ) : (
+    <div style={{ position: 'relative' }}>
       <ModalOverlay onClick={onClick} />
       <ModalWrapper>{children}</ModalWrapper>
     </div>
@@ -33,6 +41,18 @@ ModalReference.Body = Body
 
 export default ModalReference
 
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -51,12 +71,11 @@ const ModalOverlay = styled.div`
   }
 
   @media (max-width: 767px) {
-    position: sticky;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 `
 
