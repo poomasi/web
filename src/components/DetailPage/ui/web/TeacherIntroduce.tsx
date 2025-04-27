@@ -21,7 +21,7 @@ export function TeacherIntroduce() {
           <HeaderJob className="ProfileSection-second">{'現 ' + teacherAccount?.company1 + ' ' + teacherAccount?.job1}</HeaderJob>
         </HeaderBody>
       </Header>
-      <div style={{ marginTop: '30px', fontWeight: 'bold', fontSize: '1.25rem' }}>품앗이꾼 소개</div>
+      <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.45rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
       <Description readOnly value={teacherAccount?.description} />
     </>
   )
@@ -29,6 +29,7 @@ export function TeacherIntroduce() {
 
 const Header = styled.div`
   width: 100%;
+  height: 116px;
   display: flex;
   /* background-color: green; */
 
@@ -45,7 +46,7 @@ const Header = styled.div`
 const ProfilePictureWrapper = styled.div`
   display: flex;
 
-  width: 140px;
+  width: 133px;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -59,11 +60,12 @@ const ProfilePictureWrapper = styled.div`
 const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `
+
 const ProfileSection = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
   @media (max-width: 767px) {
     display: flex;
@@ -77,10 +79,10 @@ const ProfileSection = styled.div`
 const HeaderBody = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  margin-left: 30px;
-  padding-top: 40px;
+  height: 100%;
+  margin-left: 16px;
   /* background-color: blue; */
 
   @media (max-width: 767px) {
@@ -91,8 +93,12 @@ const HeaderBody = styled.div`
   }
 `
 const HeaderName = styled.div`
-  font-weight: bold;
-  font-size: 40px;
+  color: #0e0e0e;
+
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 48px */
 
   @media (max-width: 767px) {
     font-size: 1rem;
@@ -100,9 +106,12 @@ const HeaderName = styled.div`
 `
 const HeaderField = styled.div`
   margin-left: 10px;
-  font-weight: bold;
-  font-size: 30px;
-  color: var(--gray-color);
+  color: #068372;
+
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 42px */
 
   @media (max-width: 767px) {
     margin-left: 0;
@@ -111,9 +120,13 @@ const HeaderField = styled.div`
   }
 `
 const HeaderJob = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--light-gray-color);
+  color: #727478;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 36px */
+
   @media (max-width: 520px) {
     font-size: 16px;
   }
@@ -131,9 +144,14 @@ const Description = styled(TextareaAutosize)`
   border: none;
   outline: none;
   resize: none;
-  font-size: 17px;
   padding: 0;
+
   color: #4e5053;
+
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 33px */
 
   @media (max-width: 767px) {
     font-size: 14px;

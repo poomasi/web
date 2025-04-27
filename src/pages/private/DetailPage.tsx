@@ -84,6 +84,7 @@ export function DetailPage() {
 const Container = styled.div`
   width: 100%;
   padding-top: 80px;
+
   @media (max-width: 767px) {
     padding-top: 0;
   }
@@ -97,7 +98,7 @@ const PageContainer = styled.div`
   /* background-color: pink; */
 `
 const PageContent = styled.div`
-  width: 1200px;
+  width: 1320px;
   margin-bottom: 50px;
   @media (max-width: 767px) {
     width: 100%;
@@ -106,7 +107,7 @@ const PageContent = styled.div`
 const Seperator = styled.div`
   height: 4px;
   width: 100%;
-  border-top: 3px var(--light-gray-color) dashed;
+  border-top: 1px solid #eaebed;
   margin-top: 30px;
 
   @media (max-width: 767px) {

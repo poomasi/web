@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
 // import TextareaAutosize from 'react-textarea-autosize'
 // import Card from '@mui/material/Card'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { RequestApi } from '@api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { useParams } from 'react-router-dom'
@@ -38,6 +38,23 @@ export function QuestionList() {
     setAnswerModalData(question)
   }
 
+  const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
+    if (accountType === 'ADMIN' && teacherAccount?.public_id === publicId) {
+      return false
+    }
+
+    // 비밀질문이 아닌 경우 모두 확인 가능
+    if (question.is_secret === 0) {
+      return false
+    }
+
+    // 비밀질문인 경우, 본인만 확인가능
+    if (question.is_secret === 1) {
+      return question.questioner_public_id !== publicId
+    }
+    return true
+  }, [])
+
   useEffect(() => {
     getTeacherQnaList()
   }, [id, qnaAskerType])
@@ -58,7 +75,7 @@ export function QuestionList() {
     <QuestionListBody>
       <div
         style={{
-          marginBottom: '10px',
+          marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',
           fontWeight: 'bold',
@@ -91,12 +108,12 @@ export function QuestionList() {
         qnaDataList.map((qna) => (
           <QnaSection key={qna.public_id}>
             <QuestionArea>
-              <QuestionCard question={qna} key={qna.public_id} />
+              <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
               {isAnswerAuthority && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
             </QuestionArea>
 
             {qna.answer_text && (
-              <AnswerCard answerText={qna.answer_text} isMyAnswer={publicId === qna.questioner_public_id} teacherName={teacherAccount?.name ?? ''} />
+              <AnswerCard answerText={qna.answer_text} isMyAnswer={getIsSecretQuestion(qna)} teacherName={teacherAccount?.name ?? ''} />
             )}
           </QnaSection>
         ))

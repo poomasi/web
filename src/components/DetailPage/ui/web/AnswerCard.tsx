@@ -17,7 +17,7 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <QnaCard>
         {/* 비밀 질문 인 경우, 블러처리 */}
-        {!isMyAnswer && (
+        {isMyAnswer && (
           <BlurOverlay>
             <TextBlurOverlay>{accountToken ? '비밀답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>

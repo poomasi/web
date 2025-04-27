@@ -3,13 +3,13 @@ import { CareerYearType } from '@api/enums.ts'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@api/types.ts'
-import { useCallback } from 'react'
+import { useAccountStore } from '@store/account'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
+  isSecret?: boolean
 }
 
 export const getCareerYearString = (career_year: string) => {
@@ -27,26 +27,13 @@ export const getCareerYearString = (career_year: string) => {
   }
 }
 
-export function QuestionCard({ question }: QuestionCardProps) {
-  const { accountToken, publicId } = useAccountStore()
-
-  const getIsSecretQuestion = useCallback(() => {
-    // 비밀질문이 아닌 경우 모두 확인 가능
-    if (question.is_secret === 0) {
-      return false
-    }
-
-    // 비밀질문인 경우, 본인만 확인가능
-    if (question.is_secret === 1) {
-      return question.questioner_public_id !== publicId
-    }
-    return true
-  }, [])
+export function QuestionCard({ question, isSecret }: QuestionCardProps) {
+  const { accountToken } = useAccountStore()
 
   return (
     <QnaCard className={'qna-card'}>
       {/* 비밀 질문 인 경우, 블러처리 */}
-      {getIsSecretQuestion() && (
+      {isSecret && (
         <BlurOverlay>
           <TextBlurOverlay>{accountToken ? '비밀질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
