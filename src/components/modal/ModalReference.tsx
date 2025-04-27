@@ -83,7 +83,6 @@ const ModalWrapper = styled.section`
   position: fixed;
   top: 15%;
   left: 50%;
-  // 좌우 정렬을 위해 left를 50%로 설정
   transform: translate(-50%);
   z-index: 9999999999;
   width: ${getMobileVw(300)};
@@ -95,6 +94,9 @@ const ModalWrapper = styled.section`
   align-items: center;
   padding: 1rem;
   border-radius: 1rem;
+  @media (max-width: 767px) {
+    position: sticky;
+  }
 `
 
 const ModalHeader = styled.div`
