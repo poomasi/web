@@ -51,7 +51,7 @@ const SectionTitle = styled.div`
   justify-content: start;
   align-items: start;
   width: 100%;
-  gap: 26px;
+  gap: 26px 42px;
 `
 
 const SubHead = styled.div`
@@ -71,5 +71,5 @@ const PoomProfileCardList = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 26px;
-  margin: 2rem auto 0;
+  margin: 1rem auto 0;
 `
