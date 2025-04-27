@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive.ts'
 import { CloseButton } from '@components/button'
 import { useMobileStore } from '@store/useMobileStore'
+import { createPortal } from 'react-dom'
 
 type ModalReferenceProps = {
   children: React.ReactNode
@@ -11,17 +12,26 @@ type ModalReferenceProps = {
 function ModalReference({ children, onClick }: ModalReferenceProps) {
   const isMobile = useMobileStore((state) => state.isMobile)
 
-  return isMobile ? (
-    <ModalContainer className="ModalReference">
+  if (typeof window === 'undefined') return null
+
+  const modalContent = (
+    <>
       <ModalOverlay onClick={onClick} className="ModalOverlay" />
       <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
-    </ModalContainer>
+    </>
+  )
+
+  return isMobile ? (
+    createPortal(<ModalContainer className="ModalReference">{modalContent}</ModalContainer>, document.body)
   ) : (
     <div style={{ position: 'relative' }} className="ModalReference">
-      <ModalOverlay onClick={onClick} className="ModalOverlay" />
-      <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
+      {modalContent}
     </div>
   )
+  // <div style={{ position: 'relative' }} className="ModalReference">
+  //   <ModalOverlay onClick={onClick} className="ModalOverlay" />
+  //   <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
+  // </div>
 }
 
 function Header({ onClickClose }: { onClickClose: () => void }) {
@@ -43,14 +53,12 @@ export default ModalReference
 
 const ModalContainer = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999999999999999;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; 와 같음 */
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* pointer-events: none;  */
 `
 
 const ModalOverlay = styled.div`
@@ -73,7 +81,7 @@ const ModalOverlay = styled.div`
 
 const ModalWrapper = styled.section`
   position: fixed;
-  top: 15%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%);
   z-index: 9999999999;
