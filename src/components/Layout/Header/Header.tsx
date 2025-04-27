@@ -45,15 +45,11 @@ const LogoImage = styled.img`
 
 const KakaoLoginBtn = styled.button`
   font-size: 1.1875rem;
-  padding: 3px 1.25rem;
+  padding: 0.6rem 1.25rem;
   color: #08ae98;
   background-color: #fff;
   border-radius: 12px;
   border: 1.5px solid #3ecdba;
-
-  &:hover {
-    background-color: var(--gray-color);
-  }
 
   @media (max-width: 767px) {
     width: 5rem;
