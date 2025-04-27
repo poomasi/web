@@ -18,7 +18,7 @@ export function LandingInfoCard({ infoText, imgSrc, onClick }: LandingInfoCardPr
 const LandingInfoCardContainer = styled.div`
   gap: 1.625rem;
   width: 100%;
-  height: 20rem;
+  height: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,7 +33,7 @@ const LandingInfoCardContainer = styled.div`
 `
 
 const InfoCardImage = styled.img`
-  width: auto;
+  width: 80%;
   height: 60%;
 `
 
@@ -44,6 +44,7 @@ const InfoCardText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
+
   @media (max-width: 767px) {
     font-size: 1.125rem;
     line-height: 120%;

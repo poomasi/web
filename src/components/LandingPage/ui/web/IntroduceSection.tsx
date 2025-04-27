@@ -51,9 +51,9 @@ export function IntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="Sharing" imgSrc={sharingIcon} onClick={handleUseGuideModalClick} />
-        <LandingInfoCard infoText="Mentoring" imgSrc={mentoringIcon} onClick={handleMentoringModalClick} />
-        <LandingInfoCard infoText="Question" imgSrc={questionIcon} onClick={handleQuestionModalClick} />
+        <LandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={handleUseGuideModalClick} />
+        <LandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={handleMentoringModalClick} />
+        <LandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={handleQuestionModalClick} />
       </IntroduceCardList>
       {useGuideModal && (
         <PoomasiGuideModal
@@ -74,11 +74,12 @@ const IntroduceSectionContainer = styled.div`
   gap: 54px;
   justify-content: center;
   width: 100%;
+  height: 100%;
   background-image: url(${introduceBackground});
-  background-size: 90%;
+  background-size: cover;
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
-  padding-bottom: 160px;
+  padding-bottom: 90px;
 `
 
 const IntroducePoomasi = styled.div`
@@ -112,9 +113,8 @@ const IntroduceText = styled.div`
 
 const IntroduceCardList = styled.div`
   width: 1320px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
-  /* padding: 20px 0; */
   gap: 10px;
-  /* padding-bottom: 160px; */
 `
