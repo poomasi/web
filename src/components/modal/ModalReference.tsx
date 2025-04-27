@@ -12,14 +12,14 @@ function ModalReference({ children, onClick }: ModalReferenceProps) {
   const isMobile = useMobileStore((state) => state.isMobile)
 
   return isMobile ? (
-    <ModalContainer>
-      <ModalOverlay onClick={onClick} />
-      <ModalWrapper>{children}</ModalWrapper>
+    <ModalContainer className="ModalReference">
+      <ModalOverlay onClick={onClick} className="ModalOverlay" />
+      <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
     </ModalContainer>
   ) : (
-    <div style={{ position: 'relative' }}>
-      <ModalOverlay onClick={onClick} />
-      <ModalWrapper>{children}</ModalWrapper>
+    <div style={{ position: 'relative' }} className="ModalReference">
+      <ModalOverlay onClick={onClick} className="ModalOverlay" />
+      <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
     </div>
   )
 }
