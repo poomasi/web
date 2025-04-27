@@ -67,11 +67,11 @@ const KakaoLoginBtn = styled.button`
 const HeaderContainer = styled.div`
   position: sticky;
   width: 100%;
-  padding: 1rem 300px;
+  padding: 1rem 0;
   margin: 0 auto;
   top: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   color: #333;
   background-color: #fff;
   z-index: 999;
@@ -86,5 +86,5 @@ const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 1320px;
 `

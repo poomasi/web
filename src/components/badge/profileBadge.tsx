@@ -18,6 +18,7 @@ export function ProfileBadge({ badgeString, onClick, selected }: ProfileBadgePro
         borderRadius: '20px',
         color: selected ? '#3ECDBA' : '#9B9EA2',
         backgroundColor: selected ? '#EBFFFC' : '#F7F7F7',
+        border: selected ? '1px solid #3ECDBA' : '',
         ...badgeMobileStyles(selected ?? false),
         boxShadow: 'none',
       }}

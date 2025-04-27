@@ -20,7 +20,7 @@ export default function TitleSection() {
   return (
     <TitleSectionContainer>
       <TitleContainer>
-        <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
+        <Title style={{ fontWeight: 800 }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
         <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
         <QuestionButton onClick={handleQuestionButtonClick}>질문하기</QuestionButton>
@@ -31,13 +31,12 @@ export default function TitleSection() {
 
 const TitleSectionContainer = styled.div`
   width: 100%;
-  height: 830px;
+  height: 730px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
-  background-image: url(${LandingTitleBackground});
+  background-image: url(${LandingTitleBackground}), linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -51,14 +50,19 @@ const TitleContainer = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 80px;
+  font-size: 100px;
   line-height: 160%;
+  font-weight: 700;
 `
 
 const Description = styled.div`
   padding-top: 10px;
-  line-height: 150%;
-  font-size: 24px;
+
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 51px */
+  color: #4e5053;
 `
 
 const QuestionButton = styled.div`
@@ -74,5 +78,6 @@ const QuestionButton = styled.div`
 
   font-size: 28px;
   line-height: 150%;
+  font-weight: 800;
   margin-top: 75px;
 `

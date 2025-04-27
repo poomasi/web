@@ -21,15 +21,19 @@ export function useProfileList() {
     }
   }
 
+  const accontBadgeList = () => {
+    if (accountList.length > 0) {
+      const uniqueFields = new Set(accountList.filter((account) => account.field).map((account) => account.field))
+      setBadgeList(Array.from(uniqueFields))
+    }
+  }
+
   useEffect(() => {
     dataFetch()
   }, [])
 
   useEffect(() => {
-    if (accountList.length > 0) {
-      const uniqueFields = new Set(accountList.map((account) => account.field))
-      setBadgeList(Array.from(uniqueFields))
-    }
+    accontBadgeList()
   }, [accountList])
 
   return {

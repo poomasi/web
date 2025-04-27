@@ -73,7 +73,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 const Container = styled(Card, {
   shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'isVacation',
 })<{ isVacation: boolean }>`
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
 
   gap: 2rem;
   width: 100%;
@@ -152,9 +152,7 @@ const ProfileIntroContainer = styled.div`
 `
 
 const ProfileName = styled.div`
-  /* margin-top: 1.25rem; */
   color: #0e0e0e;
-  text-align: center;
 
   font-size: 24px;
   font-style: normal;
@@ -166,9 +164,12 @@ const ProfileName = styled.div`
 `
 
 const ProfileField = styled.div`
-  font-size: 18px;
-  font-weight: bold;
   color: #068372;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 27px */
 
   @media (max-width: 767px) {
     font-size: 14px;
@@ -179,7 +180,8 @@ const ProfileHistory = styled.div`
   margin-top: 10%;
   font-size: 13px;
   font-weight: bold;
-  color: #aaaaaa;
+  color: #727478;
+
   height: 30px;
 
   @media (max-width: 767px) {
@@ -192,7 +194,7 @@ const ProfileHistory = styled.div`
 
 const ProfileHistoryItem = styled.div`
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
 
   @media (max-width: 767px) {
