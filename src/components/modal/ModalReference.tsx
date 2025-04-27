@@ -57,8 +57,8 @@ const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.4); // 어두운 배경
   z-index: 99999;
   opacity: 0;
@@ -68,14 +68,6 @@ const ModalOverlay = styled.div`
     to {
       opacity: 1;
     }
-  }
-
-  @media (max-width: 767px) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
   }
 `
 
@@ -94,9 +86,6 @@ const ModalWrapper = styled.section`
   align-items: center;
   padding: 1rem;
   border-radius: 1rem;
-  @media (max-width: 767px) {
-    position: sticky;
-  }
 `
 
 const ModalHeader = styled.div`
