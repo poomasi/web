@@ -38,7 +38,7 @@ export function ProfilesSection() {
 
 const ProfilesSectionContainer = styled.div`
   width: 1320px;
-  margin: 160px auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: start;
