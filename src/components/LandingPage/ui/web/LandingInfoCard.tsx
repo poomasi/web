@@ -47,7 +47,7 @@ const InfoCardText = styled.div`
   color: #0e0e0e;
   font-size: 1.75rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 150%;
 
   @media (max-width: 767px) {
