@@ -84,6 +84,7 @@ export function DetailPage() {
 const Container = styled.div`
   width: 100%;
   padding-top: 80px;
+
   @media (max-width: 767px) {
     padding-top: 0;
   }
@@ -97,7 +98,7 @@ const PageContainer = styled.div`
   /* background-color: pink; */
 `
 const PageContent = styled.div`
-  width: 1200px;
+  width: 1320px;
   margin-bottom: 50px;
   @media (max-width: 767px) {
     width: 100%;
