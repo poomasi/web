@@ -31,7 +31,7 @@ export default function TitleSection() {
 
 const TitleSectionContainer = styled.div`
   width: 100%;
-  height: 630px;
+  height: 730px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,5 +78,6 @@ const QuestionButton = styled.div`
 
   font-size: 28px;
   line-height: 150%;
+  font-weight: 800;
   margin-top: 75px;
 `
