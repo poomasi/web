@@ -107,7 +107,7 @@ const PageContent = styled.div`
 const Seperator = styled.div`
   height: 4px;
   width: 100%;
-  border-top: 3px var(--light-gray-color) dashed;
+  border-top: 1px solid #eaebed;
   margin-top: 30px;
 
   @media (max-width: 767px) {

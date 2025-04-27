@@ -28,7 +28,7 @@ export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionA
 
   const handleAnswerButtonClick = async () => {
     if (!answerText) {
-      alert('댓글을 입력해주세요.')
+      setSuccessToastMessage('댓글을 입력해주세요.')
       return
     }
 

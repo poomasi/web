@@ -133,12 +133,13 @@ export function QuestionField() {
           <QuestionFieldLength>
             글자수: (<span>{questionText.length}</span> / 500)
           </QuestionFieldLength>
+
+          <QuestionSecretOption onClick={handleIsSecretChange}>
+            <QuestionCheckbox>{isSecret && <img src={optionCheck} />}</QuestionCheckbox>
+            <span>비밀질문</span>
+          </QuestionSecretOption>
         </QuestionOption>
       </QuestionArea>
-      <QuestionSecretOption onClick={handleIsSecretChange}>
-        <QuestionCheckbox>{isSecret && <img src={optionCheck} />}</QuestionCheckbox>
-        <span>비밀질문</span>
-      </QuestionSecretOption>
 
       <QuestionBtnWrapper keyboardHeight={keyboardHeight} style={{ marginLeft: 'auto' }}>
         <DebouncedButton
@@ -194,7 +195,7 @@ const QuestionArea = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  border: 1px solid var(--Gray-200, #eaebed);
+  border: 1px solid #eaebed;
   background: #f7f7f7;
   padding: 1.5rem 32px;
 
@@ -210,11 +211,11 @@ const QuestionTextField = styled.textarea`
   min-height: 270px;
   resize: none;
   background: transparent;
-  border-width: 0 0 1px 0;
 
   // focus 시, 기본 디자인이 노출되는 사항 비활성화
   outline: none !important;
   box-shadow: none !important;
+  border-bottom: 1px solid #eaebed;
 
   // element 폰트 요소
   color: #9b9ea2;
