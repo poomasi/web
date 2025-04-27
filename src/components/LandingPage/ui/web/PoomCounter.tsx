@@ -10,7 +10,7 @@ export function PoomCounter() {
     <CounterContainer>
       <PoomCountIconContainer src={poomCountIcon} />
       <PoomExplainText>
-        현재, <HighlightText>{accountCount}명</HighlightText>과 <HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.
+        현재, <HighlightText>{accountCount}</HighlightText>명과 <HighlightText>{qnaCount}</HighlightText>번의 품을 나누었어요.
       </PoomExplainText>
     </CounterContainer>
   )
@@ -29,7 +29,7 @@ const CounterContainer = styled.div`
 
   gap: 40px;
   width: 100%;
-  height: 566px;
+  height: 466px;
 `
 
 const PoomExplainText = styled.div`
@@ -47,5 +47,10 @@ const PoomCountIconContainer = styled.img`
 `
 
 const HighlightText = styled.span`
-  color: #6ab04a;
+  color: #068372;
+
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 150%; /* 84px */
 `
