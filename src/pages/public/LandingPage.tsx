@@ -28,12 +28,12 @@ export function LandingPage() {
 }
 
 const PageContainer = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 160px;
-	@media (max-width: 767px) {
-		gap: 10rem;
-		padding: 0 5vw;
-	}
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  @media (max-width: 767px) {
+    gap: 10rem;
+    padding: 0 5vw;
+  }
 `
