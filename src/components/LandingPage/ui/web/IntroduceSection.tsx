@@ -12,7 +12,7 @@ export function IntroduceSection() {
   const [useGuideModal, setUseGuideModal] = useState(false)
   const [isCommonGuideModal, setIsCommonGuideModal] = useState(false)
   const [commonGuideInfo, setCommonGuideInfo] = useState({
-    title: '멘토링',
+    title: '세부안내',
     content: '품삯은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 \n 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.',
   })
 
@@ -23,7 +23,7 @@ export function IntroduceSection() {
   const handleMentoringModalClick = () => {
     setIsCommonGuideModal(true)
     setCommonGuideInfo({
-      title: '멘토링',
+      title: '품앗이 규칙',
       content: '품삯은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 \n 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.',
     })
   }
@@ -31,7 +31,7 @@ export function IntroduceSection() {
   const handleQuestionModalClick = () => {
     setIsCommonGuideModal(true)
     setCommonGuideInfo({
-      title: '질문하기',
+      title: '세부안내',
       content: ' 품앗이꾼들은 빠르게 답변드리기 위해 노력하고 있어요.\n 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D.',
     })
   }

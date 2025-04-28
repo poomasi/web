@@ -44,6 +44,10 @@ export function PoomasiGuideModal({ onClose }: PoomasiGuideModalProps) {
 
 const PoomasiGuideModalContainer = styled(ModalReference)`
   width: 1200px;
+    
+  @media (max-width: 1320px) {
+    width: 767px;
+  }
 `
 
 const ModalTitle = styled.div`
@@ -59,22 +63,34 @@ const ModalTitle = styled.div`
 const GuideList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  gap: 14px;
   margin: 0;
+  padding-bottom: 60px;
+
+  @media (max-width: 1320px) {
+    padding-bottom: 30px;
+  }
 `
 
 const GuideItem = styled.div`
   display: flex;
   align-items: center;
+    justify-content: center;
   flex-direction: column;
   font-size: 16px;
   gap: 24px;
 `
 
 const GuideImg = styled.img`
-  width: 100%;
+  width: 322px;
   height: 246px;
   border-radius: 16px;
+    
+  @media (max-width: 1320px) {
+    width: 310px;
+    height: 220px;
+  }
+    
 `
 
 const GuideText = styled.div`
