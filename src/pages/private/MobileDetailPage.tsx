@@ -8,6 +8,7 @@ import { TeacherIntroduce } from '@components/DetailPage/ui/mobile/TeacherIntrod
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { QuestionField } from '@components/DetailPage/ui/mobile/QuestionField.tsx'
 import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList.tsx'
+import { Footer } from '@components/Layout/Footer/Footer'
 
 export function MobileDetailPage() {
   const { publicId } = useAccountStore()
@@ -67,6 +68,7 @@ export function MobileDetailPage() {
           )}
         </PageContent>
       </PageContainer>
+      <Footer />
     </Container>
   )
 }

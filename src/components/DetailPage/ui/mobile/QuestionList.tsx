@@ -174,8 +174,8 @@ const QuestionListBody = styled.div`
   margin-top: 70px;
   width: 100%;
 
-  @media (max-width: 520px) {
-    margin-top: 0;
+  @media (max-width: 1024px) {
+    margin-top: 2rem;
   }
 
   /* background-color: greenyellow; */
