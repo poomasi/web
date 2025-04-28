@@ -34,7 +34,7 @@ const FooterWrapper = styled.div`
   color: ${colors.gray600};
 
   @media (max-width: 1320px) {
-    max-width: 767px;
+    padding: 0 5%;
   }
 
   @media (max-width: 767px) {

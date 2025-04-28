@@ -98,6 +98,6 @@ const HeaderContent = styled.div`
     margin: 0 auto;
 
     @media (max-width: 1320px) {
-        max-width: 767px;
+        padding: 0 5%;
     }
 `
