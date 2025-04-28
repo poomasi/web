@@ -86,8 +86,8 @@ const HeaderContainer = styled.div`
 
   @media (max-width: 767px) {
     width: 100%;
-    padding: 0 ${getMobileVw(20)};
-    margin: 12px 0;
+    padding: 12px ${getMobileVw(20)};
+    /* margin: 12px 0; */
   }
 `
 const HeaderContent = styled.div`

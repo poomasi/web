@@ -111,6 +111,7 @@ const TextDeco = styled.p`
     margin-bottom: 1rem;
     background-color: #f7f7f7;
     border-radius: 20px;
-    padding: 1rem;
+    padding: 2rem;
+    line-height: 160%;
   }
 `

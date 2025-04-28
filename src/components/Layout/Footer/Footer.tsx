@@ -19,7 +19,7 @@ const FooterContainer = styled.div`
   width: 100%;
   border-top: 1px solid #eaebed;
   @media (max-width: 767px) {
-    padding: ${getMobileVw(20)};
+    padding: 30px ${getMobileVw(20)};
   }
 `
 
