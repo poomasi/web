@@ -31,7 +31,7 @@ const LandingInfoCardContainer = styled.div`
     height: 17rem;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     height: auto;
   }
 `
@@ -40,7 +40,7 @@ const InfoCardImage = styled.img`
   width: 65%;
   height: 48%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 7.1875rem;
     height: 5.3125rem;
   }
@@ -54,7 +54,7 @@ const InfoCardText = styled.div`
   font-weight: 600;
   line-height: 150%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1.125rem;
     line-height: 120%;
   }

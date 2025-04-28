@@ -33,7 +33,7 @@ const Header = styled.div`
   display: flex;
   /* background-color: green; */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -51,7 +51,7 @@ const ProfilePictureWrapper = styled.div`
   overflow: hidden;
   position: relative;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: ${getMobileVw(90)};
     height: auto;
   }
@@ -67,7 +67,7 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -85,7 +85,7 @@ const HeaderBody = styled.div`
   margin-left: 16px;
   /* background-color: blue; */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding-top: 10px;
     margin-left: 0;
     align-items: center;
@@ -100,7 +100,7 @@ const HeaderName = styled.div`
   font-weight: 700;
   line-height: 150%; /* 48px */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1rem;
   }
 `
@@ -113,7 +113,7 @@ const HeaderField = styled.div`
   font-weight: 700;
   line-height: 150%; /* 42px */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     margin-left: 0;
     color: #006837;
     font-size: 1rem;
@@ -153,7 +153,7 @@ const Description = styled(TextareaAutosize)`
   font-weight: 500;
   line-height: 150%; /* 33px */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
     line-height: 150%;
   }

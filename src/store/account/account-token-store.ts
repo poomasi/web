@@ -25,7 +25,7 @@ export const useAccountStore = create<AccountTokenStore>()(
         set({
           accountToken: null,
           publicId: null,
-          accountType: null, // 리셋할 때도 초기화
+          accountType: null, //추가
         })
       },
     }),

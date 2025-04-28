@@ -70,7 +70,7 @@ const IntroduceSectionContainer = styled.div`
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
   padding: 1.875rem 0;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     gap: 0;
   }
 `
@@ -83,7 +83,7 @@ const IntroducePoomasi = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     margin: 1.875rem 0;
     gap: 0.8rem;
   }

@@ -38,7 +38,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     margin: 30px 0;
   }
 `
@@ -47,7 +47,7 @@ const Title = styled.div`
   font-size: 80px;
   line-height: 160%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1.875rem;
   }
 `
@@ -58,7 +58,7 @@ const Description = styled.div`
   font-size: 24px;
   color: #4e5053;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.9375rem;
   }
 `
@@ -77,7 +77,7 @@ const QuestionButton = styled.button`
   line-height: 150%;
   margin-top: 4.6875rem;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: ${getMobileVw(200)};
     height: 2.75rem;
     font-size: 1rem;

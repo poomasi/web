@@ -154,7 +154,7 @@ export function QuestionField() {
             borderRadius: '10px',
             color: 'white',
             backgroundColor: '#3ecdba',
-            '@media (max-width:767px)': {
+            '@media (max-width:1024px)': {
               bottom: `${keyboardHeight + 16}px`,
             },
           }}
@@ -181,7 +181,7 @@ const QuestionFieldTitle = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: 20px;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1.125rem;
   }
 `
@@ -199,7 +199,7 @@ const QuestionArea = styled.div`
   background: #f7f7f7;
   padding: 1.5rem 32px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding: 14px;
     border-width: 0 0 0 0;
   }
@@ -224,7 +224,7 @@ const QuestionTextField = styled.textarea`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     border-width: 0 0 0 0;
   }
 `
@@ -283,7 +283,7 @@ const SelectTitle = styled.label`
   color: ${colors.gray800};
   white-space: nowrap;
   cursor: pointer; // 커서 포인터 추가
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.75rem;
   }
 `
@@ -316,7 +316,7 @@ const StyledSelect = styled.select`
     color: black;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.75rem;
     padding-top: 0;
     padding-right: 0;
@@ -326,7 +326,7 @@ const StyledSelect = styled.select`
 const QuestionBtnWrapper = styled.div<{ keyboardHeight: number }>`
   margin-left: auto;
 
-  /* @media (max-width: 767px) {
+  /* @media (max-width: 1024px) {
     position: fixed;
     bottom: ${({ keyboardHeight }) => `${keyboardHeight + 16}px`};
     left: 0;

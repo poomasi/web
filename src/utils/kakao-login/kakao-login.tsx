@@ -39,7 +39,7 @@ const KakaoLoginButton = styled.button`
     background-color: #ffeb3b;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 12px;
     font-weight: 500;
     padding: 7px 12px;
@@ -51,7 +51,7 @@ const KakaoIcon = styled.img`
   height: 20px;
   margin-right: 10px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 0.75rem;
     height: 0.75rem;
   }

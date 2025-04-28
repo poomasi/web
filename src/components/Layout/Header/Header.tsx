@@ -43,15 +43,15 @@ const LogoButtonWrapper = styled.button`
   border: none;
   padding: 0;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0;
   }
 `
 
 const LogoImage = styled.img`
-  @media (max-width: 767px) {
-    width: ${getMobileVw(68)};
-    height: auto;
+  @media (max-width: 1024px) {
+    width: 6.125rem;
+    height: 1.25rem;
   }
 `
 
@@ -63,10 +63,10 @@ const KakaoLoginBtn = styled.button`
   border-radius: 12px;
   border: 1.5px solid #3ecdba;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 5rem;
     padding: 7px 12px;
-    height: 28px;
+    height: 30px;
     font-size: 12px;
     border-radius: 6px;
   }
@@ -83,7 +83,7 @@ const HeaderContainer = styled.div`
   background-color: #fff;
   z-index: 999;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 100%;
     padding: 12px ${getMobileVw(20)};
     /* margin: 12px 0; */

@@ -87,7 +87,7 @@ const Container = styled(Card, {
   flex-direction: column;
 
   @media (max-width: 1320px) {
-      height: 350px;
+    height: 350px;
   }
 
   ${({ isVacation }) =>
@@ -98,7 +98,7 @@ const Container = styled(Card, {
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
   `} @media (
-	max-width: 767px) {
+	max-width: 1024px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
@@ -120,8 +120,7 @@ const ProfilePictureWrapper = styled.div`
   justify-content: center;
   width: 100%;
   overflow: hidden;
-    
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: ${getMobileVw(64)};
     height: ${getMobileVw(64)};
     border-radius: 50%;
@@ -140,11 +139,11 @@ const ProfileImage = styled.img`
   border-radius: 100%;
 
   @media (max-width: 1320px) {
-      width: 110px;
-      height: 110px;
+    width: 110px;
+    height: 110px;
   }
-    
-  @media (max-width: 767px) {
+
+  @media (max-width: 1024px) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -158,9 +157,8 @@ const ProfileIntroContainer = styled.div`
 
   @media (max-width: 1320px) {
   }
-    
-    
-  @media (max-width: 767px) {
+
+  @media (max-width: 1024px) {
     align-items: flex-start;
     justify-content: center;
     gap: 6px;
@@ -174,12 +172,12 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
-    
+
   @media (max-width: 1320px) {
     font-size: 1.25rem;
   }
-    
-  @media (max-width: 767px) {
+
+  @media (max-width: 1024px) {
     font-size: 1rem;
   }
 `
@@ -193,10 +191,10 @@ const ProfileField = styled.div`
   line-height: 150%; /* 27px */
 
   @media (max-width: 1320px) {
-      font-size: 1.1rem;
+    font-size: 1.1rem;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
   }
 `
@@ -209,7 +207,7 @@ const ProfileHistory = styled.div`
 
   height: 30px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     height: auto;
     margin-top: 0;
     display: flex;
@@ -223,10 +221,10 @@ const ProfileHistoryItem = styled.div`
   text-align: center;
 
   @media (max-width: 1320px) {
-      font-size: 0.7rem;
+    font-size: 0.7rem;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 10px;
     height: auto;
     text-align: left;

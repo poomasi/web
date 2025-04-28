@@ -117,7 +117,7 @@ const QnaHead = styled.div`
   font-weight: 800;
   line-height: 150%; /* 48px */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 1.5rem;
     height: 1.5rem;
     justify-content: center;
@@ -141,7 +141,7 @@ const QnaContentArea = styled(TextareaAutosize)`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
   }
 `
@@ -184,14 +184,14 @@ const TextBlurOverlay = styled.div`
   padding: 12px 18px;
   font-weight: 500;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     /* margin-bottom: 30px; */
     font-size: 1rem;
     font-weight: 500;
   }
 `
 const QnaContentCareer = styled.div`
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.75rem;
     background-color: ${colors.gray200};
     margin-right: 6px;
@@ -200,14 +200,14 @@ const QnaContentCareer = styled.div`
 `
 
 const QnaContentMajor = styled.div`
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     background-color: ${colors.gray200};
     font-size: 0.75rem;
     color: ${colors.gray500};
   }
 `
 const QnaContentDate = styled.div`
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     position: absolute;
     bottom: 8%;
     font-size: 0.75rem;

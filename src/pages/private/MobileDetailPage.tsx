@@ -73,7 +73,7 @@ export function MobileDetailPage() {
 const Container = styled.div`
   width: 100%;
   padding-top: 80px;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding-top: 0;
   }
 `
@@ -88,7 +88,7 @@ const PageContainer = styled.div`
 const PageContent = styled.div`
   width: 1200px;
   margin-bottom: 50px;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 100%;
   }
 `
@@ -98,7 +98,7 @@ const Seperator = styled.div`
   border-top: 3px var(--light-gray-color) dashed;
   margin-top: 30px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     height: 1px;
     border-top: 1px solid #eaebed;
   }

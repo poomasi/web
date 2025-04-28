@@ -31,7 +31,7 @@ const CloseBtn = styled.button`
     height: 100%;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 0.8rem;
     height: 0.8rem;
   }
