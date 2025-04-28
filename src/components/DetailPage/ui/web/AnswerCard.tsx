@@ -3,6 +3,7 @@ import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
+import { getMobileVw } from '@utils/responsive'
 
 interface AnswerCardProps {
   answerText: string
@@ -51,8 +52,8 @@ const QnaCard = styled(Card)`
   gap: 32px;
   border: 1px solid ${colors.green500};
 
-  @media (max-width: 520px) {
-    width: 85%;
+  @media (max-width: 1024px) {
+    width: ${getMobileVw(290)};
     border-radius: 20px;
     padding: 20px 20px 40px;
     box-shadow: none;
@@ -98,7 +99,7 @@ const QnaContentArea = styled(TextareaAutosize)`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
   }
 `
