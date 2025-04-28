@@ -125,7 +125,7 @@ export function QuestionList() {
             <QnaSection key={qna.public_id}>
               <QuestionArea>
                 <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
-                {isAnswerAuthority && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
+                {isAnswerAuthority && !qna.answer_text && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
               </QuestionArea>
 
               {qna.answer_text && (
