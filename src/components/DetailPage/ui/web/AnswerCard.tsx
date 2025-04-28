@@ -5,6 +5,7 @@ import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import dayjs from 'dayjs'
+import { getMobileVw } from '@utils/responsive.ts'
 
 interface AnswerCardProps {
   answerText: string
@@ -32,15 +33,7 @@ export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardPro
         </QnaHead>
         <QnaContentArea readOnly value={answerText} />
 
-        <div
-          style={{
-            color: 'var(--gray-color)',
-            display: 'flex',
-            justifyContent: 'start',
-          }}
-        >
-          {dayjs(answerDate).format('YYYY-MM-DD')}
-        </div>
+        <AnswerDate>{dayjs(answerDate).format('YYYY-MM-DD')}</AnswerDate>
       </QnaCard>
     </div>
   )
@@ -63,8 +56,9 @@ const QnaCard = styled(Card)`
   @media (max-width: 1024px) {
     width: ${getMobileVw(290)};
     border-radius: 20px;
-    padding: 20px 20px 40px;
+    padding: 24px 20px;
     box-shadow: none;
+    gap: 20px;
   }
 `
 
@@ -83,11 +77,7 @@ const QnaHead = styled.div`
   line-height: 150%; /* 30px */
 
   @media (max-width: 1024px) {
-    width: 1.5rem;
-    height: 1.5rem;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
+    font-size: 14px;
   }
 `
 
@@ -96,13 +86,17 @@ const AnswerImg = styled.img`
   height: 54px;
   object-fit: cover;
   border-radius: 100%;
+
+  @media (max-width: 1024px) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `
 
 const QnaContentArea = styled(TextareaAutosize)`
   width: 100%;
   height: 100%;
   outline: none;
-  background-color: #f5f5f5;
   box-sizing: border-box;
   border: none;
   resize: none;
@@ -158,5 +152,20 @@ const TextBlurOverlay = styled.div`
     /* margin-bottom: 30px; */
     font-size: 1rem;
     font-weight: 500;
+  }
+`
+
+const AnswerDate = styled.div`
+  color: var(--gray-color);
+  display: flex;
+  justify-content: start;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 18px */
+
+  @media (max-width: 1024px) {
+    font-size: 12px;
   }
 `
