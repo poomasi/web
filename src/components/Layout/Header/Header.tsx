@@ -22,10 +22,10 @@ export default function Header() {
     <>
       <HeaderContainer>
         <HeaderContent>
-          <div onClick={toHome} style={{ fontSize: '40px', cursor: 'pointer' }}>
+          <LogoButtonWrapper onClick={toHome}>
             {/* <img src={publicLogo} alt="logo" className="logo-img" /> */}
             <LogoImage src={publicLogo} alt="logo" />
-          </div>
+          </LogoButtonWrapper>
 
           {accountToken ? <KakaoLoginBtn onClick={() => handleLogout()}>로그아웃</KakaoLoginBtn> : <KakaoLogin />}
         </HeaderContent>
@@ -35,6 +35,18 @@ export default function Header() {
     </>
   )
 }
+
+const LogoButtonWrapper = styled.button`
+  cursor: pointer;
+  font-size: 40px;
+  background: none;
+  border: none;
+  padding: 0;
+
+  @media (max-width: 767px) {
+    font-size: 0;
+  }
+`
 
 const LogoImage = styled.img`
   @media (max-width: 767px) {
@@ -74,7 +86,7 @@ const HeaderContainer = styled.div`
 
   @media (max-width: 767px) {
     width: 100%;
-    padding: 0 ${getMobileVw(10)};
+    padding: 0 ${getMobileVw(20)};
     margin: 12px 0;
   }
 `
