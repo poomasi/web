@@ -13,12 +13,23 @@ import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
 import { QuestionAnswerModal } from '@components/DetailPage/ui/web/QuestionAnswerModal.tsx'
 import { useAccountStore } from '@store/account'
+import { match, P } from 'ts-pattern'
 
 export function QuestionList() {
   const { id } = useParams()
   const { publicId, accountType } = useAccountStore()
   const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } = useDetailPageContext()
-  const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
+  // @todo react-query로 변경
+  const [qnaDataList, setQnaDataList] = useState<{
+    data: GetQnaListResponse[],
+    isInitFetched: boolean,
+    isApiError: boolean,
+  }>({
+    data: [],
+    isApiError: false,
+    isInitFetched: false,
+  })
+  //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
   const [answerModalData, setAnswerModalData] = useState<GetQnaListResponse | null>(null)
   const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
@@ -26,10 +37,19 @@ export function QuestionList() {
   const getTeacherQnaList = async () => {
     try {
       const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-      setQnaDataList(qnas.data)
+      setQnaDataList(() => ({
+        data: qnas.data,
+        isApiError: false,
+        isInitFetched: true,
+      }))
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('', error)
+        setQnaDataList((prev) => ({
+          ...prev,
+          isApiError: true,
+          isInitFetched: false,
+        }))
       }
     }
   }
@@ -90,34 +110,31 @@ export function QuestionList() {
         <ProfileBadge onClick={() => setQnaAskerType(QnaAskerType.ME)} badgeString={'내 질문'} selected={QnaAskerType.ME === qnaAskerType} />
       </BadgeContainer>
 
-      {qnaDataList.length === 0 ? (
-        <div
-          style={{
-            width: '100%',
-            height: '200px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-            fontSize: '24px',
-          }}
-        >
-          아직 질문이 없네요 :D
-        </div>
-      ) : (
-        qnaDataList.map((qna) => (
-          <QnaSection key={qna.public_id}>
-            <QuestionArea>
-              <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
-              {isAnswerAuthority && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
-            </QuestionArea>
-
-            {qna.answer_text && (
-              <AnswerCard answerText={qna.answer_text} isMyAnswer={getIsSecretQuestion(qna)} teacherName={teacherAccount?.name ?? ''} />
-            )}
-          </QnaSection>
+      {match(qnaDataList)
+        .with({isApiError: true}, () => (<InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>))
+        .with({isInitFetched: false}, () => (
+          <InfoText>질문을 가져오는 중입니다..</InfoText>
         ))
-      )}
+        .with({data: P.when((dataList) => dataList.length === 0)}, () => (
+          <InfoText>
+            아직 질문이 없네요 :D
+          </InfoText>
+        ))
+        .otherwise((qnaData) => (
+          qnaData.data.map((qna) => (
+            <QnaSection key={qna.public_id}>
+              <QuestionArea>
+                <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
+                {isAnswerAuthority && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
+              </QuestionArea>
+
+              {qna.answer_text && (
+                <AnswerCard answerText={qna.answer_text} isMyAnswer={getIsSecretQuestion(qna)} teacherName={teacherAccount?.name ?? ''} />
+              )}
+            </QnaSection>
+          ))
+        ))
+      }
       {answerModalData !== null && <QuestionAnswerModal question={answerModalData} setAnswerModalClose={() => setAnswerModalData(null)} />}
     </QuestionListBody>
   )
@@ -144,6 +161,16 @@ const QnaSection = styled.div`
   @media (max-width: 520px) {
     margin-bottom: 30px;
   }
+`
+
+const InfoText = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
 `
 
 const QuestionArea = styled.div`
