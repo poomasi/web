@@ -21,9 +21,9 @@ export function QuestionList() {
   const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } = useDetailPageContext()
   // @todo react-query로 변경
   const [qnaDataList, setQnaDataList] = useState<{
-    data: GetQnaListResponse[],
-    isInitFetched: boolean,
-    isApiError: boolean,
+    data: GetQnaListResponse[]
+    isInitFetched: boolean
+    isApiError: boolean
   }>({
     data: [],
     isApiError: false,
@@ -111,30 +111,30 @@ export function QuestionList() {
       </BadgeContainer>
 
       {match(qnaDataList)
-        .with({isApiError: true}, () => (<InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>))
-        .with({isInitFetched: false}, () => (
-          <InfoText>질문을 가져오는 중입니다..</InfoText>
-        ))
-        .with({data: P.when((dataList) => dataList.length === 0)}, () => (
-          <InfoText>
-            아직 질문이 없네요 :D
-          </InfoText>
-        ))
-        .otherwise((qnaData) => (
+        .with({ isApiError: true }, () => <InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>)
+        .with({ isInitFetched: false }, () => <InfoText>질문을 가져오는 중입니다..</InfoText>)
+        .with({ data: P.when((dataList) => dataList.length === 0) }, () => <InfoText>아직 질문이 없네요 :D</InfoText>)
+        .otherwise((qnaData) =>
           qnaData.data.map((qna) => (
             <QnaSection key={qna.public_id}>
               <QuestionArea>
                 <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
-                {isAnswerAuthority && !qna.answer_text && <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>}
+                {isAnswerAuthority && !qna.answer_text && (
+                  <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
+                )}
               </QuestionArea>
 
               {qna.answer_text && (
-                <AnswerCard answerText={qna.answer_text} isMyAnswer={getIsSecretQuestion(qna)} teacherName={teacherAccount?.name ?? ''} />
+                <AnswerCard
+                  answerText={qna.answer_text}
+                  isMyAnswer={getIsSecretQuestion(qna)}
+                  teacherName={teacherAccount?.name ?? ''}
+                  answerDate={qna.updated_at}
+                />
               )}
             </QnaSection>
-          ))
-        ))
-      }
+          )),
+        )}
       {answerModalData !== null && <QuestionAnswerModal question={answerModalData} setAnswerModalClose={() => setAnswerModalData(null)} />}
     </QuestionListBody>
   )

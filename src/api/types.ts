@@ -40,6 +40,7 @@ export interface GetQnaListResponse {
   questioner_public_id: string
   answerer_public_id: string
   created_at: string
+  updated_at: string
 }
 
 export interface GetQnaStatusResponse {

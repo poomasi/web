@@ -153,6 +153,7 @@ export function QuestionField() {
             padding: '0 20px',
             borderRadius: '10px',
             color: 'white',
+            boxShadow: 'none',
             backgroundColor: '#3ecdba',
             '@media (max-width:1024px)': {
               bottom: `${keyboardHeight + 16}px`,
@@ -218,11 +219,15 @@ const QuestionTextField = styled.textarea`
   border-bottom: 1px solid #eaebed;
 
   // element 폰트 요소
-  color: #9b9ea2;
+  color: #28292a;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
+
+  &::placeholder {
+    color: #9b9ea2;
+  }
 
   @media (max-width: 1024px) {
     border-width: 0 0 0 0;
