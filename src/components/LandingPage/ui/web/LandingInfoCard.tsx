@@ -27,6 +27,10 @@ const LandingInfoCardContainer = styled.div`
   border-radius: 1.375rem;
   background: #fff;
 
+  @media (max-width: 1320px) {
+    height: 17rem;
+  }
+
   @media (max-width: 767px) {
     height: 11.875rem;
   }

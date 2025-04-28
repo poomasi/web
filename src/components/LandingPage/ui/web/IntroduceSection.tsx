@@ -117,4 +117,8 @@ const IntroduceCardList = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   gap: 20px;
+
+  @media (max-width: 1320px) {
+    width: 767px;
+  }
 `

@@ -64,7 +64,6 @@ const HeaderContainer = styled.div`
   position: sticky;
   width: 100%;
   padding: 1rem 0;
-  margin: 0 auto;
   top: 0;
   display: flex;
   justify-content: center;
@@ -82,5 +81,11 @@ const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1320px;
+  width: 100%;
+  max-width: 1320px;
+    margin: 0 auto;
+
+    @media (max-width: 1320px) {
+        max-width: 767px;
+    }
 `

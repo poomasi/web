@@ -25,12 +25,17 @@ const FooterContainer = styled.div`
 
 const FooterWrapper = styled.div`
   width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
   height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 300px;
   color: ${colors.gray600};
+
+  @media (max-width: 1320px) {
+    max-width: 767px;
+  }
 
   @media (max-width: 767px) {
     font-size: 10px;
@@ -47,6 +52,7 @@ const InquireText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+    
   @media (max-width: 767px) {
     font-size: 12px;
   }

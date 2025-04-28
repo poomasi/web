@@ -86,6 +86,10 @@ const Container = styled(Card, {
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 1320px) {
+      height: 350px;
+  }
+
   ${({ isVacation }) =>
     isVacation &&
     `
@@ -116,6 +120,7 @@ const ProfilePictureWrapper = styled.div`
   justify-content: center;
   width: 100%;
   overflow: hidden;
+    
   @media (max-width: 767px) {
     width: ${getMobileVw(64)};
     height: ${getMobileVw(64)};
@@ -133,6 +138,12 @@ const ProfileImage = styled.img`
   height: 161px;
   object-fit: contain;
   border-radius: 100%;
+
+  @media (max-width: 1320px) {
+      width: 110px;
+      height: 110px;
+  }
+    
   @media (max-width: 767px) {
     width: 100%;
     height: 100%;
@@ -144,6 +155,11 @@ const ProfileIntroContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1320px) {
+  }
+    
+    
   @media (max-width: 767px) {
     align-items: flex-start;
     justify-content: center;
@@ -158,6 +174,11 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
+    
+  @media (max-width: 1320px) {
+    font-size: 1.25rem;
+  }
+    
   @media (max-width: 767px) {
     font-size: 1rem;
   }
@@ -170,6 +191,10 @@ const ProfileField = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 27px */
+
+  @media (max-width: 1320px) {
+      font-size: 1.1rem;
+  }
 
   @media (max-width: 767px) {
     font-size: 14px;
@@ -196,6 +221,10 @@ const ProfileHistoryItem = styled.div`
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+
+  @media (max-width: 1320px) {
+      font-size: 0.7rem;
+  }
 
   @media (max-width: 767px) {
     font-size: 10px;
