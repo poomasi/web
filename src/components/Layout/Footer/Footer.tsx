@@ -18,7 +18,7 @@ export function Footer() {
 const FooterContainer = styled.div`
   width: 100%;
   border-top: 1px solid #eaebed;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding: 30px ${getMobileVw(20)};
   }
 `
@@ -32,7 +32,7 @@ const FooterWrapper = styled.div`
   padding-left: 300px;
   color: ${colors.gray600};
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 10px;
     flex-direction: column;
     gap: 12px;
@@ -47,7 +47,7 @@ const InquireText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 12px;
   }
 `

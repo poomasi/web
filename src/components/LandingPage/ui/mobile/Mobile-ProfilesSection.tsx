@@ -70,7 +70,7 @@ const ProfilesSectionContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     margin-bottom: 60px;
   }
 `
@@ -82,7 +82,7 @@ const SectionTitle = styled.div`
   align-items: flex-start;
   width: 100%;
   gap: ${getMobileVw(20)};
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     gap: 1rem;
   }
 `
@@ -111,7 +111,7 @@ const BadgeContainer = styled.div`
 const PaginationBox = styled.div`
   align-self: flex-end;
   margin-top: ${getMobileVw(8)};
-  font-size: ${getMobileVw(13)};
+  font-size: 1rem;
   color: #888;
 `
 

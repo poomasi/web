@@ -74,7 +74,7 @@ const QnaHead = styled.div`
 
   font-size: 32px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 1.5rem;
     height: 1.5rem;
     justify-content: center;
@@ -139,7 +139,7 @@ const TextBlurOverlay = styled.div`
   padding: 12px 18px;
   font-weight: 500;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     /* margin-bottom: 30px; */
     font-size: 1rem;
     font-weight: 500;

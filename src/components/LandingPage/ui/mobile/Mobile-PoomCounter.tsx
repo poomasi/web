@@ -35,7 +35,7 @@ const CounterContainer = styled.div`
   height: auto;
   padding: ${getMobileVh(30)};
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     gap: 1rem;
     padding: 2.375rem 3.625rem;
   }

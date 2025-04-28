@@ -103,7 +103,7 @@ const ModalHeader = styled.div`
   width: 100%;
   padding: 1rem;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding: 0.6rem;
   }
 `

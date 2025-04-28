@@ -9,11 +9,11 @@ import { useMobileStore } from '@store/useMobileStore.ts'
 function App() {
   const { setIsMobile } = useMobileStore()
   const sizeCheckEvent = () => {
-    setIsMobile(screen.width <= 767)
+    setIsMobile(screen.width <= 1024)
   }
 
   useEffect(() => {
-    setIsMobile(screen.width <= 767)
+    setIsMobile(screen.width <= 1024)
     window.addEventListener('resize', sizeCheckEvent)
     return () => {
       window.removeEventListener('resize', sizeCheckEvent)

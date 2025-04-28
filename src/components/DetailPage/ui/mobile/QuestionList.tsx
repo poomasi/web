@@ -134,7 +134,7 @@ export function QuestionList() {
 
 const ReplyTextareaWrapper = styled.div`
   display: flex;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     gap: 14px;
   }
 `
@@ -149,7 +149,7 @@ const ReplyTextarea = styled.textarea<{ isFocused: boolean }>`
   margin-top: 10px;
   transition: height 0.2s ease;
   color: ${colors.gray500};
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 80%;
     resize: none;
     border-radius: 8px;

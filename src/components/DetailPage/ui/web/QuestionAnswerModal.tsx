@@ -129,7 +129,7 @@ const QuestionArea = styled.div`
   background: #ffffff;
   padding: 24px 24px 0;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding: 14px;
     border-width: 0 0 0 0;
   }
@@ -155,7 +155,7 @@ const QuestionTextField = styled.textarea`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     border-width: 0 0 0 0;
   }
 `

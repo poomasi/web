@@ -47,7 +47,7 @@ export function ModalGuide({ type, contents, content, onClose, title }: ModalPro
 }
 
 const ModalTitle = styled.h4`
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
@@ -89,7 +89,7 @@ const Image = styled.img`
   height: auto;
   margin-bottom: 1rem;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 100%;
   }
 `
@@ -100,15 +100,16 @@ const Text = styled.p`
   line-height: 1.5;
   color: #28292a;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.875rem;
     margin-bottom: 1rem;
   }
 `
 const TextDeco = styled.p`
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 0.875rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
     background-color: #f7f7f7;
     border-radius: 20px;
     padding: 2rem;

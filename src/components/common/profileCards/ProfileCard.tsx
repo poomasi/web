@@ -94,7 +94,7 @@ const Container = styled(Card, {
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
   `} @media (
-	max-width: 767px) {
+	max-width: 1024px) {
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
@@ -116,7 +116,7 @@ const ProfilePictureWrapper = styled.div`
   justify-content: center;
   width: 100%;
   overflow: hidden;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: ${getMobileVw(64)};
     height: ${getMobileVw(64)};
     border-radius: 50%;
@@ -133,7 +133,7 @@ const ProfileImage = styled.img`
   height: 161px;
   object-fit: contain;
   border-radius: 100%;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -144,7 +144,7 @@ const ProfileIntroContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     align-items: flex-start;
     justify-content: center;
     gap: 6px;
@@ -158,7 +158,7 @@ const ProfileName = styled.div`
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 36px */
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 1rem;
   }
 `
@@ -171,7 +171,7 @@ const ProfileField = styled.div`
   font-weight: 700;
   line-height: 150%; /* 27px */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
   }
 `
@@ -184,7 +184,7 @@ const ProfileHistory = styled.div`
 
   height: 30px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     height: auto;
     margin-top: 0;
     display: flex;
@@ -197,7 +197,7 @@ const ProfileHistoryItem = styled.div`
   font-weight: 500;
   text-align: center;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     font-size: 10px;
     height: auto;
     text-align: left;
