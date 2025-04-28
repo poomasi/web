@@ -85,7 +85,7 @@ const HeaderContainer = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
-    padding: 12px ${getMobileVw(20)};
+    /* padding: 12px ${getMobileVw(20)}; */
     /* margin: 12px 0; */
   }
 `
@@ -95,9 +95,9 @@ const HeaderContent = styled.div`
   justify-content: space-between;
   width: 100%;
   max-width: 1320px;
-    margin: 0 auto;
+  margin: 0 auto;
 
-    @media (max-width: 1320px) {
-        padding: 0 5%;
-    }
+  @media (max-width: 1320px) {
+    padding: 0 5%;
+  }
 `

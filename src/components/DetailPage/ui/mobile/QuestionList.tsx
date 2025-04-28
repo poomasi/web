@@ -12,6 +12,7 @@ import { colors } from '@styles/foundation/color'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
 import SendIcon from '@mui/icons-material/Send'
+import { getMobileVw } from '@utils/responsive'
 
 export function QuestionList() {
   const { id } = useParams()
@@ -119,7 +120,7 @@ export function QuestionList() {
                     />
                     <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
                       {' '}
-                      <SendIcon />
+                      <SendIcon style={{ fontSize: '15px' }} />
                     </ReplyButton>
                   </ReplyTextareaWrapper>
                 )
@@ -140,7 +141,7 @@ const ReplyTextareaWrapper = styled.div`
 `
 
 const ReplyTextarea = styled.textarea<{ isFocused: boolean }>`
-  height: ${(props) => (props.isFocused ? '100px' : '40px')};
+  height: ${(props) => (props.isFocused ? '140px' : '40px')};
   resize: none;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -150,7 +151,7 @@ const ReplyTextarea = styled.textarea<{ isFocused: boolean }>`
   transition: height 0.2s ease;
   color: ${colors.gray500};
   @media (max-width: 1024px) {
-    width: 80%;
+    width: ${getMobileVw(290)};
     resize: none;
     border-radius: 8px;
     padding: 10px;
@@ -162,10 +163,10 @@ const ReplyButton = styled.button`
   margin-top: 8px;
   background-color: ${colors.green200};
   color: ${colors.green600};
-  padding: 6px 12px;
+  padding: 6px 10px;
   border: none;
   border-radius: 8px;
-  font-weight: bold;
+  font-size: 12px;
   cursor: pointer;
 `
 
@@ -191,10 +192,3 @@ const QnaSection = styled.div`
     margin-bottom: 30px;
   }
 `
-
-// const BlurOverlay = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   filter: blur(7px);
-//   -webkit-filter: blur(7px);
-// `

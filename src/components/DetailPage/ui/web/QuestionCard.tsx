@@ -6,6 +6,7 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@api/types.ts'
 import { useAccountStore } from '@store/account'
+import { getMobileVw } from '@utils/responsive'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
@@ -91,8 +92,8 @@ const QnaCard = styled(Card)`
   flex-direction: column;
   gap: 32px;
 
-  @media (max-width: 520px) {
-    width: 85%;
+  @media (max-width: 1024px) {
+    width: ${getMobileVw(290)};
     border-radius: 20px;
     padding: 20px 20px 40px;
     box-shadow: none;
