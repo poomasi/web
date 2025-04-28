@@ -3,16 +3,19 @@ import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
-import { getMobileVw } from '@utils/responsive'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import dayjs from 'dayjs'
 
 interface AnswerCardProps {
   answerText: string
   isMyAnswer: boolean
   teacherName: string
+  answerDate: string
 }
 
-export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardProps) {
+export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardProps) {
   const { accountToken } = useAccountStore()
+  const { teacherAccount } = useDetailPageContext()
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -23,23 +26,28 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
             <TextBlurOverlay>{accountToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
-        <QnaHead>A</QnaHead>
+        <QnaHead>
+          <AnswerImg src={teacherAccount?.profile_image} />
+          <span>정민찬</span>
+        </QnaHead>
         <QnaContentArea readOnly value={answerText} />
 
         <div
           style={{
             color: 'var(--gray-color)',
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'start',
           }}
-        >{`품앗이꾼 ${teacherName}`}</div>
+        >
+          {dayjs(answerDate).format('YYYY-MM-DD')}
+        </div>
       </QnaCard>
     </div>
   )
 }
 
 const QnaCard = styled(Card)`
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   box-shadow: none;
   border-radius: 22px;
   padding: 24px 28px 32px;
@@ -61,19 +69,18 @@ const QnaCard = styled(Card)`
 `
 
 const QnaHead = styled.div`
-  width: 54px;
-  height: 54px;
-  border-radius: 100%;
-
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 
-  background: #3ecdba;
+  color: #0e0e0e;
 
-  color: #ffffff;
+  gap: 12px;
 
-  font-size: 32px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
 
   @media (max-width: 1024px) {
     width: 1.5rem;
@@ -82,6 +89,13 @@ const QnaHead = styled.div`
     align-items: center;
     font-size: 1rem;
   }
+`
+
+const AnswerImg = styled.img`
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 100%;
 `
 
 const QnaContentArea = styled(TextareaAutosize)`

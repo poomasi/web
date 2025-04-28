@@ -100,6 +100,7 @@ export function QuestionList() {
                   answerText={qna.answer_text}
                   isMyAnswer={publicId === qna.questioner_public_id}
                   teacherName={teacherAccount?.name ?? ''}
+                  answerDate={qna.updated_at}
                 />
               ) : (
                 accountType === 'ADMIN' && (
