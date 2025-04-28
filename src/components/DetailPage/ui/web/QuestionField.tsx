@@ -9,7 +9,6 @@ import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
 import { colors } from '@styles/foundation/color'
-import { Seperator } from '@components/seperator/Seperator'
 import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
@@ -147,9 +146,11 @@ export function QuestionField() {
           onClick={() => handleQuestionButtonClick()}
           variant="contained"
           sx={{
-            height: '40px',
-            fontSize: '16px',
-            fontWeight: 'bold',
+            height: '60px',
+            fontSize: '18px',
+            fontWeight: '700',
+            lineHeight: '150%',
+            padding: '0 20px',
             borderRadius: '10px',
             color: 'white',
             backgroundColor: '#3ecdba',
@@ -159,7 +160,6 @@ export function QuestionField() {
           }}
         />
       </QuestionBtnWrapper>
-      <Seperator />
     </QuestionSection>
   )
 }

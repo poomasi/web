@@ -19,7 +19,7 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
         {/* 비밀 질문 인 경우, 블러처리 */}
         {isMyAnswer && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '비밀답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accountToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
         <QnaHead>A</QnaHead>
@@ -39,9 +39,10 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
 
 const QnaCard = styled(Card)`
   background-color: #f5f5f5;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  border-radius: 22px;
+  padding: 24px 28px 32px;
   margin-top: 20px;
-  padding: 20px;
   width: 60%;
   position: relative;
 
@@ -65,6 +66,8 @@ const QnaHead = styled.div`
 
   display: flex;
   justify-content: center;
+  align-items: center;
+
   background: #3ecdba;
 
   color: #ffffff;
@@ -124,16 +127,17 @@ const TextBlurOverlay = styled.div`
   z-index: 1;
   top: 50%;
   left: 50%;
+
   text-align: center;
-  font-weight: bold;
   color: #fff;
   background-color: rgba(78, 80, 83, 0.7);
-  padding: 16px;
-  height: 38px;
-  border-radius: 20px;
+  border-radius: 500px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  padding: 12px 18px;
+  font-weight: 500;
 
   @media (max-width: 767px) {
     /* margin-bottom: 30px; */
