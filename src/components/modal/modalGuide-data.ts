@@ -1,6 +1,6 @@
 import guide01 from '@assets/images/landingPage/mobile-landing-guide01.png'
-import guide02 from '@assets/images/landingPage/mobile-landing-guide02.png'
-import guide03 from '@assets/images/landingPage/mobile-landing-guide03.png'
+import guide02 from '@assets/images/landingPage/mobile-landing-guide02.svg'
+import guide03 from '@assets/images/landingPage/mobile-landing-guide03.svg'
 
 type SwiperModal = {
   title: string

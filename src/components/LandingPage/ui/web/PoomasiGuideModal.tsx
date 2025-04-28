@@ -1,8 +1,8 @@
 import ModalReference from '@components/modal/ModalReference.tsx'
 import styled from '@emotion/styled'
 import guide01 from '@assets/images/landingPage/mobile-landing-guide01.png'
-import guide02 from '@assets/images/landingPage/mobile-landing-guide02.png'
-import guide03 from '@assets/images/landingPage/mobile-landing-guide03.png'
+import guide02 from '@assets/images/landingPage/mobile-landing-guide02.svg'
+import guide03 from '@assets/images/landingPage/mobile-landing-guide03.svg'
 
 type PoomasiGuideModalProps = {
   onClose: () => void
@@ -44,7 +44,7 @@ export function PoomasiGuideModal({ onClose }: PoomasiGuideModalProps) {
 
 const PoomasiGuideModalContainer = styled(ModalReference)`
   width: 1200px;
-    
+
   @media (max-width: 1320px) {
     width: 767px;
   }
@@ -75,7 +75,7 @@ const GuideList = styled.div`
 const GuideItem = styled.div`
   display: flex;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
   flex-direction: column;
   font-size: 16px;
   gap: 24px;
@@ -85,12 +85,11 @@ const GuideImg = styled.img`
   width: 322px;
   height: 246px;
   border-radius: 16px;
-    
+
   @media (max-width: 1320px) {
     width: 310px;
     height: 220px;
   }
-    
 `
 
 const GuideText = styled.div`

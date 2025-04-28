@@ -28,8 +28,7 @@ const CommonGuideModalBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;
-
-  padding-bottom: 70px;
+  padding: 0 1.25rem 70px;
 `
 
 const GuideTitle = styled.div`

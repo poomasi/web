@@ -101,7 +101,7 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  padding: 1rem;
+  padding: 1.25rem;
 
   @media (max-width: 1024px) {
     padding: 0.6rem;
