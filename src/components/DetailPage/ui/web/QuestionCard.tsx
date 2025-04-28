@@ -209,7 +209,7 @@ const QnaContentMajor = styled.div`
 const QnaContentDate = styled.div`
   @media (max-width: 1024px) {
     position: absolute;
-    bottom: 8%;
+    bottom: 5%;
     font-size: 0.75rem;
     color: ${colors.gray500};
   }

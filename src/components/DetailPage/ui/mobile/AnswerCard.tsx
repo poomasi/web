@@ -82,7 +82,7 @@ const QnaContentArea = styled(TextareaAutosize)`
   font-weight: 500;
   line-height: 150%;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     font-size: 14px;
   }
 `

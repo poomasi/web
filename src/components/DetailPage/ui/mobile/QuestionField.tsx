@@ -93,6 +93,9 @@ export function QuestionField() {
     await postingQuestion()
   }, [accountToken, questionText])
 
+  const { accountType } = useAccountStore()
+  if (accountType === 'ADMIN') return null
+
   return (
     <QuestionSection className="QuestionSection">
       <QuestionFieldTitle>질문하기</QuestionFieldTitle>

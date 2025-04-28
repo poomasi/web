@@ -12,6 +12,7 @@ import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList.tsx'
 export function MobileDetailPage() {
   const { publicId } = useAccountStore()
   const { setErrorToastMessage } = useToastMessageStore()
+  const { accountType } = useAccountStore()
 
   const navigate = useNavigate()
   const { id } = useParams()
@@ -59,7 +60,7 @@ export function MobileDetailPage() {
 
               <Seperator />
 
-              <QuestionField />
+              {accountType !== 'ADMIN' && <QuestionField />}
 
               <QuestionList />
             </>

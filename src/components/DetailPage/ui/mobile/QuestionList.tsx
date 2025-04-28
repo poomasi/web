@@ -140,7 +140,7 @@ const ReplyTextareaWrapper = styled.div`
 `
 
 const ReplyTextarea = styled.textarea<{ isFocused: boolean }>`
-  height: ${(props) => (props.isFocused ? '100px' : '20px')};
+  height: ${(props) => (props.isFocused ? '100px' : '40px')};
   resize: none;
   border: 1px solid #ddd;
   border-radius: 8px;
