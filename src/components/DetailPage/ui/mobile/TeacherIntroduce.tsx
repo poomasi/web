@@ -39,6 +39,8 @@ const Header = styled.div`
     border-bottom: 1px solid #eaebed;
     border-top: 1px solid #eaebed;
     padding: 2.5rem;
+    padding-bottom: 24px;
+    padding-top: 24px;
   }
 `
 
@@ -119,8 +121,8 @@ const HeaderJob = styled.div`
   }
 
   // iphone mini
-  @media (max-width: 380px) {
-    font-size: 15px;
+  @media (max-width: 1024px) {
+    font-size: 13px;
   }
 `
 
