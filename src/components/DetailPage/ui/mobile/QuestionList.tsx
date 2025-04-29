@@ -4,8 +4,9 @@ import { useAccountStore } from '@store/account'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
 import { ProfileBadge } from '@components/badge'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard'
-import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard'
-// import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
+//모바일용 앤써카드
+import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
+import { useIsAnswerBlurred } from '@components/DetailPage/model/hooks/useIsAnswerBlurred'
 import { RequestApi } from '@api/request-api'
 import { GetQnaListResponse } from '@api/types'
 import { QnaAskerType } from '@api/enums'
@@ -17,7 +18,7 @@ import { getMobileVw } from '@utils/responsive'
 
 export function QuestionList() {
   const { id } = useParams()
-  const { publicId, accountType } = useAccountStore()
+  const { accountType } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
 
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
@@ -53,6 +54,8 @@ export function QuestionList() {
   useEffect(() => {
     getTeacherQnaList()
   }, [id, qnaAskerType])
+
+  const isAnswerBlurred = useIsAnswerBlurred()
 
   return (
     <QuestionListBody>
@@ -99,7 +102,7 @@ export function QuestionList() {
               {qna.answer_text ? (
                 <AnswerCard
                   answerText={qna.answer_text}
-                  isMyAnswer={publicId === qna.questioner_public_id}
+                  isBlurred={isAnswerBlurred(qna)}
                   teacherName={teacherAccount?.name ?? ''}
                   answerDate={qna.updated_at}
                 />

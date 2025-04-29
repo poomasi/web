@@ -104,7 +104,7 @@ const Container = styled(Card, {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    height: 7.8125rem;
+    height: 50%;
     width: ${getMobileVw(300)};
     overflow: visible;
     padding: 1.125rem ${getMobileVw(16)};
@@ -145,8 +145,8 @@ const ProfileImage = styled.img`
   }
 
   @media (max-width: 1024px) {
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    height: 70%;
     object-fit: cover;
   }
 `

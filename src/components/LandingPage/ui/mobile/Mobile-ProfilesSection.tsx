@@ -89,7 +89,7 @@ const SectionTitle = styled.div`
 
 const SubHead = styled.div`
   color: #0e0e0e;
-  font-size: ${getMobileVw(24)};
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.5;
 `

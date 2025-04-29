@@ -2,27 +2,35 @@ import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import dayjs from 'dayjs'
 
 interface AnswerCardProps {
   answerText: string
-  isMyAnswer: boolean
+  isBlurred: boolean
   teacherName: string
+  answerDate: string
 }
 
-export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardProps) {
+export function AnswerCard({ answerText, isBlurred, teacherName, answerDate }: AnswerCardProps) {
   const { accountToken } = useAccountStore()
+  const { teacherAccount } = useDetailPageContext()
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <QnaCard>
-        {/* 비밀 질문 인 경우, 블러처리 */}
-        {!isMyAnswer && (
+        {isBlurred && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '답변은 본인만 확인할 수 있어요 :)' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accountToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
-        <QnaHead>A</QnaHead>
+        <QnaHead>
+          {' '}
+          <AnswerImg src={teacherAccount?.profile_image} />
+          <span>{teacherAccount?.name}</span>
+        </QnaHead>
         <QnaContentArea readOnly value={answerText} />
+        <AnswerDate>{dayjs(answerDate).format('YYYY-MM-DD')}</AnswerDate>
 
         <div
           style={{
@@ -35,6 +43,33 @@ export function AnswerCard({ answerText, isMyAnswer, teacherName }: AnswerCardPr
     </div>
   )
 }
+
+const AnswerDate = styled.div`
+  color: var(--gray-color);
+  display: flex;
+  justify-content: start;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 18px */
+
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
+`
+
+const AnswerImg = styled.img`
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 100%;
+
+  @media (max-width: 1024px) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+`
 
 const QnaCard = styled(Card)`
   background-color: #f5f5f5;
