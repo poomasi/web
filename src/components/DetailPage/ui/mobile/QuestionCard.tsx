@@ -61,16 +61,16 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
         >
           {question.is_major ? '전공' : '비전공'}
         </QnaContentMajor>
-        <QnaContentDate
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {dayjs(question.created_at).format('YYYY-MM-DD')}
-        </QnaContentDate>
       </div>
+      <QnaContentDate
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {dayjs(question.created_at).format('YYYY-MM-DD')}
+      </QnaContentDate>
     </QnaCard>
   )
 }
@@ -90,8 +90,9 @@ const QnaCard = styled(Card)`
   @media (max-width: 1024px) {
     width: 85%;
     border-radius: 20px;
-    padding: 20px 20px 40px;
+    padding: 20px;
     box-shadow: none;
+    gap: 1.5rem;
   }
 `
 
@@ -196,9 +197,9 @@ const QnaContentMajor = styled.div`
 `
 const QnaContentDate = styled.div`
   @media (max-width: 1024px) {
-    position: absolute;
-    bottom: 8%;
+    justify-content: flex-start !important;
     font-size: 0.75rem;
     color: ${colors.gray500};
+    margin-top: -10px;
   }
 `

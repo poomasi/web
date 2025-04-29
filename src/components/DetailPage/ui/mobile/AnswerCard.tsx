@@ -53,6 +53,7 @@ const AnswerDate = styled.div`
 
   @media (max-width: 1024px) {
     font-size: 12px;
+    color: #9b9ea2;
   }
 `
 
