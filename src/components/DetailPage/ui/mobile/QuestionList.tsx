@@ -5,6 +5,7 @@ import { useDetailPageContext } from '@components/DetailPage/model/provider/Deta
 import { ProfileBadge } from '@components/badge'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard'
+// import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
 import { RequestApi } from '@api/request-api'
 import { GetQnaListResponse } from '@api/types'
 import { QnaAskerType } from '@api/enums'
@@ -16,8 +17,8 @@ import { getMobileVw } from '@utils/responsive'
 
 export function QuestionList() {
   const { id } = useParams()
-  const { teacherAccount } = useDetailPageContext()
   const { publicId, accountType } = useAccountStore()
+  const { teacherAccount } = useDetailPageContext()
 
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리

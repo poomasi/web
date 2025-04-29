@@ -46,7 +46,7 @@ const PoomExplainText = styled.div`
   color: #0e0e0e;
   font-size: 1.5rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 150%;
   text-align: center;
 `
