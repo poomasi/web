@@ -238,14 +238,19 @@ const QuestionTextField = styled.textarea`
   box-shadow: none !important;
 
   // element 폰트 요소
-  color: #9b9ea2;
+  color: #28292a;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
 
+  &::placeholder {
+    color: #9b9ea2;
+  }
+
   @media (max-width: 1024px) {
     border-width: 0 0 0 0;
+    font-weight: 400;
   }
 `
 
