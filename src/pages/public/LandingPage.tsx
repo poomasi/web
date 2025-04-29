@@ -32,8 +32,8 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
-  @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     gap: 10rem;
     padding: 0 5vw;
-  }
+  } */
 `
