@@ -21,7 +21,7 @@ export function AnswerCard({ answerText, isBlurred, answerDate }: AnswerCardProp
       <QnaCard>
         {isBlurred && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accountToken ? '비밀 답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
         <QnaHead className="QnaHead">
@@ -131,12 +131,26 @@ const BlurOverlay = styled.div`
 const TextBlurOverlay = styled.div`
   font-size: 24px;
   word-break: keep-all;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  top: 50%;
+  left: 50%;
   text-align: center;
   font-weight: bold;
-  z-index: 11;
-  padding: 0 20px;
+  color: #fff;
+  background-color: rgba(78, 80, 83, 0.7);
+  padding: 16px;
+  height: 38px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 1024px) {
-    font-size: 18px;
+    font-size: 0.875rem;
+    font-weight: 400;
   }
 `

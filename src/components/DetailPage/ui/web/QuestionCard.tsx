@@ -36,7 +36,7 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
       {/* 비밀 질문 인 경우, 블러처리 */}
       {isSecret && (
         <BlurOverlay>
-          <TextBlurOverlay>{accountToken ? '비밀 질문이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+          <TextBlurOverlay>{accountToken ? '비밀 질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
       <QnaHead>Q</QnaHead>

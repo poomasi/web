@@ -6,16 +6,14 @@ import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
+import { GetQnaListResponse } from '@api/types'
 
 type QuestionCardProps = {
-  questionText: string
-  isSecretQuestion: boolean
-  careerYear: string
-  isMajor: boolean
-  createdAt: string
+  question: GetQnaListResponse
+  isSecret?: boolean
 }
 
-export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isSecretQuestion }: QuestionCardProps) {
+export function QuestionCard({ question, isSecret }: QuestionCardProps) {
   const { accountToken } = useAccountStore()
   const getCareerYearString = useCallback((career_year: string) => {
     switch (career_year) {
@@ -35,13 +33,13 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
   return (
     <QnaCard>
       {/* 비밀 질문 인 경우, 블러처리 */}
-      {isSecretQuestion && (
+      {isSecret && (
         <BlurOverlay>
-          <TextBlurOverlay>{accountToken ? '비밀 질문이예요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+          <TextBlurOverlay>{accountToken ? '비밀 질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
       <QnaHead>Q</QnaHead>
-      <QnaContentArea readOnly value={questionText} />
+      <QnaContentArea readOnly value={question.question_text} />
       <div style={{ display: 'flex' }}>
         <QnaContentCareer
           style={{
@@ -51,7 +49,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             marginRight: '6px',
           }}
         >
-          {getCareerYearString(careerYear)}
+          {getCareerYearString(question.career_year)}
         </QnaContentCareer>
         <QnaContentMajor
           style={{
@@ -61,7 +59,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             marginRight: '12px',
           }}
         >
-          {isMajor ? '전공' : '비전공'}
+          {question.is_major ? '전공' : '비전공'}
         </QnaContentMajor>
         <QnaContentDate
           style={{
@@ -70,7 +68,7 @@ export function QuestionCard({ questionText, careerYear, isMajor, createdAt, isS
             alignItems: 'center',
           }}
         >
-          {dayjs(createdAt).format('YYYY-MM-DD')}
+          {dayjs(question.created_at).format('YYYY-MM-DD')}
         </QnaContentDate>
       </div>
     </QnaCard>
@@ -176,8 +174,8 @@ const TextBlurOverlay = styled.div`
 
   @media (max-width: 1024px) {
     /* margin-bottom: 30px; */
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.875rem;
+    font-weight: 400;
   }
 `
 const QnaContentCareer = styled.div`

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
 import { ProfileBadge } from '@components/badge'
-import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard'
+//모바일용 질문카드
+import { QuestionCard } from '@components/DetailPage/ui/mobile/QuestionCard'
 //모바일용 앤써카드
 import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
 import { useIsAnswerBlurred } from '@components/DetailPage/model/hooks/useIsAnswerBlurred'
@@ -18,7 +19,7 @@ import { getMobileVw } from '@utils/responsive'
 
 export function QuestionList() {
   const { id } = useParams()
-  const { accountType } = useAccountStore()
+  const { publicId, accountType } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
 
   const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
@@ -49,6 +50,12 @@ export function QuestionList() {
     } catch (err) {
       console.error('댓글 등록 실패:', err)
     }
+  }
+
+  const getIsSecretQuestion = (qna: GetQnaListResponse) => {
+    if (accountType === 'ADMIN' && teacherAccount?.public_id === publicId) return false
+    if (qna.is_secret === 0) return false
+    return qna.questioner_public_id !== publicId
   }
 
   useEffect(() => {
@@ -94,10 +101,9 @@ export function QuestionList() {
         qnaDataList.map((qna) => {
           // console.log('accountType:', accountType)
           // console.log('qna.answer_text:', qna.answer_text)
-
           return (
             <QnaSection key={qna.public_id}>
-              <QuestionCard question={qna} key={qna.public_id} />
+              <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} />
 
               {qna.answer_text ? (
                 <AnswerCard
