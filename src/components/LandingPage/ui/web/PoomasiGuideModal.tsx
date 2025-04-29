@@ -25,30 +25,41 @@ export function PoomasiGuideModal({ onClose }: PoomasiGuideModalProps) {
   ]
 
   return (
-    <PoomasiGuideModalContainer onClick={onClose}>
-      <ModalReference.Header onClickClose={onClose} />
-      <ModalReference.Body>
-        <ModalTitle>이용 방법</ModalTitle>
-        <GuideList>
-          {guideItemList.map((item) => (
-            <GuideItem key={item.text}>
-              <GuideImg src={item.imageSrc} />
-              <GuideText>{item.text}</GuideText>
-            </GuideItem>
-          ))}
-        </GuideList>
-      </ModalReference.Body>
-    </PoomasiGuideModalContainer>
+    <ModalContainer>
+      <PoomasiGuideModalContainer onClick={onClose}>
+        <ModalReference.Header onClickClose={onClose} />
+        <ModalReference.Body>
+          <ModalTitle>이용 방법</ModalTitle>
+          <GuideList>
+            {guideItemList.map((item) => (
+              <GuideItem key={item.text}>
+                <GuideImg src={item.imageSrc} />
+                <GuideText>{item.text}</GuideText>
+              </GuideItem>
+            ))}
+          </GuideList>
+        </ModalReference.Body>
+      </PoomasiGuideModalContainer>
+    </ModalContainer>
   )
 }
 
-const PoomasiGuideModalContainer = styled(ModalReference)`
-  width: 1200px;
+const ModalContainer = styled.div`
+  width: 100%;
+  height: 100%;
+
+  .ModalWrapper {
+    width: 1200px;
+  }
 
   @media (max-width: 1320px) {
-    width: 767px;
+    .ModalWrapper {
+      width: 800px;
+    }
   }
 `
+
+const PoomasiGuideModalContainer = styled(ModalReference)``
 
 const ModalTitle = styled.div`
   color: #0e0e0e;
@@ -87,8 +98,8 @@ const GuideImg = styled.img`
   border-radius: 16px;
 
   @media (max-width: 1320px) {
-    width: 310px;
-    height: 220px;
+    width: 246px;
+    height: 186px;
   }
 `
 
@@ -99,4 +110,9 @@ const GuideText = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 27px */
+
+  @media (max-width: 1320px) {
+    font-size: 14px;
+    font-weight: 700;
+  }
 `
