@@ -46,8 +46,9 @@ const router = createBrowserRouter([
 ])
 
 export function Router() {
-  // GA pageview tracker
-  PageviewTracker()
-
-  return <RouterProvider router={router} />
+  return (
+    <RouterProvider router={router}>
+      <PageviewTracker />
+    </RouterProvider>
+  )
 }

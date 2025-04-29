@@ -19,4 +19,6 @@ export const PageviewTracker = () => {
       ReactGA.send('pageview')
     }
   }, [initialized, location])
+
+  return <></>
 }
