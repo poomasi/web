@@ -29,7 +29,7 @@ export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardPro
         )}
         <QnaHead>
           <AnswerImg src={teacherAccount?.profile_image} />
-          <span>정민찬</span>
+          <span>{teacherAccount?.name}</span>
         </QnaHead>
         <QnaContentArea readOnly value={answerText} />
 
