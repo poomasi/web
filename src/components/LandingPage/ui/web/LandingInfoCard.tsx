@@ -43,8 +43,12 @@ const InfoCardImage = styled.img`
   height: 48%;
 
   @media (max-width: 1024px) {
-    width: 50%;
-    height: 55%;
+    width: 30%;
+    height: 45%;
+  }
+  @media (max-width: 834px) {
+    width: 40%;
+    height: 50%;
   }
 `
 
@@ -59,5 +63,6 @@ const InfoCardText = styled.div`
   @media (max-width: 1024px) {
     font-size: 1.125rem;
     line-height: 120%;
+    font-weight: 500;
   }
 `
