@@ -43,9 +43,9 @@ const ProfilesSectionContainer = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
-    
+
   @media (max-width: 1320px) {
-    width: 767px;
+    width: 1024px;
   }
 `
 
@@ -75,8 +75,8 @@ const PoomProfileCardList = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 26px;
-    
+
   @media (max-width: 1320px) {
-    width: 767px;
+    width: 1024px;
   }
 `

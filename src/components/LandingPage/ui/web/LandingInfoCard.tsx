@@ -40,7 +40,7 @@ const LandingInfoCardContainer = styled.div`
 
 const InfoCardImage = styled.img`
   width: 65%;
-  height: 48%;
+  height: 50%;
 
   @media (max-width: 1024px) {
     width: 30%;

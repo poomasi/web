@@ -119,6 +119,6 @@ const IntroduceCardList = styled.div`
   gap: 20px;
 
   @media (max-width: 1320px) {
-    width: 767px;
+    width: 1024px;
   }
 `
