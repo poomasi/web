@@ -101,7 +101,7 @@ export function QuestionField() {
     <QuestionSection className="QuestionSection">
       <QuestionFieldTitle>질문하기</QuestionFieldTitle>
       <AskerInfo>
-        <SelectContainer className="SelectContainer">
+        <SelectContainer>
           <SelectTitle htmlFor="career-select">개발 경력</SelectTitle>
           <StyledSelect id="career-select" value={careerYear} onChange={handleExperienceChange}>
             <option value={CareerYearType.ACADEMIC}>대학생</option>
@@ -294,13 +294,12 @@ const SelectContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 12px;
   margin-right: 15px;
   padding: 8px 12px;
   border-radius: 100px;
   border: 1px solid #c5c8cd;
   background: #fff;
-  width: 45%;
 `
 
 const SelectTitle = styled.label`
@@ -316,15 +315,6 @@ const SelectTitle = styled.label`
 
 // 스타일링 수정:
 const StyledSelect = styled.select`
-  appearance: none; /* 기본 스타일 제거 */
-  -webkit-appearance: none; /* iOS용 */
-  -moz-appearance: none; /* Firefox용 */
-
-  /* ↓ 추가된 부분: 화살표 아이콘 커스텀 */
-  background: url('/src/assets/images/arrow down.svg') no-repeat right 0% center;
-  background-size: 12px;
-  padding-right: 32px;
-
   border: none;
   outline: none;
   background-color: transparent;
@@ -335,9 +325,10 @@ const StyledSelect = styled.select`
   display: inline-block;
   padding-right: 10px;
 
+  /* 다른 속성들은 유지 */
   color: #3ecdba;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1;
   height: 24px;
   padding-top: 3px;
@@ -353,6 +344,6 @@ const StyledSelect = styled.select`
   @media (max-width: 1024px) {
     font-size: 0.75rem;
     padding-top: 0;
-    /* padding-right: 0; */
+    padding-right: 0;
   }
 `
