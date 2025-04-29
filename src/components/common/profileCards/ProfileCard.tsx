@@ -104,13 +104,14 @@ const Container = styled(Card, {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    height: auto;
+    height: 7.8125rem;
     width: ${getMobileVw(300)};
     overflow: visible;
     padding: 1.125rem ${getMobileVw(16)};
     gap: ${getMobileVw(16)};
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+    margin-top: 1rem;
   }
 `
 
@@ -195,7 +196,7 @@ const ProfileField = styled.div`
   }
 
   @media (max-width: 1024px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `
 
@@ -211,7 +212,7 @@ const ProfileHistory = styled.div`
     height: auto;
     margin-top: 0;
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
 `
 

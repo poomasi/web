@@ -29,10 +29,12 @@ const LandingInfoCardContainer = styled.div`
 
   @media (max-width: 1320px) {
     height: 17rem;
+    gap: 1rem;
   }
 
   @media (max-width: 1024px) {
     height: auto;
+    padding: 1.25rem 20px 24px 20px;
   }
 `
 
@@ -41,8 +43,8 @@ const InfoCardImage = styled.img`
   height: 48%;
 
   @media (max-width: 1024px) {
-    width: 7.1875rem;
-    height: 5.3125rem;
+    width: 50%;
+    height: 55%;
   }
 `
 

@@ -113,6 +113,9 @@ const PaginationBox = styled.div`
   margin-top: ${getMobileVw(8)};
   font-size: 1rem;
   color: #888;
+  @media (max-width: 1024px) {
+    margin-top: 0;
+  }
 `
 
 const PoomProfileCardList = styled.div`
@@ -128,5 +131,8 @@ const PoomProfileCardList = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 1024px) {
+    gap: 1rem;
   }
 `
