@@ -5,12 +5,9 @@ const instance: AxiosInstance = axios.create({
   timeout: 3000,
 })
 
-instance.interceptors.request.use(
-  (config) => {
-    return config
-  },
-  (error) => {},
-)
+instance.interceptors.request.use((config) => {
+  return config
+})
 
 instance.interceptors.response.use(
   (response) => {
