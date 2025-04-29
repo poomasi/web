@@ -13,6 +13,7 @@ import Layout from '@components/Layout/Layout.tsx'
 import { LandingPage, LoginPage } from '@pages/public'
 import { DetailPageContextProvider } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { DetailPage } from '@pages/private/DetailPage.tsx'
+import { PageviewTracker } from '@utils/google-analytics'
 
 const router = createBrowserRouter([
   {
@@ -45,5 +46,8 @@ const router = createBrowserRouter([
 ])
 
 export function Router() {
+  // GA pageview tracker
+  PageviewTracker()
+
   return <RouterProvider router={router} />
 }
