@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import mobileLandingTitleBg from '@assets/images/landingPage/mobile-TitleSectionBg.png'
 //mobileLandingTitleBg로 바로 선언해버리는건가..???
-import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
 
 export function MobileTitleSection() {
@@ -21,7 +21,7 @@ export function MobileTitleSection() {
 
 const TitleSectionContainer = styled.div`
   width: 100%;
-  height: ${getMobileVh(448)}; //주의
+  height: 28rem; //주의
   display: flex;
   flex-direction: column;
   justify-content: center;

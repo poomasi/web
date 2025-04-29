@@ -27,6 +27,10 @@ const LoadingContainer = styled.div`
   justify-content: center;
   height: 70vh;
   gap: 50px;
+  @media (max-width: 1024px) {
+    height: 18.75rem;
+    gap: 1.875rem;
+  }
 `
 
 // 스피너 스타일
@@ -37,6 +41,10 @@ const Spinner = styled.div`
   border-radius: 50%;
   border-top-color: #068372;
   animation: ${spinAnimation} 1s ease-in-out infinite;
+  @media (max-width: 1024px) {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
 `
 
 // 로딩 텍스트 스타일
@@ -44,4 +52,7 @@ const LoadingText = styled.div`
   color: #0e0e0e;
   font-size: 40px;
   font-weight: 500;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
 `

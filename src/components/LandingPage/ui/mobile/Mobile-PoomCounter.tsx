@@ -2,7 +2,7 @@ import poomCountIcon from '@assets/images/landingPage/poom-count-icon.svg'
 import poomCountBackground from '@assets/images/landingPage/mobile-poomCounterBg.png'
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
-import { getMobileVh, getMobileVw } from '@utils/responsive'
+import { getMobileVw } from '@utils/responsive'
 import { colors } from '@styles/foundation/color'
 
 export function MobilePoomCounter() {
@@ -30,10 +30,10 @@ const CounterContainer = styled.div`
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
 
-  gap: ${getMobileVh(40)};
+  gap: 2.5rem;
   width: 100%;
   height: auto;
-  padding: ${getMobileVh(30)};
+  padding: 1.875rem;
 
   @media (max-width: 1024px) {
     gap: 1rem;

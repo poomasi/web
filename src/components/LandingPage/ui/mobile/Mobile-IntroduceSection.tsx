@@ -5,7 +5,6 @@ import sharingIcon from '@assets/images/landingPage/sharing-icon.png'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.png'
 import questionIcon from '@assets/images/landingPage/question-icon.png'
 import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
-import { getMobileVh } from '@utils/responsive'
 import { useCloseBtn } from '@components/button/closeButton/useCloseBtn'
 import { ModalGuide } from '@components/modal/ModalGuide'
 import { modalData } from '@components/modal/modalGuide-data'
@@ -92,7 +91,7 @@ const IntroducePoomasi = styled.div`
 const IntroduceTitleText = styled.div`
   color: #068372;
   text-align: center;
-  font-size: ${getMobileVh(36)};
+  font-size: 2rem;
   font-style: normal;
   font-weight: 800;
   line-height: 150%; /* 54px */
