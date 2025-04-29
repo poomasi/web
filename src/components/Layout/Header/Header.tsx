@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 // import Button from '@mui/material/Button'
 import { KakaoLogin } from '@utils/kakao-login'
 import publicLogo from '@assets/svgs/public-logo.svg'
-import { getMobileVw } from '@utils/responsive'
+// import { getMobileVw } from '@utils/responsive'
 import { useAccountStore } from '@store/account'
 
 export default function Header() {
@@ -85,8 +85,7 @@ const HeaderContainer = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
-    /* padding: 12px ${getMobileVw(20)}; */
-    /* margin: 12px 0; */
+    padding: 12px 0;
   }
 `
 const HeaderContent = styled.div`

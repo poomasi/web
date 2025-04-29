@@ -99,12 +99,12 @@ const Container = styled(Card, {
     pointer-events: none;
   `} @media (
 	max-width: 1024px) {
+    height: 50%;
     scroll-snap-align: start;
     /* flex: 0 0 80%; */
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    height: 50%;
     width: ${getMobileVw(300)};
     overflow: visible;
     padding: 1.125rem ${getMobileVw(16)};
@@ -112,6 +112,9 @@ const Container = styled(Card, {
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
     margin-top: 1rem;
+  }
+  @media (max-width: 530px) {
+    height: 130px;
   }
 `
 
