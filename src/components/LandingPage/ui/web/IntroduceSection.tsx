@@ -1,7 +1,7 @@
 import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.tsx'
-import sharingIcon from '@assets/images/landingPage/sharing-icon.png'
-import mentoringIcon from '@assets/images/landingPage/mentoring-icon.png'
-import questionIcon from '@assets/images/landingPage/question-icon.png'
+import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
+import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
+import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
 import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
@@ -32,7 +32,7 @@ export function IntroduceSection() {
     setIsCommonGuideModal(true)
     setCommonGuideInfo({
       title: '세부안내',
-      content: ' 품앗이꾼들은 빠르게 답변드리기 위해 노력하고 있어요.\n 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D.',
+      content: ' 품앗이꾼들은 빠르게 답변드리기 위해 노력하고 있어요.\n 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D',
     })
   }
 
