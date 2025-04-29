@@ -10,6 +10,7 @@ import { QuestionField } from '@components/DetailPage/ui/web/QuestionField.tsx'
 import { QuestionList } from '@components/DetailPage/ui/web/QuestionList.tsx'
 import { MobileDetailPage } from '@pages/private/MobileDetailPage'
 import { useMobileStore } from '@store/useMobileStore.ts'
+import { isAxiosError } from 'axios'
 
 export function DetailPage() {
   const { publicId, accountType } = useAccountStore()
@@ -33,6 +34,18 @@ export function DetailPage() {
       setTeacherAccount(account.data)
       setPageLoading(true)
     } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          const statusCode = error.response.status
+
+          if (statusCode === 401) {
+            setErrorToastMessage('로그인 토큰이 만료되었습니다. 다시 로그인 해주세요.')
+            navigate('/')
+            return
+          }
+        }
+      }
+
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
       navigate('/')
     }

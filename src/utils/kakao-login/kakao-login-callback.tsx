@@ -33,7 +33,6 @@ export function KakaoLoginCallback() {
       // 2. 카카오 id_token을 백엔드로 전달
       const idToken = response.data.id_token
       const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin(idToken)
-      console.log('카카오 idToken 응답:', idToken)
 
       // 3. 백엔드 응답에서 토큰 및 ID 추출
       const accountToken = kakaoLoginResponse.data.account_token
@@ -43,15 +42,11 @@ export function KakaoLoginCallback() {
       const payloadBase64 = accountToken.split('.')[1]
       const decodedPayload = JSON.parse(atob(payloadBase64))
       const accountTypeFromToken = decodedPayload.account_type
-      console.log('디코딩된 account_type:', accountTypeFromToken)
 
       // localStorage에 사용자 정보 저장
       setPublicId(publicId)
       setAccountToken(accountToken)
       setAccountType(accountTypeFromToken)
-
-      console.log('account_token:', accountToken) //account_type확인
-      console.log('public_id:', publicId)
       // setPublicId(kakaoLoginResponse.data.public_id)
       // setAccountToken(kakaoLoginResponse.data.account_token)
       // setAccountType(kakaoLoginResponse.data.account_type)
@@ -69,7 +64,6 @@ export function KakaoLoginCallback() {
 
   //kakao로부터 라다이렉트 당해서 진입했을 때 발동
   useEffect(() => {
-    console.log('KakaoLoginCallback 렌더됨')
     fetchToken()
   }, [])
 

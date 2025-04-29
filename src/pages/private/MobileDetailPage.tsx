@@ -34,8 +34,6 @@ export function MobileDetailPage() {
     } catch (error: unknown) {
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
       navigate('/')
-
-      console.log(error)
     }
   }
 

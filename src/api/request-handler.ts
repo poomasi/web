@@ -9,9 +9,7 @@ instance.interceptors.request.use(
   (config) => {
     return config
   },
-  (error) => {
-    console.log(error)
-  }
+  (error) => {},
 )
 
 instance.interceptors.response.use(
@@ -19,9 +17,8 @@ instance.interceptors.response.use(
     return response
   },
   (error) => {
-    console.log(error)
     return Promise.reject(error)
-  }
+  },
 )
 
 export default async function <T>(args: AxiosRequestConfig): Promise<T> {

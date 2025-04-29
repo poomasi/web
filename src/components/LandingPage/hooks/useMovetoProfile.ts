@@ -6,8 +6,6 @@ export function useMoveToProfile() {
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-
-    console.log('section', section)
   }, [])
 
   return { moveToProfile }

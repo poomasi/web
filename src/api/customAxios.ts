@@ -10,6 +10,7 @@ export interface CustomInstance extends AxiosInstance {
 
   patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<DefaultApiResponse<T>>
 }
+
 /* 기본 axios
 axios.get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>>
 
@@ -58,7 +59,6 @@ const customAxios: CustomInstance = axios.create({
 customAxios.interceptors.request.use(function (request) {
   const token = useAccountStore.getState().accountToken
   if (token) {
-    console.log('token', token)
     request.headers.Authorization = token
   }
   return request

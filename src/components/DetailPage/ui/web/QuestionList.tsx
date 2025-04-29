@@ -72,6 +72,7 @@ export function QuestionList() {
     if (question.is_secret === 1) {
       return question.questioner_public_id !== publicId
     }
+
     return true
   }, [])
 
