@@ -145,8 +145,13 @@ const ProfileImage = styled.img`
   }
 
   @media (max-width: 1024px) {
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `

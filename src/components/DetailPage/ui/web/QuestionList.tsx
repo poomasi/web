@@ -144,7 +144,7 @@ const QuestionListBody = styled.div`
   margin-top: 70px;
   width: 100%;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     margin-top: 0;
   }
 
@@ -158,7 +158,7 @@ const BadgeContainer = styled(Grid)`
 const QnaSection = styled.div`
   margin-bottom: 50px;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     margin-bottom: 30px;
   }
 `

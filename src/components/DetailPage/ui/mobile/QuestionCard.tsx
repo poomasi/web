@@ -89,7 +89,7 @@ const QnaCard = styled(Card)`
   flex-direction: column;
   gap: 32px;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     width: 85%;
     border-radius: 20px;
     padding: 20px 20px 40px;

@@ -193,7 +193,7 @@ const BadgeContainer = styled(Grid)`
 const QnaSection = styled.div`
   margin-bottom: 50px;
 
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     margin-bottom: 30px;
   }
 `

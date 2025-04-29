@@ -114,7 +114,7 @@ const HeaderJob = styled.div`
   font-size: 20px;
   font-weight: bold;
   color: var(--light-gray-color);
-  @media (max-width: 520px) {
+  @media (max-width: 1024px) {
     font-size: 16px;
   }
 
