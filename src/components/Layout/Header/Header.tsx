@@ -15,6 +15,7 @@ export default function Header() {
 
   const handleLogout = () => {
     resetAccountToken()
+    // localStorage.removeItem('account-token-storage')
     window.location.reload()
   }
 
