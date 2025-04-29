@@ -10,7 +10,7 @@ export function MobileTitleSection() {
   return (
     <TitleSectionContainer>
       <TitleContainer>
-        <Title style={{ fontWeight: 'bold' }}>품앗이</Title>
+        <Title style={{ fontWeight: '800' }}>품앗이</Title>
         <Title>대학생 전문 상담 멘토링</Title>
         <Description>현업 개발자 품앗이꾼들에게 도움을 받아보세요 !</Description>
         <QuestionButton onClick={() => moveToProfile('profileSection')}>질문하기</QuestionButton>
@@ -49,6 +49,7 @@ const Title = styled.div`
 
   @media (max-width: 1024px) {
     font-size: 1.875rem;
+    font-weight: 700;
   }
 `
 
