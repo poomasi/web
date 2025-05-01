@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
-import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.tsx'
+import { MobileLandingInfoCard } from '@components/LandingPage/ui/mobile/Mobile-LandingInfoCard'
 import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
@@ -40,9 +40,9 @@ export function MobileIntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={() => updateModalKey('Sharing')} />
-        <LandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={() => updateModalKey('Mentoring')} />
-        <LandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={() => updateModalKey('Question')} />
+        <MobileLandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={() => updateModalKey('Sharing')} />
+        <MobileLandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={() => updateModalKey('Mentoring')} />
+        <MobileLandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
       {modalInfo &&

@@ -3,11 +3,12 @@ import styled from '@emotion/styled'
 interface LandingInfoCardProps {
   infoText: string
   imgSrc: string
+  onClick?: () => void
 }
 
-export function MobileLandingInfoCard({ infoText, imgSrc }: LandingInfoCardProps) {
+export function MobileLandingInfoCard({ infoText, imgSrc, onClick }: LandingInfoCardProps) {
   return (
-    <LandingInfoCardContainer>
+    <LandingInfoCardContainer onClick={onClick}>
       <InfoCardImage src={imgSrc} className="InfoCardImage" />
       <InfoCardText>{infoText}</InfoCardText>
     </LandingInfoCardContainer>
