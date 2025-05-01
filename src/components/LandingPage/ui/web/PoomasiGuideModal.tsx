@@ -1,8 +1,8 @@
 import ModalReference from '@components/modal/ModalReference.tsx'
 import styled from '@emotion/styled'
 import guide01 from '@assets/images/landingPage/mobile-landing-guide01.png'
-import guide02 from '@assets/images/landingPage/mobile-landing-guide02.svg'
-import guide03 from '@assets/images/landingPage/mobile-landing-guide03.svg'
+import guide02 from '@assets/images/landingPage/mobile-landing-guide02.png'
+import guide03 from '@assets/images/landingPage/mobile-landing-guide03.png'
 
 type PoomasiGuideModalProps = {
   onClose: () => void
