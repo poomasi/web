@@ -52,7 +52,7 @@ const AnswerDate = styled.div`
   line-height: 150%; /* 18px */
 
   @media (max-width: 1024px) {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #9b9ea2;
   }
 `
