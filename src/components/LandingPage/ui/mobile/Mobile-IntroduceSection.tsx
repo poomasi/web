@@ -1,33 +1,27 @@
 import styled from '@emotion/styled'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { MobileLandingInfoCard } from '@components/LandingPage/ui/mobile/Mobile-LandingInfoCard'
 import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
 import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
 import questionIcon from '@assets/images/landingPage/question-icon.svg'
 import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
-import { useCloseBtn } from '@components/button/closeButton/useCloseBtn'
 import { ModalGuide } from '@components/modal/ModalGuide'
 import { modalData } from '@components/modal/modalGuide-data'
 
 export function MobileIntroduceSection() {
   //'Sharing' | 'Mentoring' | 'Question' 이런 유니언 타입
   const [selectedModalKey, setSelectedModalKey] = useState<null | keyof typeof modalData>(null)
-  const { isClosed, setIsClosed, handleClose } = useCloseBtn()
 
   const updateModalKey = (key: keyof typeof modalData) => {
     setSelectedModalKey(key)
   }
 
-  //선택된 카드에 맞는 모달 데이터를 꺼내는 코드
-  const modalInfo = selectedModalKey ? modalData[selectedModalKey] : null
+  const handleModalClose = () => {
+    setSelectedModalKey(null)
+  }
 
-  useEffect(() => {
-    if (selectedModalKey) {
-      setTimeout(() => {
-        setIsClosed(false)
-      }, 0)
-    }
-  }, [selectedModalKey, setIsClosed])
+  //선택된 카드에 맞는 모달 데이터를 꺼내는 코드
+  const modalInfo = useMemo(() => (selectedModalKey ? modalData[selectedModalKey] : null), [selectedModalKey])
 
   return (
     <IntroduceSectionContainer>
@@ -45,12 +39,11 @@ export function MobileIntroduceSection() {
         <MobileLandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
-      {modalInfo &&
-        !isClosed &&
+      {modalInfo !== null &&
         (modalInfo.type === 'swiper' ? (
-          <ModalGuide type="swiper" contents={modalInfo.contents} onClose={handleClose} title={modalInfo.title} />
+          <ModalGuide type="swiper" contents={modalInfo.contents} onClose={handleModalClose} title={modalInfo.title} />
         ) : (
-          <ModalGuide type="text" content={modalInfo.content} onClose={handleClose} title={modalInfo.title} />
+          <ModalGuide type="text" content={modalInfo.content} onClose={handleModalClose} title={modalInfo.title} />
         ))}
     </IntroduceSectionContainer>
   )
