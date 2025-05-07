@@ -12,6 +12,7 @@ import { colors } from '@styles/foundation/color'
 import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import { CommonSelect } from '@components/common/CommonSelect/CommonSelect.tsx'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -36,16 +37,6 @@ export function QuestionField() {
   //비밀 질문 여부 체크
   const handleIsSecretChange = () => {
     setIsSecret((prev: boolean) => !prev)
-  }
-
-  //개발 경력 필터
-  const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCareerYear(event.target.value as CareerYearType)
-  }
-
-  //전공 여부 체크
-  const handleMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setIsMajor(event.target.value === AskerSpecificType.SPECIALTY)
   }
 
   // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
@@ -100,25 +91,26 @@ export function QuestionField() {
       <QuestionFieldTitle>질문하기</QuestionFieldTitle>
       <AskerInfo>
         <SelectContainer>
-          <SelectTitle htmlFor="career-select">개발 경력</SelectTitle>
-          <StyledSelect id="career-select" value={careerYear} onChange={handleExperienceChange}>
-            <option value={CareerYearType.ACADEMIC}>대학생</option>
-            <option value={CareerYearType.JOB_SEEKER}>취준생</option>
-            <option value={CareerYearType.JUNIOR}>신입~3년차</option>
-            <option value={CareerYearType.MIDDLE}>3년차 이상</option>
-          </StyledSelect>
-        </SelectContainer>
-
-        <SelectContainer>
-          <SelectTitle>전공 사항</SelectTitle>
-          <StyledSelect
-            id="specific-type"
+          <CommonSelect
+            title={'개발 경력'}
+            value={careerYear}
+            onChange={(selectValue) => setCareerYear(selectValue as CareerYearType)}
+            options={[
+              { value: CareerYearType.ACADEMIC, label: '대학생' },
+              { value: CareerYearType.JOB_SEEKER, label: '취준생' },
+              { value: CareerYearType.JUNIOR, label: '신입~3년차' },
+              { value: CareerYearType.MIDDLE, label: '3년차 이상' },
+            ]}
+          />
+          <CommonSelect
+            title={'전공 사항'}
             value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
-            onChange={handleMajorChange}
-          >
-            <option value={AskerSpecificType.SPECIALTY}>전공자</option>
-            <option value={AskerSpecificType.NONE_SPECIALTY}>비전공자</option>
-          </StyledSelect>
+            onChange={(selectValue) => setIsMajor(selectValue === AskerSpecificType.SPECIALTY)}
+            options={[
+              { value: AskerSpecificType.SPECIALTY, label: '전공자' },
+              { value: AskerSpecificType.NONE_SPECIALTY, label: '비전공자' },
+            ]}
+          />
         </SelectContainer>
       </AskerInfo>
 
@@ -271,61 +263,8 @@ const QuestionCheckbox = styled.div`
 `
 
 const SelectContainer = styled.div`
-  position: relative;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-right: 15px;
-  padding: 8px 12px;
-  border-radius: 100px;
-  border: 1px solid #c5c8cd;
-  background: #fff;
-`
-
-const SelectTitle = styled.label`
-  font-weight: bold;
-  font-size: 16px;
-  color: ${colors.gray800};
-  white-space: nowrap;
-  cursor: pointer; // 커서 포인터 추가
-  @media (max-width: 1024px) {
-    font-size: 0.75rem;
-  }
-`
-
-// 스타일링 수정:
-const StyledSelect = styled.select`
-  border: none;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-align: center;
-
-  /* flex 대신 inline-block 사용 */
-  display: inline-block;
-  padding-right: 10px;
-
-  /* 다른 속성들은 유지 */
-  color: #3ecdba;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  height: 24px;
-  padding-top: 3px;
-
-  &:focus {
-    outline: none;
-  }
-
-  option {
-    color: black;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 0.75rem;
-    padding-top: 0;
-    padding-right: 0;
-  }
+  gap: 8px;
 `
 
 const QuestionBtnWrapper = styled.div<{ keyboardHeight: number }>`
