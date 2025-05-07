@@ -7,8 +7,9 @@ export const PageviewTracker = () => {
   const [initialized, setInitialized] = useState(false)
 
   useEffect(() => {
-    if (process.env.REACT_APP_GA_MEASUREMENT_ID) {
-      ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID)
+    const gaMeasurementId: string = import.meta.env.VITE_GA_MEASUREMENT_ID
+    if (gaMeasurementId) {
+      ReactGA.initialize(gaMeasurementId)
       setInitialized(true)
     }
   }, [])
