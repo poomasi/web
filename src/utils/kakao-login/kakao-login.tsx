@@ -2,20 +2,24 @@ import styled from '@emotion/styled'
 import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
 import kakaoLogo from '@assets/images/kakao-logo.svg'
+import { debounce } from 'lodash'
 
 export function KakaoLogin() {
   const location = useLocation() //현재 페이지의 URL 정보를 가져오기
 
   const beforeLoginUrl: string = location.pathname
 
-  //사용자가 현재 페이지에서 카카오 로그인을 진행하면, 로그인 후 다시 원래 페이지로 돌아갈 수 있도록
+  //사용자가 카카오 로그인을 진행할 때 원래 페이지로 돌아갈 수 있도록 저장
   if (!beforeLoginUrl.includes('kakao-login-callback')) {
     localStorage.setItem('before_login_url', beforeLoginUrl)
-    //사용자가 로그인하기 전의 페이지 URL을 localStorage에 저장
   }
 
+  const handleKakaoLogin = debounce(() => {
+    window.location.href = KAKAO_LOGIN_URL
+  }, 300)
+
   return (
-    <KakaoLoginButton onClick={() => (window.location.href = KAKAO_LOGIN_URL)}>
+    <KakaoLoginButton onClick={handleKakaoLogin}>
       <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
       카카오 로그인
     </KakaoLoginButton>
