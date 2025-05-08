@@ -127,7 +127,7 @@ export function QuestionList() {
                       onBlur={() => setFocusedId(null)}
                       isFocused={focusedId === qna.public_id}
                       placeholder="답글을 입력해주세요."
-                      maxLength={500}
+                      maxLength={1000}
                     />
                     <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
                       {' '}
