@@ -55,6 +55,7 @@ export function DetailPage() {
     if (publicId === null) {
       setErrorToastMessage('로그인을 먼저 진행해주세요.')
       navigate('/')
+      return
     }
 
     scroll(0, 0)
