@@ -2,12 +2,11 @@ import styled from '@emotion/styled'
 import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
 import kakaoLogo from '@assets/images/kakao-logo.svg'
-import { useToastMessageStore } from '@store/toast'
 import { ROUTES } from '@routes/ROUTES.ts'
+import { useMemo } from 'react'
 
 export function KakaoLogin() {
   const location = useLocation() //현재 페이지의 URL 정보를 가져오기
-  const { setErrorToastMessage } = useToastMessageStore()
 
   const beforeLoginUrl: string = location.pathname
 
@@ -17,20 +16,23 @@ export function KakaoLogin() {
     localStorage.setItem('before_login_url', beforeLoginUrl)
   }
 
+  // 카카오 로그인 이동 버튼 클릭 핸들러
   const handleKakaoLoginClick = () => {
-    if (location.pathname === ROUTES.LOGIN) {
-      setErrorToastMessage('로그인 중입니다. 잠시 후에 다시 시도해주세요..')
-      return
-    }
-
     window.location.href = KAKAO_LOGIN_URL
   }
 
+  // 카카오 로그인 도중에 카카오 버튼 노출하지 않도록 하는 변수
+  const isLoginProcessing = useMemo(() => location.pathname === ROUTES.LOGIN, [location.pathname])
+
   return (
-    <KakaoLoginButton onClick={handleKakaoLoginClick}>
-      <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
-      카카오 로그인
-    </KakaoLoginButton>
+    <>
+      {!isLoginProcessing && (
+        <KakaoLoginButton onClick={handleKakaoLoginClick}>
+          <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
+          카카오 로그인
+        </KakaoLoginButton>
+      )}
+    </>
   )
 }
 
