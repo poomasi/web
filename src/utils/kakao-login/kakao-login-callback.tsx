@@ -1,12 +1,14 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import { REDIRECT_URI, REST_API_KEY } from './variables'
 import { RequestApi } from '@api/request-api'
 import { useNavigate } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
+import customAxios from '@api/customAxios.ts'
+import { useToastMessageStore } from '@store/toast'
 
 export function KakaoLoginCallback() {
   const { setAccountToken, setPublicId, setAccountType } = useAccountStore()
+  const { setErrorToastMessage } = useToastMessageStore()
   const navigate = useNavigate()
 
   const fetchToken = async () => {
@@ -17,7 +19,11 @@ export function KakaoLoginCallback() {
       const grantType = 'authorization_code'
 
       // 1. 카카오에서 access_token + id_token 받기
-      const response = await axios.post(
+      const response = await customAxios.post<{
+        id_token: string
+        account_token: string
+        public_id: string
+      }>(
         'https://kauth.kakao.com/oauth/token',
         new URLSearchParams({
           grant_type: grantType,
@@ -54,11 +60,10 @@ export function KakaoLoginCallback() {
       // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
       const beforeLoginUrl = localStorage.getItem('before_login_url')
       localStorage.removeItem('before_login_url')
-      navigate(beforeLoginUrl || 'http://localhost:3000')
-      // window.location.href = beforeLoginUrl || 'http://localhost:3000'
-      // navigate(beforeLoginUrl || 'https://poomasi.kr')
-    } catch (error) {
-      console.error('카카오 로그인 에러:', error)
+      navigate(beforeLoginUrl ?? '/')
+    } catch {
+      setErrorToastMessage('로그인 도중 문제가 발생하였습니다.\n 잠시 후 다시 시도해주세요.')
+      navigate('/')
     }
   }
 
