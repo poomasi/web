@@ -79,7 +79,11 @@ export function QuestionField() {
   // 팁 !
   // function 재랜더링 되지 않도록 함.
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const handleQuestionButtonClick = useCallback(async () => {
+    if (isSubmitting) return // 이미 요청 중이면 막기
+
     if (!accountToken) {
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
@@ -90,9 +94,14 @@ export function QuestionField() {
       return
     }
 
-    // 질문 등록
-    await postingQuestion()
-  }, [accountToken, questionText])
+    setIsSubmitting(true)
+
+    try {
+      await postingQuestion()
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [accountToken, questionText, isSubmitting])
 
   const { accountType } = useAccountStore()
   if (accountType === 'ADMIN') return null
