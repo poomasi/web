@@ -1,7 +1,7 @@
-import { CareerYearType, QnaAskerType } from '@api/enums'
-// import requestHandler from '@api/request-handler'
-import { GetQnaListResponse, GetQnaStatusResponse } from '@api/types' // API 응답 타입 정의
-import customAxios from '@api/customAxios.ts'
+import { CareerYearType, QnaAskerType } from '@utils/api/enums'
+// import requestHandler from '@utils/api/request-handler'
+import { GetQnaListResponse, GetQnaStatusResponse } from '@utils/api/types' // API 응답 타입 정의
+import customAxios from '@utils/api/customAxios.ts'
 
 const PATH = '/posts' // QnA 관련 API 요청의 기본 경로
 

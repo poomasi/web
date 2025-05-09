@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import customAxios from '@api/customAxios.ts'
+import customAxios from '@utils/api/customAxios.ts'
 
 // 추후 type 관련 내용 은 폴더 구조 변경 필요
 interface poomCountResponse {

@@ -3,42 +3,20 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "@routes/*": [
-        "routes/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@api/*": [
-        "api/*"
-      ],
-      "@pages/*": [
-        "pages/*"
-      ],
-      "@store/*": [
-        "store/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ]
+      "@routes/*": ["routes/*"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+      // "@utils/api/*": ["api/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"],
+      "@hooks/*": ["hooks/*"],
+      "@assets/*": ["assets/*"]
     },
     /* Bundler mode */
     "moduleResolution": "node",
@@ -56,7 +34,5 @@
     "noUncheckedSideEffectImports": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

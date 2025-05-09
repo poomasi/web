@@ -1,10 +1,10 @@
 import dayjs from 'dayjs'
-import { CareerYearType } from '@api/enums.ts'
+import { CareerYearType } from '@utils/api/enums.ts'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { colors } from '@styles/foundation/color'
-import { GetQnaListResponse } from '@api/types.ts'
+import { GetQnaListResponse } from '@utils/api/types.ts'
 import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
 

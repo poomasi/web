@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
-import { CareerYearType } from '@api/enums.ts'
+import { CareerYearType } from '@utils/api/enums.ts'
 import { useCallback } from 'react'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
-import { GetQnaListResponse } from '@api/types'
+import { GetQnaListResponse } from '@utils/api/types'
 
 type QuestionCardProps = {
   question: GetQnaListResponse

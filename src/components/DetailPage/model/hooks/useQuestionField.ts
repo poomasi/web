@@ -1,8 +1,8 @@
 import { useToastMessageStore } from '@store/toast'
 import { useAccountStore } from '@store/account'
 import { useCallback, useState } from 'react'
-import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
-import { RequestApi } from '@api/request-api.ts'
+import { AskerSpecificType, CareerYearType } from '@utils/api/enums.ts'
+import { RequestApi } from '@utils/api/request-api.ts'
 
 const QUESTION_MAX_LENGTH: number = 500
 

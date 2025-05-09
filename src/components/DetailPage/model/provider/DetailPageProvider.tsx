@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { AccountResponse } from '@api/types.ts'
+import { AccountResponse } from '@utils/api/types.ts'
 
 interface DetailPageProviderProps {
   teacherAccount: AccountResponse | null
