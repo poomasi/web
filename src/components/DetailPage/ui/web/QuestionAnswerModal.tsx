@@ -14,6 +14,8 @@ type QuestionAnswerModalProps = {
   setAnswerModalClose: () => void
 }
 
+const MAX_LENGTH = 1000
+
 export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionAnswerModalProps) {
   const [answerText, setAnswerText] = useState<string>('')
   const { setIsQuestionListFetched } = useDetailPageContext()
@@ -21,7 +23,7 @@ export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionA
 
   // 답변글 등록
   const handleAnswerTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (event.target.value.length <= 500) {
+    if (event.target.value.length <= MAX_LENGTH) {
       setAnswerText(event.target.value)
     }
   }
@@ -70,40 +72,45 @@ export function QuestionAnswerModal({ question, setAnswerModalClose }: QuestionA
 
   return (
     <CommonGuideModalContainer>
-      <ModalReference.Header onClickClose={setAnswerModalClose} />
-      <CommonGuideModalBody>
-        <QuestionCardCustom question={question} />
-        <QuestionArea className="QuestionAreaBox">
-          <QuestionTextField value={answerText} onChange={handleAnswerTextChange} placeholder="댓글을 입력해주세요." />
-          <QuestionOption>
-            <QuestionFieldLength>
-              글자수: (<span>{answerText.length}</span> / 500)
-            </QuestionFieldLength>
-          </QuestionOption>
-        </QuestionArea>
-        <DebouncedButton
-          text={'등록'}
-          onClick={() => handleAnswerButtonClick()}
-          variant="contained"
-          sx={{
-            height: '40px',
-            fontSize: '18px',
-            fontWeight: '700',
-            borderRadius: '10px',
-            color: 'white',
-            backgroundColor: '#3ecdba',
-            alignSelf: 'end',
-          }}
-        />
-      </CommonGuideModalBody>
+      <ModalReference>
+        <ModalReference.Header onClickClose={setAnswerModalClose} />
+        <CommonGuideModalBody>
+          <QuestionCardCustom question={question} />
+          <QuestionArea className="QuestionAreaBox">
+            <QuestionTextField value={answerText} onChange={handleAnswerTextChange} placeholder="댓글을 입력해주세요." />
+            <QuestionOption>
+              <QuestionFieldLength>
+                글자수: (<span>{answerText.length}</span> / {MAX_LENGTH})
+              </QuestionFieldLength>
+            </QuestionOption>
+          </QuestionArea>
+          <DebouncedButton
+            text={'등록'}
+            onClick={() => handleAnswerButtonClick()}
+            variant="contained"
+            sx={{
+              height: '40px',
+              fontSize: '18px',
+              fontWeight: '700',
+              borderRadius: '10px',
+              color: 'white',
+              backgroundColor: '#3ecdba',
+              alignSelf: 'end',
+            }}
+          />
+        </CommonGuideModalBody>
+      </ModalReference>
     </CommonGuideModalContainer>
   )
 }
 
 const QuestionCardCustom = styled(QuestionCard)``
 
-const CommonGuideModalContainer = styled(ModalReference)`
-  width: 1075px;
+const CommonGuideModalContainer = styled.div`
+  .ModalWrapper {
+    width: 1075px;
+    top: 10%;
+  }
 `
 
 // @todo CSS Props 관련하여 확인 필요
