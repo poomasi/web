@@ -39,7 +39,7 @@ export function Toast() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={errorToastMessage !== ''}
         autoHideDuration={3000}
-        onClose={removeErrorToastMessage}
+        onClick={removeErrorToastMessage}
       >
         <Alert onClose={removeErrorToastMessage} severity="error" sx={{ marginBottom: '30px' }}>
           {errorToastMessage}
@@ -49,7 +49,7 @@ export function Toast() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={successToastMessage !== ''}
         autoHideDuration={3000}
-        onClose={removeSuccessToastMessage}
+        onClick={removeSuccessToastMessage}
       >
         <Alert onClose={removeSuccessToastMessage} severity="success" sx={{ marginBottom: '30px' }}>
           {successToastMessage}

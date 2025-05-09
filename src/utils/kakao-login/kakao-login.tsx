@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
 import kakaoLogo from '@assets/images/kakao-logo.svg'
+import { ROUTES } from '@routes/ROUTES.ts'
+import { useMemo } from 'react'
 
 export function KakaoLogin() {
   const location = useLocation() //현재 페이지의 URL 정보를 가져오기
@@ -10,15 +12,27 @@ export function KakaoLogin() {
 
   //사용자가 현재 페이지에서 카카오 로그인을 진행하면, 로그인 후 다시 원래 페이지로 돌아갈 수 있도록
   if (!beforeLoginUrl.includes('kakao-login-callback')) {
-    localStorage.setItem('before_login_url', beforeLoginUrl)
     //사용자가 로그인하기 전의 페이지 URL을 localStorage에 저장
+    localStorage.setItem('before_login_url', beforeLoginUrl)
   }
 
+  // 카카오 로그인 이동 버튼 클릭 핸들러
+  const handleKakaoLoginClick = () => {
+    window.location.href = KAKAO_LOGIN_URL
+  }
+
+  // 카카오 로그인 도중에 카카오 버튼 노출하지 않도록 하는 변수
+  const isLoginProcessing = useMemo(() => location.pathname === ROUTES.LOGIN, [location.pathname])
+
   return (
-    <KakaoLoginButton onClick={() => (window.location.href = KAKAO_LOGIN_URL)}>
-      <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
-      카카오 로그인
-    </KakaoLoginButton>
+    <>
+      {!isLoginProcessing && (
+        <KakaoLoginButton onClick={handleKakaoLoginClick}>
+          <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
+          카카오 로그인
+        </KakaoLoginButton>
+      )}
+    </>
   )
 }
 
