@@ -4,7 +4,7 @@ import type { SxProps, Theme } from '@mui/material'
 
 interface DebouncedButtonProps {
   text: string
-  onClick: () => Promise<void>;
+  onClick: () => Promise<void>
   variant?: string
   sx?: SxProps<Theme>
   disabled?: boolean
@@ -20,7 +20,7 @@ export const DebouncedButton = ({ text, onClick, variant, sx, disabled }: Deboun
     clickEventRef.current = true
 
     try {
-      await onClick()
+      await onClick() //await은 Promise를 기다리는 역할을 하고, async 함수 안에서만 쓸 수 있다.
     } catch {
       // 에러 처리가 필요하진 않을 것 같으나 참고만 부탁드립니다.
     } finally {
@@ -32,8 +32,7 @@ export const DebouncedButton = ({ text, onClick, variant, sx, disabled }: Deboun
   }
 
   return (
-    <Button variant={variant as 'text' | 'outlined' | 'contained'} sx={sx} disabled={disabled}
-            onClick={handleButtonClick}>
+    <Button variant={variant as 'text' | 'outlined' | 'contained'} sx={sx} disabled={disabled} onClick={handleButtonClick}>
       {text}
     </Button>
   )
