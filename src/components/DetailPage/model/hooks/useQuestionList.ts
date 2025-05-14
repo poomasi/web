@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 import { useEffect, useState } from 'react'
-import { GetQnaListResponse } from '@utils/api/types.ts'
+import { GetQnaListResponse } from '@utils/api/types/account.types'
 import { QnaAskerType } from '@utils/api/enums.ts'
 import { RequestApi } from '@utils/api/request-api.ts'
 

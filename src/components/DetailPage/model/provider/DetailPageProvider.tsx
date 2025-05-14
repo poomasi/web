@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { AccountResponse } from '@utils/api/types.ts'
+import { AccountResponse } from '@utils/api/types/account.types'
 
 /*
 1. Context는 무엇?
@@ -29,16 +29,14 @@ const DetailPageContext = createContext<DetailPageProviderProps>({
 
 // React 컴포넌트를 감싸는 Provider로 만들기 위해서 필요한 타입
 export function DetailPageContextProvider({ children }: PropsWithChildren) {
-  const [account, setAccount] = useState<AccountResponse | null>(null)
+  const [teacherAccount, setTeacherAccount] = useState<AccountResponse | null>(null)
   const [pageLoading, setPageLoading] = useState<boolean>(false)
   const [isQuestionListFetched, setIsQuestionListFetched] = useState<boolean>(false)
 
   // Context에 전달할 데이터 모음
   const providerValue: DetailPageProviderProps = {
-    teacherAccount: account,
-    setTeacherAccount: (accountRes: AccountResponse) => {
-      setAccount(accountRes)
-    },
+    teacherAccount,
+    setTeacherAccount,
     pageLoading,
     setPageLoading,
     isQuestionListFetched,
@@ -48,6 +46,7 @@ export function DetailPageContextProvider({ children }: PropsWithChildren) {
   return <DetailPageContext.Provider value={providerValue}>{children}</DetailPageContext.Provider>
 }
 
+//context를 안전하게 꺼내 쓰기 위한 커스텀 훅
 export function useDetailPageContext() {
   const context = useContext(DetailPageContext)
   if (context === undefined) {

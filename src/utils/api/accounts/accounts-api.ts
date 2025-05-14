@@ -1,6 +1,6 @@
 import { AccountType } from '@utils/api/enums'
 // import requestHandler from '@utils/api/request-handler'
-import { AccountListResponse, AccountResponse } from '@utils/api/types'
+import { AccountListResponse, AccountResponse } from '@utils/api/types/account.types'
 import customAxios from '@utils/api/customAxios.ts'
 
 const PATH = '/accounts'

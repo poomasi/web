@@ -1,4 +1,4 @@
-import { GetQnaListResponse } from '@utils/api/types.ts'
+import { GetQnaListResponse } from '@utils/api/types/account.types'
 import ModalReference from '@components/modal/ModalReference.tsx'
 import styled from '@emotion/styled'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'

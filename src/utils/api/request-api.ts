@@ -1,6 +1,6 @@
 import { AccountsApi } from './accounts/accounts-api'
 import { PostsApi } from './posts'
-import { AccountListResponse } from './types'
+import { AccountListResponse } from './types/account.types'
 
 const token = localStorage.getItem('account_token') ?? ''
 

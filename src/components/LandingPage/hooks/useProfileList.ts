@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AccountListResponse } from '@utils/api/types.ts'
+import { AccountListResponse } from '@utils/api/types/account.types'
 import { RequestApi } from '@utils/api/request-api.ts'
 
 export function useProfileList() {
