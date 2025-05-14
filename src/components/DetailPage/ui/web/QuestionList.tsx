@@ -81,10 +81,10 @@ export function QuestionList() {
   }, [id, qnaAskerType])
 
   useEffect(() => {
-    if (teacherAccount) {
-      setIsAnswerAuthority(teacherAccount.public_id === publicId && ['ADMIN', 'STAFF'].includes(accountType))
+    if (teacherAccount && accountType && ['ADMIN', 'STAFF'].includes(accountType)) {
+      setIsAnswerAuthority(teacherAccount.public_id === publicId)
     }
-  }, [teacherAccount])
+  }, [teacherAccount, accountType, publicId])
 
   useEffect(() => {
     if (isQuestionListFetched) {
