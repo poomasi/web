@@ -2,7 +2,7 @@
 import { useCallback } from 'react'
 import { useAccountStore } from '@store/account'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
-import { GetQnaListResponse } from '@utils/api/types/account.types'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 
 export function useIsAnswerBlurred() {
   const { accountType, publicId } = useAccountStore()

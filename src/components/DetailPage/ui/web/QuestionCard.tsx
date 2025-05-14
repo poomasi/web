@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { colors } from '@styles/foundation/color'
-import { GetQnaListResponse } from '@utils/api/types/account.types'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
 

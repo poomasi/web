@@ -1,6 +1,6 @@
 import { ProfileBadge } from '@components/badge'
 import { QnaAskerType } from '@utils/api/enums.ts'
-import { GetQnaListResponse } from '@utils/api/types/account.types'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
 // import TextareaAutosize from 'react-textarea-autosize'

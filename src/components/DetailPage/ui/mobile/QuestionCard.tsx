@@ -6,7 +6,7 @@ import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
-import { GetQnaListResponse } from '@utils/api/types/account.types'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
