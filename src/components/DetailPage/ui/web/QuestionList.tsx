@@ -82,7 +82,7 @@ export function QuestionList() {
 
   useEffect(() => {
     if (teacherAccount) {
-      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === 'ADMIN')
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && ['ADMIN', 'STAFF'].includes(accountType))
     }
   }, [teacherAccount])
 

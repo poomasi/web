@@ -8,8 +8,8 @@ type AccountTokenStore = {
   setPublicId: (id: string) => void
   resetAccountToken: () => void
   // 추가
-  accountType: 'ADMIN' | 'USER' | null
-  setAccountType: (type: 'ADMIN' | 'USER') => void
+  accountType: 'ADMIN' | 'USER' | 'STAFF' | null
+  setAccountType: (type: 'ADMIN' | 'USER' | 'STAFF') => void
 }
 
 export const useAccountStore = create<AccountTokenStore>()(

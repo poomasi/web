@@ -12,7 +12,7 @@ import { colors } from '@styles/foundation/color'
 import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { CommonSelect } from '@components/common/CommonSelect/CommonSelect.tsx'
+import { CommonSelect } from '@components/CommonSelect/CommonSelect'
 
 const QUESTION_MAX_LENGTH: number = 500
 
