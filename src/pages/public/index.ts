@@ -1,6 +1,6 @@
 export * from './LandingPage.tsx'
 export * from './login-page'
 export * from '@components/LandingPage/ui/web/ProfilesSection.tsx'
-export * from '@components/common/profileCards/ProfileCard.tsx'
+export * from '@components/profileCards/ProfileCard.tsx'
 // export * from './DetailPage/DetailPage.tsx'
 // export * from './footer-section'
