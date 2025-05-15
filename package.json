@@ -14,8 +14,10 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.11",
     "@mui/material": "^6.4.11",
+    "@tanstack/react-query": "^5.76.1",
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
     "react": "18",
     "react-device-detect": "^2.2.3",
     "react-dom": "18",
@@ -25,8 +27,7 @@
     "rxjs": "^7.8.1",
     "swiper": "^11.2.6",
     "ts-pattern": "^5.7.0",
-    "zustand": "^5.0.3",
-    "lodash": "^4.17.21"
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",

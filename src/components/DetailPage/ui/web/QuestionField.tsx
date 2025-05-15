@@ -84,7 +84,7 @@ export function QuestionField() {
 
     // 질문 등록
     await postingQuestion()
-  }, [accountToken, questionText])
+  }, [accountToken, questionText, isSecret, careerYear, isMajor])
 
   return (
     <QuestionSection className="QuestionSection">
