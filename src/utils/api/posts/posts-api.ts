@@ -6,7 +6,7 @@ import customAxios from '@utils/api/customAxios.ts'
 const PATH = '/posts' // QnA 관련 API 요청의 기본 경로
 
 //질문을 등록할 때 서버에 전달할 데이터를 정의한 타입
-interface PostQnaParams {
+export interface PostQnaParams {
   id: string | undefined
   isSecret: boolean
   careerYear: CareerYearType
