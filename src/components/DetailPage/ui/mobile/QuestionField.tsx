@@ -1,4 +1,4 @@
-import { AskerSpecificType, CareerYearType } from '@api/enums.ts'
+import { AccountType, AskerSpecificType, CareerYearType } from '@api/enums.ts'
 import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
 import { useToastMessageStore } from '@store/toast'
@@ -21,7 +21,7 @@ export function QuestionField() {
   const keyboardHeight = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
@@ -80,7 +80,7 @@ export function QuestionField() {
   // function 재랜더링 되지 않도록 함.
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
   const handleQuestionButtonClick = useCallback(async () => {
-    if (!accountToken) {
+    if (!accessToken) {
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
     }
@@ -92,10 +92,10 @@ export function QuestionField() {
 
     // 질문 등록
     await postingQuestion()
-  }, [accountToken, questionText])
+  }, [accessToken, questionText])
 
   const { accountType } = useAccountStore()
-  if (accountType === 'ADMIN') return null
+  if (accountType === AccountType.MENTOR) return null
 
   return (
     <QuestionSection className="QuestionSection">

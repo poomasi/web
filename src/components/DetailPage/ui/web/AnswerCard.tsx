@@ -15,7 +15,7 @@ interface AnswerCardProps {
 }
 
 export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardProps) {
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
 
   return (

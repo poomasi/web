@@ -6,15 +6,15 @@ import publicLogo from '@assets/svgs/public-logo.svg'
 import { useAccountStore } from '@store/account'
 
 export default function Header() {
-  const { accountToken, resetAccountToken } = useAccountStore()
+  const { accessToken, resetaccessToken } = useAccountStore()
   const toHome = () => {
     window.location.href = '/'
   }
 
-  // const accountToken: string | null = useRecoilValue(accountTokenState)
+  // const accessToken: string | null = useRecoilValue(accessTokenState)
 
   const handleLogout = () => {
-    resetAccountToken()
+    resetaccessToken()
     // localStorage.removeItem('account-token-storage')
     window.location.reload()
   }
@@ -28,7 +28,7 @@ export default function Header() {
             <LogoImage src={publicLogo} alt="logo" />
           </LogoButtonWrapper>
 
-          {accountToken ? <KakaoLoginBtn onClick={() => handleLogout()}>로그아웃</KakaoLoginBtn> : <KakaoLogin />}
+          {accessToken ? <KakaoLoginBtn onClick={() => handleLogout()}>로그아웃</KakaoLoginBtn> : <KakaoLogin />}
         </HeaderContent>
       </HeaderContainer>
 

@@ -1,29 +1,30 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { AccountType } from '@api/enums.ts'
 
-type AccountTokenStore = {
-  accountToken: string | null
-  setAccountToken: (token: string) => void
+type accessTokenStore = {
+  accessToken: string | null
+  setaccessToken: (token: string) => void
   publicId: string | null
   setPublicId: (id: string) => void
-  resetAccountToken: () => void
+  resetaccessToken: () => void
   // 추가
-  accountType: 'ADMIN' | 'USER' | null
-  setAccountType: (type: 'ADMIN' | 'USER') => void
+  accountType: AccountType.MENTOR | AccountType.USER | null
+  setAccountType: (type: AccountType.MENTOR | AccountType.USER) => void
 }
 
-export const useAccountStore = create<AccountTokenStore>()(
+export const useAccountStore = create<accessTokenStore>()(
   persist(
     (set) => ({
-      accountToken: null,
+      accessToken: null,
       publicId: null,
       accountType: null, // 초기값
-      setAccountToken: (token) => set({ accountToken: token }),
+      setaccessToken: (token) => set({ accessToken: token }),
       setPublicId: (id) => set({ publicId: id }),
       setAccountType: (type) => set({ accountType: type }), // 함수 추가
-      resetAccountToken: () => {
+      resetaccessToken: () => {
         set({
-          accountToken: null,
+          accessToken: null,
           publicId: null,
           accountType: null, //추가
         })

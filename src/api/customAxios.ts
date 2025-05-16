@@ -57,7 +57,7 @@ const customAxios: CustomInstance = axios.create({
 */
 
 customAxios.interceptors.request.use(function (request) {
-  const token = useAccountStore.getState().accountToken
+  const token = useAccountStore.getState().accessToken
   if (token) {
     request.headers.Authorization = token
   }
