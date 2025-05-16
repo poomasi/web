@@ -2,7 +2,7 @@ import { useAccountStore, useToastMessageStore } from '@store/index.ts'
 
 import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
-import { RequestApi } from '@api/index.ts'
+import { AccountType, RequestApi } from '@api/index.ts'
 import { useEffect } from 'react'
 import { TeacherIntroduce } from '@components/DetailPage/ui/mobile/TeacherIntroduce'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
@@ -59,7 +59,7 @@ export function MobileDetailPage() {
 
               <Seperator />
 
-              {accountType !== 'ADMIN' && <QuestionField />}
+              {accountType !== AccountType.MENTOR && <QuestionField />}
 
               <QuestionList />
             </>

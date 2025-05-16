@@ -1,5 +1,5 @@
 import { ProfileBadge } from '@components/badge'
-import { QnaAskerType } from '@api/enums.ts'
+import { AccountType, QnaAskerType } from '@api/enums.ts'
 import { GetQnaListResponse } from '@api/types.ts'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
@@ -59,7 +59,7 @@ export function QuestionList() {
   }
 
   const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
-    if (accountType === 'ADMIN' && teacherAccount?.public_id === publicId) {
+    if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) {
       return false
     }
 
@@ -82,7 +82,7 @@ export function QuestionList() {
 
   useEffect(() => {
     if (teacherAccount) {
-      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === 'ADMIN')
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === AccountType.MENTOR)
     }
   }, [teacherAccount])
 
