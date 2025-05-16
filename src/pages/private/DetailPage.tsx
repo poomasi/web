@@ -2,7 +2,7 @@ import { useAccountStore, useToastMessageStore } from '@store/index.ts'
 
 import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
-import { RequestApi } from '@api/index.ts'
+import { AccountType, RequestApi } from '@api/index.ts'
 import { useEffect, useState } from 'react'
 import { TeacherIntroduce } from '@components/DetailPage/ui/web/TeacherIntroduce.tsx'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
@@ -64,7 +64,7 @@ export function DetailPage() {
 
   useEffect(() => {
     if (teacherAccount) {
-      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === 'ADMIN')
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === AccountType.MENTOR)
     }
   }, [teacherAccount])
 

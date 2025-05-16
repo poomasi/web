@@ -7,8 +7,8 @@ export enum HttpMethod {
 }
 
 export enum AccountType {
-  NORMAL = 'NORMAL',
-  ADMIN = 'ADMIN',
+  USER = 'USER',
+  MENTOR = 'MENTOR',
 }
 
 export enum CareerYearType {

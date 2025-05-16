@@ -12,7 +12,7 @@ export const RequestApi = {
     getAccountList: async (): Promise<AccountListResponse[]> => {
       try {
         //관리자 계정들만 필터링해서 요청
-        const response = await fetch('https://api.poomasi.kr/api/v1/accounts/?type=ADMIN', {
+        const response = await fetch('https://api.poomasi.kr/api/v1/accounts?type=MENTOR', {
           method: 'GET',
           headers: {
             Authorization: token,

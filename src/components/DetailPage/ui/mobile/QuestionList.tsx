@@ -10,7 +10,7 @@ import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
 import { useIsAnswerBlurred } from '@components/DetailPage/model/hooks/useIsAnswerBlurred'
 import { RequestApi } from '@api/request-api'
 import { GetQnaListResponse } from '@api/types'
-import { QnaAskerType } from '@api/enums'
+import { AccountType, QnaAskerType } from '@api/enums'
 import { colors } from '@styles/foundation/color'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
@@ -53,7 +53,7 @@ export function QuestionList() {
   }
 
   const getIsSecretQuestion = (qna: GetQnaListResponse) => {
-    if (accountType === 'ADMIN' && teacherAccount?.public_id === publicId) return false
+    if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) return false
     if (qna.is_secret === 0) return false
     return qna.questioner_public_id !== publicId
   }
@@ -113,7 +113,7 @@ export function QuestionList() {
                   answerDate={qna.updated_at}
                 />
               ) : (
-                accountType === 'ADMIN' && (
+                accountType === AccountType.MENTOR && (
                   <ReplyTextareaWrapper>
                     <ReplyTextarea
                       value={replyTexts[qna.public_id] || ''}

@@ -6,15 +6,15 @@ import customAxios from '@api/customAxios.ts'
 const PATH = '/accounts'
 
 export const AccountsApi = {
-  postKakaoLogin: async (idToken: string) => {
+  postKakaoLogin: async (requestDto: { id_token: string; device_token: string | null }) => {
     return await customAxios.post<{
-      account_token: string
+      access_token: string
       public_id: string
-      account_type: 'ADMIN' | 'USER'
-    }>(`${PATH}/kakao-login`, { id_token: idToken })
+      account_type: AccountType
+    }>(`${PATH}/kakao-login`, requestDto)
   },
 
-  getAccountList: async (type: string = AccountType.ADMIN) => {
+  getAccountList: async (type: string = AccountType.MENTOR) => {
     return await customAxios.post<AccountListResponse[]>(PATH + `/?type=${type}`, {})
   },
 
