@@ -27,7 +27,7 @@ export function QuestionField() {
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
-  const { setIsQuestionListFetched } = useDetailPageContext()
+  // const { setIsQuestionListFetched } = useDetailPageContext()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
