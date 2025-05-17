@@ -190,7 +190,7 @@ const QuestionArea = styled.div`
   gap: 20px;
 `
 
-const QuestionAnswerButton = styled.div`
+export const QuestionAnswerButton = styled.div`
   display: inline-flex;
   padding: 12px 16px;
   justify-content: center;

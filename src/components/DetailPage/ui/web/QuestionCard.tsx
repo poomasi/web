@@ -9,6 +9,7 @@ import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
 import editDots from '@assets/images/edit-dots.svg'
 import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
+import { QuestionAnswerButton } from '@components/DetailPage/ui/web/QuestionList'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
@@ -51,9 +52,28 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
       <QnaHead>Q</QnaHead>
       {isEditing ? (
         <>
-          <QnaContentArea value={editedText} onChange={handleTextChange} />
-          <button onClick={handleSaveClick}>저장</button>
-          <button onClick={handleCancelClick}>취소</button>
+          <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
+
+          <ButtonWrapper>
+            <QuestionAnswerButton
+              style={{
+                width: '10%',
+                display: 'flex',
+              }}
+              onClick={handleSaveClick}
+            >
+              저장
+            </QuestionAnswerButton>
+            <QuestionAnswerButton
+              style={{
+                width: '10%',
+                display: 'flex',
+              }}
+              onClick={handleCancelClick}
+            >
+              취소
+            </QuestionAnswerButton>
+          </ButtonWrapper>
         </>
       ) : (
         <QnaContentArea readOnly value={question.question_text} />
@@ -96,6 +116,25 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
     </QnaCard>
   )
 }
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+`
+
+const StyledTextarea = styled(TextareaAutosize)`
+  color: #28292a;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  width: 100%;
+`
 
 const EditMenuWrapper = styled.div`
   position: absolute;
