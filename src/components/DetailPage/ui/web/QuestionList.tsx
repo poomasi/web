@@ -1,5 +1,5 @@
 import { ProfileBadge } from '@components/badge'
-import { QnaAskerType } from '@utils/api/enums.ts'
+import { QnaAskerType, AccountType } from '@utils/api/enums.ts'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
@@ -59,7 +59,7 @@ export function QuestionList() {
   }
 
   const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
-    if (accountType === 'ADMIN' && teacherAccount?.public_id === publicId) {
+    if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) {
       return false
     }
 
@@ -81,7 +81,7 @@ export function QuestionList() {
   }, [id, qnaAskerType])
 
   useEffect(() => {
-    if (teacherAccount && accountType && ['ADMIN', 'STAFF'].includes(accountType)) {
+    if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
       setIsAnswerAuthority(teacherAccount.public_id === publicId)
     }
   }, [teacherAccount, accountType, publicId])
@@ -119,7 +119,16 @@ export function QuestionList() {
           qnaData.data.map((qna) => (
             <QnaSection key={qna.public_id}>
               <QuestionArea>
-                <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
+                <QuestionCard
+                  question={qna}
+                  isSecret={getIsSecretQuestion(qna)}
+                  key={qna.public_id}
+                  onUpdateRequest={() => {
+                    if (setIsQuestionListFetched) {
+                      setIsQuestionListFetched(true)
+                    }
+                  }}
+                />
                 {isAnswerAuthority && !qna.answer_text && (
                   <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
                 )}

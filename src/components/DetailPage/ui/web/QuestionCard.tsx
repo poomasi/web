@@ -8,11 +8,12 @@ import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
 import editDots from '@assets/images/edit-dots.svg'
-import { useState } from 'react'
+import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
   isSecret?: boolean
+  onUpdateRequest?: () => void
 }
 
 export const getCareerYearString = (career_year: string) => {
@@ -30,27 +31,34 @@ export const getCareerYearString = (career_year: string) => {
   }
 }
 
-export function QuestionCard({ question, isSecret }: QuestionCardProps) {
-  const { accountToken } = useAccountStore()
-  const [showEditBtn, setShowEditBtn] = useState(false)
+export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCardProps) {
+  const { accessToken } = useAccountStore()
 
-  const handleShowEditBtn = () => {
-    setShowEditBtn((prev) => !prev)
-  }
+  const { isEditing, editedText, showEditBtn, toggleEditBtn, handleEditClick, handleCancelClick, handleTextChange, handleSaveClick } =
+    useQuestionEdit(question, onUpdateRequest)
 
   return (
     <QnaCard className={'qna-card'}>
       {isSecret && (
         <BlurOverlay>
-          <TextBlurOverlay>{accountToken ? '비밀 질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+          <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
       <EditMenuWrapper>
-        <DotMenu src={editDots} alt="더보기" onClick={handleShowEditBtn} />
-        {showEditBtn && <EditButton>수정</EditButton>}
+        <DotMenu src={editDots} alt="더보기" onClick={toggleEditBtn} />
+        {showEditBtn && <EditButton onClick={handleEditClick}>수정</EditButton>}
       </EditMenuWrapper>
       <QnaHead>Q</QnaHead>
-      <QnaContentArea readOnly value={question.question_text} />
+      {isEditing ? (
+        <>
+          <QnaContentArea value={editedText} onChange={handleTextChange} />
+          <button onClick={handleSaveClick}>저장</button>
+          <button onClick={handleCancelClick}>취소</button>
+        </>
+      ) : (
+        <QnaContentArea readOnly value={question.question_text} />
+      )}
+
       <div style={{ display: 'flex' }}>
         <QnaContentCareer
           style={{

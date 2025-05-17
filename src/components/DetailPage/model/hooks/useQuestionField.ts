@@ -8,7 +8,7 @@ const QUESTION_MAX_LENGTH: number = 500
 
 export const useQuestionField = (id: string) => {
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
@@ -67,7 +67,7 @@ export const useQuestionField = (id: string) => {
   // function 재랜더링 되지 않도록 함.
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
   const handleQuestionButtonClick = useCallback(async () => {
-    if (!accountToken) {
+    if (!accessToken) {
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
     }
@@ -79,7 +79,7 @@ export const useQuestionField = (id: string) => {
 
     // 질문 등록
     await postingQuestion()
-  }, [accountToken, questionText])
+  }, [accessToken, questionText])
 
   return {
     questionText,

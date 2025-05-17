@@ -12,7 +12,8 @@ import { colors } from '@styles/foundation/color'
 import { Seperator } from '@components/seperator/Seperator'
 import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
-// import { Padding } from '@mui/icons-material'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import { CommonSelect } from '@components/CommonSelect/CommonSelect'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -21,11 +22,12 @@ export function QuestionField() {
   const keyboardHeight = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
+  const { setIsQuestionListFetched } = useDetailPageContext()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -39,14 +41,14 @@ export function QuestionField() {
   }
 
   //개발 경력 필터
-  const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCareerYear(event.target.value as CareerYearType)
-  }
+  // const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setCareerYear(event.target.value as CareerYearType)
+  // }
 
   //전공 여부 체크
-  const handleMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setIsMajor(event.target.value === AskerSpecificType.SPECIALTY)
-  }
+  // const handleMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setIsMajor(event.target.value === AskerSpecificType.SPECIALTY)
+  // }
 
   // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
   const postingQuestion = async () => {
@@ -63,10 +65,6 @@ export function QuestionField() {
       setTimeout(() => {
         setSuccessToastMessage('질문이 등록되었습니다.')
       }, 1300)
-
-      //질문 목록 불러오기
-      /*const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-			setQnas(qnas.data) // UI에 반영*/
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('질문 등록에 실패했습니다!', error)
@@ -84,7 +82,7 @@ export function QuestionField() {
   const handleQuestionButtonClick = useCallback(async () => {
     if (isSubmitting) return // 이미 요청 중이면 막기
 
-    if (!accountToken) {
+    if (!accessToken) {
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
     }
@@ -101,10 +99,10 @@ export function QuestionField() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [accountToken, questionText, isSubmitting])
+  }, [accessToken, questionText, postQuestion, setErrorToastMessage])
 
   const { accountType } = useAccountStore()
-  if (accountType === 'ADMIN') return null
+  if (accountType === AccountType.MENTOR) return null
 
   return (
     <QuestionSection className="QuestionSection">

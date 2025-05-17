@@ -2,7 +2,7 @@ import { AccountsApi } from './accounts/accounts-api'
 import { PostsApi } from './posts'
 import { AccountListResponse } from './types/account.types'
 
-const token = localStorage.getItem('account_token') ?? ''
+const token = localStorage.getItem('access_token') ?? ''
 
 //RequestApi는 두 개의 카테고리로 구성된 API 모듈 객체
 export const RequestApi = {
@@ -12,7 +12,7 @@ export const RequestApi = {
     getAccountList: async (): Promise<AccountListResponse[]> => {
       try {
         //관리자 계정들만 필터링해서 요청
-        const response = await fetch('https://api.poomasi.kr/api/v1/accounts/?type=ADMIN', {
+        const response = await fetch('https://api.poomasi.kr/api/v1/accounts?type=MENTOR', {
           method: 'GET',
           headers: {
             Authorization: token,

@@ -69,9 +69,6 @@ export const PostsApi = {
     별도의 id나 type 같은 조건 없이, 전체 상태를 보여주는 거야.
   */
 
-  // @ 태경
-  // id 는 로그인 한 사람 아이디를 넣으면 됩니다.
-  // useAccountStore 에서 가져오면 됩니다.
   //질문에 답변 등록
   postQnaAnswer: async (id: string, answerText: string) => {
     return await customAxios.post<PostQnaAnswerResponse>(PATH + `/qna/${id}/answer`, {

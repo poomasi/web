@@ -7,6 +7,8 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
+import editDots from '@assets/images/edit-dots.svg'
+import { useState } from 'react'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
@@ -14,7 +16,12 @@ type QuestionCardProps = {
 }
 
 export function QuestionCard({ question, isSecret }: QuestionCardProps) {
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
+  const [showEditBtn, setShowEditBtn] = useState(false)
+  const handleShowEditBtn = () => {
+    setShowEditBtn((prev) => !prev)
+  }
+
   const getCareerYearString = useCallback((career_year: string) => {
     switch (career_year) {
       case CareerYearType.ACADEMIC:
@@ -31,13 +38,17 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
   }, [])
 
   return (
-    <QnaCard>
+    <QnaCard className={'qna-card'}>
       {/* 비밀 질문 인 경우, 블러처리 */}
       {isSecret && (
         <BlurOverlay>
-          <TextBlurOverlay>{accountToken ? '비밀 질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+          <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
+      <EditMenuWrapper>
+        <DotMenu src={editDots} alt="더보기" onClick={handleShowEditBtn} />
+        {showEditBtn && <EditButton>수정</EditButton>}
+      </EditMenuWrapper>
       <QnaHead>Q</QnaHead>
       <QnaContentArea readOnly value={question.question_text} />
       <div style={{ display: 'flex' }}>
@@ -74,6 +85,46 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
     </QnaCard>
   )
 }
+
+const EditMenuWrapper = styled.div`
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 10;
+`
+
+const DotMenu = styled.img`
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  user-select: none;
+`
+
+const EditButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 11.5rem;
+  height: auto;
+  margin-top: 12px;
+  padding: 16px 72px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 22px;
+  cursor: pointer;
+  color: #0e0e0e;
+  border-radius: 10px;
+
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #3ecdba;
+    color: white;
+  }
+`
 
 const QnaCard = styled(Card)`
   background-color: #f5f5f5;

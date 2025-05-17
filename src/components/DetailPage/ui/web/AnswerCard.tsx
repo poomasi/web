@@ -15,7 +15,7 @@ interface AnswerCardProps {
 }
 
 export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardProps) {
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
 
   return (
@@ -24,7 +24,7 @@ export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardPro
         {/* 비밀 질문 인 경우, 블러처리 */}
         {isMyAnswer && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accessToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
         <QnaHead>

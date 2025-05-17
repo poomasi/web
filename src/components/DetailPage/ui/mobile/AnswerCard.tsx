@@ -13,7 +13,7 @@ interface AnswerCardProps {
 }
 
 export function AnswerCard({ answerText, isBlurred, answerDate }: AnswerCardProps) {
-  const { accountToken } = useAccountStore()
+  const { accessToken } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
 
   return (
@@ -21,7 +21,7 @@ export function AnswerCard({ answerText, isBlurred, answerDate }: AnswerCardProp
       <QnaCard>
         {isBlurred && (
           <BlurOverlay>
-            <TextBlurOverlay>{accountToken ? '비밀 답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
+            <TextBlurOverlay>{accessToken ? '비밀 답변이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
         <QnaHead className="QnaHead">

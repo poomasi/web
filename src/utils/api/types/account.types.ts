@@ -3,7 +3,7 @@
  */
 export interface KakaoLoginResponse {
   public_id: string
-  account_token: string
+  access_token: string
 }
 
 export interface AccountListResponse {
