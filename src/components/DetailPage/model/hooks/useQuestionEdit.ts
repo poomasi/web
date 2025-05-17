@@ -36,7 +36,7 @@ export function useQuestionEdit(question: GetQnaListResponse, onUpdateRequest?: 
     setShowEditBtn((prev) => !prev)
   }
 
-  if (onUpdateRequest) onUpdateRequest()
+  //   if (onUpdateRequest) onUpdateRequest()
 
   return {
     isEditing,

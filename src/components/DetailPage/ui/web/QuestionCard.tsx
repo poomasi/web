@@ -7,9 +7,9 @@ import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
-import editDots from '@assets/images/edit-dots.svg'
 import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
-import { QuestionAnswerButton } from '@components/DetailPage/ui/web/QuestionList'
+import { EditButton } from '@components/button/editButton/EditButton'
+import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
@@ -45,16 +45,18 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
           <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
-      <EditMenuWrapper>
+      <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
+      {/* <EditMenuWrapper>
         <DotMenu src={editDots} alt="더보기" onClick={toggleEditBtn} />
         {showEditBtn && <EditButton onClick={handleEditClick}>수정</EditButton>}
-      </EditMenuWrapper>
+      </EditMenuWrapper> */}
       <QnaHead>Q</QnaHead>
       {isEditing ? (
         <>
           <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
 
-          <ButtonWrapper>
+          <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
+          {/* <ButtonWrapper>
             <QuestionAnswerButton
               style={{
                 width: '10%',
@@ -73,7 +75,7 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
             >
               취소
             </QuestionAnswerButton>
-          </ButtonWrapper>
+          </ButtonWrapper> */}
         </>
       ) : (
         <QnaContentArea readOnly value={question.question_text} />
@@ -117,12 +119,6 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
   )
 }
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-`
-
 const StyledTextarea = styled(TextareaAutosize)`
   color: #28292a;
   font-size: 22px;
@@ -134,46 +130,6 @@ const StyledTextarea = styled(TextareaAutosize)`
   border-radius: 8px;
   resize: none;
   width: 100%;
-`
-
-const EditMenuWrapper = styled.div`
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  z-index: 10;
-`
-
-const DotMenu = styled.img`
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  user-select: none;
-`
-
-const EditButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 11.5rem;
-  height: auto;
-  margin-top: 12px;
-  padding: 16px 72px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 22px;
-  cursor: pointer;
-  color: #0e0e0e;
-  border-radius: 10px;
-
-  transition: background-color 0.2s ease;
-  &:hover {
-    background-color: #3ecdba;
-    color: white;
-  }
 `
 
 const QnaCard = styled(Card)`
