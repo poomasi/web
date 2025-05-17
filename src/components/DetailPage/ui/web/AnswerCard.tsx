@@ -6,17 +6,30 @@ import { colors } from '@styles/foundation/color'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import dayjs from 'dayjs'
 import { getMobileVw } from '@utils/responsive.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
+import { useAnswerEdit } from '@components/DetailPage/model/hooks/useAnswerEdit'
+import { EditButton } from '@components/button/editButton/EditButton'
+import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 
 interface AnswerCardProps {
+  question: GetQnaListResponse
   answerText: string
   isMyAnswer: boolean
   teacherName: string
   answerDate: string
+  isSecret?: boolean
+  onUpdateRequest?: () => void
 }
 
-export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardProps) {
+export function AnswerCard({ question, answerText, isMyAnswer, teacherName, answerDate, onUpdateRequest }: AnswerCardProps) {
   const { accessToken } = useAccountStore()
   const { teacherAccount } = useDetailPageContext()
+
+  const { isEditing, editedText, toggleEditBtn, handleEditClick, handleCancelClick, handleTextChange, handleSaveClick, showEditBtn } = useAnswerEdit(
+    question.public_id,
+    answerText,
+    onUpdateRequest,
+  )
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -27,17 +40,38 @@ export function AnswerCard({ answerText, isMyAnswer, answerDate }: AnswerCardPro
             <TextBlurOverlay>{accessToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
+        <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
         <QnaHead>
           <AnswerImg src={teacherAccount?.profile_image} />
-          <span>{teacherAccount?.name}</span>
+          <span>{teacherName}</span>
         </QnaHead>
-        <QnaContentArea readOnly value={answerText} />
+        {isEditing ? (
+          <>
+            <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
+            <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
+          </>
+        ) : (
+          <QnaContentArea readOnly value={editedText} />
+        )}
 
         <AnswerDate>{dayjs(answerDate).format('YYYY-MM-DD')}</AnswerDate>
       </QnaCard>
     </div>
   )
 }
+
+const StyledTextarea = styled(TextareaAutosize)`
+  color: #28292a;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  width: 100%;
+`
 
 const QnaCard = styled(Card)`
   background-color: #ffffff;

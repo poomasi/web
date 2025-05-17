@@ -15,7 +15,7 @@ export interface PostQnaParams {
 }
 
 //질문에 대한 답변을 등록한 뒤 서버로부터 받을 응답 데이터 구조
-type PostQnaAnswerResponse = {
+export type PostQnaAnswerResponse = {
   public_id: string
   answer_text: string
 }

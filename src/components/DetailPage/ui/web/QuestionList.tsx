@@ -136,10 +136,12 @@ export function QuestionList() {
 
               {qna.answer_text && (
                 <AnswerCard
+                  question={qna} // 추가: 수정하려면 답변 ID가 필요하니까
                   answerText={qna.answer_text}
                   isMyAnswer={getIsSecretQuestion(qna)}
                   teacherName={teacherAccount?.name ?? ''}
                   answerDate={qna.updated_at}
+                  onUpdateRequest={() => setIsQuestionListFetched(true)}
                 />
               )}
             </QnaSection>
