@@ -11,7 +11,7 @@ export default function Header() {
     window.location.href = '/'
   }
 
-  // const accountToken: string | null = useRecoilValue(accountTokenState)
+  // const accessToken: string | null = useRecoilValue(accessTokenState)
 
   const handleLogout = () => {
     resetaccessToken()

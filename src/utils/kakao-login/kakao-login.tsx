@@ -10,20 +10,29 @@ export function KakaoLogin() {
 
   const beforeLoginUrl: string = location.pathname
 
-  //사용자가 카카오 로그인을 진행할 때 원래 페이지로 돌아갈 수 있도록 저장
+  //사용자가 현재 페이지에서 카카오 로그인을 진행하면, 로그인 후 다시 원래 페이지로 돌아갈 수 있도록
   if (!beforeLoginUrl.includes('kakao-login-callback')) {
+    //사용자가 로그인하기 전의 페이지 URL을 localStorage에 저장
     localStorage.setItem('before_login_url', beforeLoginUrl)
   }
 
-  const handleKakaoLogin = debounce(() => {
+  // 카카오 로그인 이동 버튼 클릭 핸들러
+  const handleKakaoLoginClick = () => {
     window.location.href = KAKAO_LOGIN_URL
-  }, DEFAULT_DEBOUNCE_TIME)
+  }
+
+  // 카카오 로그인 도중에 카카오 버튼 노출하지 않도록 하는 변수
+  const isLoginProcessing = useMemo(() => location.pathname === ROUTES.LOGIN, [location.pathname])
 
   return (
-    <KakaoLoginButton onClick={handleKakaoLogin}>
-      <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
-      카카오 로그인
-    </KakaoLoginButton>
+    <>
+      {!isLoginProcessing && (
+        <KakaoLoginButton onClick={handleKakaoLoginClick}>
+          <KakaoIcon src={kakaoLogo} alt="카카오 로그인 아이콘" />
+          카카오 로그인
+        </KakaoLoginButton>
+      )}
+    </>
   )
 }
 
