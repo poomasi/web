@@ -2,7 +2,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import checker from 'vite-plugin-checker' //npm install --save-dev @types/node
+import checker from 'vite-plugin-checker'
+import * as fs from 'node:fs' //npm install --save-dev @types/node
 
 //vite-plugin-pwa는 설정한 manifest을 기반으로 브라우저가 인식할 수 있게 해준다.
 // https://vitejs.dev/config/
@@ -11,9 +12,15 @@ export default defineConfig({
     host: true,
     // host: '0.0.0.0',
     port: 3000,
+    https: {
+      key: fs.readFileSync('./mkcert/localhost+2-key.pem'),
+      cert: fs.readFileSync('./mkcert/localhost+2.pem'),
+    },
   },
   plugins: [
-    react(),
+    react({
+      jsxImportSource: '@emotion/react', //emotion을 사용하기 위해서 추가한 설정
+    }),
     // type 체크를 위한 vite-plugin-checker
     checker({
       typescript: {
@@ -22,17 +29,17 @@ export default defineConfig({
       },
     }),
     VitePWA({
-      registerType: 'prompt', //수동으로 설치 안내를 띄우는 설정
-      injectRegister: 'auto', //서비스워커() 자동으로 등록
       /*
 			서비스워커란?
 			앱이 꺼져 있어도 푸시 알림이 오거나, 오프라인에서 작동되는 것처럼 웹에서도 그런 기능을 수행해줌
 			즉, 브라우저가 백그라운드에서 실행하는 자바스크립트 파일로 사용자가 페이지를 보고 있지 않아도 동작할 수 있음
 			*/
+      registerType: 'prompt', //수동으로 설치 안내를 띄우는 설정
+      injectRegister: 'auto', //서비스워커() 자동으로 등록
 
       //pwaAssets: vite-plugin-pwa의 추가적인 기능
       pwaAssets: {
-        disabled: false,
+        disabled: true,
         config: true, //pwa-assets.config.ts 같은 파일을 참고해서 아이콘 같은 PWA 에셋을 자동으로 생성해줄 수 있음 → 이 설정이 있다면, pwa-assets.config.ts가 실제로 쓰이고 있다는 뜻!
       },
 
@@ -84,7 +91,7 @@ export default defineConfig({
       },
 
       devOptions: {
-        enabled: false, //개발 환경에서는 서비스워커 비활성화 -> 캐시 때문에 수정한 게 반영 안 되는 문제가 생기기 쉬워서!
+        enabled: true, //개발 환경에서는 서비스워커 비활성화 -> 캐시 때문에 수정한 게 반영 안 되는 문제가 생기기 쉬워서!
         navigateFallback: 'index.html', //404에러나면 항상 index.html로 fallback
         suppressWarnings: true, //콘솔 경고를 안 보이게 함 -> 개발 중 경고 너무 많으면 불편해서
         type: 'module', //최신 모듈 시스템 쓰고 싶을 때 설정
