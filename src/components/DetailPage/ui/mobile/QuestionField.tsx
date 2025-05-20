@@ -3,7 +3,7 @@ import { DebouncedButton } from '@components/button'
 import { useCallback, useState } from 'react'
 import { useToastMessageStore } from '@store/toast'
 import { useAccountStore } from '@store/account'
-import { RequestApi } from '@utils/api/request-api.ts'
+// import { RequestApi } from '@utils/api/request-api.ts'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive'
@@ -14,6 +14,8 @@ import { useMobileStore } from '@store/useMobileStore.ts'
 import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboardHeight'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { CommonSelect } from '@components/CommonSelect/CommonSelect'
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from '@utils/api/enums'
+import { usePostQuestion } from '@utils/api/posts/usePostQuestion'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -27,7 +29,7 @@ export function QuestionField() {
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
-  // const { setIsQuestionListFetched } = useDetailPageContext()
+  const { setIsQuestionListFetched } = useDetailPageContext()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,17 +42,35 @@ export function QuestionField() {
     setIsSecret((prev: boolean) => !prev)
   }
 
-  //개발 경력 필터
-  // const handleExperienceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setCareerYear(event.target.value as CareerYearType)
-  // }
+  const { mutate: postQuestionToServer } = usePostQuestion(
+    () => {
+      setQuestionText('')
+      setIsSecret(false)
+      setCareerYear(CareerYearType.ACADEMIC)
+      setIsMajor(true)
+      setIsQuestionListFetched(true) //질문목록 다시 불러오기
 
-  //전공 여부 체크
-  // const handleMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setIsMajor(event.target.value === AskerSpecificType.SPECIALTY)
-  // }
+      setTimeout(() => {
+        setSuccessToastMessage('질문이 등록되었습니다.')
+      }, 1300)
+    },
+    () => {
+      setErrorToastMessage('질문 등록에 실패했습니다!')
+    },
+  )
 
-  // Tanstack Query의 useMutation을 사용하면, API 요청을 더 간편하게 처리할 수 있습니다.
+  const postQuestion = useCallback(() => {
+    if (!id) return
+    postQuestionToServer({
+      id,
+      isSecret,
+      careerYear,
+      isMajor,
+      questionText,
+    })
+  }, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
+
+  /*
   const postingQuestion = async () => {
     try {
       //질문 데이터를 서버에 등록
@@ -72,16 +92,13 @@ export function QuestionField() {
 
       setErrorToastMessage('질문 등록에 실패했습니다!')
     }
-  }
+  } */
 
   // 팁 !
   // function 재랜더링 되지 않도록 함.
   // 관련하여, 오버 엔지리어닝이 되는 경우도 있다하니 관련 내용은 고민해보도록 하겠습니다.
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleQuestionButtonClick = useCallback(async () => {
-    if (isSubmitting) return // 이미 요청 중이면 막기
-
     if (!accessToken) {
       setErrorToastMessage('질문하려면 로그인이 필수입니다!')
       return
@@ -92,42 +109,27 @@ export function QuestionField() {
       return
     }
 
-    setIsSubmitting(true)
-
-    try {
-      await postingQuestion()
-    } finally {
-      setIsSubmitting(false)
-    }
+    // 질문 등록
+    await postQuestion()
   }, [accessToken, questionText, postQuestion, setErrorToastMessage])
-
-  const { accountType } = useAccountStore()
-  if (accountType === AccountType.MENTOR) return null
 
   return (
     <QuestionSection className="QuestionSection">
       <QuestionFieldTitle>질문하기</QuestionFieldTitle>
       <AskerInfo>
         <SelectContainer>
-          <SelectTitle htmlFor="career-select">개발 경력</SelectTitle>
-          <StyledSelect id="career-select" value={careerYear} onChange={handleExperienceChange}>
-            <option value={CareerYearType.ACADEMIC}>대학생</option>
-            <option value={CareerYearType.JOB_SEEKER}>취준생</option>
-            <option value={CareerYearType.JUNIOR}>신입~3년차</option>
-            <option value={CareerYearType.MIDDLE}>3년차 이상</option>
-          </StyledSelect>
-        </SelectContainer>
-
-        <SelectContainer>
-          <SelectTitle>전공 사항</SelectTitle>
-          <StyledSelect
-            id="specific-type"
+          <CommonSelect
+            title={'개발 경력'}
+            value={careerYear}
+            onChange={(selectValue) => setCareerYear(selectValue as CareerYearType)}
+            options={CAREER_YEAR_OPTIONS}
+          />
+          <CommonSelect
+            title={'전공 사항'}
             value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
-            onChange={handleMajorChange}
-          >
-            <option value={AskerSpecificType.SPECIALTY}>전공자</option>
-            <option value={AskerSpecificType.NONE_SPECIALTY}>비전공자</option>
-          </StyledSelect>
+            onChange={(selectValue) => setIsMajor(selectValue === AskerSpecificType.SPECIALTY)}
+            options={SPECIFIC_TYPE_OPTIONS}
+          />
         </SelectContainer>
       </AskerInfo>
 
@@ -307,50 +309,4 @@ const SelectContainer = styled.div`
   border-radius: 100px;
   border: 1px solid #c5c8cd;
   background: #fff;
-`
-
-const SelectTitle = styled.label`
-  font-weight: bold;
-  font-size: 16px;
-  color: ${colors.gray800};
-  white-space: nowrap;
-  cursor: pointer; // 커서 포인터 추가
-  @media (max-width: 1024px) {
-    font-size: 0.75rem;
-  }
-`
-
-// 스타일링 수정:
-const StyledSelect = styled.select`
-  border: none;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-align: center;
-
-  /* flex 대신 inline-block 사용 */
-  display: inline-block;
-  padding-right: 10px;
-
-  /* 다른 속성들은 유지 */
-  color: #3ecdba;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  height: 24px;
-  padding-top: 3px;
-
-  &:focus {
-    outline: none;
-  }
-
-  option {
-    color: black;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 0.75rem;
-    padding-top: 0;
-    padding-right: 0;
-  }
 `
