@@ -11,8 +11,6 @@ export default function Header() {
     window.location.href = '/'
   }
 
-  // const accountToken: string | null = useRecoilValue(accountTokenState)
-
   const handleLogout = () => {
     resetaccessToken()
     // localStorage.removeItem('account-token-storage')
