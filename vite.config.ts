@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import checker from 'vite-plugin-checker'
-import * as fs from 'node:fs' //npm install --save-dev @types/node
+import * as fs from 'node:fs'
 
 //vite-plugin-pwa는 설정한 manifest을 기반으로 브라우저가 인식할 수 있게 해준다.
 // https://vitejs.dev/config/
@@ -37,9 +37,11 @@ export default defineConfig({
       registerType: 'prompt', //수동으로 설치 안내를 띄우는 설정
       injectRegister: 'auto', //서비스워커() 자동으로 등록
 
+      includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-256x256.png', 'pwa-512x512.png'], //서비스워커에 포함할 자산들
+
       //pwaAssets: vite-plugin-pwa의 추가적인 기능
       pwaAssets: {
-        disabled: true,
+        disabled: false,
         config: true, //pwa-assets.config.ts 같은 파일을 참고해서 아이콘 같은 PWA 에셋을 자동으로 생성해줄 수 있음 → 이 설정이 있다면, pwa-assets.config.ts가 실제로 쓰이고 있다는 뜻!
       },
 
@@ -52,7 +54,13 @@ export default defineConfig({
         // 설치된 앱이 홈 화면에서 시작되도록 확실하게 지정
         display: 'standalone', //주소창 없이 앱처럼 보이게 하는 설정
         theme_color: '#ffffff',
+
         icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '180x180',
+            type: 'image/png',
+          },
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',

@@ -5,27 +5,37 @@ import publicLogo from '@assets/svgs/public-logo.svg'
 // import { getMobileVw } from '@utils/responsive'
 import { useAccountStore } from '@store/account'
 import { requestForToken } from '@utils/fcm/firebase.ts'
+import customAxios from '@api/customAxios.ts'
 
 export default function Header() {
   const { accessToken, resetaccessToken } = useAccountStore()
   const toHome = () => {
-    Notification.requestPermission().then((permission) => {
-      console.log('알림 허용이 되어있나요 :', permission)
-      if (permission === 'granted') {
-        alert('성공했어요')
-        // FCM 토큰 요청
-        requestForToken().then((token) => {
-          if (token) {
-            console.log('requestForToken 성공!')
-          }
-        })
-      }
-      if (permission === 'denied') {
-        console.log('알림이 거부되었어요')
-        alert('알림이 거부되었어요')
-      }
-    })
-    window.location.href = '/'
+    if ('Notification' in window) {
+      console.log('Current notification permission:', Notification.permission)
+      Notification.requestPermission().then((permission) => {
+        console.log('알림 허용이 되어있나요 :', permission)
+        if (permission === 'granted') {
+          alert('성공했어요')
+          // FCM 토큰 요청
+          requestForToken().then((token) => {
+            if (token) {
+              console.log('requestForToken 성공!')
+              customAxios.patch('/accounts/device-token', {
+                deviceToken: token,
+              })
+            }
+          })
+        }
+        if (permission === 'denied') {
+          console.log('알림이 거부되었어요')
+          alert('알림이 거부되었어요')
+        }
+      })
+    } else {
+      alert('알림이 안가용')
+      console.log('알림이 되지 않아요!')
+    }
+    /*window.location.href = '/'*/
   }
 
   // const accessToken: string | null = useRecoilValue(accessTokenState)

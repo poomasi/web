@@ -20,7 +20,7 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification.title
   const notificationOptions = {
     body: payload.notification.body,
-    icon: '/poomasi_logo.png',
+    icon: '/public/logo.png',
   }
 
   self.registration.showNotification(notificationTitle, notificationOptions)
