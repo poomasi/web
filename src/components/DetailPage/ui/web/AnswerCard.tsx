@@ -6,6 +6,10 @@ import { colors } from '@styles/foundation/color'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import dayjs from 'dayjs'
 import { getMobileVw } from '@utils/responsive.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type.ts'
+import { EditButton } from '@components/button/editButton/EditButton.tsx'
+import { EditActionButtons } from '@components/button/editButton/EditActionButtons.tsx'
+import { useAnswerEdit } from '@components/DetailPage/model/hooks/useAnswerEdit.ts'
 
 interface AnswerCardProps {
   question: GetQnaListResponse

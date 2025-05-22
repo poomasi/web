@@ -16,10 +16,7 @@ export function KakaoLogin() {
     localStorage.setItem('before_login_url', beforeLoginUrl)
   }
 
-<<<<<<< HEAD
   // 카카오 로그인 이동 버튼 클릭 핸들러
-=======
->>>>>>> feat/qna-edit
   const handleKakaoLoginClick = () => {
     window.location.href = KAKAO_LOGIN_URL
   }
