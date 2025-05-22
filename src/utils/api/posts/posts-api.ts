@@ -1,12 +1,12 @@
-import { CareerYearType, QnaAskerType } from '@api/enums'
-// import requestHandler from '@api/request-handler'
-import { GetQnaListResponse, GetQnaStatusResponse } from '@api/types' // API 응답 타입 정의
-import customAxios from '@api/customAxios.ts'
+import { CareerYearType, QnaAskerType } from '@utils/api/enums'
+// import requestHandler from '@utils/api/request-handler'
+import { GetQnaListResponse, GetQnaStatusResponse } from '@utils/api/types/qna.type'
+import customAxios from '@utils/api/customAxios.ts'
 
 const PATH = '/posts' // QnA 관련 API 요청의 기본 경로
 
 //질문을 등록할 때 서버에 전달할 데이터를 정의한 타입
-interface PostQnaParams {
+export interface PostQnaParams {
   id: string | undefined
   isSecret: boolean
   careerYear: CareerYearType
@@ -15,7 +15,7 @@ interface PostQnaParams {
 }
 
 //질문에 대한 답변을 등록한 뒤 서버로부터 받을 응답 데이터 구조
-type PostQnaAnswerResponse = {
+export type PostQnaAnswerResponse = {
   public_id: string
   answer_text: string
 }
@@ -69,9 +69,6 @@ export const PostsApi = {
     별도의 id나 type 같은 조건 없이, 전체 상태를 보여주는 거야.
   */
 
-  // @ 태경
-  // id 는 로그인 한 사람 아이디를 넣으면 됩니다.
-  // useAccountStore 에서 가져오면 됩니다.
   //질문에 답변 등록
   postQnaAnswer: async (id: string, answerText: string) => {
     return await customAxios.post<PostQnaAnswerResponse>(PATH + `/qna/${id}/answer`, {

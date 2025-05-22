@@ -5,6 +5,7 @@ import { Router } from '@routes/router'
 import { Toast } from '@components/toast'
 import { useEffect } from 'react'
 import { useMobileStore } from '@store/useMobileStore.ts'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
   const { setIsMobile } = useMobileStore()
@@ -20,11 +21,15 @@ function App() {
     }
   }, [])
 
+  const queryClient = new QueryClient()
+
   return (
     <ThemeProvider theme={globalTheme}>
-      <GlobalStyle />
-      <Router />
-      <Toast />
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <Router />
+        <Toast />
+      </QueryClientProvider>
     </ThemeProvider>
   )
 }

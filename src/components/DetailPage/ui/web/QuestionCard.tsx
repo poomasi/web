@@ -1,16 +1,20 @@
 import dayjs from 'dayjs'
-import { CareerYearType } from '@api/enums.ts'
+import { CareerYearType } from '@utils/api/enums.ts'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
 import { colors } from '@styles/foundation/color'
-import { GetQnaListResponse } from '@api/types.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import { useAccountStore } from '@store/account'
 import { getMobileVw } from '@utils/responsive'
+import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
+import { EditButton } from '@components/button/editButton/EditButton'
+import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
   isSecret?: boolean
+  onUpdateRequest?: () => void
 }
 
 export const getCareerYearString = (career_year: string) => {
@@ -28,19 +32,55 @@ export const getCareerYearString = (career_year: string) => {
   }
 }
 
-export function QuestionCard({ question, isSecret }: QuestionCardProps) {
+export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCardProps) {
   const { accessToken } = useAccountStore()
+
+  const { isEditing, editedText, showEditBtn, toggleEditBtn, handleEditClick, handleCancelClick, handleTextChange, handleSaveClick } =
+    useQuestionEdit(question, onUpdateRequest)
 
   return (
     <QnaCard className={'qna-card'}>
-      {/* 비밀 질문 인 경우, 블러처리 */}
       {isSecret && (
         <BlurOverlay>
           <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
+      <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
+      {/* <EditMenuWrapper>
+        <DotMenu src={editDots} alt="더보기" onClick={toggleEditBtn} />
+        {showEditBtn && <EditButton onClick={handleEditClick}>수정</EditButton>}
+      </EditMenuWrapper> */}
       <QnaHead>Q</QnaHead>
-      <QnaContentArea readOnly value={question.question_text} />
+      {isEditing ? (
+        <>
+          <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
+
+          <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
+          {/* <ButtonWrapper>
+            <QuestionAnswerButton
+              style={{
+                width: '10%',
+                display: 'flex',
+              }}
+              onClick={handleSaveClick}
+            >
+              저장
+            </QuestionAnswerButton>
+            <QuestionAnswerButton
+              style={{
+                width: '10%',
+                display: 'flex',
+              }}
+              onClick={handleCancelClick}
+            >
+              취소
+            </QuestionAnswerButton>
+          </ButtonWrapper> */}
+        </>
+      ) : (
+        <QnaContentArea readOnly value={question.question_text} />
+      )}
+
       <div style={{ display: 'flex' }}>
         <QnaContentCareer
           style={{
@@ -78,6 +118,19 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
     </QnaCard>
   )
 }
+
+const StyledTextarea = styled(TextareaAutosize)`
+  color: #28292a;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  width: 100%;
+`
 
 const QnaCard = styled(Card)`
   background-color: #f5f5f5;

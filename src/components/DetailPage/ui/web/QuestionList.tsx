@@ -1,12 +1,12 @@
 import { ProfileBadge } from '@components/badge'
-import { AccountType, QnaAskerType } from '@api/enums.ts'
-import { GetQnaListResponse } from '@api/types.ts'
+import { QnaAskerType, AccountType } from '@utils/api/enums.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
 // import TextareaAutosize from 'react-textarea-autosize'
 // import Card from '@mui/material/Card'
 import { useCallback, useEffect, useState } from 'react'
-import { RequestApi } from '@api/request-api.ts'
+import { RequestApi } from '@utils/api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { useParams } from 'react-router-dom'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
@@ -81,10 +81,10 @@ export function QuestionList() {
   }, [id, qnaAskerType])
 
   useEffect(() => {
-    if (teacherAccount) {
-      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === AccountType.MENTOR)
+    if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
+      setIsAnswerAuthority(teacherAccount.public_id === publicId)
     }
-  }, [teacherAccount])
+  }, [teacherAccount, accountType, publicId])
 
   useEffect(() => {
     if (isQuestionListFetched) {
@@ -119,7 +119,16 @@ export function QuestionList() {
           qnaData.data.map((qna) => (
             <QnaSection key={qna.public_id}>
               <QuestionArea>
-                <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} key={qna.public_id} />
+                <QuestionCard
+                  question={qna}
+                  isSecret={getIsSecretQuestion(qna)}
+                  key={qna.public_id}
+                  onUpdateRequest={() => {
+                    if (setIsQuestionListFetched) {
+                      setIsQuestionListFetched(true)
+                    }
+                  }}
+                />
                 {isAnswerAuthority && !qna.answer_text && (
                   <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
                 )}
@@ -127,10 +136,12 @@ export function QuestionList() {
 
               {qna.answer_text && (
                 <AnswerCard
+                  question={qna} // 추가: 수정하려면 답변 ID가 필요하니까
                   answerText={qna.answer_text}
                   isMyAnswer={getIsSecretQuestion(qna)}
                   teacherName={teacherAccount?.name ?? ''}
                   answerDate={qna.updated_at}
+                  onUpdateRequest={() => setIsQuestionListFetched(true)}
                 />
               )}
             </QnaSection>
@@ -181,7 +192,7 @@ const QuestionArea = styled.div`
   gap: 20px;
 `
 
-const QuestionAnswerButton = styled.div`
+export const QuestionAnswerButton = styled.div`
   display: inline-flex;
   padding: 12px 16px;
   justify-content: center;

@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 import { useEffect, useState } from 'react'
-import { GetQnaListResponse } from '@api/types.ts'
-import { QnaAskerType } from '@api/enums.ts'
-import { RequestApi } from '@api/request-api.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
+import { QnaAskerType } from '@utils/api/enums.ts'
+import { RequestApi } from '@utils/api/request-api.ts'
 
 export const useQuestionList = () => {
   const { id } = useParams()

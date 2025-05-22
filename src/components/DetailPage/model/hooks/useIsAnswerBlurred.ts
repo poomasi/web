@@ -2,8 +2,8 @@
 import { useCallback } from 'react'
 import { useAccountStore } from '@store/account'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
-import { GetQnaListResponse } from '@api/types'
-import { AccountType } from '@api/enums.ts'
+import { GetQnaListResponse } from '@utils/api/types/qna.type'
+import { AccountType } from '@utils/api/enums'
 
 export function useIsAnswerBlurred() {
   const { accountType, publicId } = useAccountStore()

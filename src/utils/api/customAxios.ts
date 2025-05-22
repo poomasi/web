@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios' //axios: HTTP 요청을 보낼 수 있게 해주는 라이브러리
-import { DefaultApiResponse } from '../types/api/DefaultApiResponse.ts'
+import { DefaultApiResponse } from '@utils/api/types/DefaultApiResponse'
 import { useAccountStore } from '@store/account'
 
 // @ts-ignore

@@ -2,8 +2,8 @@ import styled from '@emotion/styled'
 import { KAKAO_LOGIN_URL } from './variables'
 import { useLocation } from 'react-router-dom'
 import kakaoLogo from '@assets/images/kakao-logo.svg'
-import { ROUTES } from '@routes/ROUTES.ts'
-import { useMemo } from 'react'
+import { debounce } from 'lodash'
+import { DEFAULT_DEBOUNCE_TIME } from '@utils/constants'
 
 export function KakaoLogin() {
   const location = useLocation() //현재 페이지의 URL 정보를 가져오기

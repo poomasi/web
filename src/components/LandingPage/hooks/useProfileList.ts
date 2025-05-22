@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { AccountListResponse } from '@api/types.ts'
-import { RequestApi } from '@api/request-api.ts'
+import { AccountListResponse } from '@utils/api/types/account.types'
+import { RequestApi } from '@utils/api/request-api.ts'
 
 export function useProfileList() {
   const [selectedField, setSelectedField] = useState<string | null>(null)

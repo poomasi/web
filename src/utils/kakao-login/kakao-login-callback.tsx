@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { REDIRECT_URI, REST_API_KEY } from './variables'
-import { RequestApi } from '@api/request-api'
+import { RequestApi } from '@utils/api/request-api'
 import { useNavigate } from 'react-router-dom'
 import { useAccountStore } from '@store/account'
 import { useToastMessageStore } from '@store/toast'
