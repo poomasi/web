@@ -14,6 +14,7 @@ import { useKeyboardHeight } from '@components/DetailPage/model/hooks/usekeyboar
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { CommonSelect } from '@components/CommonSelect/CommonSelect'
 import { usePostQuestion } from '@utils/api/posts/usePostQuestion'
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from '@utils/api/enums'
 
 const QUESTION_MAX_LENGTH: number = 500
 
@@ -95,21 +96,13 @@ export function QuestionField() {
             title={'개발 경력'}
             value={careerYear}
             onChange={(selectValue) => setCareerYear(selectValue as CareerYearType)}
-            options={[
-              { value: CareerYearType.ACADEMIC, label: '대학생' },
-              { value: CareerYearType.JOB_SEEKER, label: '취준생' },
-              { value: CareerYearType.JUNIOR, label: '신입~3년차' },
-              { value: CareerYearType.MIDDLE, label: '3년차 이상' },
-            ]}
+            options={CAREER_YEAR_OPTIONS}
           />
           <CommonSelect
             title={'전공 사항'}
             value={isMajor ? AskerSpecificType.SPECIALTY : AskerSpecificType.NONE_SPECIALTY}
             onChange={(selectValue) => setIsMajor(selectValue === AskerSpecificType.SPECIALTY)}
-            options={[
-              { value: AskerSpecificType.SPECIALTY, label: '전공자' },
-              { value: AskerSpecificType.NONE_SPECIALTY, label: '비전공자' },
-            ]}
+            options={SPECIFIC_TYPE_OPTIONS}
           />
         </SelectContainer>
       </AskerInfo>

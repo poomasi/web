@@ -4,8 +4,8 @@ import dropdownIcon from '@assets/images/select-dropdown.svg'
 import { colors } from '@styles/foundation/color.ts'
 
 type CommonSelectProps = {
-  title: string
-  value: string
+  title: string //셀렉트 박스의 제목
+  value: string //현재 선택된 값
   options: { value: string; label: string }[]
   onChange: (value: string) => void
 }
@@ -13,7 +13,8 @@ type CommonSelectProps = {
 export function CommonSelect({ title, value, options, onChange }: CommonSelectProps) {
   const [isSelectShow, setIsSelectShow] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
-  const showValue = useMemo(() => options.find((option) => option.value === value)?.label ?? '', [value])
+  const optionValue = useMemo(() => options.find((option) => option.value === value)?.label ?? '', [value])
+  //앞의 결과가 null 또는 undefined면, 대신에 빈 문자열 ''을 써라
 
   const handleValueClick = () => {
     setIsSelectShow((prev) => !prev)
@@ -25,14 +26,13 @@ export function CommonSelect({ title, value, options, onChange }: CommonSelectPr
   }
 
   useEffect(() => {
-    // 외부 클릭 감지를 위한 이벤트 핸들러
+    // 외부 클릭 감지를 위한 이벤트 핸들러: 드롭다운 메뉴 바깥을 클릭했을 때 메뉴를 닫기 위해
     const handleClickOutside = (event: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
         setIsSelectShow(false)
       }
     }
 
-    // 이벤트 리스너 등록
     document.addEventListener('mousedown', handleClickOutside)
 
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
@@ -46,7 +46,7 @@ export function CommonSelect({ title, value, options, onChange }: CommonSelectPr
       <CommonSelectTitle>{title}</CommonSelectTitle>
       <CustomSelectContainer ref={selectRef}>
         <CustomSelectValue onClick={handleValueClick}>
-          <span>{showValue}</span>
+          <span>{optionValue}</span>
           <img src={dropdownIcon} />
         </CustomSelectValue>
         {isSelectShow && (
