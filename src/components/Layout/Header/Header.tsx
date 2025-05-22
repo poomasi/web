@@ -5,7 +5,7 @@ import publicLogo from '@assets/svgs/public-logo.svg'
 // import { getMobileVw } from '@utils/responsive'
 import { useAccountStore } from '@store/account'
 import { requestForToken } from '@utils/fcm/firebase.ts'
-import customAxios from '@api/customAxios.ts'
+import customAxios from '@utils/api/customAxios.ts'
 
 export default function Header() {
   const { accessToken, resetaccessToken } = useAccountStore()
