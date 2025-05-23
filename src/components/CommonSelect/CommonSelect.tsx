@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import styled from '@emotion/styled'
 import dropdownIcon from '@assets/images/select-dropdown.svg'
 import { colors } from '@styles/foundation/color.ts'
+// import {CAREER_YEAR_OPTIONS} from '@utils/api/enums'
 
 type CommonSelectProps = {
   title: string //셀렉트 박스의 제목
