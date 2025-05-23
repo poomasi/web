@@ -56,26 +56,6 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
           <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
 
           <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
-          {/* <ButtonWrapper>
-            <QuestionAnswerButton
-              style={{
-                width: '10%',
-                display: 'flex',
-              }}
-              onClick={handleSaveClick}
-            >
-              저장
-            </QuestionAnswerButton>
-            <QuestionAnswerButton
-              style={{
-                width: '10%',
-                display: 'flex',
-              }}
-              onClick={handleCancelClick}
-            >
-              취소
-            </QuestionAnswerButton>
-          </ButtonWrapper> */}
         </>
       ) : (
         <QnaContentArea readOnly value={question.question_text} />

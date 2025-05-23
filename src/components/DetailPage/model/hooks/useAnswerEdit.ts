@@ -29,7 +29,7 @@ export function useAnswerEdit(publicId: string, initialText: string, onUpdateReq
     try {
       const response: PostQnaAnswerResponse = await EditsApi.patchQnaAnswer(publicId, editedText)
       setIsEditing(false)
-      if (onUpdateRequest) onUpdateRequest()
+      if (onUpdateRequest) onUpdateRequest() //부모(또는 상위 컴포넌트)에서 전달한 함수가 있다면 실행: 콜백 함수 호출
 
       // 서버에서 최신 answer_text 내려줬다면 업데이트
       if (response?.answer_text) {
