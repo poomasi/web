@@ -8,6 +8,8 @@ export function useAnswerEdit(publicId: string, initialText: string, onUpdateReq
   const [editedText, setEditedText] = useState(initialText)
   const [showEditBtn, setShowEditBtn] = useState(false)
 
+  //initialText: 외부에서 받은 값 (비교/초기화용)
+  // editedText: 사용자가 수정하는 로컬 값
   useEffect(() => {
     setEditedText(initialText)
   }, [initialText])
@@ -19,10 +21,6 @@ export function useAnswerEdit(publicId: string, initialText: string, onUpdateReq
   const handleCancelClick = () => {
     setIsEditing(false)
     setEditedText(initialText)
-  }
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEditedText(e.target.value)
   }
 
   const handleSaveClick = async () => {
@@ -38,6 +36,11 @@ export function useAnswerEdit(publicId: string, initialText: string, onUpdateReq
     } catch (error) {
       console.error('답변 수정 실패:', error)
     }
+  }
+
+  //수정내용 화면에 실시간 반영
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditedText(e.target.value)
   }
 
   const toggleEditBtn = () => setShowEditBtn((prev) => !prev)
