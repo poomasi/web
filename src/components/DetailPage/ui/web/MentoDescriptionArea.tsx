@@ -16,7 +16,8 @@ export function MentoDescriptionArea({ value, isEditing, onChange }: Props) {
 
 const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: 140px;
+  min-height: 300px;
+  height: auto;
   border: 1px solid #dadce0;
   /* background: #f6f6f6; */
   resize: none;
@@ -33,7 +34,7 @@ const StyledTextarea = styled.textarea`
 `
 const DescriptionBox = styled.div`
   width: 100%;
-  min-height: 140px;
+  min-height: 300px;
   /* background: #f6f6f6; */
   padding: 16px;
   margin-top: 12px;

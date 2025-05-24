@@ -33,8 +33,10 @@ export function TeacherIntroduce() {
           <HeaderJob className="ProfileSection-second">{'現 ' + teacherAccount?.company1 + ' ' + teacherAccount?.job1}</HeaderJob>
         </HeaderBody>
       </Header>
-      {isEditable && <EditPencilButton isEditing={isEditing} onClick={handleEditClick} loading={loading} />}
-      <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.45rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.45rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
+        {isEditable && <EditPencilButton isEditing={isEditing} onClick={handleEditClick} loading={loading} />}
+      </div>
       {/* <Description readOnly value={teacherAccount?.description} /> */}
       <MentoDescriptionArea value={editedText} isEditing={isEditing} onChange={handleTextChange} />
     </>

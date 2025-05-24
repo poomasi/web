@@ -1,17 +1,19 @@
 import styled from '@emotion/styled'
-import editPensil from '@assets/images/pensil.svg'
+import editPencil from '@assets/images/pencil.svg'
+import pencilSaveIcon from '@assets/images/pencil-save.svg'
 
-interface EditPensilButtonProps {
+interface EditPencilButtonProps {
   isEditing: boolean
   onClick: () => void
   loading?: boolean
 }
 
-export function EditPencilButton({ isEditing, onClick, loading }: EditPensilButtonProps) {
+export function EditPencilButton({ isEditing, onClick, loading }: EditPencilButtonProps) {
   return (
     <Wrapper onClick={onClick} disabled={loading}>
-      <EditPensilBtn src={editPensil} alt="수정하기" />
-      <EditAction>{isEditing ? '저장' : '수정'}</EditAction>
+      {isEditing ? <EditPencilBtn src={pencilSaveIcon} alt="저장하기" /> : <EditPencilBtn src={editPencil} alt="수정하기" />}
+
+      <EditAction isEditing={isEditing}>{isEditing ? '저장' : '수정'}</EditAction>
     </Wrapper>
   )
 }
@@ -25,13 +27,13 @@ const Wrapper = styled.button`
   padding: 0;
 `
 
-const EditPensilBtn = styled.img`
+const EditPencilBtn = styled.img`
   cursor: pointer;
   margin-right: 8px;
 `
 
-const EditAction = styled.div`
-  font-size: 14px;
-  color: #777;
+const EditAction = styled.div<{ isEditing: boolean }>`
+  font-size: 16px;
+  color: ${({ isEditing }) => (isEditing ? '#3ecdba' : '#9B9EA2')};
   cursor: pointer;
 `
