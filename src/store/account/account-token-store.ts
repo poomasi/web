@@ -9,8 +9,8 @@ type accessTokenStore = {
   setPublicId: (id: string) => void
   resetaccessToken: () => void
   // 추가
-  accountType: AccountType.MENTOR | AccountType.USER | null
-  setAccountType: (type: AccountType.MENTOR | AccountType.USER) => void
+  accountType: AccountType.MENTOR | AccountType.USER | AccountType.STAFF | null
+  setAccountType: (type: AccountType.MENTOR | AccountType.USER | AccountType.STAFF) => void
   nickname: string | null
   setNickname: (nickname: string) => void
 }

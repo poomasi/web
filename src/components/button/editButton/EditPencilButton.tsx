@@ -7,7 +7,7 @@ interface EditPensilButtonProps {
   loading?: boolean
 }
 
-export function EditPensilButton({ isEditing, onClick, loading }: EditPensilButtonProps) {
+export function EditPencilButton({ isEditing, onClick, loading }: EditPensilButtonProps) {
   return (
     <Wrapper onClick={onClick} disabled={loading}>
       <EditPensilBtn src={editPensil} alt="수정하기" />

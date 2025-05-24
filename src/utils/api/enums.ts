@@ -9,6 +9,7 @@ export enum HttpMethod {
 export enum AccountType {
   USER = 'USER',
   MENTOR = 'MENTOR',
+  STAFF = 'STAFF',
 }
 
 export enum CareerYearType {

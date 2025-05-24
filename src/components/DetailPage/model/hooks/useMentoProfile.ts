@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { EditsApi } from '@utils/api/edits/edit-api'
+import { useToastMessageStore } from '@store/toast'
 
 export function useMentoProfileEdit(initialDescription: string, onUpdateRequest?: () => void) {
   const [isEditing, setIsEditing] = useState(false)
@@ -10,6 +11,8 @@ export function useMentoProfileEdit(initialDescription: string, onUpdateRequest?
     setEditedText(initialDescription)
   }, [initialDescription])
 
+  const { setSuccessToastMessage } = useToastMessageStore()
+
   const handleEditClick = async () => {
     if (!isEditing) {
       setIsEditing(true)
@@ -19,6 +22,7 @@ export function useMentoProfileEdit(initialDescription: string, onUpdateRequest?
         await EditsApi.patchMentoProfile(editedText)
         setIsEditing(false)
         setLoading(false)
+        setSuccessToastMessage('저장되었습니다')
         if (onUpdateRequest) onUpdateRequest()
       } catch (error) {
         setLoading(false)
