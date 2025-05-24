@@ -21,7 +21,15 @@ export const EditsApi = {
   },
 
   //품앗이꾼 프로필 수정용
-  patchMentoProfile: async (profile: {
+  patchMentoProfile: async ({
+    description,
+    profile_image,
+    field,
+    company1,
+    job1,
+    company2,
+    job2,
+  }: {
     description: string
     profile_image: string | null
     field: string | null
@@ -32,8 +40,14 @@ export const EditsApi = {
   }): Promise<void> => {
     return await customAxios
       .patch<void>(`/api/v1/accounts/mentor`, {
-        profile,
+        description,
+        profile_image,
+        field,
+        company1,
+        job1,
+        company2,
+        job2,
       })
-      .then((res) => res.data) //일관성을 위해 통일: 사용하는 모든 API가 .data만 반환하는 구조가 된다면 유지보수에 유리
+      .then((res) => res.data)
   },
 }
