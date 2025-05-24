@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import TextareaAutosize from 'react-textarea-autosize'
+// import TextareaAutosize from 'react-textarea-autosize'
 import { getMobileVw } from '@utils/responsive'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { useAccountStore } from '@store/account'
@@ -150,26 +150,3 @@ const HeaderJob = styled.div`
     font-size: 15px;
   }
 `
-
-// const Description = styled(TextareaAutosize)`
-//   box-sizing: border-box;
-//   width: 100%;
-//   margin-top: 10px;
-//   border: none;
-//   outline: none;
-//   resize: none;
-//   padding: 0;
-
-//   color: #4e5053;
-
-//   font-size: 22px;
-//   font-style: normal;
-//   font-weight: 500;
-//   line-height: 150%; /* 33px */
-
-//   @media (max-width: 1024px) {
-//     font-size: 14px;
-//     line-height: 150%;
-//   }
-//   /* background-color: green; */
-// `

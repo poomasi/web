@@ -39,7 +39,7 @@ export const EditsApi = {
     job2: string | null
   }): Promise<void> => {
     return await customAxios
-      .patch<void>(`/api/v1/accounts/mentor`, {
+      .patch<void>(`/accounts/mentor`, {
         description,
         profile_image,
         field,

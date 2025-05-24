@@ -61,7 +61,7 @@ export function QuestionField() {
 
   const postQuestion = useCallback(() => {
     // console.log('nickname:', nickname)
-    if (!nickname) return
+    // if (!nickname) return
     postQuestionToServer({
       nickname,
       isSecret,

@@ -7,14 +7,18 @@ interface Props {
 }
 
 export function MentoDescriptionArea({ value, isEditing, onChange }: Props) {
-  return <StyledTextarea value={value} readOnly={!isEditing ? true : undefined} onChange={onChange} />
+  if (isEditing) {
+    return <StyledTextarea value={value} onChange={onChange} placeholder="자기소개를 입력하세요." autoFocus />
+  }
+
+  return <DescriptionBox>{value && value.trim() !== '' ? value : '아직 작성된 소개가 없습니다.'}</DescriptionBox>
 }
 
 const StyledTextarea = styled.textarea`
   width: 100%;
   min-height: 140px;
-  border: none;
-  background: #f6f6f6;
+  border: 1px solid #dadce0;
+  /* background: #f6f6f6; */
   resize: none;
   padding: 16px;
   margin-top: 12px;
@@ -26,4 +30,18 @@ const StyledTextarea = styled.textarea`
   &:read-only {
     cursor: default;
   }
+`
+const DescriptionBox = styled.div`
+  width: 100%;
+  min-height: 140px;
+  /* background: #f6f6f6; */
+  padding: 16px;
+  margin-top: 12px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  color: #333;
+  white-space: pre-wrap; // 줄바꿈 반영
+  font-family: inherit;
+  display: flex;
+  align-items: flex-start;
 `
