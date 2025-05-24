@@ -12,10 +12,10 @@ export enum AccountType {
 }
 
 export enum CareerYearType {
-  ACADEMIC = 'ACADEMIC',
-  JOB_SEEKER = 'JOB_SEEKER',
-  JUNIOR = 'JUNIOR',
-  MIDDLE = 'MIDDLE',
+  ACADEMIC = 'U',
+  JOB_SEEKER = 'R',
+  JUNIOR = 'N',
+  MIDDLE = 'S',
 }
 
 export const CAREER_YEAR_OPTIONS = [

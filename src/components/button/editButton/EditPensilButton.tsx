@@ -1,36 +1,28 @@
 import styled from '@emotion/styled'
 import editPensil from '@assets/images/pensil.svg'
-import { useState } from 'react'
 
-type EditPensilButtonProps = {
-  onToggle: () => void
-  onEditClick: () => void
-  // showEditBtn: boolean
+interface EditPensilButtonProps {
+  isEditing: boolean
+  onClick: () => void
+  loading?: boolean
 }
 
-export function EditPensilButton({ onToggle, onEditClick }: EditPensilButtonProps) {
-  const [isEditing, setIsEditing] = useState(false)
-
-  const handleClick = () => {
-    if (isEditing) {
-      onEditClick()
-    } else {
-      onToggle()
-    }
-    setIsEditing((prev) => !prev)
-  }
-
+export function EditPensilButton({ isEditing, onClick, loading }: EditPensilButtonProps) {
   return (
-    <Wrapper onClick={handleClick}>
+    <Wrapper onClick={onClick} disabled={loading}>
       <EditPensilBtn src={editPensil} alt="수정하기" />
       <EditAction>{isEditing ? '저장' : '수정'}</EditAction>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
   display: flex;
   align-items: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
 `
 
 const EditPensilBtn = styled.img`

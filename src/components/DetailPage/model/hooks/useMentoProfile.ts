@@ -1,33 +1,29 @@
 import { useState, useEffect } from 'react'
 import { EditsApi } from '@utils/api/edits/edit-api'
-import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 
 export function useMentoProfileEdit(initialDescription: string, onUpdateRequest?: () => void) {
-  const { teacherAccount } = useDetailPageContext()
   const [isEditing, setIsEditing] = useState(false)
   const [editedText, setEditedText] = useState(initialDescription)
-  const [changeBtnText, setChangeBtnText] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setEditedText(initialDescription)
   }, [initialDescription])
 
-  const handleEditClick = () => {
-    setIsEditing(true)
-    setChangeBtnText(true)
-  }
-
-  const handleSaveClick = async () => {
-    try {
-      const response: teacherAccount.AccountResponse.description = await EditsApi.patchMentoProfile(editedText)
-      setIsEditing(false)
-      if (onUpdateRequest) onUpdateRequest()
-
-      if (response.description) {
-        setEditedText(response.description)
+  const handleEditClick = async () => {
+    if (!isEditing) {
+      setIsEditing(true)
+    } else {
+      try {
+        setLoading(true)
+        await EditsApi.patchMentoProfile(editedText)
+        setIsEditing(false)
+        setLoading(false)
+        if (onUpdateRequest) onUpdateRequest()
+      } catch (error) {
+        setLoading(false)
+        console.error('프로필 수정 실패:', error)
       }
-    } catch (error) {
-      console.error('프로필 수정 실패:', error)
     }
   }
 
@@ -38,9 +34,8 @@ export function useMentoProfileEdit(initialDescription: string, onUpdateRequest?
   return {
     isEditing,
     editedText,
-    changeBtnText,
+    loading,
     handleEditClick,
     handleTextChange,
-    handleSaveClick,
   }
 }

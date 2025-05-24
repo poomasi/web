@@ -11,6 +11,8 @@ type accessTokenStore = {
   // 추가
   accountType: AccountType.MENTOR | AccountType.USER | null
   setAccountType: (type: AccountType.MENTOR | AccountType.USER) => void
+  nickname: string | null
+  setNickname: (nickname: string) => void
 }
 
 export const useAccountStore = create<accessTokenStore>()(
@@ -18,15 +20,19 @@ export const useAccountStore = create<accessTokenStore>()(
     (set) => ({
       accessToken: null,
       publicId: null,
-      accountType: null, // 초기값
+      accountType: null,
+      nickname: null, // 초기값
       setaccessToken: (token) => set({ accessToken: token }),
       setPublicId: (id) => set({ publicId: id }),
-      setAccountType: (type) => set({ accountType: type }), // 함수 추가
+      setAccountType: (type) => set({ accountType: type }),
+      setNickname: (nickname) => set({ nickname }),
+      // 함수 추가
       resetaccessToken: () => {
         set({
           accessToken: null,
           publicId: null,
-          accountType: null, //추가
+          accountType: null,
+          nickname: null,
         })
       },
     }),
