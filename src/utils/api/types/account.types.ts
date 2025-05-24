@@ -28,6 +28,8 @@ export interface AccountResponse {
   job1: string
   description: string
   is_vacation: boolean
+  company2?: string
+  job2?: string
 }
 
 // export interface GetQnaListResponse {
