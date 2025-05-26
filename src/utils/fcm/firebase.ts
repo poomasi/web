@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getMessaging, getToken, onMessage } from 'firebase/messaging'
+import { getMessaging, getToken } from 'firebase/messaging'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC7wn9t3AQk_DFs80d0jhp9wm3rGR90kys',
@@ -39,12 +39,3 @@ export const requestForToken = async () => {
     console.log('토큰 발급 중 에러 발생:', err)
   }
 }
-
-// foreground 메시지 수신
-export const onMessageListener = () =>
-  new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
-      console.log('Foreground message received:', payload)
-      resolve(payload)
-    })
-  })

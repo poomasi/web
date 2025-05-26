@@ -21,7 +21,7 @@ export default function Header() {
             if (token) {
               console.log('requestForToken 성공!')
               customAxios.patch('/accounts/device-token', {
-                deviceToken: token,
+                device_token: token,
               })
             }
           })
@@ -38,11 +38,8 @@ export default function Header() {
     /*window.location.href = '/'*/
   }
 
-  // const accessToken: string | null = useRecoilValue(accessTokenState)
-
   const handleLogout = () => {
     resetaccessToken()
-    // localStorage.removeItem('account-token-storage')
     window.location.reload()
   }
 
