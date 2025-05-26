@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
 import { useToastMessageStore } from '@store/toast'
 import { useAccountStore } from '@store/account'
 // import { RequestApi } from '@utils/api/request-api.ts'
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { getMobileVw } from '@utils/responsive'
 import optionCheck from '@assets/images/option-check.svg'
@@ -22,7 +22,7 @@ const QUESTION_MAX_LENGTH: number = 500
 export function QuestionField() {
   const { isMobile } = useMobileStore()
   const keyboardHeight = useKeyboardHeight(isMobile)
-  const { id } = useParams()
+  // const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accessToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
@@ -30,6 +30,7 @@ export function QuestionField() {
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
   const { setIsQuestionListFetched } = useDetailPageContext()
+  const { nickname } = useAccountStore()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,15 +61,15 @@ export function QuestionField() {
   )
 
   const postQuestion = useCallback(() => {
-    if (!id) return
+    if (!nickname) return
     postQuestionToServer({
-      id,
+      nickname,
       isSecret,
       careerYear,
       isMajor,
       questionText,
     })
-  }, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
+  }, [nickname, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
 
   /*
   const postingQuestion = async () => {

@@ -7,7 +7,8 @@ const PATH = '/posts' // QnA 관련 API 요청의 기본 경로
 
 //질문을 등록할 때 서버에 전달할 데이터를 정의한 타입
 export interface PostQnaParams {
-  id: string | undefined
+  // id: string | undefined
+  nickname: string | null
   isSecret: boolean
   careerYear: CareerYearType
   isMajor: boolean
@@ -22,9 +23,9 @@ export type PostQnaAnswerResponse = {
 
 //질문 등록하는 API
 export const PostsApi = {
-  postQna: async ({ id, isSecret, careerYear, isMajor, questionText }: PostQnaParams) => {
+  postQna: async ({ nickname, isSecret, careerYear, isMajor, questionText }: PostQnaParams) => {
     return await customAxios.post<null>(PATH + '/qna', {
-      nickname: id,
+      nickname,
       is_secret: isSecret,
       career_year: careerYear,
       is_major: isMajor,

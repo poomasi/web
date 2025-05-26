@@ -25,12 +25,14 @@ export function QuestionList() {
     isInitFetched: boolean
     isApiError: boolean
   }>({
+    //초기값
     data: [],
     isApiError: false,
     isInitFetched: false,
   })
   //Q&A 리스트 상태관리
-  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
+  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL)
+  //QnA 필터 상태 관리
   const [answerModalData, setAnswerModalData] = useState<GetQnaListResponse | null>(null)
   const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 

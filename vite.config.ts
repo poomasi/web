@@ -99,7 +99,7 @@ export default defineConfig({
       },
 
       devOptions: {
-        enabled: true, //개발 환경에서는 서비스워커 비활성화 -> 캐시 때문에 수정한 게 반영 안 되는 문제가 생기기 쉬워서!
+        enabled: false, //개발 환경에서는 서비스워커 비활성화 -> 캐시 때문에 수정한 게 반영 안 되는 문제가 생기기 쉬워서!
         navigateFallback: 'index.html', //404에러나면 항상 index.html로 fallback
         suppressWarnings: true, //콘솔 경고를 안 보이게 함 -> 개발 중 경고 너무 많으면 불편해서
         type: 'module', //최신 모듈 시스템 쓰고 싶을 때 설정
