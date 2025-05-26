@@ -16,13 +16,14 @@ import { useDetailPageContext } from '@components/DetailPage/model/provider/Deta
 import { CommonSelect } from '@components/CommonSelect/CommonSelect'
 import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from '@utils/api/enums'
 import { usePostQuestion } from '@utils/api/posts/usePostQuestion'
+import { useParams } from 'react-router-dom'
 
 const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
   const { isMobile } = useMobileStore()
   const keyboardHeight = useKeyboardHeight(isMobile)
-  // const { id } = useParams()
+  const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accessToken } = useAccountStore()
   const [questionText, setQuestionText] = useState<string>('')
@@ -30,7 +31,6 @@ export function QuestionField() {
   const [careerYear, setCareerYear] = useState<CareerYearType>(CareerYearType.ACADEMIC)
   const [isMajor, setIsMajor] = useState<boolean>(true)
   const { setIsQuestionListFetched } = useDetailPageContext()
-  const { nickname } = useAccountStore()
 
   //질문글 등록
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,15 +61,15 @@ export function QuestionField() {
   )
 
   const postQuestion = useCallback(() => {
-    if (!nickname) return
+    if (!id) return
     postQuestionToServer({
-      nickname,
+      nickname: id,
       isSecret,
       careerYear,
       isMajor,
       questionText,
     })
-  }, [nickname, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
+  }, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
 
   /*
   const postingQuestion = async () => {
