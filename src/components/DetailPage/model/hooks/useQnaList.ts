@@ -28,5 +28,7 @@ export function useQnaList(qnaAskerType: QnaAskerType, teacherId: string | undef
       return res.data
     },
     enabled: !!teacherId, // id가 있어야 쿼리 실행
+    staleTime: 1000 * 60, // 1분 캐싱
+    retry: 1,
   })
 }

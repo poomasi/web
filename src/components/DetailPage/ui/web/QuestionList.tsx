@@ -6,55 +6,39 @@ import Grid from '@mui/material/Grid'
 // import TextareaAutosize from 'react-textarea-autosize'
 // import Card from '@mui/material/Card'
 import { useCallback, useEffect, useState } from 'react'
-import { RequestApi } from '@utils/api/request-api.ts'
+// import { RequestApi } from '@utils/api/request-api.ts'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { useParams } from 'react-router-dom'
 import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
 import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
 import { QuestionAnswerModal } from '@components/DetailPage/ui/web/QuestionAnswerModal.tsx'
 import { useAccountStore } from '@store/account'
-import { match, P } from 'ts-pattern'
+// import { match, P } from 'ts-pattern'
+import { useQnaList } from '@components/DetailPage/model/hooks/useQnaList'
 
 export function QuestionList() {
   const { id } = useParams()
   const { publicId, accountType } = useAccountStore()
   const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } = useDetailPageContext()
-  // @todo react-query로 변경
-  const [qnaDataList, setQnaDataList] = useState<{
-    data: GetQnaListResponse[]
-    isInitFetched: boolean
-    isApiError: boolean
-  }>({
-    //초기값
-    data: [],
-    isApiError: false,
-    isInitFetched: false,
-  })
+
+  // const [qnaDataList, setQnaDataList] = useState<{
+  //   data: GetQnaListResponse[]
+  //   isInitFetched: boolean
+  //   isApiError: boolean
+  // }>({
+  //   //초기값
+  //   data: [],
+  //   isApiError: false,
+  //   isInitFetched: false,
+  // })
   //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL)
-  //QnA 필터 상태 관리
   const [answerModalData, setAnswerModalData] = useState<GetQnaListResponse | null>(null)
   const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 
-  const getTeacherQnaList = async () => {
-    try {
-      const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-      setQnaDataList(() => ({
-        data: qnas.data,
-        isApiError: false,
-        isInitFetched: true,
-      }))
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('', error)
-        setQnaDataList((prev) => ({
-          ...prev,
-          isApiError: true,
-          isInitFetched: false,
-        }))
-      }
-    }
-  }
+  const { data: qnaData, isLoading, isError, refetch } = useQnaList(qnaAskerType, id)
+
+  // 데이터 refetch
 
   const handleAnswerModalOpenClick = (question: GetQnaListResponse) => {
     setAnswerModalData(question)
@@ -78,10 +62,12 @@ export function QuestionList() {
     return true
   }, [])
 
-  //QnA 리스트를 다시 불러옴
+  //데이터 refetch
   useEffect(() => {
-    getTeacherQnaList()
-  }, [id, qnaAskerType])
+    if (isQuestionListFetched) {
+      refetch().finally(() => setIsQuestionListFetched(false))
+    }
+  }, [isQuestionListFetched, refetch, setIsQuestionListFetched])
 
   //답변 권한 상태 업데이트
   /*
@@ -95,14 +81,6 @@ export function QuestionList() {
       setIsAnswerAuthority(teacherAccount.public_id === publicId)
     }
   }, [teacherAccount, accountType, publicId])
-
-  //수정 후에 최신 QnA 리스트로 갱신
-  useEffect(() => {
-    if (isQuestionListFetched) {
-      //요청이 끝나면 다시 false로 변경
-      getTeacherQnaList().finally(() => setIsQuestionListFetched(false))
-    }
-  }, [isQuestionListFetched])
 
   return (
     <QuestionListBody>
@@ -123,42 +101,43 @@ export function QuestionList() {
         <ProfileBadge onClick={() => setQnaAskerType(QnaAskerType.ME)} badgeString={'내 질문'} selected={QnaAskerType.ME === qnaAskerType} />
       </BadgeContainer>
 
-      {match(qnaDataList)
-        .with({ isApiError: true }, () => <InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>)
-        .with({ isInitFetched: false }, () => <InfoText>질문을 가져오는 중입니다..</InfoText>)
-        .with({ data: P.when((dataList) => dataList.length === 0) }, () => <InfoText>아직 질문이 없네요 :D</InfoText>)
-        .otherwise((qnaData) =>
-          qnaData.data.map((qna) => (
-            <QnaSection key={qna.public_id}>
-              <QuestionArea>
-                <QuestionCard
-                  question={qna}
-                  isSecret={getIsSecretQuestion(qna)}
-                  key={qna.public_id}
-                  onUpdateRequest={() => {
-                    if (setIsQuestionListFetched) {
-                      setIsQuestionListFetched(true)
-                    }
-                  }}
-                />
-                {isAnswerAuthority && !qna.answer_text && (
-                  <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
-                )}
-              </QuestionArea>
-
-              {qna.answer_text && (
-                <AnswerCard
-                  question={qna} // 추가: 수정하려면 답변 ID가 필요하니까
-                  answerText={qna.answer_text}
-                  isMyAnswer={getIsSecretQuestion(qna)}
-                  teacherName={teacherAccount?.name ?? ''}
-                  answerDate={qna.updated_at}
-                  onUpdateRequest={() => setIsQuestionListFetched(true)}
-                />
+      {isError && <InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>}
+      {isLoading && <InfoText>질문을 가져오는 중입니다..</InfoText>}
+      {!isLoading && !isError && qnaData?.length === 0 && <InfoText>아직 질문이 없네요 :D</InfoText>}
+      {!isLoading &&
+        !isError &&
+        qnaData &&
+        qnaData.length > 0 &&
+        qnaData.map((qna) => (
+          <QnaSection key={qna.public_id}>
+            <QuestionArea>
+              <QuestionCard
+                question={qna}
+                isSecret={getIsSecretQuestion(qna)}
+                key={qna.public_id}
+                onUpdateRequest={() => {
+                  if (setIsQuestionListFetched) {
+                    setIsQuestionListFetched(true)
+                  }
+                }}
+              />
+              {isAnswerAuthority && !qna.answer_text && (
+                <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
               )}
-            </QnaSection>
-          )),
-        )}
+            </QuestionArea>
+
+            {qna.answer_text && (
+              <AnswerCard
+                question={qna} // 추가: 수정하려면 답변 ID가 필요하니까
+                answerText={qna.answer_text}
+                isMyAnswer={getIsSecretQuestion(qna)}
+                teacherName={teacherAccount?.name ?? ''}
+                answerDate={qna.updated_at}
+                onUpdateRequest={() => setIsQuestionListFetched(true)}
+              />
+            )}
+          </QnaSection>
+        ))}
       {answerModalData !== null && <QuestionAnswerModal question={answerModalData} setAnswerModalClose={() => setAnswerModalData(null)} />}
     </QuestionListBody>
   )
