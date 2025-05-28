@@ -62,7 +62,7 @@ export function QuestionList() {
 
   const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
     if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) {
-      return false
+      return false //비밀 여부 상관없이 볼 수 있음
     }
 
     // 비밀질문이 아닌 경우 모두 확인 가능
@@ -78,18 +78,28 @@ export function QuestionList() {
     return true
   }, [])
 
+  //QnA 리스트를 다시 불러옴
   useEffect(() => {
     getTeacherQnaList()
   }, [id, qnaAskerType])
 
+  //답변 권한 상태 업데이트
+  /*
+  teacherAccount:멘토 계정 정보 (job1, ,company1 등)
+  accountType: 계정 종류 (MENTOR, STAFF 등)
+  accountType: "MENTOR" 또는 "STAFF"에 해당할 때만 아래 로직 실행
+  */
   useEffect(() => {
     if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
+      //본인에게 달린 질문에만 답변가능
       setIsAnswerAuthority(teacherAccount.public_id === publicId)
     }
   }, [teacherAccount, accountType, publicId])
 
+  //수정 후에 최신 QnA 리스트로 갱신
   useEffect(() => {
     if (isQuestionListFetched) {
+      //요청이 끝나면 다시 false로 변경
       getTeacherQnaList().finally(() => setIsQuestionListFetched(false))
     }
   }, [isQuestionListFetched])
