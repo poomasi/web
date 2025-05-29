@@ -31,6 +31,10 @@ const StyledTextarea = styled.textarea`
   &:read-only {
     cursor: default;
   }
+
+  @media (max-width: 1024px) {
+    min-height: 200px;
+  }
 `
 const DescriptionBox = styled.div`
   width: 100%;
