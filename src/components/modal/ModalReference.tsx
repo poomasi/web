@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { getMobileVw } from '@utils/responsive.ts'
+// import { getMobileVw } from '@utils/responsive.ts'
 import { CloseButton } from '@components/button'
 import { useMobileStore } from '@store/useMobileStore'
 import { createPortal } from 'react-dom'
@@ -85,7 +85,7 @@ const ModalWrapper = styled.section`
   left: 50%;
   transform: translate(-50%);
   z-index: 9999999999;
-  width: ${getMobileVw(300)};
+  width: 75rem;
   height: auto;
   background-color: #fff;
   display: flex;

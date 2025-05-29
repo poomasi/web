@@ -55,5 +55,5 @@ const GuideInfoText = styled.div`
   font-size: 22px;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 33px */
+  line-height: 200%; /* 33px */
 `
