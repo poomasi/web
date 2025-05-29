@@ -31,7 +31,7 @@ export function TeacherIntroduce() {
         </HeaderBody>
       </Header>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.45rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
+        <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.1rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
         {isEditable && <EditPencilButton isEditing={isEditing} onClick={handleEditClick} loading={loading} />}
       </div>
       {/* <Description readOnly value={teacherAccount?.description} /> */}
