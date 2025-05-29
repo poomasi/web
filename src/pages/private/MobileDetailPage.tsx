@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { TeacherIntroduce } from '@components/DetailPage/ui/mobile/TeacherIntroduce'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { QuestionField } from '@components/DetailPage/ui/mobile/QuestionField.tsx'
-import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList.tsx'
+import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList'
 import { Footer } from '@components/Layout/Footer/Footer'
 
 export function MobileDetailPage() {
