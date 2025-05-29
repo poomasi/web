@@ -105,28 +105,28 @@ export function QuestionList() {
                   }
                 }}
               />
-              {isAnswerAuthority && !qna.answer_text && (
-                <ReplyTextareaWrapper>
-                  <ReplyTextarea
-                    value={replyTexts[qna.public_id] || ''}
-                    onChange={(e) =>
-                      setReplyTexts((prev) => ({
-                        ...prev,
-                        [qna.public_id]: e.target.value,
-                      }))
-                    }
-                    onFocus={() => setFocusedId(qna.public_id)}
-                    onBlur={() => setFocusedId(null)}
-                    isFocused={focusedId === qna.public_id}
-                    placeholder="답글을 입력해주세요."
-                    maxLength={1000}
-                  />
-                  <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
-                    <SendIcon style={{ fontSize: '15px' }} />
-                  </ReplyButton>
-                </ReplyTextareaWrapper>
-              )}
             </QuestionArea>
+            {isAnswerAuthority && !qna.answer_text && (
+              <ReplyTextareaWrapper>
+                <ReplyTextarea
+                  value={replyTexts[qna.public_id] || ''}
+                  onChange={(e) =>
+                    setReplyTexts((prev) => ({
+                      ...prev,
+                      [qna.public_id]: e.target.value,
+                    }))
+                  }
+                  onFocus={() => setFocusedId(qna.public_id)}
+                  onBlur={() => setFocusedId(null)}
+                  isFocused={focusedId === qna.public_id}
+                  placeholder="답글을 입력해주세요."
+                  maxLength={1000}
+                />
+                <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
+                  <SendIcon style={{ fontSize: '15px' }} />
+                </ReplyButton>
+              </ReplyTextareaWrapper>
+            )}
 
             {qna.answer_text && (
               <AnswerCard
