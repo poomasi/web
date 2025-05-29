@@ -3,21 +3,23 @@ import { useAccountStore, useToastMessageStore } from '@store/index.ts'
 import styled from '@emotion/styled'
 import { useNavigate, useParams } from 'react-router-dom'
 import { RequestApi, AccountType } from '@utils/api/index.ts'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { TeacherIntroduce } from '@components/DetailPage/ui/mobile/TeacherIntroduce'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
 import { QuestionField } from '@components/DetailPage/ui/mobile/QuestionField.tsx'
 import { QuestionList } from '@components/DetailPage/ui/mobile/QuestionList'
+
+import { isAxiosError } from 'axios'
 import { Footer } from '@components/Layout/Footer/Footer'
 
 export function MobileDetailPage() {
-  const { publicId } = useAccountStore()
+  const { publicId, accountType } = useAccountStore()
   const { setErrorToastMessage } = useToastMessageStore()
-  const { accountType } = useAccountStore()
+  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 
   const navigate = useNavigate()
   const { id } = useParams()
-  const { pageLoading, setTeacherAccount, setPageLoading } = useDetailPageContext()
+  const { pageLoading, setTeacherAccount, setPageLoading, teacherAccount } = useDetailPageContext()
 
   // 품앗이꾼 데이터 가져오는 API
   const getTeacherData = async () => {
@@ -32,6 +34,17 @@ export function MobileDetailPage() {
       setTeacherAccount(account.data)
       setPageLoading(true)
     } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          const statusCode = error.response.status
+
+          if (statusCode === 401) {
+            setErrorToastMessage('로그인 토큰이 만료되었습니다. 다시 로그인 해주세요.')
+            navigate('/')
+            return
+          }
+        }
+      }
       setErrorToastMessage('품앗이꾼 정보를 가져오는 데 실패했습니다.')
       navigate('/')
     }
@@ -47,6 +60,12 @@ export function MobileDetailPage() {
     getTeacherData()
   }, [])
 
+  useEffect(() => {
+    if (teacherAccount) {
+      setIsAnswerAuthority(teacherAccount.public_id === publicId && accountType === AccountType.MENTOR)
+    }
+  }, [teacherAccount])
+
   return (
     <Container className="mobileDetailPage">
       <PageContainer>
@@ -59,7 +78,7 @@ export function MobileDetailPage() {
 
               <Seperator />
 
-              {accountType !== AccountType.MENTOR && <QuestionField />}
+              {!isAnswerAuthority && <QuestionField />}
 
               <QuestionList />
             </>

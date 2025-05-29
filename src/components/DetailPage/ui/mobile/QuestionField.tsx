@@ -296,7 +296,7 @@ const QuestionCheckbox = styled.div`
   height: 24px;
 
   border-radius: 5px;
-  border: 1px solid #c5c8cd;
+  /* border: 1px solid #c5c8cd; */
   background: #ffffff;
 `
 

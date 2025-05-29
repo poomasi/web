@@ -188,8 +188,6 @@ const QuestionListBody = styled.div`
   @media (max-width: 1024px) {
     margin-top: 0;
   }
-
-  /* background-color: greenyellow; */
 `
 
 const BadgeContainer = styled(Grid)`
