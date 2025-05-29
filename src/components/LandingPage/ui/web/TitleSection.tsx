@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
 import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
+import { colors } from '@styles/foundation/color'
 
 export default function TitleSection() {
   const { moveToProfile } = useMoveToProfile()
@@ -67,4 +68,10 @@ const QuestionButton = styled.div`
   line-height: 150%;
   font-weight: 800;
   margin-top: 75px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.green600};
+  }
 `

@@ -3,6 +3,7 @@ import mobileLandingTitleBg from '@assets/images/landingPage/mobile-TitleSection
 //mobileLandingTitleBg로 바로 선언해버리는건가..???
 import { getMobileVw } from '@utils/responsive'
 import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
+import { colors } from '@styles/foundation/color'
 
 export function MobileTitleSection() {
   const { moveToProfile } = useMoveToProfile()
@@ -77,6 +78,11 @@ const QuestionButton = styled.button`
   font-size: 1.75rem;
   line-height: 150%;
   margin-top: 4.6875rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.green600};
+  }
 
   @media (max-width: 1024px) {
     width: ${getMobileVw(200)};

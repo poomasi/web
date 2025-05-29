@@ -117,6 +117,11 @@ const Container = styled(Card, {
   @media (max-width: 530px) {
     height: 130px;
   }
+
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    transform: translateY(-20px);
+  }
 `
 
 const ProfilePictureWrapper = styled.div`
