@@ -122,6 +122,7 @@ const Container = styled(Card, {
   &:hover {
     transform: translateY(-20px);
   }
+  cursor: pointer;
 `
 
 const ProfilePictureWrapper = styled.div`
