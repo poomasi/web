@@ -33,7 +33,8 @@ const StyledTextarea = styled.textarea`
   }
 
   @media (max-width: 1024px) {
-    min-height: 200px;
+    min-height: 0;
+    height: auto;
   }
 `
 const DescriptionBox = styled.div`

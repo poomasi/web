@@ -184,8 +184,8 @@ const TextBlurOverlay = styled.div`
 
   @media (max-width: 1024px) {
     /* margin-bottom: 30px; */
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.875rem;
+    font-weight: 400;
   }
 `
 
