@@ -22,7 +22,7 @@ export function useQnaReply(refetch: () => void) {
     try {
       await RequestApi.posts.postQnaAnswer(qnaId, text)
       setReplyTexts((prev) => ({ ...prev, [qnaId]: '' }))
-      //답변 등록 성공하면, 해당 입력창의 값만 빈 문자열로 초기화
+      //답변 등록 성공하면, "입력창의 값"을 빈 문자열로 초기화
       refetch()
     } catch (err) {
       console.error('댓글 등록 실패:', err)
