@@ -2,12 +2,11 @@ import styled from '@emotion/styled'
 import { ProfileCard } from '@components/profileCards/ProfileCard'
 import { ProfileBadge } from '@components/badge'
 import { useProfileList } from '@components/LandingPage/hooks/useProfileList.ts'
-
 export function ProfilesSection() {
   const { selectedField, handleClickBadge, accountList, badgeList } = useProfileList()
 
   return (
-    <ProfilesSectionContainer id={'profileSection'}>
+    <ProfilesSectionContainer id="profileSection">
       <SectionTitle>
         <SubHead>품앗이꾼</SubHead>
         <BadgeContainer>
@@ -18,7 +17,7 @@ export function ProfilesSection() {
         </BadgeContainer>
       </SectionTitle>
 
-      <PoomProfileCardList>
+      <PoomProfileCardList className="PoomProfileCardList">
         {accountList
           .filter((account) => {
             if (selectedField === null) {
@@ -37,7 +36,8 @@ export function ProfilesSection() {
 }
 
 const ProfilesSectionContainer = styled.div`
-  width: 1320px;
+  width: 100%;
+  max-width: 1320px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ const ProfilesSectionContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 1320px) {
-    width: 1024px;
+    padding: 0 5%;
   }
 `
 
@@ -71,12 +71,11 @@ const BadgeContainer = styled.div`
 `
 
 const PoomProfileCardList = styled.div`
-  width: 1320px;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 26px;
 
   @media (max-width: 1320px) {
-    width: 1024px;
   }
 `

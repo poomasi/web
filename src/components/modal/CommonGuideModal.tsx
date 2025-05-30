@@ -42,7 +42,7 @@ const GuideTitle = styled.div`
 
 const GuideInfoText = styled.div`
   width: 100%;
-  padding: 40px 0;
+  padding: 40px 20px;
   background-color: #f7f7f7;
   border-radius: 16px;
 

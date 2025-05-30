@@ -85,7 +85,7 @@ const ModalWrapper = styled.section`
   left: 50%;
   transform: translate(-50%);
   z-index: 9999999999;
-  width: 75rem;
+  width: 50%;
   height: auto;
   background-color: #fff;
   display: flex;
@@ -94,6 +94,9 @@ const ModalWrapper = styled.section`
   align-items: center;
   padding: 1rem;
   border-radius: 1rem;
+  @media (max-width: 520px) {
+    width: 90%;
+  }
 `
 
 const ModalHeader = styled.div`
