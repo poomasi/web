@@ -45,7 +45,7 @@ const ProfilesSectionContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 1320px) {
-    padding: 0 5%;
+    padding: 0 5%; //
   }
 `
 
