@@ -1,74 +1,76 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useAccountStore } from '@store/account'
-import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider'
 import { ProfileBadge } from '@components/badge'
-//모바일용 질문카드
-import { QuestionCard } from '@components/DetailPage/ui/mobile/QuestionCard'
-//모바일용 앤써카드
-import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
-import { useIsAnswerBlurred } from '@components/DetailPage/model/hooks/useIsAnswerBlurred'
-import { RequestApi } from '@utils/api/request-api'
+import { QnaAskerType, AccountType } from '@utils/api/enums.ts'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
-import { QnaAskerType, AccountType } from '@utils/api/enums'
-import { colors } from '@styles/foundation/color'
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
+import { useCallback, useEffect, useState } from 'react'
+import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
+import { useParams } from 'react-router-dom'
+import { QuestionCard } from '@components/DetailPage/ui/web/QuestionCard.tsx'
+import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
+import { useAccountStore } from '@store/account'
 import SendIcon from '@mui/icons-material/Send'
+import { colors } from '@styles/foundation/color'
+import { useQnaList } from '@components/DetailPage/model/hooks/useQnaList'
+import { useQnaReply } from '@components/DetailPage/model/hooks/useQnaReply'
 import { getMobileVw } from '@utils/responsive'
 
 export function QuestionList() {
   const { id } = useParams()
   const { publicId, accountType } = useAccountStore()
-  const { teacherAccount } = useDetailPageContext()
+  const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } = useDetailPageContext()
 
-  const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]) //Q&A 리스트 상태관리
-  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL) //QnA 필터 상태 관리
+  //Q&A 리스트 상태관리
+  const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL)
+  // 답변 권한 상태
+  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
+  // Q&A 리스트 가져오기 (React Query)
+  const { data: qnaData, isLoading, isError, refetch } = useQnaList(qnaAskerType, id)
+  // [추가] 답글 textarea/포커스 상태
+  const { replyTexts, setReplyTexts, focusedId, setFocusedId, handleReplySubmit } = useQnaReply(refetch)
 
-  const [replyTexts, setReplyTexts] = useState<Record<string, string>>({})
-  const [focusedId, setFocusedId] = useState<string | null>(null)
-
-  const getTeacherQnaList = async () => {
-    try {
-      const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id)
-      setQnaDataList(qnas.data)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('', error)
-      }
+  //비밀질문 여부
+  const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
+    if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) {
+      return false //비밀 여부 상관없이 볼 수 있음
     }
-  }
 
-  const handleReplySubmit = async (qnaId: string) => {
-    const text = replyTexts[qnaId]?.trim()
-    if (!text) return
-
-    try {
-      await RequestApi.posts.postQnaAnswer(qnaId, text)
-      setReplyTexts((prev) => ({ ...prev, [qnaId]: '' }))
-      getTeacherQnaList()
-    } catch (err) {
-      console.error('댓글 등록 실패:', err)
+    // 비밀질문이 아닌 경우 모두 확인 가능
+    if (question.is_secret === 0) {
+      return false
     }
-  }
 
-  const getIsSecretQuestion = (qna: GetQnaListResponse) => {
-    if (accountType === AccountType.MENTOR && teacherAccount?.public_id === publicId) return false
-    if (qna.is_secret === 0) return false
-    return qna.questioner_public_id !== publicId
-  }
+    // 비밀질문인 경우, 본인만 확인가능
+    if (question.is_secret === 1) {
+      return question.questioner_public_id !== publicId
+    }
 
+    return true
+  }, [])
+
+  //데이터 refetch
   useEffect(() => {
-    getTeacherQnaList()
-  }, [id, qnaAskerType])
+    if (isQuestionListFetched) {
+      refetch().finally(() => setIsQuestionListFetched(false))
+    }
+  }, [isQuestionListFetched, refetch, setIsQuestionListFetched])
 
-  const isAnswerBlurred = useIsAnswerBlurred()
+  /*
+  teacherAccount:멘토 계정 정보 (job1, ,company1 등)
+  accountType: 계정 종류 (MENTOR, STAFF 등)
+  */
+  useEffect(() => {
+    if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
+      //본인에게 달린 질문에만 답변가능
+      setIsAnswerAuthority(teacherAccount.public_id === publicId)
+    }
+  }, [teacherAccount, accountType, publicId])
 
   return (
     <QuestionListBody>
       <div
         style={{
-          marginBottom: '10px',
+          marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',
           fontWeight: 'bold',
@@ -83,63 +85,61 @@ export function QuestionList() {
         <ProfileBadge onClick={() => setQnaAskerType(QnaAskerType.ME)} badgeString={'내 질문'} selected={QnaAskerType.ME === qnaAskerType} />
       </BadgeContainer>
 
-      {qnaDataList.length === 0 ? (
-        <div
-          style={{
-            width: '100%',
-            height: '200px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-            fontSize: '24px',
-          }}
-        >
-          아직 질문이 없네요 :D
-        </div>
-      ) : (
-        qnaDataList.map((qna) => {
-          // console.log('accountType:', accountType)
-          // console.log('qna.answer_text:', qna.answer_text)
-          return (
-            <QnaSection key={qna.public_id}>
-              <QuestionCard question={qna} isSecret={getIsSecretQuestion(qna)} />
-
-              {qna.answer_text ? (
-                <AnswerCard
-                  answerText={qna.answer_text}
-                  isBlurred={isAnswerBlurred(qna)}
-                  teacherName={teacherAccount?.name ?? ''}
-                  answerDate={qna.updated_at}
+      {isError && <InfoText>질문을 가져오던 도중, 실패하였습니다. 다시 시도해주세요.</InfoText>}
+      {isLoading && <InfoText>질문을 가져오는 중입니다..</InfoText>}
+      {!isLoading && !isError && qnaData?.length === 0 && <InfoText>아직 질문이 없네요 :D</InfoText>}
+      {!isLoading &&
+        !isError &&
+        qnaData &&
+        qnaData.length > 0 &&
+        qnaData.map((qna) => (
+          <QnaSection key={qna.public_id}>
+            <QuestionArea>
+              <QuestionCard
+                question={qna}
+                isSecret={getIsSecretQuestion(qna)}
+                key={qna.public_id}
+                onUpdateRequest={() => {
+                  if (setIsQuestionListFetched) {
+                    setIsQuestionListFetched(true)
+                  }
+                }}
+              />
+            </QuestionArea>
+            {isAnswerAuthority && !qna.answer_text && (
+              <ReplyTextareaWrapper>
+                <ReplyTextarea
+                  value={replyTexts[qna.public_id] || ''}
+                  onChange={(e) =>
+                    setReplyTexts((prev) => ({
+                      ...prev,
+                      [qna.public_id]: e.target.value,
+                    }))
+                  }
+                  onFocus={() => setFocusedId(qna.public_id)}
+                  onBlur={() => setFocusedId(null)}
+                  isFocused={focusedId === qna.public_id}
+                  placeholder="답글을 입력해주세요."
+                  maxLength={1000}
                 />
-              ) : (
-                accountType === AccountType.MENTOR && (
-                  <ReplyTextareaWrapper>
-                    <ReplyTextarea
-                      value={replyTexts[qna.public_id] || ''}
-                      onChange={(e) =>
-                        setReplyTexts((prev) => ({
-                          ...prev,
-                          [qna.public_id]: e.target.value,
-                        }))
-                      }
-                      onFocus={() => setFocusedId(qna.public_id)}
-                      onBlur={() => setFocusedId(null)}
-                      isFocused={focusedId === qna.public_id}
-                      placeholder="답글을 입력해주세요."
-                      maxLength={1000}
-                    />
-                    <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
-                      {' '}
-                      <SendIcon style={{ fontSize: '15px' }} />
-                    </ReplyButton>
-                  </ReplyTextareaWrapper>
-                )
-              )}
-            </QnaSection>
-          )
-        })
-      )}
+                <ReplyButton onClick={() => handleReplySubmit(qna.public_id)}>
+                  <SendIcon style={{ fontSize: '15px' }} />
+                </ReplyButton>
+              </ReplyTextareaWrapper>
+            )}
+
+            {qna.answer_text && (
+              <AnswerCard
+                question={qna}
+                answerText={qna.answer_text}
+                isMyAnswer={getIsSecretQuestion(qna)}
+                teacherName={teacherAccount?.name ?? ''}
+                answerDate={qna.updated_at}
+                onUpdateRequest={() => setIsQuestionListFetched(true)}
+              />
+            )}
+          </QnaSection>
+        ))}
     </QuestionListBody>
   )
 }
@@ -186,10 +186,8 @@ const QuestionListBody = styled.div`
   width: 100%;
 
   @media (max-width: 1024px) {
-    margin-top: 2rem;
+    margin-top: 0;
   }
-
-  /* background-color: greenyellow; */
 `
 
 const BadgeContainer = styled(Grid)`
@@ -202,4 +200,38 @@ const QnaSection = styled.div`
   @media (max-width: 1024px) {
     margin-bottom: 30px;
   }
+`
+
+const InfoText = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
+`
+
+const QuestionArea = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: end;
+  gap: 20px;
+`
+
+export const QuestionAnswerButton = styled.div`
+  display: inline-flex;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 8px;
+  background: #b2ebe3;
+
+  color: #08ae98;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
 `

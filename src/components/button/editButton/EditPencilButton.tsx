@@ -25,15 +25,24 @@ const Wrapper = styled.button`
   background: transparent;
   cursor: pointer;
   padding: 0;
+  @media (max-width: 1024px) {
+    margin-top: 30px;
+  }
 `
 
 const EditPencilBtn = styled.img`
   cursor: pointer;
   margin-right: 8px;
+  @media (max-width: 1024px) {
+    height: 12px;
+  }
 `
 
 const EditAction = styled.div<{ isEditing: boolean }>`
   font-size: 16px;
   color: ${({ isEditing }) => (isEditing ? '#3ecdba' : '#9B9EA2')};
   cursor: pointer;
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
 `

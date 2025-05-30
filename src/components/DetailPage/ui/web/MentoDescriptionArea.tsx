@@ -31,6 +31,11 @@ const StyledTextarea = styled.textarea`
   &:read-only {
     cursor: default;
   }
+
+  @media (max-width: 1024px) {
+    min-height: 100px;
+    margin-top: 30px;
+  }
 `
 const DescriptionBox = styled.div`
   width: 100%;
@@ -45,4 +50,8 @@ const DescriptionBox = styled.div`
   font-family: inherit;
   display: flex;
   align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    min-height: 100px;
+  }
 `
