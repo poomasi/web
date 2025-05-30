@@ -117,6 +117,8 @@ const Container = styled(Card, {
   @media (max-width: 530px) {
     height: 130px;
   }
+
+  cursor: pointer;
 `
 
 const ProfilePictureWrapper = styled.div`
@@ -127,8 +129,8 @@ const ProfilePictureWrapper = styled.div`
   overflow: hidden;
 
   @media (max-width: 1024px) {
-    width: ${getMobileVw(64)};
-    height: ${getMobileVw(64)};
+    width: ${getMobileVw(60)};
+    height: ${getMobileVw(60)};
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -150,9 +152,13 @@ const ProfileImage = styled.img`
   }
 
   @media (max-width: 1024px) {
+    width: 84%;
+    height: 84%;
+    object-fit: cover;
+  }
+  @media (max-width: 520px) {
     width: 100%;
     height: 100%;
-    object-fit: cover;
   }
 `
 
@@ -164,7 +170,7 @@ const ProfileIntroContainer = styled.div`
   @media (max-width: 1024px) {
     align-items: flex-start;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
   }
 `
 
@@ -181,6 +187,9 @@ const ProfileName = styled.div`
   }
 
   @media (max-width: 1024px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 520px) {
     font-size: 1rem;
   }
 `
@@ -198,7 +207,11 @@ const ProfileField = styled.div`
   }
 
   @media (max-width: 1024px) {
-    font-size: 0.875rem;
+    /* font-size: 0.875rem; */
+    font-size: 1rem;
+  }
+  @media (max-width: 520px) {
+    font-size: 0.75rem;
   }
 `
 
@@ -223,9 +236,9 @@ const ProfileHistoryItem = styled.div`
   font-weight: 500;
   text-align: center;
 
-  @media (max-width: 1320px) {
+  /* @media (max-width: 1320px) {
     font-size: 0.9rem;
-  }
+  } */
 
   @media (max-width: 1024px) {
     font-size: 10px;

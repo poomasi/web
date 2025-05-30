@@ -1,41 +1,41 @@
 import dayjs from 'dayjs'
 import { CareerYearType } from '@utils/api/enums.ts'
-import { useCallback } from 'react'
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useAccountStore } from '@store/account'
 import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
-import editDots from '@assets/images/edit-dots.svg'
-import { useState } from 'react'
+import { useAccountStore } from '@store/account'
+// import { getMobileVw } from '@utils/responsive'
+import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
+import { EditButton } from '@components/button/editButton/EditButton'
+import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 
 type QuestionCardProps = {
   question: GetQnaListResponse
   isSecret?: boolean
+  onUpdateRequest?: () => void
+}
+export const getCareerYearString = (career_year: string) => {
+  switch (career_year) {
+    case CareerYearType.ACADEMIC:
+      return '대학생'
+    case CareerYearType.JOB_SEEKER:
+      return '취준생'
+    case CareerYearType.JUNIOR:
+      return '신입~3년차'
+    case CareerYearType.MIDDLE:
+      return '3년차 이상'
+    default:
+      return '대학생'
+  }
 }
 
-export function QuestionCard({ question, isSecret }: QuestionCardProps) {
+export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCardProps) {
   const { accessToken } = useAccountStore()
-  const [showEditBtn, setShowEditBtn] = useState(false)
-  const handleShowEditBtn = () => {
-    setShowEditBtn((prev) => !prev)
-  }
 
-  const getCareerYearString = useCallback((career_year: string) => {
-    switch (career_year) {
-      case CareerYearType.ACADEMIC:
-        return '대학생'
-      case CareerYearType.JOB_SEEKER:
-        return '취준생'
-      case CareerYearType.JUNIOR:
-        return '신입~3년차'
-      case CareerYearType.MIDDLE:
-        return '3년차 이상'
-      default:
-        return '대학생'
-    }
-  }, [])
+  const { isEditing, editedText, showEditBtn, toggleEditBtn, handleEditClick, handleCancelClick, handleTextChange, handleSaveClick } =
+    useQuestionEdit(question, onUpdateRequest)
 
   return (
     <QnaCard className={'qna-card'}>
@@ -45,12 +45,19 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
           <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
-      <EditMenuWrapper>
-        <DotMenu src={editDots} alt="더보기" onClick={handleShowEditBtn} />
-        {showEditBtn && <EditButton>수정</EditButton>}
-      </EditMenuWrapper>
+      <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
+
       <QnaHead>Q</QnaHead>
-      <QnaContentArea readOnly value={question.question_text} />
+      {isEditing ? (
+        <>
+          <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
+
+          <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
+        </>
+      ) : (
+        <QnaContentArea readOnly value={question.question_text} />
+      )}
+
       <div style={{ display: 'flex' }}>
         <QnaContentCareer
           style={{
@@ -85,45 +92,17 @@ export function QuestionCard({ question, isSecret }: QuestionCardProps) {
     </QnaCard>
   )
 }
-
-const EditMenuWrapper = styled.div`
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  z-index: 10;
-`
-
-const DotMenu = styled.img`
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  user-select: none;
-`
-
-const EditButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 11.5rem;
-  height: auto;
-  margin-top: 12px;
-  padding: 16px 72px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+const StyledTextarea = styled(TextareaAutosize)`
+  color: #28292a;
   font-size: 22px;
-  cursor: pointer;
-  color: #0e0e0e;
-  border-radius: 10px;
-
-  transition: background-color 0.2s ease;
-  &:hover {
-    background-color: #3ecdba;
-    color: white;
-  }
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  width: 100%;
 `
 
 const QnaCard = styled(Card)`

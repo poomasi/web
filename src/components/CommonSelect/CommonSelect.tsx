@@ -74,6 +74,11 @@ const CustomSelectTitleContainer = styled.div`
   background: #fff;
 
   padding: 10px 16px;
+
+  @media (max-width: 1024px) {
+    padding: 4px 8px;
+    gap: 6px;
+  }
 `
 
 const CommonSelectTitle = styled.label`
@@ -85,6 +90,7 @@ const CommonSelectTitle = styled.label`
 
   @media (max-width: 1024px) {
     font-size: 0.75rem;
+    margin-left: 5px;
   }
 `
 
@@ -109,6 +115,10 @@ const CustomSelectValue = styled.div`
   img {
     width: 14px;
     height: 10px;
+  }
+  @media (max-width: 1024px) {
+    gap: 8px;
+    font-size: 0.75rem;
   }
 `
 

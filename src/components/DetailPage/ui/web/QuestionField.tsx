@@ -70,7 +70,7 @@ export function QuestionField() {
       isMajor,
       questionText,
     })
-  }, [isSecret, careerYear, isMajor, questionText, postQuestionToServer])
+  }, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer])
 
   // 팁 !
   // function 재랜더링 되지 않도록 함.

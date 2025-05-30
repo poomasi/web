@@ -232,6 +232,7 @@ const QuestionArea = styled.div`
   @media (max-width: 1024px) {
     padding: 14px;
     border-width: 0 0 0 0;
+    border: none;
   }
 `
 
@@ -310,4 +311,7 @@ const SelectContainer = styled.div`
   border-radius: 100px;
   border: 1px solid #c5c8cd;
   background: #fff;
+  @media (max-width: 1024px) {
+    border: none;
+  }
 `
