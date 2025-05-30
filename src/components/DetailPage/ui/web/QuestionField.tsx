@@ -83,8 +83,7 @@ export function QuestionField() {
       return
     }
 
-    // 질문 등록
-    await postQuestion()
+    postQuestion()
   }, [accessToken, questionText, postQuestion, setErrorToastMessage])
 
   return (
