@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { AccountType } from '@utils/api/enums'
 
-type accessTokenStore = {
+type AccessTokenStore = {
   accessToken: string | null
   setaccessToken: (token: string) => void
   publicId: string | null
@@ -15,7 +15,7 @@ type accessTokenStore = {
   setNickname: (nickname: string) => void
 }
 
-export const useAccountStore = create<accessTokenStore>()(
+export const useAccountStore = create<AccessTokenStore>()(
   persist(
     (set) => ({
       accessToken: null,
