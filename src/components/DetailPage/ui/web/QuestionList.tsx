@@ -14,7 +14,7 @@ import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
 import { QuestionAnswerModal } from '@components/DetailPage/ui/web/QuestionAnswerModal.tsx'
 import { useAccountStore } from '@store/account'
 import { match, P } from 'ts-pattern'
-import { useQnaList } from '@components/DetailPage/model/hooks/useQnaList'
+import { useQnaList, useEditAuthority } from '@components/DetailPage/model/hooks'
 
 export function QuestionList() {
   const { id } = useParams()
@@ -24,9 +24,10 @@ export function QuestionList() {
   //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL)
   const [answerModalData, setAnswerModalData] = useState<GetQnaListResponse | null>(null)
-  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
+  // const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
 
   const { data: qnaData, isLoading, isError, refetch } = useQnaList(qnaAskerType, id)
+  const { isAuthority } = useEditAuthority()
 
   //데이터 refetch
   useEffect(() => {
@@ -35,18 +36,16 @@ export function QuestionList() {
     }
   }, [isQuestionListFetched, refetch, setIsQuestionListFetched])
 
-  //답변 권한 상태 업데이트
   /*
   teacherAccount:멘토 계정 정보 (job1, ,company1 등)
   accountType: 계정 종류 (MENTOR, STAFF 등)
-  accountType: "MENTOR" 또는 "STAFF"에 해당할 때만 아래 로직 실행
   */
-  useEffect(() => {
-    if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
-      //본인에게 달린 질문에만 답변가능
-      setIsAnswerAuthority(teacherAccount.public_id === publicId)
-    }
-  }, [teacherAccount, accountType, publicId])
+  // useEffect(() => {
+  //   if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
+  //     //본인에게 달린 질문에만 답변가능
+  //     setIsAnswerAuthority(teacherAccount.public_id === publicId)
+  //   }
+  // }, [teacherAccount, accountType, publicId])
 
   const handleAnswerModalOpenClick = (question: GetQnaListResponse) => {
     setAnswerModalData(question)
@@ -89,7 +88,7 @@ export function QuestionList() {
                   if (setIsQuestionListFetched) setIsQuestionListFetched(true)
                 }}
               />
-              {isAnswerAuthority && !qna.answer_text && (
+              {isAuthority && !qna.answer_text && (
                 <QuestionAnswerButton onClick={() => handleAnswerModalOpenClick(qna)}>댓글 달기</QuestionAnswerButton>
               )}
             </QuestionArea>
