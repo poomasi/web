@@ -32,7 +32,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
   const isMobile = useMobileStore((state) => state.isMobile)
   const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null
   return (
-    <>
+    <div>
       <Container isVacation={profileData.is_vacation} onClick={() => handleProfileClick(profileData)} className="profileCardContainer">
         {profileData.is_vacation && (
           <TextBlurOverlay>
@@ -66,7 +66,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
         ) : (
           <PoomasiGuideModal onClose={() => setUseGuideModal(false)} />
         ))}
-    </>
+    </div>
   )
 }
 
