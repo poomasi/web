@@ -10,7 +10,8 @@ jobs:
     container: pandoc/latex
 
     steps:
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: 1. mustache
         run: apk add ruby && gem install mustache
@@ -23,9 +24,10 @@ jobs:
         uses: cpina/github-action-push-to-another-repository@main
         # SHH Deploy Key로 “output 폴더”를 다른 리포(mobile-test)의 develop 브랜치로 푸쉬하는 역할
         env:
-          API_TOKEN_GITHUB: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
-          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          # API_TOKEN_GITHUB: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
+          # SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
+          repository: taetae0707/mobile-test
           source-directory: 'output'
           destination-github-username: taetae0707
           destination-repository-name: mobile-test
