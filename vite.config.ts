@@ -3,7 +3,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import checker from 'vite-plugin-checker'
-import * as fs from 'node:fs'
 
 //vite-plugin-pwa는 설정한 manifest을 기반으로 브라우저가 인식할 수 있게 해준다.
 // https://vitejs.dev/config/
@@ -12,10 +11,6 @@ export default defineConfig({
     host: true,
     // host: '0.0.0.0',
     port: 3000,
-    https: {
-      key: fs.readFileSync('./mkcert/localhost+2-key.pem'),
-      cert: fs.readFileSync('./mkcert/localhost+2.pem'),
-    },
   },
   plugins: [
     react({
