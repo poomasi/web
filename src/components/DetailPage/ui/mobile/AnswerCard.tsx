@@ -7,7 +7,7 @@ import { useDetailPageContext } from '@components/DetailPage/model/provider/Deta
 import dayjs from 'dayjs'
 import { getMobileVw } from '@utils/responsive.ts'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
-import { useAnswerEdit } from '@components/DetailPage/model/hooks/useAnswerEdit'
+import { useAnswerEdit, useEditAuthority } from '@components/DetailPage/model/hooks'
 import { EditButton } from '@components/button/editButton/EditButton'
 import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 interface AnswerCardProps {
@@ -28,6 +28,8 @@ export function AnswerCard({ question, answerText, isMyAnswer, teacherName, answ
     answerText,
     onUpdateRequest,
   )
+  const { isAuthority } = useEditAuthority()
+
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <QnaCard>
@@ -36,7 +38,7 @@ export function AnswerCard({ question, answerText, isMyAnswer, teacherName, answ
             <TextBlurOverlay>{accessToken ? '비밀 답변이예요' : '답변을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
           </BlurOverlay>
         )}
-        <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
+        {isAuthority && <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />}
         <QnaHead className="QnaHead">
           <AnswerImg src={teacherAccount?.profile_image} />
           <TeacherName>{teacherName}</TeacherName>
