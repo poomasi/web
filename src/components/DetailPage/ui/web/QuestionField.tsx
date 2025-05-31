@@ -202,7 +202,6 @@ const QuestionTextField = styled.textarea`
   box-shadow: none !important;
   border-bottom: 1px solid #eaebed;
 
-  // element 폰트 요소
   color: #28292a;
   font-size: 16px;
   font-style: normal;
