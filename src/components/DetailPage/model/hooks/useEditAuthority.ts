@@ -8,6 +8,9 @@ export function useEditAuthority() {
   const [isAuthority, setIsAuthority] = useState<boolean>(false)
 
   useEffect(() => {
+    console.log('teacherAccount.public_id:', teacherAccount?.public_id)
+    console.log('내 publicId:', publicId)
+
     if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
       setIsAuthority(teacherAccount.public_id === publicId)
     }

@@ -1,18 +1,16 @@
 import styled from '@emotion/styled'
-// import TextareaAutosize from 'react-textarea-autosize'
 import { getMobileVw } from '@utils/responsive'
 import { useDetailPageContext } from '@components/DetailPage/model/provider/DetailPageProvider.tsx'
-import { useAccountStore } from '@store/account'
-import { AccountType } from '@utils/api/index.ts'
 import { EditPencilButton } from '@components/button/editButton/EditPencilButton'
-import { useMentoProfileEdit } from '@components/DetailPage/model/hooks/useMentoProfile'
+import { useMentoProfileEdit, useEditAuthority } from '@components/DetailPage/model/hooks'
 import { MentoDescriptionArea } from '@components/DetailPage/ui/web/MentoDescriptionArea'
 
 export function TeacherIntroduce() {
   const { teacherAccount } = useDetailPageContext()
+  const { isAuthority } = useEditAuthority()
 
-  const accountType = useAccountStore((state) => state.accountType)
-  const isEditable = accountType === AccountType.MENTOR || accountType === AccountType.STAFF
+  // const accountType = useAccountStore((state) => state.accountType)
+  // const isEditable = accountType === AccountType.MENTOR || accountType === AccountType.STAFF
 
   const { isEditing, editedText, loading, handleEditClick, handleTextChange } = useMentoProfileEdit(
     teacherAccount?.description || '' /* onUpdateRequest 콜백 함수 */,
@@ -35,7 +33,7 @@ export function TeacherIntroduce() {
       </Header>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ marginTop: '30px', fontWeight: '700', fontSize: '1.45rem', color: '#0E0E0E', lineHeight: '150%' }}>품앗이꾼 소개</div>
-        {isEditable && <EditPencilButton isEditing={isEditing} onClick={handleEditClick} loading={loading} />}
+        {isAuthority && <EditPencilButton isEditing={isEditing} onClick={handleEditClick} loading={loading} />}
       </div>
       {/* <Description readOnly value={teacherAccount?.description} /> */}
       <MentoDescriptionArea value={editedText} isEditing={isEditing} onChange={handleTextChange} />

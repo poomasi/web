@@ -11,7 +11,7 @@ import { AnswerCard } from '@components/DetailPage/ui/web/AnswerCard.tsx'
 import { useAccountStore } from '@store/account'
 import SendIcon from '@mui/icons-material/Send'
 import { colors } from '@styles/foundation/color'
-import { useQnaList } from '@components/DetailPage/model/hooks/useQnaList'
+import { useQnaList, useEditAuthority } from '@components/DetailPage/model/hooks'
 import { useQnaReply } from '@components/DetailPage/model/hooks/useQnaReply'
 import { getMobileVw } from '@utils/responsive'
 
@@ -22,12 +22,12 @@ export function QuestionList() {
 
   //Q&A 리스트 상태관리
   const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(QnaAskerType.ALL)
-  // 답변 권한 상태
-  const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false)
   // Q&A 리스트 가져오기 (React Query)
   const { data: qnaData, isLoading, isError, refetch } = useQnaList(qnaAskerType, id)
   // [추가] 답글 textarea/포커스 상태
   const { replyTexts, setReplyTexts, focusedId, setFocusedId, handleReplySubmit } = useQnaReply(refetch)
+
+  const { isAuthority } = useEditAuthority()
 
   //비밀질문 여부
   const getIsSecretQuestion = useCallback((question: GetQnaListResponse) => {
@@ -54,17 +54,6 @@ export function QuestionList() {
       refetch().finally(() => setIsQuestionListFetched(false))
     }
   }, [isQuestionListFetched, refetch, setIsQuestionListFetched])
-
-  /*
-  teacherAccount:멘토 계정 정보 (job1, ,company1 등)
-  accountType: 계정 종류 (MENTOR, STAFF 등)
-  */
-  useEffect(() => {
-    if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
-      //본인에게 달린 질문에만 답변가능
-      setIsAnswerAuthority(teacherAccount.public_id === publicId)
-    }
-  }, [teacherAccount, accountType, publicId])
 
   return (
     <QuestionListBody>
@@ -106,7 +95,7 @@ export function QuestionList() {
                 }}
               />
             </QuestionArea>
-            {isAnswerAuthority && !qna.answer_text && (
+            {isAuthority && !qna.answer_text && (
               <ReplyTextareaWrapper>
                 <ReplyTextarea
                   value={replyTexts[qna.public_id] || ''}
