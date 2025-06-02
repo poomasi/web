@@ -60,9 +60,6 @@ export function KakaoLoginCallback() {
       setPublicId(publicId)
       setaccessToken(accessToken)
       setAccountType(accountTypeFromToken)
-      // setPublicId(kakaoLoginResponse.data.public_id)
-      // setaccessToken(kakaoLoginResponse.data.account_token)
-      // setAccountType(kakaoLoginResponse.data.account_type)
 
       // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
       const beforeLoginUrl = localStorage.getItem('before_login_url')
