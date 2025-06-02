@@ -7,7 +7,7 @@ import { colors } from '@styles/foundation/color'
 import { GetQnaListResponse } from '@utils/api/types/qna.type'
 import { useAccountStore } from '@store/account'
 // import { getMobileVw } from '@utils/responsive'
-import { useQuestionEdit } from '@components/DetailPage/model/hooks/useQuestionEdit'
+import { useQuestionEdit, useIsOwner } from '@components/DetailPage/model/hooks/'
 import { EditButton } from '@components/button/editButton/EditButton'
 import { EditActionButtons } from '@components/button/editButton/EditActionButtons'
 
@@ -33,6 +33,7 @@ export const getCareerYearString = (career_year: string) => {
 
 export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCardProps) {
   const { accessToken } = useAccountStore()
+  const isTheOwner = useIsOwner(question.questioner_public_id)
 
   const { isEditing, editedText, showEditBtn, toggleEditBtn, handleEditClick, handleCancelClick, handleTextChange, handleSaveClick } =
     useQuestionEdit(question, onUpdateRequest)
@@ -45,7 +46,7 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
           <TextBlurOverlay>{accessToken ? '비밀 질문이에요' : '질문을 보려면 로그인을 해주세요 :)'}</TextBlurOverlay>
         </BlurOverlay>
       )}
-      <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} />
+      {isTheOwner ? <EditButton onToggle={toggleEditBtn} onEditClick={handleEditClick} showEditBtn={showEditBtn} /> : null}
 
       <QnaHead>Q</QnaHead>
       {isEditing ? (
