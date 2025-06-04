@@ -38,17 +38,17 @@ export function MobileIntroduceSection() {
 			<IntroduceCardList>
 				<MobileLandingInfoCard
 					infoText="이용방법"
-					imgSrc="images/landingPage/sharing-icon.svg"
+					imgSrc="images/landingPage/Instructions-icon"
 					onClick={() => updateModalKey("Sharing")}
 				/>
 				<MobileLandingInfoCard
 					infoText="품앗이 규칙"
-					imgSrc="images/landingPage/mentoring-icon.svg"
+					imgSrc="images/landingPage/Guideline-icon.svg"
 					onClick={() => updateModalKey("Mentoring")}
 				/>
 				<MobileLandingInfoCard
 					infoText="세부안내"
-					imgSrc="images/landingPage/question-icon.svg"
+					imgSrc="images/landingPage/detailGuide-icon.svg"
 					onClick={() => updateModalKey("Question")}
 				/>
 			</IntroduceCardList>

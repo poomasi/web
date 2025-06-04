@@ -1,12 +1,8 @@
 import { LandingInfoCard } from "@components/landingPage/web/LandingInfoCard.tsx";
-import sharingIcon from "@assets/images/landingPage/sharing-icon.svg";
-import mentoringIcon from "@assets/images/landingPage/mentoring-icon.svg";
-import questionIcon from "@assets/images/landingPage/question-icon.svg";
-import introduceBackground from "@assets/images/landingPage/introduce-background.png";
 import styled from "@emotion/styled";
 import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
 import { useState } from "react";
-import { CommonGuideModal } from "@components/modal/CommonGuideModal.tsx";
+import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
 
 export function IntroduceSection() {
 	const [useGuideModal, setUseGuideModal] = useState(false);
@@ -56,17 +52,17 @@ export function IntroduceSection() {
 			<IntroduceCardList>
 				<LandingInfoCard
 					infoText="이용방법"
-					imgSrc={questionIcon}
+					imgSrc="images/landingPage/Instructions-icon"
 					onClick={handleUseGuideModalClick}
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
-					imgSrc={mentoringIcon}
+					imgSrc="images/landingPage/Guideline-icon.svg"
 					onClick={handleMentoringModalClick}
 				/>
 				<LandingInfoCard
 					infoText="세부안내"
-					imgSrc={sharingIcon}
+					imgSrc="images/landingPage/detailGuide-icon.svg"
 					onClick={handleQuestionModalClick}
 				/>
 			</IntroduceCardList>
@@ -96,7 +92,7 @@ const IntroduceSectionContainer = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-	background-image: url(${introduceBackground});
+	background-image: url("/images/landingPage/introduce-background.png");
 	background-size: cover;
 	background-position: center; // 이미지를 중앙에 배치
 	background-repeat: no-repeat; // 이미지 반복
