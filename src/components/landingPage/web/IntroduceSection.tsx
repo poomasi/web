@@ -1,42 +1,25 @@
-import { LandingInfoCard } from "@components/landingPage/web/LandingInfoCard.tsx";
+import { LandingInfoCard } from "@landingPage/web/LandingInfoCard.tsx";
 import styled from "@emotion/styled";
-import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
-import { useState } from "react";
+import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
 import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
+import { modalData } from "@components/common/modal/modalGuide-data";
+import { useMemo, useState } from "react";
 
 export function IntroduceSection() {
-	const [useGuideModal, setUseGuideModal] = useState(false);
-	const [isCommonGuideModal, setIsCommonGuideModal] = useState(false);
-	const [commonGuideInfo, setCommonGuideInfo] = useState({
-		title: "세부안내",
-		content:
-			"품삯은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 \n 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.",
-	});
+	const [selectedModalKey, setSelectedModalKey] = useState<
+		null | keyof typeof modalData
+	>(null);
 
-	const handleUseGuideModalClick = () => {
-		setUseGuideModal(true);
+	const updateModalKey = (key: keyof typeof modalData) => {
+		setSelectedModalKey(key);
 	};
 
-	const handleMentoringModalClick = () => {
-		setIsCommonGuideModal(true);
-		setCommonGuideInfo({
-			title: "품앗이 규칙",
-			content:
-				"품삯은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 \n 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.",
-		});
-	};
+	const modalInfo = useMemo(() => {
+		return selectedModalKey ? modalData[selectedModalKey] : null;
+	}, [selectedModalKey]);
 
-	const handleQuestionModalClick = () => {
-		setIsCommonGuideModal(true);
-		setCommonGuideInfo({
-			title: "세부안내",
-			content:
-				" 품앗이꾼들은 빠르게 답변드리기 위해 노력하고 있어요.\n 다만 일정에 따라 답변이 조금 늦어질 수 있는 점, 너그럽게 양해 부탁드려요 :D",
-		});
-	};
-
-	const modalCloseHandler = () => {
-		setIsCommonGuideModal(false);
+	const handleModalClose = () => {
+		setSelectedModalKey(null);
 	};
 
 	return (
@@ -52,18 +35,18 @@ export function IntroduceSection() {
 			<IntroduceCardList>
 				<LandingInfoCard
 					infoText="이용방법"
-					imgSrc="images/landingPage/Instructions-icon"
-					onClick={handleUseGuideModalClick}
+					imgSrc="/images/landingPage/Instructions-icon"
+					onClick={() => updateModalKey("Instructions")}
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
-					imgSrc="images/landingPage/Guideline-icon.svg"
-					onClick={handleMentoringModalClick}
+					imgSrc="/images/landingPage/Guideline-icon.svg"
+					onClick={() => updateModalKey("Guideline")}
 				/>
 				<LandingInfoCard
 					infoText="세부안내"
-					imgSrc="images/landingPage/detailGuide-icon.svg"
-					onClick={handleQuestionModalClick}
+					imgSrc="/images/landingPage/detailGuide-icon.svg"
+					onClick={() => updateModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>
 			{useGuideModal && (

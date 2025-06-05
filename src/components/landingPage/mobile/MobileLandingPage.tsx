@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Footer } from "@components/common/Footer/Footer";
-import * as MobileComponents from "@components/landingPage/mobile/index";
+import * as MobileComponents from "@landingPage/mobile/index";
 
 export function MobileLandingPage() {
 	return (
