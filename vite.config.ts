@@ -1,4 +1,3 @@
-import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
@@ -23,12 +22,13 @@ export default defineConfig({
         buildMode: true,
       },
     }),
+    /*
     VitePWA({
-      /*
+      /!*
 			서비스워커란?
 			앱이 꺼져 있어도 푸시 알림이 오거나, 오프라인에서 작동되는 것처럼 웹에서도 그런 기능을 수행해줌
 			즉, 브라우저가 백그라운드에서 실행하는 자바스크립트 파일로 사용자가 페이지를 보고 있지 않아도 동작할 수 있음
-			*/
+			*!/
       registerType: 'prompt', //수동으로 설치 안내를 띄우는 설정
       injectRegister: 'auto', //서비스워커() 자동으로 등록
 
@@ -76,10 +76,10 @@ export default defineConfig({
 
       //workbox: 캐시를 어떻게 관리할지, 오프라인 동작을 어떻게 할지를 정하는 영역이야. PWA의 오프라인 기능, 빠른 로딩 등을 담당하는 중요한 부분!!
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico}'], //캐시할 파일의 종류/형식
+        globPatterns: ['**!/!*.{js,css,html,svg,png,ico}'], //캐시할 파일의 종류/형식
         cleanupOutdatedCaches: true, //이전 버전의 캐시를 자동으로 삭제
         clientsClaim: true, //서비스워커가 설치되자마자 모든 탭(클라이언트)을 즉시 제어
-        /*
+        /!*
 						서비스 워커 기본동작:
 					1. 설치됨 (install)
 					2. 대기 상태 (waiting)
@@ -90,7 +90,7 @@ export default defineConfig({
 					해결: clientsClaim: true 설정하면, 새 서비스워커가 활성화되는 순간 열려 있는 모든 탭(클라이언트)을 즉시 takeover해서 새 서비스워커가 컨트롤함.
 
 					효과: 버그/캐시 문제 최소화 -> 예전 워커가 계속 캐시해서 생기는 문제 방지
-				*/
+				*!/
       },
 
       devOptions: {
@@ -100,6 +100,7 @@ export default defineConfig({
         type: 'module', //최신 모듈 시스템 쓰고 싶을 때 설정
       },
     }),
+    */
   ],
   resolve: {
     alias: {
