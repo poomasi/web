@@ -1,3 +1,5 @@
+"use Client";
+
 import styled from "@emotion/styled";
 import { ProfileCard } from "@components/profileCards/ProfileCard";
 import { ProfileBadge } from "@components/common/badge";

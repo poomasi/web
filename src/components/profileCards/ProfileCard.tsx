@@ -23,10 +23,11 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 		// useGuideModal,
 		// setUseGuideModal,
 		selectedCardKey,
+		setSelectedCardKey,
 	} = useProfileCard();
 
 	// const isMobile = useMobileStore((state) => state.isMobile);
-	const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null;
+	// const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null;
 
 	return (
 		<div>
@@ -65,16 +66,16 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 			{selectedCardKey &&
 				(selectedCardKey === "MobileInstructions" ? (
 					<ModalGuide
-						type="swiper"
+						type="MobileInstructions"
 						title={modalData[selectedCardKey].title}
-						contents={modalData[selectedCardKey].contents}
+						content={modalData[selectedCardKey].content}
 						onClose={() => setSelectedCardKey(null)}
 					/>
 				) : (
 					<ModalGuide
-						type="web-nonSwiper"
+						type="WebInstructions"
 						title={modalData[selectedCardKey].title}
-						contents={modalData[selectedCardKey].contents}
+						content={modalData[selectedCardKey].content}
 						onClose={() => setSelectedCardKey(null)}
 					/>
 				))}

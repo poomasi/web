@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { MobileLandingInfoCard } from "@landingPage/mobile/Mobile-LandingInfoCard";
 import { ModalGuide } from "@components/common/modal/ModalGuide";
 import { modalData } from "@components/common/modal/modalGuide-data";
