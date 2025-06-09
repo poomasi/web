@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getMobileVw } from "@utils/responsive";
+import { getMobileVw } from "api/responsive";
 import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
 import { EditPencilButton } from "@components/button/editButton/EditPencilButton";
 import { useMentoProfileEdit, useEditAuthority } from "@hooks/qnaPage";

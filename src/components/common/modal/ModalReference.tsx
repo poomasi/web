@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-// import { getMobileVw } from '@utils/responsive.ts'
+// import { getMobileVw } from 'api/responsive.ts'
 import { CloseButton } from "@components/common/button";
 import { useMobileStore } from "@store/useMobileStore";
 import { createPortal } from "react-dom";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { KakaoLogin } from "@utils/kakao-login";
+import { KakaoLogin } from "api/kakao-login";
 import { useAccountStore } from "@store/account";
 
 export function Header() {

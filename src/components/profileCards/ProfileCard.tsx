@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from "@components/LandingPage/hooks/useProfileCard.ts";
-import { getMobileVw } from "@utils/responsive.ts";
+import { getMobileVw } from "api/responsive.ts";
 import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
 import { useMobileStore } from "@store/useMobileStore";
 import { ModalGuide } from "@components/modal";

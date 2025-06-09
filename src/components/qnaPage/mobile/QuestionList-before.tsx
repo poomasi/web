@@ -8,14 +8,14 @@
 // //모바일용 앤써카드
 // import { AnswerCard } from '@components/DetailPage/ui/mobile/AnswerCard'
 // import { useIsAnswerBlurred } from '@hooks/qnaPage/useIsAnswerBlurred'
-// import { RequestApi } from '@utils/api/request-api'
-// import { GetQnaListResponse } from '@utils/api/types/qna.type'
-// import { QnaAskerType, AccountType } from '@utils/api/enums'
+// import { RequestApi } from 'api/request-api'
+// import { GetQnaListResponse } from 'api/types/qna.type'
+// import { QnaAskerType, AccountType } from 'api/enums'
 // import { colors } from '@styles/foundation/color'
 // import styled from '@emotion/styled'
 // import Grid from '@mui/material/Grid'
 // import SendIcon from '@mui/icons-material/Send'
-// import { getMobileVw } from '@utils/responsive'
+// import { getMobileVw } from 'api/responsive'
 // import { useQnaList } from '@hooks/qnaPage/useQnaList'
 
 // export function QuestionList() {

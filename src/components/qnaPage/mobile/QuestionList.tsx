@@ -1,6 +1,6 @@
 import { ProfileBadge } from "@components/badge";
-import { QnaAskerType, AccountType } from "@utils/api/enums.ts";
-import { GetQnaListResponse } from "@utils/api/types/qna.type";
+import { QnaAskerType, AccountType } from "api/enums.ts";
+import { GetQnaListResponse } from "api/types/qna.type";
 import styled from "@emotion/styled";
 import Grid from "@mui/material/Grid";
 import { useCallback, useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { colors } from "@styles/foundation/color";
 import { useQnaList, useEditAuthority } from "@hooks/qnaPage";
 import { useQnaReply } from "@hooks/qnaPage/useQnaReply";
-import { getMobileVw } from "@utils/responsive";
+import { getMobileVw } from "api/responsive";
 
 export function QuestionList() {
 	const { id } = useParams();

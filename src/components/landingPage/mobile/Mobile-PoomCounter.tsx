@@ -2,7 +2,7 @@
 // import poomCountBackground from '@assets/images/landingPage/mobile-poomCounterBg.png'
 import styled from "@emotion/styled";
 import { usePoomCount } from "@hooks/landingPage/usePoomCount";
-import { getMobileVw } from "@utils/responsive";
+import { getMobileVw } from "api/responsive";
 import { colors } from "@styles/foundation/color";
 
 export function MobilePoomCounter() {

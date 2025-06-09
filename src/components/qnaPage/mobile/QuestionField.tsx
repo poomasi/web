@@ -1,12 +1,12 @@
-import { AskerSpecificType, CareerYearType } from "@utils/api/enums.ts";
+import { AskerSpecificType, CareerYearType } from "api/enums.ts";
 import { DebouncedButton } from "@components/button";
 import { useCallback, useState } from "react";
 import { useToastMessageStore } from "@store/toast";
 import { useAccountStore } from "@store/account";
-// import { RequestApi } from '@utils/api/request-api.ts'
+// import { RequestApi } from 'api/request-api.ts'
 // import { useParams } from 'react-router-dom'
 import styled from "@emotion/styled";
-import { getMobileVw } from "@utils/responsive";
+import { getMobileVw } from "api/responsive";
 import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
 import { Seperator } from "@components/seperator/Seperator";
@@ -14,8 +14,8 @@ import { useMobileStore } from "@store/useMobileStore.ts";
 import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
 import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
 import { CommonSelect } from "@components/CommonSelect/CommonSelect";
-import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@utils/api/enums";
-import { usePostQuestion } from "@utils/api/posts/usePostQuestion";
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "api/enums";
+import { usePostQuestion } from "api/posts/usePostQuestion";
 import { useParams } from "react-router-dom";
 
 const QUESTION_MAX_LENGTH: number = 500;

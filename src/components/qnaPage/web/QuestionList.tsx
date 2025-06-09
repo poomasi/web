@@ -1,6 +1,6 @@
 import { ProfileBadge } from "@components/badge";
-import { QnaAskerType, AccountType } from "@utils/api/enums.ts";
-import { GetQnaListResponse } from "@utils/api/types/qna.type";
+import { QnaAskerType, AccountType } from "api/enums.ts";
+import { GetQnaListResponse } from "api/types/qna.type";
 import styled from "@emotion/styled";
 import Grid from "@mui/material/Grid";
 import { useCallback, useEffect, useState } from "react";

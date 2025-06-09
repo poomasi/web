@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
-import { CareerYearType } from "@utils/api/enums.ts";
+import { CareerYearType } from "api/enums.ts";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import TextareaAutosize from "react-textarea-autosize";
 import { colors } from "@styles/foundation/color";
-import { GetQnaListResponse } from "@utils/api/types/qna.type";
+import { GetQnaListResponse } from "api/types/qna.type";
 import { useAccountStore } from "@store/account";
-// import { getMobileVw } from '@utils/responsive'
+// import { getMobileVw } from 'api/responsive'
 import { useQuestionEdit, useIsOwner } from "@hooks/qnaPage/";
 import { EditButton } from "@components/button/editButton/EditButton";
 import { EditActionButtons } from "@components/button/editButton/EditActionButtons";
