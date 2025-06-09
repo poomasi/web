@@ -21,8 +21,10 @@
 		"@types/node": "^22.15.29",
 		"@types/react": "^19.1.6",
 		"@types/react-dom": "^19.1.5",
+		"@typescript-eslint/eslint-plugin": "^8.33.1",
+		"@typescript-eslint/parser": "^8.33.1",
 		"autoprefixer": "^10.4.21",
-		"eslint": "^9.28.0",
+		"eslint": "8",
 		"eslint-config-next": "^15.3.3",
 		"eslint-plugin-react-hooks": "^5.2.0",
 		"postcss": "^8.5.4",
@@ -31,6 +33,10 @@
 		"typescript": "^5.8.3"
 	},
 	"scripts": {
-		"dev": "next dev"
-	}
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+	},
+	"license": "MIT"
 }
