@@ -49,7 +49,7 @@ export function IntroduceSection() {
 					onClick={() => updateModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>
-			{useGuideModal && (
+			{modalInfo !== null && (
 				<PoomasiGuideModal
 					onClose={() => {
 						setUseGuideModal(false);
