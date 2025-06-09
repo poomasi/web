@@ -3,12 +3,12 @@ import isPropValid from "@emotion/is-prop-valid";
 import Card from "@mui/material/Card";
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
-import { useProfileCard } from "@components/LandingPage/hooks/useProfileCard.ts";
+import { useProfileCard } from "@hooks/landingPage/useProfileCard";
 import { getMobileVw } from "@utils/responsive.ts";
 import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
 import { useMobileStore } from "@store/useMobileStore";
-import { ModalGuide } from "@components/modal";
-import { modalData } from "@components/modal/modalGuide-data";
+import { ModalGuide } from "@components/common/modal";
+import { modalData } from "@components/common/modal/modalGuide-data";
 
 export interface ProfileData {
 	nickname: string;

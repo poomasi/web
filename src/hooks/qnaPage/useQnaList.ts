@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { RequestApi } from "api/request-api";
 import type { GetQnaListResponse } from "api/types/qna.type";
-import { QnaAskerType } from "api/enums.ts";
+import { QnaAskerType } from "@api/types/enums";
 
 /*
 QnA(질문-답변) 리스트 데이터를 서버에서 불러오고,

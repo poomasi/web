@@ -1,4 +1,4 @@
-import { AskerSpecificType, CareerYearType } from "api/enums.ts";
+import { AskerSpecificType, CareerYearType } from "@api/types/enums";
 import { DebouncedButton } from "@components/button";
 import { useCallback, useState } from "react";
 import { useToastMessageStore } from "@store/toast";
@@ -14,7 +14,7 @@ import { useMobileStore } from "@store/useMobileStore.ts";
 import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
 import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
 import { CommonSelect } from "@components/CommonSelect/CommonSelect";
-import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "api/enums";
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@api/types/enums";
 import { usePostQuestion } from "api/posts/usePostQuestion";
 import { useParams } from "react-router-dom";
 

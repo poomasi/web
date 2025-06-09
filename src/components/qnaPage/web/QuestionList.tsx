@@ -1,5 +1,5 @@
 import { ProfileBadge } from "@components/badge";
-import { QnaAskerType, AccountType } from "api/enums.ts";
+import { QnaAskerType, AccountType } from "@api/types/enums";
 import { GetQnaListResponse } from "api/types/qna.type";
 import styled from "@emotion/styled";
 import Grid from "@mui/material/Grid";

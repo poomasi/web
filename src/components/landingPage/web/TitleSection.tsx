@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import LandingTitleBackground from "@assets/images/landingPage/landing-title-background.png";
 import { useMoveToProfile } from "@hooks/landingPage/useMovetoProfile";
 import { colors } from "@styles/foundation/color";
 
@@ -29,8 +28,9 @@ const TitleSectionContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	background-image:
-		url("/images/landingPage/mobile-TitleSectionBg.png"),
+		url("/images/bg-landing-title.png"),
 		linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
+	background-size: cover;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -62,7 +62,7 @@ const Description = styled.div`
 const QuestionButton = styled.div`
 	width: 406px;
 	height: 80px;
-	border-radius: 45.5px;
+	border-radius: 45.5008px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

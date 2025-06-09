@@ -4,16 +4,13 @@ import { useAccountStore } from "@store/account";
 
 // @ts-ignore
 export interface CustomInstance extends AxiosInstance {
-	get<T>(
-		url: string,
-		config?: AxiosRequestConfig
-	): Promise<DefaultApiResponse<T>>;
+	get<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
 
 	post<T>(
 		url: string,
 		data?: any,
 		config?: AxiosRequestConfig
-	): Promise<DefaultApiResponse<T>>;
+	): Promise<DefaultApiResponse<T>>; //axios는 실제로 AxiosResponse<T> 객체를 주고 있음, 인터셉터에서 response.data만 반환하고 있음
 
 	patch<T>(
 		url: string,

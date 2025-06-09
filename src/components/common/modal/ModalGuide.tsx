@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 
-type GuideContent = { image: string; text: string };
+type GuideContent = { image: StaticImageData; text: string };
 
 // type ModalProps =
 // 	| {
@@ -51,9 +51,18 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 						{modal.content.map((item, i) => (
 							<SwiperSlide key={i}>
 								<Slide>
-									<Image
+									<NextImage
 										src={item.image}
 										alt={`guide-step-${i + 1}`}
+										width={240}
+										height={180}
+										style={{
+											width: "70%",
+											maxWidth: "240px",
+											height: "auto",
+											marginBottom: "1rem",
+											borderRadius: "16px",
+										}}
 									/>
 									<Text>{item.text}</Text>
 								</Slide>

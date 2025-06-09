@@ -1,6 +1,9 @@
+"use client";
+
 import styled from "@emotion/styled";
-import { KakaoLogin } from "api/kakao-login";
+import { KakaoLogin } from "@utils/kakao-login";
 import { useAccountStore } from "@store/account";
+import publicLogo from "@assets/images/public-logo.svg";
 
 export function Header() {
 	const { accessToken, resetaccessToken } = useAccountStore();
@@ -19,7 +22,7 @@ export function Header() {
 				<HeaderContent>
 					<LogoButtonWrapper onClick={toHome}>
 						<LogoImage
-							src="/images/common/public-logo.svg"
+							src={publicLogo}
 							alt="logo"
 						/>
 					</LogoButtonWrapper>

@@ -1,19 +1,20 @@
 import guide01 from "@assets/images/landingPage/mobile-landing-guide01.png";
 import guide02 from "@assets/images/landingPage/mobile-landing-guide02.png";
 import guide03 from "@assets/images/landingPage/mobile-landing-guide03.png";
+import type { StaticImageData } from "next/image";
 
 //모바일 스와이프용
 type SwiperModal = {
 	title: string;
 	type: "swiper";
-	content: { image: string; text: string }[];
+	content: { image: StaticImageData; text: string }[];
 };
 
 //웹용
 type WebTextModal = {
 	title: string;
 	type: "web-text";
-	content: { image: string; text: string }[];
+	content: { image: StaticImageData; text: string }[];
 };
 
 //사진없는 텍스트용

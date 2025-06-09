@@ -23,7 +23,7 @@
 			"@assets/*": ["assets/*"],
 			"@styles/*": ["styles/*"],
 			"@store/*": ["store/*"],
-			"utils/*": ["utils/*"],
+			"@utils/*": ["utils/*"],
 			"@hooks/*": ["hooks/*"],
 			"@types/*": ["types/*"],
 			"@public/*": ["public/*"],

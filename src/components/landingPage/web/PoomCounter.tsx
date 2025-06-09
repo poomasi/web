@@ -1,5 +1,5 @@
 import poomCountIcon from "@assets/images/landingPage/poom-count-icon.svg";
-import poomCountBackground from "@assets/images/landingPage/poom-count-background.png";
+// import poomCountBackground from "@assets/images/landingPage/poom-count-background.png";
 import styled from "@emotion/styled";
 import { usePoomCount } from "@hooks/landingPage/usePoomCount";
 
@@ -23,7 +23,7 @@ const CounterContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	background-image: url("/images/landingPage/mobile-poomCounterBg.png");
+	background-image: url("/images/bg-poom-count.png");
 	background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
 	background-position: center; // 이미지를 중앙에 배치
 	background-repeat: no-repeat; // 이미지 반복
