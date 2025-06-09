@@ -47,7 +47,7 @@ export const useAccountStore = create<AccessTokenStore>()(
 	)
 );
 
-/*
+/* 토큰값 흐름
 1. 카카오 로그인 
 2. 카카오 API에서 access_token을 받아옴 
 3. 그 값을 setaccessToken(token)으로 Zustand에 저장
