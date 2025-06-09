@@ -6,7 +6,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { colors } from "@styles/foundation/color";
 import { GetQnaListResponse } from "api/types/qna.type";
 import { useAccountStore } from "@store/account";
-// import { getMobileVw } from 'api/responsive'
+// import { getMobileVw } from '@utils/responsive'
 import { useQuestionEdit, useIsOwner } from "@hooks/qnaPage/";
 import { EditButton } from "@components/button/editButton/EditButton";
 import { EditActionButtons } from "@components/button/editButton/EditActionButtons";

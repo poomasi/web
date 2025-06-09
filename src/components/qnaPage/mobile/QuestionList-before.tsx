@@ -15,7 +15,7 @@
 // import styled from '@emotion/styled'
 // import Grid from '@mui/material/Grid'
 // import SendIcon from '@mui/icons-material/Send'
-// import { getMobileVw } from 'api/responsive'
+// import { getMobileVw } from '@utils/responsive'
 // import { useQnaList } from '@hooks/qnaPage/useQnaList'
 
 // export function QuestionList() {

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getMobileVw } from "api/responsive";
+import { getMobileVw } from "@utils/responsive";
 import { colors } from "@styles/foundation/color";
 
 export function Footer() {

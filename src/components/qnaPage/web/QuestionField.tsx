@@ -6,7 +6,7 @@ import { useAccountStore } from "@store/account";
 // import { RequestApi } from 'api/request-api.ts'
 // import { useParams } from 'react-router-dom'
 import styled from "@emotion/styled";
-import { getMobileVw } from "api/responsive";
+import { getMobileVw } from "@utils/responsive";
 import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
 import { useMobileStore } from "@store/useMobileStore.ts";

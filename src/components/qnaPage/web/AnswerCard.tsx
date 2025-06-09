@@ -5,7 +5,7 @@ import { useAccountStore } from "@store/account";
 import { colors } from "@styles/foundation/color";
 import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
 import dayjs from "dayjs";
-import { getMobileVw } from "api/responsive.ts";
+import { getMobileVw } from "@utils/responsive.ts";
 import { GetQnaListResponse } from "api/types/qna.type";
 import { useAnswerEdit, useEditAuthority } from "@hooks/qnaPage";
 import { EditButton } from "@components/button/editButton/EditButton";

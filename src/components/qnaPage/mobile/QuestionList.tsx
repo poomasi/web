@@ -13,7 +13,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { colors } from "@styles/foundation/color";
 import { useQnaList, useEditAuthority } from "@hooks/qnaPage";
 import { useQnaReply } from "@hooks/qnaPage/useQnaReply";
-import { getMobileVw } from "api/responsive";
+import { getMobileVw } from "@utils/responsive";
 
 export function QuestionList() {
 	const { id } = useParams();
