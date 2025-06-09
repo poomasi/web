@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { AccountType } from "@api/types/enums";
+import { AccountType } from "@types/enums";
 
 type AccessTokenStore = {
 	accessToken: string | null;

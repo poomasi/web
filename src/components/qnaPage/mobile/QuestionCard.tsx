@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { CareerYearType } from "@api/types/enums";
+import { CareerYearType } from "@types/enums";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import TextareaAutosize from "react-textarea-autosize";

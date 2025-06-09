@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useAccountStore } from "@store/account";
 import { useEffect, useState } from "react";
 import { GetQnaListResponse } from "api/types/qna.type";
-import { QnaAskerType } from "@api/types/enums";
+import { QnaAskerType } from "@types/enums";
 import { RequestApi } from "api/request-api.ts";
 
 export const useQuestionList = () => {

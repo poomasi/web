@@ -1,4 +1,4 @@
-import { AskerSpecificType, CareerYearType } from "@api/types/enums";
+import { AskerSpecificType, CareerYearType } from "@types/enums";
 import { DebouncedButton } from "@components/button";
 import { useCallback, useState } from "react";
 import { useToastMessageStore } from "@store/toast";
@@ -14,7 +14,7 @@ import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
 import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
 import { CommonSelect } from "@components/CommonSelect/CommonSelect";
 import { usePostQuestion } from "api/posts/usePostQuestion";
-import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@api/types/enums";
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@types/enums";
 import { useParams } from "react-router-dom";
 
 const QUESTION_MAX_LENGTH: number = 500;

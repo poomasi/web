@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 import { useRouter, usePathname } from "next/navigation";
 import { useMemo, useEffect } from "react";
-import { KAKAO_LOGIN_URL } from "./variables";
+import { KAKAO_LOGIN_URL } from "../../types/variables";
 import { routerTypes } from "@api/types/router.types";
 import kakaoLogo from "@assets/images/kakao-logo.svg";
 

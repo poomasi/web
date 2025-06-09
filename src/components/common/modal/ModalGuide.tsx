@@ -6,27 +6,8 @@ import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 
-type GuideContent = { image: StaticImageData; text: string };
+// type GuideContent = { image: any; text: string };
 
-// type ModalProps =
-// 	| {
-// 			type: "swiper";
-// 			content: GuideContent[];
-// 			onClose: () => void;
-// 			title: string;
-// 	  }
-// 	| {
-// 			type: "web-text";
-// 			content: GuideContent[];
-// 			onClose: () => void;
-// 			title: string;
-// 	  }
-// 	| {
-// 			type: "text";
-// 			content: string;
-// 			onClose: () => void;
-// 			title: string;
-// 	  };
 type GuideModalProps = {
 	modalKey: keyof typeof modalData;
 	onClose: () => void;
@@ -51,7 +32,7 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 						{modal.content.map((item, i) => (
 							<SwiperSlide key={i}>
 								<Slide>
-									<NextImage
+									<Image
 										src={item.image}
 										alt={`guide-step-${i + 1}`}
 										width={240}
@@ -84,9 +65,17 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 					<GuideList>
 						{modal.content.map((item, i) => (
 							<GuideItem key={i}>
-								<GuideImg
+								<Image
 									src={item.image}
-									alt=""
+									alt={item.text}
+									width={322}
+									height={246}
+									style={{
+										width: "100%",
+										height: "auto",
+										borderRadius: "16px",
+									}}
+									sizes="(max-width: 1320px) 246px, 322px"
 								/>
 								<GuideText>{item.text}</GuideText>
 							</GuideItem>
@@ -218,17 +207,17 @@ const Text = styled.p`
 		margin-bottom: 1rem;
 	}
 `;
-const TextDeco = styled.p`
-	@media (max-width: 1024px) {
-		font-size: 0.875rem;
-		margin-bottom: 1rem;
-		margin-top: 1rem;
-		background-color: #f7f7f7;
-		border-radius: 20px;
-		padding: 2rem;
-		line-height: 160%;
-	}
-`;
+// const TextDeco = styled.p`
+// 	@media (max-width: 1024px) {
+// 		font-size: 0.875rem;
+// 		margin-bottom: 1rem;
+// 		margin-top: 1rem;
+// 		background-color: #f7f7f7;
+// 		border-radius: 20px;
+// 		padding: 2rem;
+// 		line-height: 160%;
+// 	}
+// `;
 
 const GuideList = styled.div`
 	display: grid;
@@ -251,16 +240,16 @@ const GuideItem = styled.div`
 	gap: 24px;
 `;
 
-const GuideImg = styled.img`
-	width: 322px;
-	height: 246px;
-	border-radius: 16px;
+// const GuideImg = styled.img`
+// 	width: 322px;
+// 	height: 246px;
+// 	border-radius: 16px;
 
-	@media (max-width: 1320px) {
-		width: 246px;
-		height: 186px;
-	}
-`;
+// 	@media (max-width: 1320px) {
+// 		width: 246px;
+// 		height: 186px;
+// 	}
+// `;
 
 const GuideText = styled.div`
 	color: #4e5053;
@@ -274,4 +263,10 @@ const GuideText = styled.div`
 		font-size: 14px;
 		font-weight: 700;
 	}
+`;
+const GuideInfoText = styled.div`
+	font-size: 1rem;
+	text-align: center;
+	color: #333;
+	padding: 2rem;
 `;

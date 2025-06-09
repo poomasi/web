@@ -1,4 +1,4 @@
-import { AccountType } from "@api/types/enums";
+import { AccountType } from "@types/enums";
 // import requestHandler from 'api/request-handler'
 import { AccountListResponse, AccountResponse } from "@api/types/account.types";
 import customAxios from "@api/customAxios.ts";
