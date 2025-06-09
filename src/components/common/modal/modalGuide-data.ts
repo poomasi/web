@@ -11,9 +11,9 @@ type SwiperModal = {
 };
 
 //웹용
-type WebTextModal = {
+type WebInstructions = {
 	title: string;
-	type: "web-text";
+	type: "WebInstructions";
 	content: { image: StaticImageData; text: string }[];
 };
 
@@ -24,7 +24,7 @@ type TextModal = {
 	content: string;
 };
 
-type ModalInfoType = SwiperModal | TextModal | WebTextModal;
+type ModalInfoType = SwiperModal | TextModal | WebInstructions;
 
 export const modalData: Record<
 	"WebInstructions" | "MobileInstructions" | "Guideline" | "DetailGuide",
@@ -32,7 +32,7 @@ export const modalData: Record<
 > = {
 	WebInstructions: {
 		title: "이용방법",
-		type: "web-text",
+		type: "WebInstructions",
 		content: [
 			{
 				image: guide01,

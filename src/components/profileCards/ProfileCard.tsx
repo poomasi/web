@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "@emotion/styled";
 import isPropValid from "@emotion/is-prop-valid";
 import Card from "@mui/material/Card";
@@ -5,22 +7,11 @@ import Card from "@mui/material/Card";
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from "@hooks/landingPage/useProfileCard";
 import { getMobileVw } from "@utils/responsive.ts";
-import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
-import { useMobileStore } from "@store/useMobileStore";
+// import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
+// import { useMobileStore } from "@store/useMobileStore";
 import { ModalGuide } from "@components/common/modal";
 import { modalData } from "@components/common/modal/modalGuide-data";
-
-export interface ProfileData {
-	nickname: string;
-	profile_image: string;
-	name: string;
-	field: string;
-	company1: string;
-	job1: string;
-	company2: string;
-	job2: string;
-	is_vacation: boolean;
-}
+import { ProfileData } from "@types";
 
 interface ProfileCardProps {
 	profileData: ProfileData;
@@ -29,13 +20,14 @@ interface ProfileCardProps {
 export function ProfileCard({ profileData }: ProfileCardProps) {
 	const {
 		handleProfileClick,
-		useGuideModal,
-		setUseGuideModal,
+		// useGuideModal,
+		// setUseGuideModal,
 		selectedCardKey,
 	} = useProfileCard();
 
-	const isMobile = useMobileStore((state) => state.isMobile);
+	// const isMobile = useMobileStore((state) => state.isMobile);
 	const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null;
+
 	return (
 		<div>
 			<Container
@@ -70,7 +62,24 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 					</ProfileHistory>
 				</ProfileIntroContainer>
 			</Container>
-			{useGuideModal &&
+			{selectedCardKey &&
+				(selectedCardKey === "MobileInstructions" ? (
+					<ModalGuide
+						type="swiper"
+						title={modalData[selectedCardKey].title}
+						contents={modalData[selectedCardKey].contents}
+						onClose={() => setSelectedCardKey(null)}
+					/>
+				) : (
+					<ModalGuide
+						type="web-nonSwiper"
+						title={modalData[selectedCardKey].title}
+						contents={modalData[selectedCardKey].contents}
+						onClose={() => setSelectedCardKey(null)}
+					/>
+				))}
+
+			{/* {useGuideModal &&
 				modalInfo &&
 				(isMobile && modalInfo.type === "swiper" ? (
 					<ModalGuide
@@ -81,7 +90,7 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 					/>
 				) : (
 					<PoomasiGuideModal onClose={() => setUseGuideModal(false)} />
-				))}
+				))} */}
 		</div>
 	);
 }

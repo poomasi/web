@@ -5,20 +5,22 @@ import "swiper/swiper-bundle.css";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
+import type { StaticImageData } from "next/image";
 
-// type GuideContent = { image: any; text: string };
+// type GuideContent = { image: any; text: string };›
 
 type GuideModalProps = {
-	modalKey: keyof typeof modalData;
+	type: keyof typeof modalData;
+	title: string;
+	content: string | { image: StaticImageData; text: string }[];
 	onClose: () => void;
-	isMobile: boolean; // 모바일 환경 여부 prop
 };
 
-export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
-	const modal = modalData[modalKey];
+export function ModalGuide({ onClose, type }: GuideModalProps) {
+	const modal = modalData[type];
 
 	// 모바일: 스와이프
-	if (modal.type === "swiper" && isMobile) {
+	if (type === "MobileInstructions") {
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
@@ -29,26 +31,27 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 						slidesPerView={1}
 						modules={[Pagination]}
 						pagination={{ clickable: true }}>
-						{modal.content.map((item, i) => (
-							<SwiperSlide key={i}>
-								<Slide>
-									<Image
-										src={item.image}
-										alt={`guide-step-${i + 1}`}
-										width={240}
-										height={180}
-										style={{
-											width: "70%",
-											maxWidth: "240px",
-											height: "auto",
-											marginBottom: "1rem",
-											borderRadius: "16px",
-										}}
-									/>
-									<Text>{item.text}</Text>
-								</Slide>
-							</SwiperSlide>
-						))}
+						{Array.isArray(modal.content) &&
+							modal.content.map((item, i) => (
+								<SwiperSlide key={i}>
+									<Slide>
+										<Image
+											src={item.image.src}
+											alt={`guide-step-${i + 1}`}
+											width={240}
+											height={180}
+											style={{
+												width: "70%",
+												maxWidth: "240px",
+												height: "auto",
+												marginBottom: "1rem",
+												borderRadius: "16px",
+											}}
+										/>
+										<Text>{item.text}</Text>
+									</Slide>
+								</SwiperSlide>
+							))}
 					</StyledSwiper>
 				</ModalReference.Body>
 			</ModalReference>
@@ -56,30 +59,31 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 	}
 
 	// 웹: 이미지 그리드
-	if (modal.type === "web-text" && !isMobile) {
+	if (type === "WebInstructions") {
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
 				<ModalReference.Body>
 					<ModalTitle>{modal.title}</ModalTitle>
 					<GuideList>
-						{modal.content.map((item, i) => (
-							<GuideItem key={i}>
-								<Image
-									src={item.image}
-									alt={item.text}
-									width={322}
-									height={246}
-									style={{
-										width: "100%",
-										height: "auto",
-										borderRadius: "16px",
-									}}
-									sizes="(max-width: 1320px) 246px, 322px"
-								/>
-								<GuideText>{item.text}</GuideText>
-							</GuideItem>
-						))}
+						{Array.isArray(modal.content) &&
+							modal.content.map((item, i) => (
+								<GuideItem key={i}>
+									<Image
+										src={item.image.src}
+										alt={item.text}
+										width={322}
+										height={246}
+										style={{
+											width: "100%",
+											height: "auto",
+											borderRadius: "16px",
+										}}
+										sizes="(max-width: 1320px) 246px, 322px"
+									/>
+									<GuideText>{item.text}</GuideText>
+								</GuideItem>
+							))}
 					</GuideList>
 				</ModalReference.Body>
 			</ModalReference>
@@ -87,19 +91,20 @@ export function ModalGuide({ modalKey, onClose, isMobile }: GuideModalProps) {
 	}
 
 	// 텍스트 전용 (모바일/웹 공통)
-	if (modal.type === "text") {
+	if (type === "Guideline" || type === "DetailGuide") {
+		const textContent = modal.content as string;
+
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
 				<ModalReference.Body>
 					<ModalTitle>{modal.title}</ModalTitle>
-					<GuideInfoText>{modal.content}</GuideInfoText>
+					<GuideInfoText>{textContent}</GuideInfoText>
 				</ModalReference.Body>
 			</ModalReference>
 		);
 	}
 
-	// 예외: fallback 처리
 	return null;
 
 	// if (type === "swiper" && content) {

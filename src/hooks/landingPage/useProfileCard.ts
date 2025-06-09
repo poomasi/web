@@ -1,30 +1,30 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ProfileData } from "@types/ProfileData";
+import { ProfileData } from "@types";
 import { useState } from "react";
 import { useAccountStore } from "@store/account";
+import { useMobileStore } from "@store/useMobileStore";
 
 export function useProfileCard() {
 	const router = useRouter();
 	const { accessToken } = useAccountStore((state) => state);
-	const [useGuideModal, setUseGuideModal] = useState(false); //모달띄울지말지 결정
+	const isMobile = useMobileStore((state) => state.isMobile);
+
+	// const [useGuideModal, setUseGuideModal] = useState(false); //모달띄울지말지 결정
 	const [selectedCardKey, setSelectedCardKey] = useState<
-		| "WebInstructions"
-		| "MobileInstructions"
-		| "Guideline"
-		| "DetailGuide"
-		| null
+		"WebInstructions" | "MobileInstructions" | null
 	>(null);
 
 	const handleProfileClick = (profile: ProfileData) => {
-		if (accessToken === null) {
-			setUseGuideModal(true);
-			setSelectedCardKey("MobileInstructions"); //이게 문제였다...ㅠㅠㅠ해결완료...나중에 벨로그회고
-			// console.log('useGuideModal 실행됨:', useGuideModal)
+		if (accessToken === null && isMobile) {
+			// setUseGuideModal(true);
+			setSelectedCardKey("MobileInstructions");
 			return;
 		}
-		setSelectedCardKey("MobileInstructions");
+		if (accessToken === null && !isMobile) {
+			setSelectedCardKey("WebInstructions");
+		}
 
 		if (!profile.is_vacation) {
 			router.push(`/${profile.nickname}`);
@@ -33,8 +33,9 @@ export function useProfileCard() {
 
 	return {
 		handleProfileClick,
-		useGuideModal,
-		setUseGuideModal,
+		// useGuideModal,
+		// setUseGuideModal,
 		selectedCardKey,
+		setSelectedCardKey,
 	};
 }
