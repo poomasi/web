@@ -38,10 +38,6 @@ function ModalReference({ children, onClick }: ModalReferenceProps) {
 			{modalContent}
 		</div>
 	);
-	// <div style={{ position: 'relative' }} className="ModalReference">
-	//   <ModalOverlay onClick={onClick} className="ModalOverlay" />
-	//   <ModalWrapper className="ModalWrapper">{children}</ModalWrapper>
-	// </div>
 }
 
 function Header({ onClickClose }: { onClickClose: () => void }) {
@@ -56,6 +52,7 @@ function Body({ children }: { children: React.ReactNode }) {
 	return <div>{children}</div>;
 }
 
+//ModalReference 컴포넌트 객체에 Header와 Body라는 "속성"을 추가
 ModalReference.Header = Header;
 ModalReference.Body = Body;
 

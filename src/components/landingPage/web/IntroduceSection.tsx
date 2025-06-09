@@ -1,22 +1,23 @@
 import { LandingInfoCard } from "@landingPage/web/LandingInfoCard.tsx";
 import styled from "@emotion/styled";
 import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
-import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
+// import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import { useMemo, useState } from "react";
+import { ModalGuide } from "@components/common/modal";
 
-export function IntroduceSection() {
+export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 	const [selectedModalKey, setSelectedModalKey] = useState<
 		null | keyof typeof modalData
 	>(null);
 
-	const updateModalKey = (key: keyof typeof modalData) => {
-		setSelectedModalKey(key);
-	};
+	// const updateModalKey = (key: keyof typeof modalData) => {
+	// 	setSelectedModalKey(key);
+	// };
 
-	const modalInfo = useMemo(() => {
-		return selectedModalKey ? modalData[selectedModalKey] : null;
-	}, [selectedModalKey]);
+	// const modalInfo = useMemo(() => {
+	// 	return selectedModalKey ? modalData[selectedModalKey] : null;
+	// }, [selectedModalKey]);
 
 	const handleModalClose = () => {
 		setSelectedModalKey(null);
@@ -36,31 +37,28 @@ export function IntroduceSection() {
 				<LandingInfoCard
 					infoText="이용방법"
 					imgSrc="/images/landingPage/Instructions-icon"
-					onClick={() => updateModalKey("Instructions")}
+					onClick={() =>
+						setSelectedModalKey(
+							isMobile ? "MobileInstructions" : "WebInstructions"
+						)
+					}
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
 					imgSrc="/images/landingPage/Guideline-icon.svg"
-					onClick={() => updateModalKey("Guideline")}
+					onClick={() => setSelectedModalKey("Guideline")}
 				/>
 				<LandingInfoCard
 					infoText="세부안내"
 					imgSrc="/images/landingPage/detailGuide-icon.svg"
-					onClick={() => updateModalKey("DetailGuide")}
+					onClick={() => setSelectedModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>
-			{modalInfo !== null && (
-				<PoomasiGuideModal
-					onClose={() => {
-						setUseGuideModal(false);
-					}}
-				/>
-			)}
-			{isCommonGuideModal && (
-				<CommonGuideModal
-					title={commonGuideInfo.title}
-					content={commonGuideInfo.content}
-					onCloseClick={modalCloseHandler}
+			{selectedModalKey && (
+				<ModalGuide
+					modalKey={selectedModalKey}
+					onClose={handleModalClose}
+					isMobile={isMobile}
 				/>
 			)}
 		</IntroduceSectionContainer>

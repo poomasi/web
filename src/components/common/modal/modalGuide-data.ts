@@ -2,22 +2,25 @@ import guide01 from "@assets/images/landingPage/mobile-landing-guide01.png";
 import guide02 from "@assets/images/landingPage/mobile-landing-guide02.png";
 import guide03 from "@assets/images/landingPage/mobile-landing-guide03.png";
 
+//모바일 스와이프용
 type SwiperModal = {
 	title: string;
 	type: "swiper";
 	content: { image: string; text: string }[];
 };
 
-type TextModal = {
-	title: string;
-	type: "text";
-	content: string;
-};
-
+//웹용
 type WebTextModal = {
 	title: string;
 	type: "web-text";
 	content: { image: string; text: string }[];
+};
+
+//사진없는 텍스트용
+type TextModal = {
+	title: string;
+	type: "text";
+	content: string;
 };
 
 type ModalInfoType = SwiperModal | TextModal | WebTextModal;
@@ -62,13 +65,13 @@ export const modalData: Record<
 			},
 		],
 	},
-	Mentoring: {
+	Guideline: {
 		title: "품앗이 규칙",
 		type: "text",
 		content:
 			"품삯은 받고 있지 않아요. 대신 서로 돕고 마음을 나누는 따뜻한 공간이 될 수 있도록 과도한 질문은 자제 부탁드려요.",
 	},
-	Question: {
+	DetailGuide: {
 		title: "세부 안내",
 		type: "text",
 		content:

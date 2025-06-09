@@ -20,6 +20,7 @@
 			"@app/*": ["app/*"],
 			"@api/*": ["api/*"],
 			"@components/*": ["components/*"],
+			"@assets/*": ["assets/*"],
 			"@styles/*": ["styles/*"],
 			"@store/*": ["store/*"],
 			"@utils/*": ["utils/*"],
