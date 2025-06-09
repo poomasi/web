@@ -1,29 +1,30 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
 import { MobileLandingInfoCard } from "@landingPage/mobile/Mobile-LandingInfoCard";
 import { ModalGuide } from "@components/common/modal/ModalGuide";
 import { modalData } from "@components/common/modal/modalGuide-data";
-// import mobileintroduceBg from "@assets/images/landingPage/mobile-IntroduceSectionBg.png";
 
-export function MobileIntroduceSection() {
+export function MobileIntroduceSection({ isMobile }: { isMobile: boolean }) {
 	const [selectedModalKey, setSelectedModalKey] = useState<
 		null | keyof typeof modalData
 	>(null);
 
 	//어떤 모달을 띄울지 결정
-	const updateModalKey = (key: keyof typeof modalData) => {
-		setSelectedModalKey(key);
-	};
+	// const updateModalKey = (key: keyof typeof modalData) => {
+	// 	setSelectedModalKey(key);
+	// };
 
 	const handleModalClose = () => {
 		setSelectedModalKey(null);
 	};
 
 	//선택된 카드에 맞는 모달 데이터를 꺼내는 코드
-	const modalInfo = useMemo(
-		() => (selectedModalKey ? modalData[selectedModalKey] : null),
-		[selectedModalKey]
-	);
+	// const modalInfo = useMemo(
+	// 	() => (selectedModalKey ? modalData[selectedModalKey] : null),
+	// 	[selectedModalKey]
+	// );
 
 	return (
 		<IntroduceSectionContainer>
@@ -39,36 +40,31 @@ export function MobileIntroduceSection() {
 				<MobileLandingInfoCard
 					infoText="이용방법"
 					imgSrc="/images/landingPage/Instructions-icon"
-					onClick={() => updateModalKey("MobileInstructions")}
+					onClick={() =>
+						setSelectedModalKey(
+							isMobile ? "MobileInstructions" : "WebInstructions"
+						)
+					}
 				/>
 				<MobileLandingInfoCard
 					infoText="품앗이 규칙"
 					imgSrc="/images/landingPage/Guideline-icon.svg"
-					onClick={() => updateModalKey("Guideline")}
+					onClick={() => setSelectedModalKey("Guideline")}
 				/>
 				<MobileLandingInfoCard
 					infoText="세부안내"
 					imgSrc="/images/landingPage/detailGuide-icon.svg"
-					onClick={() => updateModalKey("DetailGuide")}
+					onClick={() => setSelectedModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>
-
-			{modalInfo !== null &&
-				(modalInfo.type === "swiper" ? (
-					<ModalGuide
-						type="swiper"
-						content={modalInfo.content}
-						onClose={handleModalClose}
-						title={modalInfo.title}
-					/>
-				) : (
-					<ModalGuide
-						type="text"
-						content={modalInfo.content}
-						onClose={handleModalClose}
-						title={modalInfo.title}
-					/>
-				))}
+			{selectedModalKey && (
+				<ModalGuide
+					type={selectedModalKey}
+					title={modalData[selectedModalKey].title}
+					content={modalData[selectedModalKey].content}
+					onClose={handleModalClose}
+				/>
+			)}
 		</IntroduceSectionContainer>
 	);
 }

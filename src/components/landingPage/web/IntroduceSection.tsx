@@ -1,9 +1,11 @@
+"use client";
+
 import { LandingInfoCard } from "@landingPage/web/LandingInfoCard.tsx";
 import styled from "@emotion/styled";
-import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
+// import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
 // import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ModalGuide } from "@components/common/modal";
 
 export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
@@ -56,9 +58,10 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 			</IntroduceCardList>
 			{selectedModalKey && (
 				<ModalGuide
-					modalKey={selectedModalKey}
+					type={selectedModalKey}
+					title={modalData[selectedModalKey].title}
+					content={modalData[selectedModalKey].content}
 					onClose={handleModalClose}
-					isMobile={isMobile}
 				/>
 			)}
 		</IntroduceSectionContainer>
