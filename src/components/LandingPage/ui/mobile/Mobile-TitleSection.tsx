@@ -1,6 +1,4 @@
 import styled from '@emotion/styled'
-import mobileLandingTitleBg from '@assets/images/landingPage/mobile-TitleSectionBg.png'
-//mobileLandingTitleBg로 바로 선언해버리는건가..???
 import { getMobileVw } from '@utils/responsive'
 import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
 import { colors } from '@styles/foundation/color'
@@ -28,7 +26,7 @@ const TitleSectionContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
-  background-image: url(${mobileLandingTitleBg});
+  background-image: url('/images/landingPage/landing-title-background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

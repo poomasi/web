@@ -1,8 +1,4 @@
 import { LandingInfoCard } from '@components/LandingPage/ui/web/LandingInfoCard.tsx'
-import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
-import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
-import questionIcon from '@assets/images/landingPage/question-icon.svg'
-import introduceBackground from '@assets/images/landingPage/introduce-background.png'
 import styled from '@emotion/styled'
 import { PoomasiGuideModal } from '@components/LandingPage/ui/web/PoomasiGuideModal.tsx'
 import { useState } from 'react'
@@ -51,9 +47,9 @@ export function IntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={handleUseGuideModalClick} />
-        <LandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={handleMentoringModalClick} />
-        <LandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={handleQuestionModalClick} />
+        <LandingInfoCard infoText="이용방법" imgSrc="/images/landingPage/question-icon.svg" onClick={handleUseGuideModalClick} />
+        <LandingInfoCard infoText="품앗이 규칙" imgSrc="/images/landingPage/mentoring-icon.svg" onClick={handleMentoringModalClick} />
+        <LandingInfoCard infoText="세부안내" imgSrc="/images/landingPage/sharing-icon.svg" onClick={handleQuestionModalClick} />
       </IntroduceCardList>
       {useGuideModal && (
         <PoomasiGuideModal
@@ -75,7 +71,7 @@ const IntroduceSectionContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-image: url(${introduceBackground});
+  background-image: url('/images/landingPage/introduce-background.png');
   background-size: cover;
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복

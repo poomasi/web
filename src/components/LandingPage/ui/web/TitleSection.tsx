@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import LandingTitleBackground from '@assets/images/landingPage/landing-title-background.png'
 import { useMoveToProfile } from '@components/LandingPage/hooks/useMovetoProfile'
 import { colors } from '@styles/foundation/color'
 
@@ -24,7 +23,7 @@ const TitleSectionContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(${LandingTitleBackground}), linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
+  background-image: url('/images/landingPage/landing-title-background.png'), linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

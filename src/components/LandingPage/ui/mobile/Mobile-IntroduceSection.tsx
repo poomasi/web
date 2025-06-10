@@ -1,10 +1,6 @@
 import styled from '@emotion/styled'
 import { useMemo, useState } from 'react'
 import { MobileLandingInfoCard } from '@components/LandingPage/ui/mobile/Mobile-LandingInfoCard'
-import sharingIcon from '@assets/images/landingPage/sharing-icon.svg'
-import mentoringIcon from '@assets/images/landingPage/mentoring-icon.svg'
-import questionIcon from '@assets/images/landingPage/question-icon.svg'
-import mobileintroduceBg from '@assets/images/landingPage/mobile-IntroduceSectionBg.png'
 import { ModalGuide } from '@components/modal/ModalGuide'
 import { modalData } from '@components/modal/modalGuide-data'
 
@@ -34,9 +30,9 @@ export function MobileIntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <MobileLandingInfoCard infoText="이용방법" imgSrc={questionIcon} onClick={() => updateModalKey('Sharing')} />
-        <MobileLandingInfoCard infoText="품앗이 규칙" imgSrc={mentoringIcon} onClick={() => updateModalKey('Mentoring')} />
-        <MobileLandingInfoCard infoText="세부안내" imgSrc={sharingIcon} onClick={() => updateModalKey('Question')} />
+        <MobileLandingInfoCard infoText="이용방법" imgSrc="/images/landingPage/question-icon.svg" onClick={() => updateModalKey('Sharing')} />
+        <MobileLandingInfoCard infoText="품앗이 규칙" imgSrc="/images/landingPage/mentoring-icon.svg" onClick={() => updateModalKey('Mentoring')} />
+        <MobileLandingInfoCard infoText="세부안내" imgSrc="/images/landingPage/sharing-icon.svg" onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
       {modalInfo !== null &&
@@ -57,7 +53,7 @@ const IntroduceSectionContainer = styled.div`
   justify-content: center;
   width: 100%;
   /* height: 846px; */
-  background-image: url(${mobileintroduceBg});
+  background-image: url('/images/landingPage/introduce-background.png');
   background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
