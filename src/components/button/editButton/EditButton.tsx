@@ -53,4 +53,10 @@ const EditAction = styled.button`
     background-color: #3ecdba;
     color: white;
   }
+
+  @media (max-width: 1024px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    width: 100%;
+  }
 `

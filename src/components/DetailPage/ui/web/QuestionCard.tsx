@@ -111,6 +111,9 @@ const StyledTextarea = styled(TextareaAutosize)`
   border-radius: 8px;
   resize: none;
   width: 100%;
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
 `
 
 const QnaCard = styled(Card)`
@@ -131,6 +134,7 @@ const QnaCard = styled(Card)`
     border-radius: 20px;
     padding: 20px 20px 40px;
     box-shadow: none;
+    gap: 20px;
   }
 `
 

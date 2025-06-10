@@ -26,7 +26,7 @@ const TitleSectionContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
-  background-image: url('/images/landingPage/landing-title-background.png');
+  background-image: url('/landingPage/landing-title-background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -8,15 +8,15 @@ type PoomasiGuideModalProps = {
 export function PoomasiGuideModal({ onClose }: PoomasiGuideModalProps) {
   const guideItemList = [
     {
-      imageSrc: '/images/landingPage/mobile-landing-guide01.png',
+      imageSrc: '/landingPage/mobile-landing-guide01.png',
       text: '1. 카카오톡으로 간편하게 로그인해요.',
     },
     {
-      imageSrc: '/images/landingPage/mobile-landing-guide02.png',
+      imageSrc: '/landingPage/mobile-landing-guide02.png',
       text: '2. 관심 있는 분야의 품앗이꾼을 찾아요.',
     },
     {
-      imageSrc: '/images/landingPage/mobile-landing-guide03.png',
+      imageSrc: '/landingPage/mobile-landing-guide03.png',
       text: '3. 도움이 필요한 내용을 자유롭게 질문해요.',
     },
   ]

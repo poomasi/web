@@ -21,15 +21,15 @@ export const modalData: Record<'Sharing' | 'Mentoring' | 'Question', ModalInfoTy
     type: 'swiper',
     contents: [
       {
-        image: '/images/landingPage/mobile-landing-guide01.png',
+        image: '/landingPage/mobile-landing-guide01.png',
         text: '1. 카카오톡으로 간편하게 로그인해요',
       },
       {
-        image: '/images/landingPage/mobile-landing-guide02.png',
+        image: '/landingPage/mobile-landing-guide02.png',
         text: '2. 관심 있는 분야의 품앗이꾼을 찾아요',
       },
       {
-        image: '/images/landingPage/mobile-landing-guide03.png',
+        image: '/landingPage/mobile-landing-guide03.png',
         text: '3. 도움이 필요한 내용을 자유롭게 질문해요',
       },
     ],

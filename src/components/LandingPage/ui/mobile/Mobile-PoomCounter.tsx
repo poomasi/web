@@ -1,4 +1,3 @@
-import poomCountIcon from '@assets/images/landingPage/poom-count-icon.svg'
 import styled from '@emotion/styled'
 import { usePoomCount } from '@components/LandingPage/hooks/usePoomCount.ts'
 import { getMobileVw } from '@utils/responsive'
@@ -9,7 +8,7 @@ export function MobilePoomCounter() {
 
   return (
     <CounterContainer>
-      <PoomCountIconContainer src={poomCountIcon} />
+      <PoomCountIconContainer src="/landingPage/poom-count-icon.svg" />
       <PoomExplainText>
         현재, <HighlightText>{accountCount}명</HighlightText>과 <br></br>
         <HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.
@@ -24,7 +23,7 @@ const CounterContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-image: url('/images/landingPage/poom-count-background.png');
+  background-image: url('/landingPage/poom-count-background.png');
   background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복

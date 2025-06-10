@@ -6,7 +6,7 @@ export function PoomCounter() {
 
   return (
     <CounterContainer>
-      <PoomCountIconContainer src="/images/landingPage/poom-count-icon.svg" alt="품카운트 아이콘" loading="lazy" />
+      <PoomCountIconContainer src="/landingPage/poom-count-icon.svg" alt="품카운트 아이콘" loading="lazy" />
       <PoomExplainText>
         현재, <HighlightText>{accountCount}</HighlightText>명과 <HighlightText>{qnaCount}</HighlightText>번의 품을 나누었어요.
       </PoomExplainText>
@@ -20,7 +20,7 @@ const CounterContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-image: url('/images/landingPage/poom-count-background.png');
+  background-image: url('/landingPage/poom-count-background.png');
   background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복

@@ -47,9 +47,9 @@ export function IntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="이용방법" imgSrc="/images/landingPage/question-icon.svg" onClick={handleUseGuideModalClick} />
-        <LandingInfoCard infoText="품앗이 규칙" imgSrc="/images/landingPage/mentoring-icon.svg" onClick={handleMentoringModalClick} />
-        <LandingInfoCard infoText="세부안내" imgSrc="/images/landingPage/sharing-icon.svg" onClick={handleQuestionModalClick} />
+        <LandingInfoCard infoText="이용방법" imgSrc="/landingPage/question-icon.svg" onClick={handleUseGuideModalClick} />
+        <LandingInfoCard infoText="품앗이 규칙" imgSrc="/landingPage/mentoring-icon.svg" onClick={handleMentoringModalClick} />
+        <LandingInfoCard infoText="세부안내" imgSrc="/landingPage/sharing-icon.svg" onClick={handleQuestionModalClick} />
       </IntroduceCardList>
       {useGuideModal && (
         <PoomasiGuideModal
@@ -71,7 +71,7 @@ const IntroduceSectionContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-image: url('/images/landingPage/introduce-background.png');
+  background-image: url('/landingPage/introduce-background.png');
   background-size: cover;
   background-position: center; // 이미지를 중앙에 배치
   background-repeat: no-repeat; // 이미지 반복
