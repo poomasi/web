@@ -10,10 +10,10 @@ type Props = {
 export function EditActionButtons({ onSave, onCancel }: Props) {
   return (
     <ButtonWrapper>
-      <QuestionAnswerButton style={{ width: '10%', display: 'flex' }} onClick={onSave}>
+      <QuestionAnswerButton style={{ display: 'flex' }} onClick={onSave}>
         저장
       </QuestionAnswerButton>
-      <QuestionAnswerButton style={{ width: '10%', display: 'flex' }} onClick={onCancel}>
+      <QuestionAnswerButton style={{ display: 'flex' }} onClick={onCancel}>
         취소
       </QuestionAnswerButton>
     </ButtonWrapper>

@@ -186,13 +186,24 @@ export const QuestionAnswerButton = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
+  width: auto;
 
   @media (max-width: 1024px) {
-    width: auto;
     display: flex;
-    padding: 10px 10px;
+    padding: 10px 16px;
     line-height: 100%;
     font-size: 12px;
     height: 40px;
+  }
+  @media (max-width: 1024px) {
+    display: flex;
+    padding: 10px 16px;
+    line-height: 100%;
+    font-size: 12px;
+    height: 40px;
+  }
+  @media (max-width: 500px) {
+    padding: 8px 12px;
+    height: 34px;
   }
 `

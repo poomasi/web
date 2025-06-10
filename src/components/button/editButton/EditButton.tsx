@@ -32,6 +32,9 @@ const DotMenu = styled.img`
   height: 18px;
   cursor: pointer;
   user-select: none;
+  @media (max-width: 500px) {
+    width: auto;
+  }
 `
 
 const EditAction = styled.button`
