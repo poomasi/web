@@ -1,13 +1,14 @@
-import { ProfileBadge } from "@components/badge";
-import { QnaAskerType, AccountType } from "@types/enums";
+import { ProfileBadge } from "@components/common/badge";
+import { QnaAskerType, AccountType } from "@types";
 import { GetQnaListResponse } from "api/types/qna.type";
 import styled from "@emotion/styled";
 import Grid from "@mui/material/Grid";
 import { useCallback, useEffect, useState } from "react";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
-import { useParams } from "react-router-dom";
-import { QuestionCard } from "@components/DetailPage/ui/web/QuestionCard.tsx";
-import { AnswerCard } from "@components/DetailPage/ui/web/AnswerCard.tsx";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
+import { useParams } from "next/navigation";
+
+import { QuestionCard } from "@components/qnaPage/mobile/QuestionCard.tsx";
+import { AnswerCard } from "@components/qnaPage/mobile/AnswerCard.tsx";
 import { useAccountStore } from "@store/account";
 import SendIcon from "@mui/icons-material/Send";
 import { colors } from "@styles/foundation/color";
@@ -16,7 +17,9 @@ import { useQnaReply } from "@hooks/qnaPage/useQnaReply";
 import { getMobileVw } from "@utils/responsive";
 
 export function QuestionList() {
-	const { id } = useParams();
+	const params = useParams(); // Next.js 방식
+	const id = params.id as string;
+
 	const { publicId, accountType } = useAccountStore();
 	const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } =
 		useDetailPageContext();
