@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { EditsApi } from "api/edits/edit-api";
-import { useToastMessageStore } from "@store/toast";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
+import { useToastMessageStore } from "@toast";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
 
 export function useMentoProfileEdit(
 	initialDescription: string,

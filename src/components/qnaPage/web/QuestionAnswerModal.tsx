@@ -1,12 +1,12 @@
 import { GetQnaListResponse } from "api/types/qna.type";
-import ModalReference from "@components/modal/ModalReference.tsx";
+import ModalReference from "@components/common/modal/ModalReference.tsx";
 import styled from "@emotion/styled";
-import { QuestionCard } from "@components/DetailPage/ui/web/QuestionCard.tsx";
+import { QuestionCard } from "@components/qnaPage/web/QuestionCard.tsx";
 import { useState } from "react";
-import { DebouncedButton } from "@components/button";
+import { DebouncedButton } from "@components/common/button";
 import { RequestApi } from "api/request-api.ts";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
-import { useToastMessageStore } from "@store/toast";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
+import { useToastMessageStore } from "@toast";
 import axios from "axios";
 
 type QuestionAnswerModalProps = {

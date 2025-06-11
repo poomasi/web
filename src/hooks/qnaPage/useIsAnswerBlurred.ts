@@ -1,7 +1,8 @@
 // 📄 src/hooks/useIsAnswerBlurred.ts
 import { useCallback } from "react";
 import { useAccountStore } from "@store/account";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
+
 import { GetQnaListResponse } from "api/types/qna.type";
 import { AccountType } from "@types";
 

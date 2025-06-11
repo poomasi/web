@@ -28,7 +28,7 @@ export function useQnaList(
 		//queryFn: 실제 데이터를 받아오는 함수.
 		queryFn: async () => {
 			const res = await RequestApi.posts.getQnaList(qnaAskerType, teacherId);
-			return res.data;
+			return res;
 		},
 		enabled: !!teacherId, // id가 있어야 쿼리 실행
 		staleTime: 1000 * 60, // 1분 캐싱
