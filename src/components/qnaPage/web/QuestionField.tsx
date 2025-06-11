@@ -1,7 +1,7 @@
-import { AskerSpecificType, CareerYearType } from "@types/enums";
-import { DebouncedButton } from "@components/button";
+import { AskerSpecificType, CareerYearType } from "@types";
+import { DebouncedButton } from "@components/common/button";
 import { useCallback, useState } from "react";
-import { useToastMessageStore } from "@store/toast";
+import { useToastMessageStore } from "@toast";
 import { useAccountStore } from "@store/account";
 // import { RequestApi } from 'api/request-api.ts'
 // import { useParams } from 'react-router-dom'
@@ -11,18 +11,21 @@ import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
 import { useMobileStore } from "@store/useMobileStore.ts";
 import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
-import { CommonSelect } from "@components/CommonSelect/CommonSelect";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
+import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
 import { usePostQuestion } from "api/posts/usePostQuestion";
-import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@types/enums";
-import { useParams } from "react-router-dom";
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@types";
+import { useParams } from "next/navigation";
 
 const QUESTION_MAX_LENGTH: number = 500;
 
 export function QuestionField() {
 	const { isMobile } = useMobileStore();
 	const keyboardHeight = useKeyboardHeight(isMobile);
-	const { id } = useParams();
+
+	const params = useParams(); // Next.js 방식
+	const id = params.id as string;
+
 	const { setSuccessToastMessage, setErrorToastMessage } =
 		useToastMessageStore();
 	const { accessToken } = useAccountStore();

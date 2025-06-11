@@ -3,13 +3,13 @@ import Card from "@mui/material/Card";
 import TextareaAutosize from "react-textarea-autosize";
 import { useAccountStore } from "@store/account";
 import { colors } from "@styles/foundation/color";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
 import dayjs from "dayjs";
 import { getMobileVw } from "@utils/responsive.ts";
 import { GetQnaListResponse } from "api/types/qna.type";
 import { useAnswerEdit, useEditAuthority } from "@hooks/qnaPage";
-import { EditButton } from "@components/button/editButton/EditButton";
-import { EditActionButtons } from "@components/button/editButton/EditActionButtons";
+import { EditButton } from "@components/common/button/editButton/EditButton";
+import { EditActionButtons } from "@components/common/button/editButton/EditActionButtons";
 
 interface AnswerCardProps {
 	question: GetQnaListResponse;

@@ -1,29 +1,30 @@
-import { AskerSpecificType, CareerYearType } from "@types/enums";
-import { DebouncedButton } from "@components/button";
+import { AskerSpecificType, CareerYearType } from "@types";
+import { DebouncedButton } from "@components/common/button";
 import { useCallback, useState } from "react";
-import { useToastMessageStore } from "@store/toast";
+import { useToastMessageStore } from "@toast";
 import { useAccountStore } from "@store/account";
-// import { RequestApi } from 'api/request-api.ts'
-// import { useParams } from 'react-router-dom'
 import styled from "@emotion/styled";
 import { getMobileVw } from "@utils/responsive";
 import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
-import { Seperator } from "@components/seperator/Seperator";
+import { Seperator } from "@components/common/seperator/Seperator";
 import { useMobileStore } from "@store/useMobileStore.ts";
 import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
-import { CommonSelect } from "@components/CommonSelect/CommonSelect";
-import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@types/enums";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
+import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
+import { CAREER_YEAR_OPTIONS, SPECIFIC_TYPE_OPTIONS } from "@types";
 import { usePostQuestion } from "api/posts/usePostQuestion";
-import { useParams } from "react-router-dom";
+import { useParams } from "next/navigation";
 
 const QUESTION_MAX_LENGTH: number = 500;
 
 export function QuestionField() {
 	const { isMobile } = useMobileStore();
 	const keyboardHeight = useKeyboardHeight(isMobile);
-	const { id } = useParams();
+
+	const params = useParams(); // Next.js 방식
+	const id = params.id as string; //params.id는 항상 string | undefined
+
 	const { setSuccessToastMessage, setErrorToastMessage } =
 		useToastMessageStore();
 	const { accessToken } = useAccountStore();
@@ -75,30 +76,6 @@ export function QuestionField() {
 			questionText,
 		});
 	}, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer]);
-
-	/*
-  const postingQuestion = async () => {
-    try {
-      //질문 데이터를 서버에 등록
-      await RequestApi.posts.postQna({ id, isSecret, careerYear, isMajor, questionText })
-
-      //질문 등록 후, 리셋
-      setQuestionText('')
-      setIsSecret(false)
-      setCareerYear(CareerYearType.ACADEMIC)
-      setIsMajor(true)
-
-      setTimeout(() => {
-        setSuccessToastMessage('질문이 등록되었습니다.')
-      }, 1300)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('질문 등록에 실패했습니다!', error)
-      }
-
-      setErrorToastMessage('질문 등록에 실패했습니다!')
-    }
-  } */
 
 	// 팁 !
 	// function 재랜더링 되지 않도록 함.

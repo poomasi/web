@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { CareerYearType } from "@types/enums";
+import { CareerYearType } from "@types";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import TextareaAutosize from "react-textarea-autosize";
@@ -8,8 +8,8 @@ import { GetQnaListResponse } from "api/types/qna.type";
 import { useAccountStore } from "@store/account";
 // import { getMobileVw } from '@utils/responsive'
 import { useQuestionEdit, useIsOwner } from "@hooks/qnaPage/";
-import { EditButton } from "@components/button/editButton/EditButton";
-import { EditActionButtons } from "@components/button/editButton/EditActionButtons";
+import { EditButton } from "@components/common/button/editButton/EditButton";
+import { EditActionButtons } from "@components/common/button/editButton/EditActionButtons";
 
 type QuestionCardProps = {
 	question: GetQnaListResponse;

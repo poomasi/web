@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import TextareaAutosize from "react-textarea-autosize";
 import { colors } from "@styles/foundation/color";
 import { useAccountStore } from "@store/account";
-import { useDetailPageContext } from "@qnaPage/provider/DetailPageProvider";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
 import dayjs from "dayjs";
 import { getMobileVw } from "@utils/responsive.ts";
 import { GetQnaListResponse } from "@api/types/qna.type";
