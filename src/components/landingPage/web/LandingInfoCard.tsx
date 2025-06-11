@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
 
 interface LandingInfoCardProps {
 	infoText: string;
-	imgSrc: string;
+	imgSrc: string | StaticImageData;
 	onClick?: () => void;
 }
 

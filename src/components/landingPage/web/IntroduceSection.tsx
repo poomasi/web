@@ -8,6 +8,10 @@ import { modalData } from "@components/common/modal/modalGuide-data";
 import { useState } from "react";
 import { ModalGuide } from "@components/common/modal";
 
+import iconHowToUse from "@images/landingPage/icon-howToUse.png";
+import iconRule from "@images/landingPage/icon-rule.png";
+import iconDetailGuide from "@images/landingPage/icon-detailGuide.png";
+
 export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 	const [selectedModalKey, setSelectedModalKey] = useState<
 		null | keyof typeof modalData
@@ -38,7 +42,7 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 			<IntroduceCardList>
 				<LandingInfoCard
 					infoText="이용방법"
-					imgSrc="/images/landingPage/icon-howToUse.png"
+					imgSrc={iconHowToUse}
 					onClick={() =>
 						setSelectedModalKey(
 							isMobile ? "MobileInstructions" : "WebInstructions"
@@ -47,12 +51,12 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
-					imgSrc="/images/landingPage/icon-rule.png"
+					imgSrc={iconRule}
 					onClick={() => setSelectedModalKey("Guideline")}
 				/>
 				<LandingInfoCard
 					infoText="세부안내"
-					imgSrc="/images/landingPage/icon-detailGuide.png"
+					imgSrc={iconDetailGuide}
 					onClick={() => setSelectedModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>

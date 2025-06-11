@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
+//next/image로 import한 PNG, JPG, SVG는 TypeScript 상에서 StaticImageData 타입이다.
 
 interface LandingInfoCardProps {
 	infoText: string;
-	imgSrc: string;
+	imgSrc: string | StaticImageData;
 	onClick?: () => void;
 }
 

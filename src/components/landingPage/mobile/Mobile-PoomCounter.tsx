@@ -5,12 +5,24 @@ import { usePoomCount } from "@hooks/landingPage/usePoomCount";
 import { getMobileVw } from "@utils/responsive";
 import { colors } from "@styles/foundation/color";
 
+import Image from "next/image";
+import poomCountIcon from "@images/landingPage/icon-poomCount.png";
+
 export function MobilePoomCounter() {
 	const { qnaCount, accountCount } = usePoomCount();
 
 	return (
 		<CounterContainer>
-			<PoomCountIconContainer src="/images/landingPage/poom-count-icon.svg" />
+			{/* <PoomCountIconContainer src={poomCountIcon} /> */}
+			<IconWrapper>
+				<Image
+					src={poomCountIcon} // 기존 styled.img → next/image 적용
+					alt="품 카운트 아이콘"
+					fill // div에 꽉 차게
+					sizes="72px" // mobile 기준에 맞춰 해상도 최적화
+					style={{ objectFit: "contain" }} // 가로세로 비율 유지하며 꽉 차게
+				/>
+			</IconWrapper>
 			<PoomExplainText>
 				현재, <HighlightText>{accountCount}명</HighlightText>과 <br></br>
 				<HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.
@@ -25,7 +37,7 @@ const CounterContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	background-image: url("/images/bg-mobile-poomCounter.png");
+	background-image: url("/images/landingPage/bg-mobile-poomCounter.png");
 	background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
 	background-position: center; // 이미지를 중앙에 배치
 	background-repeat: no-repeat; // 이미지 반복
@@ -41,6 +53,14 @@ const CounterContainer = styled.div`
 	}
 `;
 
+const IconWrapper = styled.div`
+	position: relative; // fill 사용 시 필요
+	width: ${getMobileVw(72)};
+	height: ${getMobileVw(
+		72
+	)}; // 높이도 설정 필요,height: auto; 였음 재 설정 필요
+`;
+
 const PoomExplainText = styled.div`
 	width: 93%;
 	color: #0e0e0e;
@@ -49,11 +69,6 @@ const PoomExplainText = styled.div`
 	font-weight: 500;
 	line-height: 150%;
 	text-align: center;
-`;
-
-const PoomCountIconContainer = styled.img`
-	width: ${getMobileVw(72)};
-	height: auto;
 `;
 
 const HighlightText = styled.span`
