@@ -38,7 +38,7 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 			<IntroduceCardList>
 				<LandingInfoCard
 					infoText="이용방법"
-					imgSrc="/images/landingPage/Instructions-icon"
+					imgSrc="/images/landingPage/icon-howToUse.png"
 					onClick={() =>
 						setSelectedModalKey(
 							isMobile ? "MobileInstructions" : "WebInstructions"
@@ -47,12 +47,12 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
-					imgSrc="/images/landingPage/Guideline-icon.svg"
+					imgSrc="/images/landingPage/icon-rule.png"
 					onClick={() => setSelectedModalKey("Guideline")}
 				/>
 				<LandingInfoCard
 					infoText="세부안내"
-					imgSrc="/images/landingPage/detailGuide-icon.svg"
+					imgSrc="/images/landingPage/icon-detailGuide.png"
 					onClick={() => setSelectedModalKey("DetailGuide")}
 				/>
 			</IntroduceCardList>
