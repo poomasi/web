@@ -1,4 +1,4 @@
-import { CareerYearType, QnaAskerType } from "@types/enums";
+import { CareerYearType, QnaAskerType } from "@types";
 // import requestHandler from 'api/request-handler'
 import { GetQnaListResponse, GetQnaStatusResponse } from "api/types/qna.type";
 import customAxios from "api/customAxios.ts";

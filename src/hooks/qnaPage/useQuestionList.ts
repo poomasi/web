@@ -1,12 +1,18 @@
-import { useParams } from "react-router-dom";
+"use client";
+
+import { useSearchParams } from "next/navigation";
+
 import { useAccountStore } from "@store/account";
 import { useEffect, useState } from "react";
 import { GetQnaListResponse } from "api/types/qna.type";
-import { QnaAskerType } from "@types/enums";
+import { QnaAskerType } from "@types";
 import { RequestApi } from "api/request-api.ts";
 
 export const useQuestionList = () => {
-	const { id } = useParams();
+	// const router = useRouter();
+	const searchParams = useSearchParams();
+	const id = searchParams.get("id");
+
 	const { publicId } = useAccountStore();
 	const [qnaDataList, setQnaDataList] = useState<GetQnaListResponse[]>([]); //Q&A 리스트 상태관리
 	const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(
@@ -16,7 +22,7 @@ export const useQuestionList = () => {
 	const getTeacherQnaList = async () => {
 		try {
 			const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id);
-			setQnaDataList(qnas.data);
+			setQnaDataList(qnas);
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error("", error);
