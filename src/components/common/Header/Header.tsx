@@ -4,7 +4,7 @@ import Image from "next/image";
 import styled from "@emotion/styled";
 import { KakaoLogin } from "@utils/kakao-login";
 import { useAccountStore } from "@store/account";
-import publicLogo from "@assets/images/public-logo.svg";
+import publicLogo from "@images/public-logo.png";
 
 export function Header() {
 	const { accessToken, resetaccessToken } = useAccountStore();

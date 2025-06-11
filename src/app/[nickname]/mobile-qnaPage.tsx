@@ -17,9 +17,7 @@ import { TeacherIntroduce } from "@components/qnaPage/web/TeacherIntroduce.tsx";
 import { QuestionField } from "@components/qnaPage/web/QuestionField.tsx";
 import { QuestionList } from "@components/qnaPage/web/QuestionList.tsx";
 
-import { MobileQnaPage } from "@app/[nickname]/mobile-qnaPage";
-
-export function DetailPage() {
+export function MobileQnaPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const id = searchParams.get("id");
