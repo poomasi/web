@@ -138,7 +138,12 @@ export function QuestionField() {
 			</QuestionArea>
 			<QuestionSecretOption onClick={handleIsSecretChange}>
 				<QuestionCheckbox>
-					{isSecret && <img src={optionCheck} />}
+					{isSecret && (
+						<img
+							src={optionCheck}
+							alt="체크아이콘"
+						/>
+					)}
 				</QuestionCheckbox>
 				<span>비밀질문</span>
 			</QuestionSecretOption>

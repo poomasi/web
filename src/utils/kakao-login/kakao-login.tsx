@@ -1,11 +1,12 @@
 "use client";
+import Image from "next/image";
 
 import styled from "@emotion/styled";
 import { usePathname } from "next/navigation";
 import { useMemo, useEffect } from "react";
 import { KAKAO_LOGIN_URL } from "@types";
 import { routerTypes } from "@api/types/router.types";
-import kakaoLogo from "@assets/images/kakao-logo.svg";
+// import kakaoLogo from "@assets/images/kakao-logo.svg";
 
 export function KakaoLogin() {
 	const pathname = usePathname();
@@ -37,8 +38,10 @@ export function KakaoLogin() {
 			{!isLoginProcessing && (
 				<KakaoLoginButton onClick={handleKakaoLoginClick}>
 					<KakaoIcon
-						src={kakaoLogo}
+						src="/images/public-logo.png" // ✅ public 폴더 기준
 						alt="카카오 로그인 아이콘"
+						width={20} // ✅ 필수
+						height={20} // ✅ 필수
 					/>
 					카카오 로그인
 				</KakaoLoginButton>
@@ -71,7 +74,7 @@ const KakaoLoginButton = styled.button`
 		border-radius: 6px;
 	}
 `;
-const KakaoIcon = styled.img`
+const KakaoIcon = styled(Image)`
 	width: 20px;
 	height: 20px;
 	margin-right: 10px;

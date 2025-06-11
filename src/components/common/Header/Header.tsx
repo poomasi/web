@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import styled from "@emotion/styled";
 import { KakaoLogin } from "@utils/kakao-login";
@@ -24,6 +25,8 @@ export function Header() {
 						<LogoImage
 							src={publicLogo}
 							alt="logo"
+							width={150}
+							height={30}
 						/>
 					</LogoButtonWrapper>
 
@@ -52,7 +55,7 @@ const LogoButtonWrapper = styled.button`
 	}
 `;
 
-const LogoImage = styled.img`
+const LogoImage = styled(Image)`
 	@media (max-width: 1024px) {
 		width: 6.125rem;
 		height: 1.25rem;
