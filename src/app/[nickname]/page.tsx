@@ -17,7 +17,7 @@ import { TeacherIntroduce } from "@components/qnaPage/web/TeacherIntroduce.tsx";
 import { QuestionField } from "@components/qnaPage/web/QuestionField.tsx";
 import { QuestionList } from "@components/qnaPage/web/QuestionList.tsx";
 
-import { MobileQnaPage } from "@app/[nickname]/MobileQnaPage.tsx  ";
+import { MobileQnaPage } from "@app/[nickname]/MobileQnaPage";
 
 export function QnaPage() {
 	const router = useRouter();

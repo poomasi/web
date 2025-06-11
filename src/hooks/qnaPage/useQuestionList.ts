@@ -20,12 +20,14 @@ export const useQuestionList = () => {
 	); //QnA 필터 상태 관리
 
 	const getTeacherQnaList = async () => {
-		try {
-			const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id);
-			setQnaDataList(qnas);
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.error("", error);
+		if (id !== null) {
+			try {
+				const qnas = await RequestApi.posts.getQnaList(qnaAskerType, id);
+				setQnaDataList(qnas);
+			} catch (error: unknown) {
+				if (error instanceof Error) {
+					console.error("", error);
+				}
 			}
 		}
 	};
