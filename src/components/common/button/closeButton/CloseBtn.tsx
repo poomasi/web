@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import closeIcon from "@assets/images/close-button.svg";
+import closeIcon from "@assets/images/button-close.svg";
 
 type CloseButtonProps = {
 	onClick: () => void;
