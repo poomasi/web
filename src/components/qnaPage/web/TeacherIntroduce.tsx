@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { getMobileVw } from "@utils/responsive";
-import { useDetailPageContext } from "@components/DetailPage/model/provider/DetailPageProvider.tsx";
-import { EditPencilButton } from "@components/button/editButton/EditPencilButton";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
+
+import { EditPencilButton } from "@components/common/button/editButton/EditPencilButton";
 import { useMentoProfileEdit, useEditAuthority } from "@hooks/qnaPage";
-import { MentoDescriptionArea } from "@components/DetailPage/ui/web/MentoDescriptionArea";
+import { MentoDescriptionArea } from "@components/qnaPage/web/MentoDescriptionArea";
 
 export function TeacherIntroduce() {
 	const { teacherAccount } = useDetailPageContext();

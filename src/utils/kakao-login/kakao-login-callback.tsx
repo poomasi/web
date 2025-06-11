@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { REDIRECT_URI, REST_API_KEY } from "@types/variables";
+import { REDIRECT_URI, REST_API_KEY } from "@types";
 import { RequestApi } from "@api/request-api";
 import { useAccountStore } from "@store/account";
-import { useToastMessageStore } from "@components/toast/toast-message-store";
+import { useToastMessageStore } from "@toast";
 import axios from "axios";
 
 type KakaoLoginRes = {

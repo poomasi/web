@@ -1,14 +1,13 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useMemo, useEffect } from "react";
-import { KAKAO_LOGIN_URL } from "../../types/variables";
+import { KAKAO_LOGIN_URL } from "@types";
 import { routerTypes } from "@api/types/router.types";
 import kakaoLogo from "@assets/images/kakao-logo.svg";
 
 export function KakaoLogin() {
-	const router = useRouter(); //현재 페이지의 URL 정보를 가져오기
 	const pathname = usePathname();
 
 	useEffect(() => {
