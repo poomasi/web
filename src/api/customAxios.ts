@@ -4,19 +4,22 @@ import { useAccountStore } from "@store/account";
 
 // @ts-ignore
 export interface CustomInstance extends AxiosInstance {
-	get<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
+  get<T>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<DefaultApiResponse<T>>;
 
-	post<T>(
-		url: string,
-		data?: any,
-		config?: AxiosRequestConfig
-	): Promise<DefaultApiResponse<T>>; //axios는 실제로 AxiosResponse<T> 객체를 주고 있음, 인터셉터에서 response.data만 반환하고 있음
+  post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<DefaultApiResponse<T>>; //axios는 실제로 AxiosResponse<T> 객체를 주고 있음, 인터셉터에서 response.data만 반환하고 있음
 
-	patch<T>(
-		url: string,
-		data?: any,
-		config?: AxiosRequestConfig
-	): Promise<DefaultApiResponse<T>>;
+  patch<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<DefaultApiResponse<T>>;
 }
 
 /* 기본 axios
@@ -52,11 +55,11 @@ AxiosResponse 안에는 이런 정보가 들어있어요:
 */
 
 const customAxios: CustomInstance = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_POOMASI_BACKEND_BASE_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 1000 * 60, // 1분
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  timeout: 1000 * 60, // 1분
 });
 /*axios.create()  "axios 인스턴스를 새로 만드는 함수"
 즉, 공장에서 내 입맛에 맞는 차를 한 대 뽑아내는 거예요.
@@ -65,11 +68,11 @@ const customAxios: CustomInstance = axios.create({
 */
 
 customAxios.interceptors.request.use(function (request) {
-	const token = useAccountStore.getState().accessToken;
-	if (token) {
-		request.headers.Authorization = token;
-	}
-	return request;
+  const token = useAccountStore.getState().accessToken;
+  if (token) {
+    request.headers.Authorization = token;
+  }
+  return request;
 });
 /* 이 코드의 목적: 로그인 후 발급된 토큰이 헤더에 자동으로 추가되게 만든 인터셉터 
 interceptor란? API 요청을 보내기 "직전"에 자동으로 실행되는 코드
@@ -99,17 +102,17 @@ request: 매개변수가 아니라 axios가 요청을 보내기 전 단계의 �
 */
 
 customAxios.interceptors.response.use(
-	function (response) {
-		return response.data;
-	},
-	function (error) {
-		// axios 시간 초과 오류
-		if (error.code === "ECONNABORTED") {
-			return Promise.reject("API 요청 시간을 초과하였습니다.");
-		}
+  function (response) {
+    return response.data;
+  },
+  function (error) {
+    // axios 시간 초과 오류
+    if (error.code === "ECONNABORTED") {
+      return Promise.reject("API 요청 시간을 초과하였습니다.");
+    }
 
-		return Promise.reject(error);
-	}
+    return Promise.reject(error);
+  },
 );
 /* 이 코드의 목적: 인터셉터에서 자동으로 .data만 반환하게 만든 코드
 
