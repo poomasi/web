@@ -1,27 +1,29 @@
-import { create } from 'zustand'
+"use client";
+
+import { create } from "zustand";
 
 type ToastMessageStore = {
-  errorToastMessage: string
-  successToastMessage: string
-  setErrorToastMessage: (message: string) => void
-  setSuccessToastMessage: (message: string) => void
-  removeSuccessToastMessage: () => void
-  removeErrorToastMessage: () => void
-}
+  errorToastMessage: string;
+  successToastMessage: string;
+  setErrorToastMessage: (message: string) => void;
+  setSuccessToastMessage: (message: string) => void;
+  removeSuccessToastMessage: () => void;
+  removeErrorToastMessage: () => void;
+};
 
 export const useToastMessageStore = create<ToastMessageStore>((set) => ({
-  errorToastMessage: '',
-  successToastMessage: '',
+  errorToastMessage: "",
+  successToastMessage: "",
   setErrorToastMessage: (message: string) => {
-    set({ errorToastMessage: message })
+    set({ errorToastMessage: message });
   },
   setSuccessToastMessage: (message: string) => {
-    set({ successToastMessage: message })
+    set({ successToastMessage: message });
   },
   removeSuccessToastMessage: () => {
-    set({ successToastMessage: '' })
+    set({ successToastMessage: "" });
   },
   removeErrorToastMessage: () => {
-    set({ errorToastMessage: '' })
+    set({ errorToastMessage: "" });
   },
-}))
+}));

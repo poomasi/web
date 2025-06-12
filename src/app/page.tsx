@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "@emotion/styled";
 import TitleSection from "@components/landingPage/web/TitleSection.tsx";
 import { PoomCounter } from "@components/landingPage/web/PoomCounter.tsx";
@@ -7,24 +9,26 @@ import { MobileLandingPage } from "@components/landingPage/mobile/MobileLandingP
 import { useMobileStore } from "@store/useMobileStore.ts";
 
 export function LandingPage() {
-	const { isMobile } = useMobileStore();
+  const { isMobile } = useMobileStore();
 
-	return isMobile ? (
-		<MobileLandingPage />
-	) : (
-		// Pc 랜더링 컴포넌트
-		<PageContainer>
-			<TitleSection />
-			<IntroduceSection isMobile />
-			<PoomCounter />
-			<ProfilesSection />
-		</PageContainer>
-	);
+  return isMobile ? (
+    <MobileLandingPage />
+  ) : (
+    // Pc 랜더링 컴포넌트
+    <PageContainer>
+      <TitleSection />
+      <IntroduceSection isMobile />
+      <PoomCounter />
+      <ProfilesSection />
+    </PageContainer>
+  );
 }
 
 const PageContainer = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 `;
+
+export default LandingPage;

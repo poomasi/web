@@ -1,14 +1,16 @@
-import { create } from 'zustand'
+"use client";
+
+import { create } from "zustand";
 
 type MobileStore = {
-  isMobile: boolean
-  setIsMobile: (isMobile: boolean) => void
-}
+  isMobile: boolean;
+  setIsMobile: (isMobile: boolean) => void;
+};
 
 export const useMobileStore = create<MobileStore>((set) => ({
   isMobile: false,
   setIsMobile: (isMobile: boolean) => set({ isMobile }),
-}))
+}));
 // type MobileStore = {
 //   isMobile: boolean
 // }
