@@ -80,7 +80,7 @@ const IntroduceSectionContainer = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-	background-image: url("/images/landingPage/introduce-background.png");
+	background-image: url("/images/backGround/bg-landing-web-IntroduceSection.png");
 	background-size: cover;
 	background-position: center; // 이미지를 중앙에 배치
 	background-repeat: no-repeat; // 이미지 반복

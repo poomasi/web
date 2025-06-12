@@ -30,7 +30,7 @@ const TitleSectionContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: linear-gradient(180deg, #fefffb 28.86%, #fafcf6 90.48%);
-	background-image: url("/images/bg-mobile-TitleSection.png");
+	background-image: url("/images/backGround/bg-landing-mobile-TitleSection.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
