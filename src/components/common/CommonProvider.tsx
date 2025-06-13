@@ -8,6 +8,7 @@ import {
 import { globalTheme } from "@styles/global-theme.ts";
 import { ThemeProvider } from "@mui/material";
 import { GlobalStyle } from "@styles/GlobalStyle.tsx";
+import { Toast } from "@components/toast/Toast.tsx";
 
 interface CommonLayoutProps {
   children: React.ReactNode;
@@ -35,6 +36,7 @@ export function CommonProvider({ children }: CommonLayoutProps) {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         {children}
+        <Toast />
       </QueryClientProvider>
     </ThemeProvider>
   );
