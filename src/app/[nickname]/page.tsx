@@ -5,10 +5,7 @@ import styled from "@emotion/styled";
 import { useParams } from "next/navigation";
 import { useAccountStore } from "@store/index.ts";
 import { useToastMessageStore } from "@toast";
-import {
-  DetailPageContextProvider,
-  useDetailPageContext,
-} from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
+import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
 import { useMobileStore } from "@store/useMobileStore.ts";
 import { isAxiosError } from "axios";
 import { AccountType, RequestApi } from "@api/index.ts";
@@ -19,7 +16,7 @@ import { MobileQnaPage } from "@app/[nickname]/MobileQnaPage";
 import { useStore } from "@store/useStore.tsx";
 
 // 실제 QnaPage 컴포넌트 (Context 소비자)
-function QnaPageContent() {
+export default function QnaPageContent() {
   const params = useParams();
   const id = params?.nickname as string;
 
@@ -97,15 +94,6 @@ function QnaPageContent() {
         </PageContent>
       </PageContainer>
     </Container>
-  );
-}
-
-// 페이지 컴포넌트 (Context 제공자)
-export default function QnaPage() {
-  return (
-    <DetailPageContextProvider>
-      <QnaPageContent />
-    </DetailPageContextProvider>
   );
 }
 
