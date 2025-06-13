@@ -13,19 +13,13 @@ import { TeacherIntroduce } from "@components/qnaPage/web/TeacherIntroduce.tsx";
 import { QuestionField } from "@components/qnaPage/web/QuestionField.tsx";
 import { QuestionList } from "@components/qnaPage/web/QuestionList.tsx";
 import { MobileQnaPage } from "@app/[nickname]/MobileQnaPage";
-import { useStore } from "@store/useStore.tsx";
 
 // 실제 QnaPage 컴포넌트 (Context 소비자)
 export default function QnaPageContent() {
   const params = useParams();
   const id = params?.nickname as string;
 
-  const publicId = useStore(useAccountStore, (state) => {
-    return state.publicId;
-  });
-  const accountType = useStore(useAccountStore, (state) => {
-    return state.accountType;
-  });
+  const { publicId, accountType } = useAccountStore();
   const { setErrorToastMessage } = useToastMessageStore();
   const { isMobile } = useMobileStore();
   const { pageLoading, setTeacherAccount, setPageLoading, teacherAccount } =

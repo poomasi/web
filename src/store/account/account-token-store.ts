@@ -46,9 +46,6 @@ export const useAccountStore = create<AccessTokenStore>()(
       name: "account-token-storage", //localStorage에 저장할 때 사용할 key 이름
       storage: createJSONStorage(() => localStorage), //객체를 JSON 문자열로 바꿔서 저장해서 localStorage에 저장
       // onRehydrateStorage 추가
-      onRehydrateStorage: () => (state) => {
-        console.log("Zustand 스토어 hydration 완료", state);
-      },
     },
   ),
 );
