@@ -7,12 +7,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
 import { useParams } from "next/navigation";
 
-import { QuestionCard } from "@components/qnaPage/mobile/QuestionCard.tsx";
-import { AnswerCard } from "@components/qnaPage/mobile/AnswerCard.tsx";
 import { QuestionAnswerModal } from "@components/qnaPage/web/QuestionAnswerModal.tsx";
 import { useAccountStore } from "@store/account";
 import { match, P } from "ts-pattern";
 import { useEditAuthority, useQnaList } from "@hooks/qnaPage";
+import { AnswerCard } from "@qnaPage/web/AnswerCard.tsx";
+import { QuestionCard } from "@qnaPage/web/QuestionCard.tsx";
 
 export function QuestionList() {
   const params = useParams(); // Next.js 방식
