@@ -32,3 +32,4 @@ lerna-debug.log*
 
 # ───── 🔧 기타 ─────
 *.local
+node_modules

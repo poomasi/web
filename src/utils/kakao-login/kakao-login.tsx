@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-
+import iconKakaoLogin from "@images/icon-kakaoLogin.svg";
 import styled from "@emotion/styled";
 import { usePathname } from "next/navigation";
 import { useMemo, useEffect } from "react";
@@ -38,7 +38,7 @@ export function KakaoLogin() {
 			{!isLoginProcessing && (
 				<KakaoLoginButton onClick={handleKakaoLoginClick}>
 					<KakaoIcon
-						src="/images/public-logo.png" // ✅ public 폴더 기준
+						src={iconKakaoLogin}
 						alt="카카오 로그인 아이콘"
 						width={20} // ✅ 필수
 						height={20} // ✅ 필수

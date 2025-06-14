@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import closeIcon from "@assets/images/button-close.svg";
+// import closeIcon from "@assets/images/button-close.svg";
 
 type CloseButtonProps = {
 	onClick: () => void;
@@ -16,7 +16,7 @@ export const CloseButton = ({ onClick, style }: CloseButtonProps) => {
 			onClick={onClick}
 			style={style}>
 			<img
-				src={closeIcon}
+				src="/images/button-close.svg"
 				alt="닫기 버튼"
 			/>
 		</CloseBtn>
