@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useAccountStore } from "@store/index.ts";
 import { useToastMessageStore } from "@toast";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
@@ -16,6 +16,7 @@ import { MobileQnaPage } from "@app/[nickname]/MobileQnaPage";
 
 // 실제 QnaPage 컴포넌트 (Context 소비자)
 export default function QnaPageContent() {
+  const router = useRouter();
   const params = useParams();
   const id = params?.nickname as string;
 
@@ -29,6 +30,7 @@ export default function QnaPageContent() {
 
   const handleError = (message: string) => {
     setErrorToastMessage(message);
+    router.push("/");
   };
 
   const getTeacherData = async () => {
