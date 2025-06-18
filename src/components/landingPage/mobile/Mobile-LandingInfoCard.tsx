@@ -58,6 +58,7 @@ const ImageWrapper = styled.div`
 	position: relative;
 	width: 65%;
 	height: 50%;
+	aspect-ratio: 1 / 1;
 
 	@media (max-width: 1024px) {
 		width: 30%;
@@ -68,20 +69,6 @@ const ImageWrapper = styled.div`
 		height: 50%;
 	}
 `;
-
-/* const InfoCardImage = styled.img`
-	width: 65%;
-	height: 50%;
-
-	@media (max-width: 1024px) {
-		width: 30%;
-		height: 45%;
-	}
-	@media (max-width: 834px) {
-		width: 40%;
-		height: 50%;
-	}
-`; */
 
 const InfoCardText = styled.div`
 	color: #0e0e0e;

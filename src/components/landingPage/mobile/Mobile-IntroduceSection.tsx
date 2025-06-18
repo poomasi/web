@@ -76,7 +76,7 @@ const IntroduceSectionContainer = styled.div`
 	background-repeat: no-repeat; // 이미지 반복
 	padding: 1.875rem 0;
 	@media (max-width: 1024px) {
-		gap: 0;
+		gap: 0px;
 	}
 `;
 
@@ -114,11 +114,12 @@ const IntroduceText = styled.div`
 `;
 
 const IntroduceCardList = styled.div`
-	width: 80%;
+	width: 60%;
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	/* padding: 20px 0; */
-	gap: 0.75rem;
+	gap: 1rem;
 	/* padding-bottom: 160px; */
 `;

@@ -90,7 +90,7 @@ const IntroduceSectionContainer = styled.div`
 const IntroducePoomasi = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 26px;
+	gap: 1.75rem;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
