@@ -23,7 +23,7 @@ export const CloseButton = ({ onClick, style }: CloseButtonProps) => {
 	);
 };
 
-const CloseBtn = styled.img`
+const CloseBtn = styled.button`
 	width: 1rem;
 	height: 1rem;
 	background: none;

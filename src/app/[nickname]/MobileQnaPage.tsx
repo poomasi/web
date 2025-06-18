@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAccountStore } from "@store/index.ts";
 import { useToastMessageStore } from "@toast";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
-import { useMobileStore } from "@store/useMobileStore.ts";
+// import { useMobileStore } from "@store/useMobileStore.ts";
 import { isAxiosError } from "axios";
 
 import { AccountType, RequestApi } from "@api/index.ts";
@@ -17,12 +17,13 @@ import { QuestionField } from "@components/qnaPage/web/QuestionField.tsx";
 import { QuestionList } from "@components/qnaPage/web/QuestionList.tsx";
 
 export function MobileQnaPage() {
-	const params = useParams();
-	const id = params?.nickname as string;
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const id = searchParams.get("id");
 
 	const { publicId, accountType } = useAccountStore();
 	const { setErrorToastMessage } = useToastMessageStore();
-	const { isMobile } = useMobileStore();
+	// const { isMobile } = useMobileStore();
 	const { pageLoading, setTeacherAccount, setPageLoading, teacherAccount } =
 		useDetailPageContext();
 
@@ -30,8 +31,10 @@ export function MobileQnaPage() {
 
 	const handleError = (message: string) => {
 		setErrorToastMessage(message);
+		router.push("/");
 	};
 
+	// 품앗이꾼 데이터 가져오는 API
 	const getTeacherData = async () => {
 		if (!id) {
 			handleError("잘못된 접근입니다.");
@@ -59,7 +62,7 @@ export function MobileQnaPage() {
 
 		scroll(0, 0);
 		getTeacherData();
-	}, [publicId]);
+	}, [id]);
 
 	useEffect(() => {
 		if (teacherAccount) {
