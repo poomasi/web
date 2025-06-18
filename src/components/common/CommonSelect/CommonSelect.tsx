@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import dropdownIcon from "@assets/images/select-dropdown.svg";
 import { colors } from "@styles/foundation/color.ts";
 // import {CAREER_YEAR_OPTIONS} from 'api/enums'
 
@@ -61,7 +60,7 @@ export function CommonSelect({
 			<CustomSelectContainer ref={selectRef}>
 				<CustomSelectValue onClick={handleValueClick}>
 					<span>{optionValue}</span>
-					<img src={dropdownIcon} />
+					<img src="images/icon-select-dropdown.svg" />
 				</CustomSelectValue>
 				{isSelectShow && (
 					<CustomSelectOptions>
