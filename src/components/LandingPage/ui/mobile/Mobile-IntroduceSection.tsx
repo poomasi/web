@@ -30,9 +30,9 @@ export function MobileIntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <MobileLandingInfoCard infoText="이용방법" imgSrc="/landingPage/question-icon.svg" onClick={() => updateModalKey('Sharing')} />
-        <MobileLandingInfoCard infoText="품앗이 규칙" imgSrc="/landingPage/mentoring-icon.svg" onClick={() => updateModalKey('Mentoring')} />
-        <MobileLandingInfoCard infoText="세부안내" imgSrc="/landingPage/sharing-icon.svg" onClick={() => updateModalKey('Question')} />
+        <MobileLandingInfoCard infoText="이용방법" imgSrc="/landingPage/question-icon.png" onClick={() => updateModalKey('Sharing')} />
+        <MobileLandingInfoCard infoText="품앗이 규칙" imgSrc="/landingPage/mentoring-icon.png" onClick={() => updateModalKey('Mentoring')} />
+        <MobileLandingInfoCard infoText="세부안내" imgSrc="/landingPage/sharing-icon.png" onClick={() => updateModalKey('Question')} />
       </IntroduceCardList>
 
       {modalInfo !== null &&

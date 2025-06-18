@@ -44,8 +44,6 @@ const InfoCardImage = styled.img`
   height: auto;
   display: block;
   object-fit: contain; /* 추가! Safari 안정화에 도움됨 */
-  backface-visibility: hidden;
-  will-change: transform;
 
   @media (max-width: 1024px) {
     width: 30%;
