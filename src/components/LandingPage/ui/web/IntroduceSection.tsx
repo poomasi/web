@@ -47,9 +47,9 @@ export function IntroduceSection() {
         </IntroduceText>
       </IntroducePoomasi>
       <IntroduceCardList>
-        <LandingInfoCard infoText="이용방법" imgSrc="/landingPage/question-icon.svg" onClick={handleUseGuideModalClick} />
-        <LandingInfoCard infoText="품앗이 규칙" imgSrc="/landingPage/mentoring-icon.svg" onClick={handleMentoringModalClick} />
-        <LandingInfoCard infoText="세부안내" imgSrc="/landingPage/sharing-icon.svg" onClick={handleQuestionModalClick} />
+        <LandingInfoCard infoText="이용방법" imgSrc="/landingPage/question-icon.svg?v=1" onClick={handleUseGuideModalClick} />
+        <LandingInfoCard infoText="품앗이 규칙" imgSrc="/landingPage/mentoring-icon.svg?v=1" onClick={handleMentoringModalClick} />
+        <LandingInfoCard infoText="세부안내" imgSrc="/landingPage/sharing-icon.svg?v=1" onClick={handleQuestionModalClick} />
       </IntroduceCardList>
       {useGuideModal && (
         <PoomasiGuideModal

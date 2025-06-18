@@ -41,15 +41,19 @@ const LandingInfoCardContainer = styled.div`
 
 const InfoCardImage = styled.img`
   width: 65%;
-  height: 50%;
+  height: auto;
+  display: block;
+  object-fit: contain; /* 추가! Safari 안정화에 도움됨 */
+  backface-visibility: hidden;
+  will-change: transform;
 
   @media (max-width: 1024px) {
     width: 30%;
-    height: 45%;
+    /* height: 45%; */
   }
   @media (max-width: 834px) {
     width: 40%;
-    height: 50%;
+    /* height: 50%; */
   }
 `
 
