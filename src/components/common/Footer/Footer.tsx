@@ -21,9 +21,12 @@ export function Footer() {
 
 const FooterContainer = styled.div`
   width: 100%;
+  margin-top: 60px;
   border-top: 1px solid #eaebed;
+
   @media (max-width: 1024px) {
     padding: 30px ${getMobileVw(20)};
+    margin-top: 0;
   }
 `;
 
