@@ -32,7 +32,7 @@ const CounterContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	background-image: url("/images/bg-landing-web-poomCounter.png");
+	background-image: url("/images/bg-landing-web-poomCount.png");
 	background-size: cover; // 이미지가 컨테이너를 꽉 채우도록
 	background-position: center; // 이미지를 중앙에 배치
 	background-repeat: no-repeat; // 이미지 반복
