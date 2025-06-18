@@ -3,13 +3,14 @@
 import { create } from "zustand";
 
 type MobileStore = {
-  isMobile: boolean;
-  setIsMobile: (isMobile: boolean) => void;
+	isMobile: boolean;
+	setIsMobile: (isMobile: boolean) => void;
 };
 
+//isMobile 상태를 전역으로 관리
 export const useMobileStore = create<MobileStore>((set) => ({
-  isMobile: false,
-  setIsMobile: (isMobile: boolean) => set({ isMobile }),
+	isMobile: false,
+	setIsMobile: (isMobile: boolean) => set({ isMobile }),
 }));
 // type MobileStore = {
 //   isMobile: boolean
