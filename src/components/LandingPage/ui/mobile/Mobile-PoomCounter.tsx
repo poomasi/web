@@ -8,7 +8,7 @@ export function MobilePoomCounter() {
 
   return (
     <CounterContainer>
-      <PoomCountIconContainer src="/landingPage/poom-count-icon.svg" />
+      <PoomCountIconContainer src="/landingPage/poom-count-icon.png" />
       <PoomExplainText>
         현재, <HighlightText>{accountCount}명</HighlightText>과 <br></br>
         <HighlightText>{qnaCount}번</HighlightText>의 품을 나누었어요.

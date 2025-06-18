@@ -6,7 +6,7 @@ export function PoomCounter() {
 
   return (
     <CounterContainer>
-      <PoomCountIconContainer src="/landingPage/poom-count-icon.svg" alt="품카운트 아이콘" loading="lazy" />
+      <PoomCountIconContainer src="/landingPage/poom-count-icon.png" alt="품카운트 아이콘" loading="lazy" />
       <PoomExplainText>
         현재, <HighlightText>{accountCount}</HighlightText>명과 <HighlightText>{qnaCount}</HighlightText>번의 품을 나누었어요.
       </PoomExplainText>
