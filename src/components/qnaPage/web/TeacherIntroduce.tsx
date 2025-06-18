@@ -80,13 +80,15 @@ const Header = styled.div`
 		border-bottom: 1px solid #eaebed;
 		border-top: 1px solid #eaebed;
 		padding: 2.5rem;
+		padding-bottom: 24px;
+		padding-top: 24px;
 	}
 `;
 
 const ProfilePictureWrapper = styled.div`
 	display: flex;
 
-	width: 133px;
+	width: 140px;
 	border-radius: 50%;
 	overflow: hidden;
 	position: relative;

@@ -65,6 +65,7 @@ export function TeacherIntroduce() {
 
 const Header = styled.div`
 	width: 100%;
+	height: 50px;
 	display: flex;
 	/* background-color: green; */
 
@@ -84,20 +85,21 @@ const ProfilePictureWrapper = styled.div`
 	display: flex;
 
 	width: 140px;
+	height: 140px;
 	border-radius: 50%;
 	overflow: hidden;
 	position: relative;
 
 	@media (max-width: 1024px) {
-		width: ${getMobileVw(90)};
-		height: auto;
+		width: 3.75rem;
+		height: 3.75rem;
 	}
 `;
 
 const ProfileImage = styled.img`
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
+	object-fit: cover;
 `;
 const ProfileSection = styled.div`
 	display: flex;
