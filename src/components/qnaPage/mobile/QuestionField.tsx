@@ -151,46 +151,49 @@ export function QuestionField() {
 			<QuestionBtnWrapper
 				style={{ marginLeft: "auto" }}
 				className="MobileWrapper">
-				<DebouncedButton
+				<StyledDebouncedButton
 					text={"질문 등록하기"}
 					onClick={() => handleQuestionButtonClick()}
 					variant="contained"
-					sx={{
-						width: "60px",
-						height: "40px",
-						fontSize: "16px",
-						fontWeight: "bold",
-						borderRadius: "10px",
-						color: "white",
-						backgroundColor: "#3ecdba",
-						"@media (max-width:1024px)": {
-							width: "100%",
-							boxShadow: "none !important",
-							height: "48px",
-							padding: "16px 20px",
-						},
-						...(isMobile && keyboardHeight > 0
+					sx={
+						isMobile && keyboardHeight > 0
 							? {
 									position: "fixed",
-									bottom: `${keyboardHeight + 10}px`, // 키보드 위 여유공간
-									// left: '16px',
+									bottom: `${keyboardHeight + 10}px`,
 									right: "1px",
 									zIndex: 9999,
 								}
-							: {}),
-					}}
+							: undefined
+					}
 				/>
 			</QuestionBtnWrapper>
 			<Seperator />
 		</QuestionSection>
 	);
 }
+const StyledDebouncedButton = styled(DebouncedButton)`
+	width: 60px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 10px;
+	color: white;
+	background-color: #3ecdba;
+
+	@media (max-width: 1024px) {
+		width: 100%;
+		box-shadow: none !important;
+		height: 48px;
+		padding: 16px 20px;
+	}
+`;
 
 const QuestionBtnWrapper = styled.div`
 	@media (max-width: 1024px) {
 		transition: bottom 0.3s ease;
 		margin: 0 !important;
 		width: 100% !important;
+		margin-top: 20px;
 	}
 `;
 

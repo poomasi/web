@@ -16,7 +16,7 @@ export function MobilePoomCounter() {
 			{/* <PoomCountIconContainer src={poomCountIcon} /> */}
 			<IconWrapper>
 				<Image
-					src={poomCountIcon} // 기존 styled.img → next/image 적용
+					src={poomCountIcon}
 					alt="품 카운트 아이콘"
 					fill // div에 꽉 차게
 					sizes="72px" // mobile 기준에 맞춰 해상도 최적화

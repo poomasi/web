@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 // import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAccountStore } from "@store/index.ts";
@@ -18,8 +18,8 @@ import { QuestionList } from "@components/qnaPage/web/QuestionList.tsx";
 
 export function MobileQnaPage() {
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const id = searchParams.get("id");
+	const params = useParams();
+	const id = params?.nickname as string;
 
 	const { publicId, accountType } = useAccountStore();
 	const { setErrorToastMessage } = useToastMessageStore();
