@@ -8,7 +8,7 @@ import { IntroduceSection } from "@components/landingPage/web/IntroduceSection.t
 import { MobileLandingPage } from "@components/landingPage/mobile/MobileLandingPage";
 import { useMobileStore } from "@store/useMobileStore.ts";
 
-export default function LandingPage() {
+export function LandingPage() {
 	const { isMobile } = useMobileStore();
 
 	return isMobile ? (

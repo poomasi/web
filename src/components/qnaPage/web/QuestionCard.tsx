@@ -69,10 +69,6 @@ export function QuestionCard({
 					showEditBtn={showEditBtn}
 				/>
 			) : null}
-			{/* <EditMenuWrapper>
-        <DotMenu src={editDots} alt="더보기" onClick={toggleEditBtn} />
-        {showEditBtn && <EditButton onClick={handleEditClick}>수정</EditButton>}
-      </EditMenuWrapper> */}
 			<QnaHead>Q</QnaHead>
 			{isEditing ? (
 				<>
