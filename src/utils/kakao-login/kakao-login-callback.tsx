@@ -82,6 +82,11 @@ export default function KakaoLoginCallback() {
 				setaccessToken(accessToken);
 				setAccountType(accountTypeFromToken);
 
+				//로그인 로딩시간 측정용
+				const loginStart = Number(localStorage.getItem("login_start_time"));
+				const loginEnd = Date.now();
+				console.log("로그인 처리 시간(ms):", loginEnd - loginStart);
+
 				// 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
 				const beforeLoginUrl = localStorage.getItem("before_login_url");
 				localStorage.removeItem("before_login_url");

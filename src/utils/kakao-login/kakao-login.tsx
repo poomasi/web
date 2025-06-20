@@ -24,6 +24,8 @@ export function KakaoLogin() {
 
 	// 이벤트 핸들러(버튼 클릭 등)는 무조건 브라우저에서 실행되니까 window.location.href 사용해도 됌
 	const handleKakaoLoginClick = () => {
+		// 로그인 시작 시간 저장
+		localStorage.setItem("login_start_time", String(Date.now()));
 		window.location.href = KAKAO_LOGIN_URL;
 	};
 
