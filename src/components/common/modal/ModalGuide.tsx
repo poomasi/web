@@ -1,13 +1,26 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import dynamic from "next/dynamic";
 import { Pagination } from "swiper/modules";
 // import 'swiper/css/pagination'
-import "swiper/swiper-bundle.css";
+// import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import type { StaticImageData } from "next/image";
 
-// type GuideContent = { image: any; text: string };›
+// dynamic import (SSR 비활성화)
+//Swiper 관련 모듈을 초기 번들에서 제거하고, 클라이언트 측에서만 로드되도록 최적화
+const Swiper = dynamic(() => import("swiper/react").then((mod) => mod.Swiper), {
+	ssr: false,
+});
+const SwiperSlide = dynamic(
+	() => import("swiper/react").then((mod) => mod.SwiperSlide),
+	{ ssr: false }
+);
+
+// type GuideContent = { image: any; text: string };
 
 type GuideModalProps = {
 	type: keyof typeof modalData;

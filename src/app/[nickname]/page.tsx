@@ -71,7 +71,7 @@ export default function QnaPageContent() {
 		}
 	}, [teacherAccount]);
 
-	console.log("isMobile", isMobile);
+	// console.log("isMobile", isMobile);
 
 	return isMobile ? (
 		<MobileQnaPage />
