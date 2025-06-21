@@ -255,6 +255,9 @@ const GuideInfoText = styled.div`
 	padding: 2rem;
 	border-radius: 16px;
 	background: #f7f7f7;
+	@media (max-width: 1024px) {
+		font-size: 12px;
+	}
 `;
 
 const BodyPadding = styled.div`
