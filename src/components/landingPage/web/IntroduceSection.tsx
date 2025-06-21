@@ -12,7 +12,7 @@ import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";
 import iconDetailGuide from "@images/landingPage/icon-detailGuide.png";
 
-export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
+export function IntroduceSection() {
 	const [selectedModalKey, setSelectedModalKey] = useState<
 		null | keyof typeof modalData
 	>(null);
@@ -43,11 +43,7 @@ export function IntroduceSection({ isMobile }: { isMobile: boolean }) {
 				<LandingInfoCard
 					infoText="이용방법"
 					imgSrc={iconHowToUse}
-					onClick={() =>
-						setSelectedModalKey(
-							isMobile ? "MobileInstructions" : "WebInstructions"
-						)
-					}
+					onClick={() => setSelectedModalKey("MobileInstructions")}
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
