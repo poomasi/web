@@ -38,34 +38,36 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
 				<ModalReference.Body>
-					<ModalTitle>{modal.title}</ModalTitle>
-					<StyledSwiper
-						spaceBetween={16}
-						slidesPerView={1}
-						modules={[Pagination]}
-						pagination={{ clickable: true }}>
-						{Array.isArray(modal.content) &&
-							modal.content.map((item, i) => (
-								<SwiperSlide key={i}>
-									<Slide>
-										<Image
-											src={item.image.src}
-											alt={`guide-step-${i + 1}`}
-											width={240}
-											height={180}
-											style={{
-												width: "70%",
-												maxWidth: "240px",
-												height: "auto",
-												marginBottom: "1rem",
-												borderRadius: "16px",
-											}}
-										/>
-										<Text>{item.text}</Text>
-									</Slide>
-								</SwiperSlide>
-							))}
-					</StyledSwiper>
+					<BodyPadding>
+						<ModalTitle>{modal.title}</ModalTitle>
+						<StyledSwiper
+							spaceBetween={16}
+							slidesPerView={1}
+							modules={[Pagination]}
+							pagination={{ clickable: true }}>
+							{Array.isArray(modal.content) &&
+								modal.content.map((item, i) => (
+									<SwiperSlide key={i}>
+										<Slide>
+											<Image
+												src={item.image.src}
+												alt={`guide-step-${i + 1}`}
+												width={240}
+												height={180}
+												style={{
+													width: "70%",
+													maxWidth: "240px",
+													height: "auto",
+													marginBottom: "1rem",
+													borderRadius: "16px",
+												}}
+											/>
+											<Text>{item.text}</Text>
+										</Slide>
+									</SwiperSlide>
+								))}
+						</StyledSwiper>
+					</BodyPadding>
 				</ModalReference.Body>
 			</ModalReference>
 		);
@@ -111,8 +113,10 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
 				<ModalReference.Body>
-					<ModalTitle>{modal.title}</ModalTitle>
-					<GuideInfoText>{textContent}</GuideInfoText>
+					<BodyPadding>
+						<ModalTitle>{modal.title}</ModalTitle>
+						<GuideInfoText>{textContent}</GuideInfoText>
+					</BodyPadding>
 				</ModalReference.Body>
 			</ModalReference>
 		);
@@ -251,4 +255,8 @@ const GuideInfoText = styled.div`
 	padding: 2rem;
 	border-radius: 16px;
 	background: #f7f7f7;
+`;
+
+const BodyPadding = styled.div`
+	padding: 1rem 2rem;
 `;

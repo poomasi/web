@@ -17,7 +17,7 @@ export function LandingPage() {
 		// Pc 랜더링 컴포넌트
 		<PageContainer>
 			<TitleSection />
-			<IntroduceSection isMobile />
+			<IntroduceSection />
 			<PoomCounter />
 			<ProfilesSection />
 		</PageContainer>
