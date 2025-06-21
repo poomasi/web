@@ -3,11 +3,6 @@
    License: none (public domain)
 */
 
-@font-face {
-	font-family: "SUIT";
-	src: url("/public/fonts/SUIT-VARIABLE.ttf") format("truetype");
-}
-
 html,
 body,
 div,
@@ -95,7 +90,7 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font-family: 'SUIT', sans-serif;
+	font-family: var(--font-suit);
 	vertical-align: baseline;
 
 	/* padding box problem */
