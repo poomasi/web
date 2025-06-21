@@ -29,7 +29,7 @@ export function useProfileCard() {
 
 		if (accessToken !== null) {
 			//질문페이지 이동 시작 시간 저장
-			localStorage.setItem("switchQnaPage_start_time", String(Date.now()));
+			localStorage.setItem("QnaPage_start_time", String(Date.now()));
 			router.push(`/${profile.nickname}`);
 		}
 	};

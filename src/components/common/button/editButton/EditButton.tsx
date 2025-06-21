@@ -1,6 +1,6 @@
 // components/DetailPage/ui/web/EditButton.tsx
 import styled from "@emotion/styled";
-// import editDots from '@assets/images/edit-dots.svg'
+import { getMobileVw } from "@utils/responsive";
 
 type EditButtonProps = {
 	onToggle: () => void;
@@ -48,7 +48,8 @@ const EditAction = styled.button`
 	align-items: center;
 	width: 11.5rem;
 	margin-top: 12px;
-	padding: 16px 72px;
+	/* padding: 1rem 4.5rem; */
+	padding: 10% 30%;
 	background: white;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,5 +61,14 @@ const EditAction = styled.button`
 	&:hover {
 		background-color: #3ecdba;
 		color: white;
+	}
+
+	@media (max-width: 1024px) {
+		width: ${getMobileVw(40)};
+		font-size: 1rem;
+	}
+	@media (max-width: 650px) {
+		width: ${getMobileVw(40)};
+		font-size: 12px;
 	}
 `;

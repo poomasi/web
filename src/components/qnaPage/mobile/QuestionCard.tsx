@@ -125,7 +125,7 @@ export function QuestionCard({
 }
 const StyledTextarea = styled(TextareaAutosize)`
 	color: #28292a;
-	font-size: 22px;
+	/* font-size: 1.375rem; */
 	font-style: normal;
 	font-weight: 500;
 	line-height: 150%;
@@ -134,6 +134,10 @@ const StyledTextarea = styled(TextareaAutosize)`
 	border-radius: 8px;
 	resize: none;
 	width: 100%;
+
+	@media (max-width: 1024px) {
+		/* font-size: 12px !important; */
+	}
 `;
 
 const QnaCard = styled(Card)`

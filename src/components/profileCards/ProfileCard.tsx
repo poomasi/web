@@ -30,20 +30,6 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 	// const isMobile = useMobileStore((state) => state.isMobile);
 	// const modalInfo = selectedCardKey ? modalData[selectedCardKey] : null;
 
-	useEffect(() => {
-		const switchStart = Number(
-			localStorage.getItem("switchQnaPage_start_time")
-		);
-		if (switchStart) {
-			const switchEnd = Date.now();
-			console.log(
-				"프로필 카드 클릭 → 페이지 도착까지 걸린 시간(ms):",
-				switchEnd - switchStart
-			);
-			localStorage.removeItem("switchQnaPage_start_time");
-		}
-	}, []);
-
 	return (
 		<div>
 			<Container
