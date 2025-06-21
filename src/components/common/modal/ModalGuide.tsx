@@ -20,8 +20,6 @@ const SwiperSlide = dynamic(
 	{ ssr: false }
 );
 
-// type GuideContent = { image: any; text: string };
-
 type GuideModalProps = {
 	type: keyof typeof modalData;
 	title: string;
@@ -119,44 +117,6 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 	}
 
 	return null;
-
-	// if (type === "swiper" && content) {
-	// 	return (
-	// 		<ModalReference onClick={onClose}>
-	// 			<ModalReference.Header onClickClose={onClose} />
-	// 			<ModalReference.Body>
-	// 				<ModalTitle>{title}</ModalTitle>
-	// 				<StyledSwiper
-	// 					spaceBetween={16}
-	// 					slidesPerView={1}
-	// 					modules={[Pagination]}
-	// 					pagination={{ clickable: true }}>
-	// 					{content.map((item, index) => (
-	// 						<SwiperSlide key={index}>
-	// 							<Slide>
-	// 								<Image
-	// 									src={item.image}
-	// 									alt={`guide-step-${index + 1}`}
-	// 								/>
-	// 								<Text>{item.text}</Text>
-	// 							</Slide>
-	// 						</SwiperSlide>
-	// 					))}
-	// 				</StyledSwiper>
-	// 			</ModalReference.Body>
-	// 		</ModalReference>
-	// 	);
-	// }
-
-	// return (
-	// 	<ModalReference onClick={onClose}>
-	// 		<ModalReference.Header onClickClose={onClose} />
-	// 		<ModalReference.Body>
-	// 			<ModalTitle>{title}</ModalTitle>
-	// 			<TextDeco>{content}</TextDeco>
-	// 		</ModalReference.Body>
-	// 	</ModalReference>
-	// );
 }
 
 const ModalTitle = styled.h4`
@@ -283,8 +243,10 @@ const GuideText = styled.div`
 	}
 `;
 const GuideInfoText = styled.div`
-	font-size: 1rem;
+	font-size: 1.375rem;
 	text-align: center;
 	color: #333;
 	padding: 2rem;
+	border-radius: 16px;
+	background: #f7f7f7;
 `;
