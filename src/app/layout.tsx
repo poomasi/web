@@ -3,6 +3,7 @@ import { Header } from "@components/common/Header/Header";
 import { CommonProvider } from "@components/common/CommonProvider.tsx";
 import { suitFont } from "./font.ts";
 import "./globals.css";
+import { ServiceWorkerUnregister } from "../ServiceWorkerUnregister.tsx";
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
     <html lang="ko" className={`${suitFont.variable} ${suitFont.className}`}>
       <body>
         <CommonProvider>
+          <ServiceWorkerUnregister />
           <Header />
           {children}
           <Footer />
