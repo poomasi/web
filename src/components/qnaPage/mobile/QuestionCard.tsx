@@ -136,7 +136,7 @@ const StyledTextarea = styled(TextareaAutosize)`
 	width: 100%;
 
 	@media (max-width: 1024px) {
-		/* font-size: 12px !important; */
+		font-size: 12px !important;
 	}
 `;
 

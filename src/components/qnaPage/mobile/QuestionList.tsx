@@ -256,4 +256,7 @@ export const QuestionAnswerButton = styled.div`
 	font-style: normal;
 	font-weight: 700;
 	line-height: 150%;
+	@media (max-width: 1024px) {
+		width: 14%;
+	}
 `;

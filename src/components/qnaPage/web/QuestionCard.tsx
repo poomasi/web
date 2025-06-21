@@ -268,10 +268,8 @@ const QnaContentMajor = styled.div`
 	}
 `;
 const QnaContentDate = styled.div`
-	@media (max-width: 1024px) {
-		position: absolute;
-		bottom: 5%;
-		font-size: 0.75rem;
-		color: ${colors.gray500};
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: ${colors.gray500};
 `;

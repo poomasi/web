@@ -47,6 +47,7 @@ const EditAction = styled.button`
 	justify-content: center;
 	align-items: center;
 	width: 11.5rem;
+	height: auto;
 	margin-top: 12px;
 	/* padding: 1rem 4.5rem; */
 	padding: 10% 30%;
@@ -64,11 +65,12 @@ const EditAction = styled.button`
 	}
 
 	@media (max-width: 1024px) {
-		width: ${getMobileVw(40)};
+		width: ${getMobileVw(50)};
 		font-size: 1rem;
 	}
 	@media (max-width: 650px) {
-		width: ${getMobileVw(40)};
+		width: 80px;
 		font-size: 12px;
+		/* padding: 15% 40%; */
 	}
 `;
