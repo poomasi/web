@@ -43,7 +43,10 @@ export function IntroduceSection() {
 				<LandingInfoCard
 					infoText="이용방법"
 					imgSrc={iconHowToUse}
-					onClick={() => setSelectedModalKey("MobileInstructions")}
+					onClick={() => {
+						setSelectedModalKey("MobileInstructions"),
+							console.log("선택된 모달 키:", "MobileInstructions");
+					}}
 				/>
 				<LandingInfoCard
 					infoText="품앗이 규칙"
