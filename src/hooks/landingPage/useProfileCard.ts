@@ -11,21 +11,20 @@ export function useProfileCard() {
 	const { accessToken } = useAccountStore((state) => state);
 	const isMobile = useMobileStore((state) => state.isMobile);
 
-	// const [useGuideModal, setUseGuideModal] = useState(false); //모달띄울지말지 결정
 	const [selectedCardKey, setSelectedCardKey] = useState<
 		"WebInstructions" | "MobileInstructions" | null
 	>(null);
 
 	const handleProfileClick = (profile: ProfileData) => {
-		if (accessToken === null && isMobile) {
+		if (accessToken === null) {
 			// setUseGuideModal(true);
 			setSelectedCardKey("MobileInstructions");
 			return;
 		}
-		if (accessToken === null && !isMobile) {
-			setSelectedCardKey("WebInstructions");
-			return;
-		}
+		// if (accessToken === null && !isMobile) {
+		// 	setSelectedCardKey("WebInstructions");
+		// 	return;
+		// }
 
 		if (accessToken !== null) {
 			//질문페이지 이동 시작 시간 저장

@@ -49,8 +49,8 @@ export function MobileIntroduceSection() {
 			{selectedModalKey && (
 				<ModalGuide
 					type={selectedModalKey}
-					title={modalData[selectedModalKey].title}
-					content={modalData[selectedModalKey].content}
+					// title={modalData[selectedModalKey].title}
+					// content={modalData[selectedModalKey].content}
 					onClose={handleModalClose}
 				/>
 			)}

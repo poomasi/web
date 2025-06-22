@@ -44,7 +44,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.div`
-	font-size: 100px;
+	font-size: 90px;
 	line-height: 160%;
 	font-weight: 700;
 `;
