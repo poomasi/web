@@ -26,6 +26,11 @@ type TextModal = {
 
 type ModalInfoType = SwiperModal | TextModal | WebInstructions;
 
+/*
+Record<Keys, ValueType>
+Keys: 객체의 키 타입
+ValueType: 해당 키들이 가질 값의 타입
+*/
 export const modalData: Record<
 	"WebInstructions" | "MobileInstructions" | "Guideline" | "DetailGuide",
 	ModalInfoType

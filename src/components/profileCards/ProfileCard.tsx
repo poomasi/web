@@ -64,22 +64,14 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 					</ProfileHistory>
 				</ProfileIntroContainer>
 			</Container>
-			{selectedCardKey &&
-				(selectedCardKey === "MobileInstructions" ? (
-					<ModalGuide
-						type="MobileInstructions"
-						title={modalData[selectedCardKey].title}
-						content={modalData[selectedCardKey].content}
-						onClose={() => setSelectedCardKey(null)}
-					/>
-				) : (
-					<ModalGuide
-						type="WebInstructions"
-						title={modalData[selectedCardKey].title}
-						content={modalData[selectedCardKey].content}
-						onClose={() => setSelectedCardKey(null)}
-					/>
-				))}
+			{selectedCardKey && (
+				<ModalGuide
+					type="MobileInstructions"
+					// title={modalData[selectedCardKey].title}
+					// content={modalData[selectedCardKey].content}
+					onClose={() => setSelectedCardKey(null)}
+				/>
+			)}
 
 			{/* {useGuideModal &&
 				modalInfo &&

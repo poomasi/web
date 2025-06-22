@@ -21,20 +21,20 @@ const SwiperSlide = dynamic(
 
 type GuideModalProps = {
 	type: keyof typeof modalData;
-	title: string;
-	content: string | { image: StaticImageData; text: string }[];
+	// title: string;
+	// content: string | { image: StaticImageData; text: string }[];
 	onClose: () => void;
 };
 
 export function ModalGuide({ onClose, type }: GuideModalProps) {
 	const modal = modalData[type];
 
-	console.log(type);
+	console.log("🔥 모달 타입 확인:", modal.type);
 
 	if (!modal) return null;
 
 	// 모바일: 스와이프
-	if (type === "MobileInstructions") {
+	if (modal.type === "swiper") {
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
@@ -75,7 +75,8 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 	}
 
 	// 텍스트 전용 (모바일/웹 공통)
-	if (type === "Guideline" || type === "DetailGuide") {
+	// if (type === "Guideline" || type === "DetailGuide") {
+	if (modal.type === "text") {
 		const textContent = modal.content as string;
 
 		return (
@@ -136,6 +137,7 @@ const Slide = styled.div`
 	flex-direction: column;
 	align-items: center;
 	padding: 1rem;
+	min-height: 200px;
 `;
 
 const Image = styled.img`
