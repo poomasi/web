@@ -17,15 +17,15 @@ export function useProfileCard() {
 	>(null);
 
 	const handleProfileClick = (profile: ProfileData) => {
-		if (accessToken === null && isMobile) {
+		if (accessToken === null) {
 			// setUseGuideModal(true);
 			setSelectedCardKey("MobileInstructions");
 			return;
 		}
-		if (accessToken === null && !isMobile) {
-			setSelectedCardKey("WebInstructions");
-			return;
-		}
+		// if (accessToken === null && !isMobile) {
+		// 	setSelectedCardKey("WebInstructions");
+		// 	return;
+		// }
 
 		if (accessToken !== null) {
 			//질문페이지 이동 시작 시간 저장

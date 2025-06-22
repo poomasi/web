@@ -2,9 +2,8 @@ import dynamic from "next/dynamic";
 import { Pagination } from "swiper/modules";
 // import 'swiper/css/pagination'
 // import { Swiper, SwiperSlide } from "swiper/react";
-
-import "swiper/css";
-import "swiper/css/pagination";
+// import "swiper/css";
+// import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
@@ -29,6 +28,8 @@ type GuideModalProps = {
 
 export function ModalGuide({ onClose, type }: GuideModalProps) {
 	const modal = modalData[type];
+
+	console.log(type);
 
 	if (!modal) return null;
 
@@ -72,38 +73,6 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 			</ModalReference>
 		);
 	}
-
-	// 웹: 이미지 그리드
-	// if (type === "WebInstructions") {
-	// 	return (
-	// 		<ModalReference onClick={onClose}>
-	// 			<ModalReference.Header onClickClose={onClose} />
-	// 			<ModalReference.Body>
-	// 				<ModalTitle>{modal.title}</ModalTitle>
-	// 				<GuideList>
-	// 					{Array.isArray(modal.content) &&
-	// 						modal.content.map((item, i) => (
-	// 							<GuideItem key={i}>
-	// 								<Image
-	// 									src={item.image.src}
-	// 									alt={item.text}
-	// 									width={322}
-	// 									height={246}
-	// 									style={{
-	// 										width: "100%",
-	// 										height: "auto",
-	// 										borderRadius: "16px",
-	// 									}}
-	// 									sizes="(max-width: 1320px) 246px, 322px"
-	// 								/>
-	// 								<GuideText>{item.text}</GuideText>
-	// 							</GuideItem>
-	// 						))}
-	// 				</GuideList>
-	// 			</ModalReference.Body>
-	// 		</ModalReference>
-	// 	);
-	// }
 
 	// 텍스트 전용 (모바일/웹 공통)
 	if (type === "Guideline" || type === "DetailGuide") {
