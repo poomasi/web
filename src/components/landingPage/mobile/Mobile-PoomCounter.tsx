@@ -19,7 +19,7 @@ export function MobilePoomCounter() {
 					src={poomCountIcon}
 					alt="품 카운트 아이콘"
 					fill // div에 꽉 차게
-					sizes="72px" // mobile 기준에 맞춰 해상도 최적화
+					sizes="62px" // mobile 기준에 맞춰 해상도 최적화
 					style={{ objectFit: "contain" }} // 가로세로 비율 유지하며 꽉 차게
 				/>
 			</IconWrapper>
@@ -55,10 +55,10 @@ const CounterContainer = styled.div`
 
 const IconWrapper = styled.div`
 	position: relative; // fill 사용 시 필요
-	width: ${getMobileVw(72)};
-	height: ${getMobileVw(
-		72
-	)}; // 높이도 설정 필요,height: auto; 였음 재 설정 필요
+	width: ${getMobileVw(62)};
+	height: ${getMobileVw(62)};
+	@media (max-width: 1024px) {
+	}
 `;
 
 const PoomExplainText = styled.div`

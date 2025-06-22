@@ -11,7 +11,6 @@ export function useProfileCard() {
 	const { accessToken } = useAccountStore((state) => state);
 	const isMobile = useMobileStore((state) => state.isMobile);
 
-	// const [useGuideModal, setUseGuideModal] = useState(false); //모달띄울지말지 결정
 	const [selectedCardKey, setSelectedCardKey] = useState<
 		"WebInstructions" | "MobileInstructions" | null
 	>(null);
