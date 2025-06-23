@@ -1,26 +1,18 @@
 import dynamic from "next/dynamic";
-import { Pagination } from "swiper/modules";
-// import 'swiper/css/pagination'
-// import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import type { StaticImageData } from "next/image";
 import NextImage from "next/image";
 import { useRef, useEffect } from "react";
-import type { Swiper as SwiperType } from "swiper";
+import Slider from "react-slick";
+
+// import { Pagination } from "swiper/modules";
+// import "swiper/css";
+// import "swiper/css/pagination";
+// import type { Swiper as SwiperType } from "swiper";
 
 // dynamic import (SSR 비활성화)
-//Swiper 관련 모듈을 초기 번들에서 제거하고, 클라이언트 측에서만 로드되도록 최적화
-const Swiper = dynamic(() => import("swiper/react").then((mod) => mod.Swiper), {
-	ssr: false,
-});
-const SwiperSlide = dynamic(
-	() => import("swiper/react").then((mod) => mod.SwiperSlide),
-	{ ssr: false }
-);
 
 type GuideModalProps = {
 	type: keyof typeof modalData; //MobileInstructions 등등
@@ -29,73 +21,55 @@ type GuideModalProps = {
 	onClose: () => void;
 };
 
+const sliderSettings = {
+	dots: true,
+	infinite: true,
+	speed: 500,
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	arrows: false, // 필요에 따라 true로 변경 가능
+};
+
 export function ModalGuide({ onClose, type }: GuideModalProps) {
 	//swiper 등등
 	const modal = modalData[type];
 	console.log("modal.type:", modal.type);
 	console.log("modal:", modal);
 
-	const swiperRef = useRef<SwiperType | null>(null);
-
 	// console.log("🔥 모달 타입 확인:", modal.type);
 
-	if (type) return null;
-
 	// Swiper가 실제로 mount된 후 update를 보장
-	useEffect(() => {
-		if (type === "MobileInstructions") {
-			// requestAnimationFrame을 두 번 써서 DOM 렌더링을 확실히 기다림
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					if (swiperRef.current) {
-						swiperRef.current.update();
-					}
-				});
-			});
-		}
-	}, [type]);
 
 	// 모바일: 스와이프
-	if (type === "MobileInstructions") {
+	if (modal.type === "swiper") {
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
 				<ModalReference.Body>
 					<BodyPadding>
 						<ModalTitle>{modal.title}</ModalTitle>
-						<StyledSwiper
-							spaceBetween={16}
-							slidesPerView={1}
-							modules={[Pagination]}
-							pagination={{ clickable: true }}
-							onSwiper={(swiper) => {
-								swiperRef.current = swiper;
-							}}>
+						<Slider {...sliderSettings}>
 							{Array.isArray(modal.content) &&
 								modal.content.map((item, i) => (
-									<SwiperSlide key={i}>
+									<div key={i}>
 										<Slide>
-											<ImgWrapper>
-												<NextImage
-													src={item.image}
-													alt={`guide-step-${i + 1}`}
-													width={240}
-													height={180}
-													// layout="responsive"
-													// style={{
-													// 	width: "100%",
-													// 	maxWidth: "240px",
-													// 	height: "auto",
-													// 	marginBottom: "1rem",
-													// 	borderRadius: "16px",
-													// }}
-												/>
-											</ImgWrapper>
+											<NextImage
+												src={item.image}
+												alt={`guide-step-${i + 1}`}
+												width={240}
+												height={180}
+												style={{
+													width: "100%",
+													height: "100%",
+													objectFit: "contain",
+													borderRadius: "16px",
+												}}
+											/>
 											<Text>{item.text}</Text>
 										</Slide>
-									</SwiperSlide>
+									</div>
 								))}
-						</StyledSwiper>
+						</Slider>
 					</BodyPadding>
 				</ModalReference.Body>
 			</ModalReference>
@@ -139,45 +113,27 @@ const ModalTitle = styled.h4`
 	}
 `;
 
-const StyledSwiper = styled(Swiper)`
-	width: 100%;
-	max-width: 280px;
-	margin: 0 auto;
-	background-color: #fff;
-	position: relative;
-
-	.swiper-pagination {
-		bottom: -1%;
-	}
-
-	.swiper-pagination-bullet {
-		background-color: #eaebed;
-		opacity: 1;
-	}
-
-	.swiper-pagination-bullet-active {
-		background-color: #3ecdbc;
-	}
-`;
-
 const Slide = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1rem;
-	min-height: 200px;
+	justify-content: center;
+	min-height: 220px;
+	width: 100%;
+	gap: 1rem;
+	background: transparent;
 `;
 
-const ImgWrapper = styled.div`
-	max-width: 240px;
-	height: auto;
-	margin-bottom: 1rem;
-	border-radius: 16px;
-
-	@media (max-width: 1024px) {
-		width: 100%;
-	}
-`;
+// const ImgWrapper = styled.div`
+// 	width: 240px;
+// 	height: 180px;
+// 	margin-bottom: 1rem;
+// 	border-radius: 16px;
+// 	overflow: hidden;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// `;
 
 const Text = styled.p`
 	font-size: 16px;
@@ -190,17 +146,6 @@ const Text = styled.p`
 		margin-bottom: 1rem;
 	}
 `;
-// const TextDeco = styled.p`
-// 	@media (max-width: 1024px) {
-// 		font-size: 0.875rem;
-// 		margin-bottom: 1rem;
-// 		margin-top: 1rem;
-// 		background-color: #f7f7f7;
-// 		border-radius: 20px;
-// 		padding: 2rem;
-// 		line-height: 160%;
-// 	}
-// `;
 
 const GuideList = styled.div`
 	display: grid;
@@ -222,17 +167,6 @@ const GuideItem = styled.div`
 	font-size: 16px;
 	gap: 24px;
 `;
-
-// const GuideImg = styled.img`
-// 	width: 322px;
-// 	height: 246px;
-// 	border-radius: 16px;
-
-// 	@media (max-width: 1320px) {
-// 		width: 246px;
-// 		height: 186px;
-// 	}
-// `;
 
 const GuideText = styled.div`
 	color: #4e5053;
@@ -261,4 +195,6 @@ const GuideInfoText = styled.div`
 
 const BodyPadding = styled.div`
 	padding: 1rem 2rem;
+	height: 100%;
+	box-sizing: border-box;
 `;

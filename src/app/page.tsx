@@ -8,6 +8,9 @@ import { IntroduceSection } from "@components/landingPage/web/IntroduceSection.t
 import { MobileLandingPage } from "@components/landingPage/mobile/MobileLandingPage";
 import { useMobileStore } from "@store/useMobileStore.ts";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 export function LandingPage() {
 	const { isMobile } = useMobileStore();
 
