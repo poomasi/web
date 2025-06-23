@@ -9,7 +9,6 @@ export function ServiceWorkerUnregister() {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (const registration of registrations) {
           registration.unregister().then(() => {
-            console.log("서비스 워커 등록 해제 완료");
             window.caches?.keys().then((cacheNames) => {
               cacheNames.forEach((cacheName) => {
                 window.caches.delete(cacheName);
