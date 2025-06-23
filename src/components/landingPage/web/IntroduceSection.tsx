@@ -5,8 +5,9 @@ import styled from "@emotion/styled";
 // import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
 // import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ModalGuide } from "@components/common/modal";
+import type { Swiper as SwiperType } from "swiper";
 
 import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";
@@ -17,13 +18,10 @@ export function IntroduceSection() {
 		null | keyof typeof modalData
 	>(null);
 
-	// const updateModalKey = (key: keyof typeof modalData) => {
-	// 	setSelectedModalKey(key);
-	// };
-
-	// const modalInfo = useMemo(() => {
-	// 	return selectedModalKey ? modalData[selectedModalKey] : null;
-	// }, [selectedModalKey]);
+	// selectedModalKey 값 변경 시 콘솔에 출력
+	useEffect(() => {
+		console.log("선택된 모달 키:", selectedModalKey);
+	}, [selectedModalKey]);
 
 	const handleModalClose = () => {
 		setSelectedModalKey(null);
@@ -44,8 +42,7 @@ export function IntroduceSection() {
 					infoText="이용방법"
 					imgSrc={iconHowToUse}
 					onClick={() => {
-						setSelectedModalKey("MobileInstructions"),
-							console.log("선택된 모달 키:", "MobileInstructions");
+						setSelectedModalKey("MobileInstructions");
 					}}
 				/>
 				<LandingInfoCard
@@ -62,8 +59,8 @@ export function IntroduceSection() {
 			{selectedModalKey && (
 				<ModalGuide
 					type={selectedModalKey}
-					title={modalData[selectedModalKey].title}
-					content={modalData[selectedModalKey].content}
+					// title={modalData[selectedModalKey].title}
+					// content={modalData[selectedModalKey].content}
 					onClose={handleModalClose}
 				/>
 			)}

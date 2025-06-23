@@ -10,13 +10,6 @@ type SwiperModal = {
 	content: { image: StaticImageData; text: string }[];
 };
 
-//웹용
-type WebInstructions = {
-	title: string;
-	type: "WebInstructions";
-	content: { image: StaticImageData; text: string }[];
-};
-
 //사진없는 텍스트용
 type TextModal = {
 	title: string;
@@ -24,35 +17,42 @@ type TextModal = {
 	content: string;
 };
 
-type ModalInfoType = SwiperModal | TextModal | WebInstructions;
+//웹용
+// type WebInstructions = {
+// 	title: string;
+// 	type: "WebInstructions";
+// 	content: { image: StaticImageData; text: string }[];
+// };
+
+type ModalType = SwiperModal | TextModal;
 
 /*
 Record<Keys, ValueType>
-Keys: 객체의 키 타입
-ValueType: 해당 키들이 가질 값의 타입
+Keys: 문자열 리터럴 타입 집합
+ValueType: 값의 타입
 */
 export const modalData: Record<
-	"WebInstructions" | "MobileInstructions" | "Guideline" | "DetailGuide",
-	ModalInfoType
+	"MobileInstructions" | "Guideline" | "DetailGuide",
+	ModalType
 > = {
-	WebInstructions: {
-		title: "이용방법",
-		type: "WebInstructions",
-		content: [
-			{
-				image: guide01,
-				text: "1. 카카오톡으로 간편하게 로그인해요",
-			},
-			{
-				image: guide02,
-				text: "2. 관심 있는 분야의 품앗이꾼을 찾아요",
-			},
-			{
-				image: guide03,
-				text: "3. 도움이 필요한 내용을 자유롭게 질문해요",
-			},
-		],
-	},
+	// WebInstructions: {
+	// 	title: "이용방법",
+	// 	type: "WebInstructions",
+	// 	content: [
+	// 		{
+	// 			image: guide01,
+	// 			text: "1. 카카오톡으로 간편하게 로그인해요",
+	// 		},
+	// 		{
+	// 			image: guide02,
+	// 			text: "2. 관심 있는 분야의 품앗이꾼을 찾아요",
+	// 		},
+	// 		{
+	// 			image: guide03,
+	// 			text: "3. 도움이 필요한 내용을 자유롭게 질문해요",
+	// 		},
+	// 	],
+	// },
 	MobileInstructions: {
 		title: "이용방법",
 		type: "swiper",

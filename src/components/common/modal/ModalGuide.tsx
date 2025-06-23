@@ -2,12 +2,15 @@ import dynamic from "next/dynamic";
 import { Pagination } from "swiper/modules";
 // import 'swiper/css/pagination'
 // import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import "swiper/css/pagination";
+import "swiper/css";
+import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import type { StaticImageData } from "next/image";
+import NextImage from "next/image";
+import { useRef, useEffect } from "react";
+import type { Swiper as SwiperType } from "swiper";
 
 // dynamic import (SSR 비활성화)
 //Swiper 관련 모듈을 초기 번들에서 제거하고, 클라이언트 측에서만 로드되도록 최적화
@@ -20,21 +23,40 @@ const SwiperSlide = dynamic(
 );
 
 type GuideModalProps = {
-	type: keyof typeof modalData;
+	type: keyof typeof modalData; //MobileInstructions 등등
 	// title: string;
 	// content: string | { image: StaticImageData; text: string }[];
 	onClose: () => void;
 };
 
 export function ModalGuide({ onClose, type }: GuideModalProps) {
+	//swiper 등등
 	const modal = modalData[type];
+	console.log("modal.type:", modal.type);
+	console.log("modal:", modal);
 
-	console.log("🔥 모달 타입 확인:", modal.type);
+	const swiperRef = useRef<SwiperType | null>(null);
 
-	if (!modal) return null;
+	// console.log("🔥 모달 타입 확인:", modal.type);
+
+	if (type) return null;
+
+	// Swiper가 실제로 mount된 후 update를 보장
+	useEffect(() => {
+		if (type === "MobileInstructions") {
+			// requestAnimationFrame을 두 번 써서 DOM 렌더링을 확실히 기다림
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					if (swiperRef.current) {
+						swiperRef.current.update();
+					}
+				});
+			});
+		}
+	}, [type]);
 
 	// 모바일: 스와이프
-	if (modal.type === "swiper") {
+	if (type === "MobileInstructions") {
 		return (
 			<ModalReference onClick={onClose}>
 				<ModalReference.Header onClickClose={onClose} />
@@ -45,24 +67,30 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 							spaceBetween={16}
 							slidesPerView={1}
 							modules={[Pagination]}
-							pagination={{ clickable: true }}>
+							pagination={{ clickable: true }}
+							onSwiper={(swiper) => {
+								swiperRef.current = swiper;
+							}}>
 							{Array.isArray(modal.content) &&
 								modal.content.map((item, i) => (
 									<SwiperSlide key={i}>
 										<Slide>
-											<Image
-												src={item.image.src}
-												alt={`guide-step-${i + 1}`}
-												width={240}
-												height={180}
-												style={{
-													width: "70%",
-													maxWidth: "240px",
-													height: "auto",
-													marginBottom: "1rem",
-													borderRadius: "16px",
-												}}
-											/>
+											<ImgWrapper>
+												<NextImage
+													src={item.image}
+													alt={`guide-step-${i + 1}`}
+													width={240}
+													height={180}
+													// layout="responsive"
+													// style={{
+													// 	width: "100%",
+													// 	maxWidth: "240px",
+													// 	height: "auto",
+													// 	marginBottom: "1rem",
+													// 	borderRadius: "16px",
+													// }}
+												/>
+											</ImgWrapper>
 											<Text>{item.text}</Text>
 										</Slide>
 									</SwiperSlide>
@@ -140,11 +168,11 @@ const Slide = styled.div`
 	min-height: 200px;
 `;
 
-const Image = styled.img`
-	width: 70%;
+const ImgWrapper = styled.div`
 	max-width: 240px;
 	height: auto;
 	margin-bottom: 1rem;
+	border-radius: 16px;
 
 	@media (max-width: 1024px) {
 		width: 100%;
