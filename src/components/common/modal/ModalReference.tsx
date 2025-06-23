@@ -75,7 +75,7 @@ const ModalOverlay = styled.div`
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4); // 어두운 배경
-	z-index: 99999;
+	z-index: 999999;
 	opacity: 0;
 	animation: fadeIn 0.3s forwards;
 
@@ -88,9 +88,9 @@ const ModalOverlay = styled.div`
 
 const ModalWrapper = styled.section`
 	position: fixed;
-	top: 22%;
+	top: 50%;
 	left: 50%;
-	transform: translate(-50%);
+	transform: translate(-50%, -50%);
 	z-index: 9999999999;
 	width: 30%;
 	height: auto;
@@ -111,7 +111,7 @@ const ModalHeader = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
-	padding: 1.25rem;
+	padding: 0.6rem 1.25rem;
 
 	@media (max-width: 1024px) {
 		padding: 0.6rem;

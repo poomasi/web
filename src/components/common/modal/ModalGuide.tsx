@@ -4,20 +4,18 @@ import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import type { StaticImageData } from "next/image";
 import NextImage from "next/image";
-import { useRef, useEffect } from "react";
-import Slider from "react-slick";
-
-// import { Pagination } from "swiper/modules";
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import type { Swiper as SwiperType } from "swiper";
+import { useEffect } from "react";
 
 // dynamic import (SSR 비활성화)
+const SlickSlider = dynamic(
+	() => import("react-slick").then((mod) => mod.default),
+	{
+		ssr: false,
+	}
+);
 
 type GuideModalProps = {
 	type: keyof typeof modalData; //MobileInstructions 등등
-	// title: string;
-	// content: string | { image: StaticImageData; text: string }[];
 	onClose: () => void;
 };
 
@@ -27,10 +25,18 @@ const sliderSettings = {
 	speed: 500,
 	slidesToShow: 1,
 	slidesToScroll: 1,
-	arrows: false, // 필요에 따라 true로 변경 가능
+	arrows: false,
 };
 
 export function ModalGuide({ onClose, type }: GuideModalProps) {
+	useEffect(() => {
+		// 모달이 열릴 때
+		document.body.style.overflow = "hidden";
+		return () => {
+			// 모달이 닫힐 때
+			document.body.style.overflow = "auto";
+		};
+	}, []);
 	//swiper 등등
 	const modal = modalData[type];
 	console.log("modal.type:", modal.type);
@@ -48,28 +54,30 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 				<ModalReference.Body>
 					<BodyPadding>
 						<ModalTitle>{modal.title}</ModalTitle>
-						<Slider {...sliderSettings}>
-							{Array.isArray(modal.content) &&
-								modal.content.map((item, i) => (
-									<div key={i}>
-										<Slide>
-											<NextImage
-												src={item.image}
-												alt={`guide-step-${i + 1}`}
-												width={240}
-												height={180}
-												style={{
-													width: "100%",
-													height: "100%",
-													objectFit: "contain",
-													borderRadius: "16px",
-												}}
-											/>
-											<Text>{item.text}</Text>
-										</Slide>
-									</div>
-								))}
-						</Slider>
+						<div style={{ width: 320, height: 320, margin: "0 auto" }}>
+							<SlickSlider {...sliderSettings}>
+								{Array.isArray(modal.content) &&
+									modal.content.map((item, i) => (
+										<div key={i}>
+											<Slide>
+												<NextImage
+													src={item.image}
+													alt={`guide-step-${i + 1}`}
+													width={240}
+													height={180}
+													style={{
+														width: "100%",
+														height: "180px",
+														objectFit: "contain",
+														borderRadius: "16px",
+													}}
+												/>
+												<Text>{item.text}</Text>
+											</Slide>
+										</div>
+									))}
+							</SlickSlider>
+						</div>
 					</BodyPadding>
 				</ModalReference.Body>
 			</ModalReference>
@@ -100,7 +108,7 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 const ModalTitle = styled.h4`
 	color: #0e0e0e;
 	text-align: center;
-	font-size: 36px;
+	font-size: 32px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: 150%; /* 54px */
@@ -117,23 +125,12 @@ const Slide = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	min-height: 220px;
+	justify-content: flex-start;
 	width: 100%;
+	height: 100%;
 	gap: 1rem;
 	background: transparent;
 `;
-
-// const ImgWrapper = styled.div`
-// 	width: 240px;
-// 	height: 180px;
-// 	margin-bottom: 1rem;
-// 	border-radius: 16px;
-// 	overflow: hidden;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// `;
 
 const Text = styled.p`
 	font-size: 16px;
