@@ -24,11 +24,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.POOMASI_OFFICIAL_ACCOUNT_GH_TOKEN }}
         with:
-<<<<<<< HEAD
-          source-directory: 'output'
-=======
           source-directory: "output"
->>>>>>> next.js
           destination-github-username: poomasiofficial
           destination-repository-name: poomasi-web
           commit-message: ${{ github.event.commits[0].message }}
