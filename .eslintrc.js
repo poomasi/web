@@ -7,5 +7,6 @@ module.exports = {
 		"no-console": "off", // 콘솔 허용
 		"react-hooks/exhaustive-deps": "off", // 의존성 배열 검사 생략
 		"@typescript-eslint/no-unused-vars": "warn", // 미사용 변수 무시
+		"@typescript-eslint/no-explicit-any": "off",
 	},
 };
