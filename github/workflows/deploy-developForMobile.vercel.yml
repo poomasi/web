@@ -28,11 +28,7 @@ jobs:
           # SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
           repository: taetae0707/mobile-test
-<<<<<<< HEAD
-          source-directory: 'output'
-=======
-          source-directory: "output"
->>>>>>> next.js
+          source-directory: "."
           destination-github-username: taetae0707
           destination-repository-name: mobile-test
           commit-message: ${{ github.event.commits[0].message }}
