@@ -1,12 +1,8 @@
 import dynamic from "next/dynamic";
-import { Pagination } from "swiper/modules";
-// import 'swiper/css/pagination'
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import "swiper/css/pagination";
 import styled from "@emotion/styled";
 import ModalReference from "@components/common/modal/ModalReference.tsx";
 import { modalData } from "@components/common/modal/modalGuide-data";
+<<<<<<< HEAD
 
 // dynamic import (SSR 비활성화)
 //Swiper 관련 모듈을 초기 번들에서 제거하고, 클라이언트 측에서만 로드되도록 최적화
@@ -23,9 +19,36 @@ type GuideModalProps = {
   // title: string;
   // content: string | { image: StaticImageData; text: string }[];
   onClose: () => void;
+=======
+import type { StaticImageData } from "next/image";
+import NextImage from "next/image";
+import { useEffect } from "react";
+
+// dynamic import (SSR 비활성화)
+const SlickSlider = dynamic(
+	() => import("react-slick").then((mod) => mod.default),
+	{
+		ssr: false,
+	}
+);
+
+type GuideModalProps = {
+	type: keyof typeof modalData; //MobileInstructions 등등
+	onClose: () => void;
+>>>>>>> next.js
+};
+
+const sliderSettings = {
+	dots: true,
+	infinite: true,
+	speed: 500,
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	arrows: false,
 };
 
 export function ModalGuide({ onClose, type }: GuideModalProps) {
+<<<<<<< HEAD
   const modal = modalData[type];
 
   if (!modal) return null;
@@ -76,6 +99,62 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
   // if (type === "Guideline" || type === "DetailGuide") {
   if (modal.type === "text") {
     const textContent = modal.content as string;
+=======
+	useEffect(() => {
+		// 모달이 열릴 때
+		document.body.style.overflow = "hidden";
+		return () => {
+			// 모달이 닫힐 때
+			document.body.style.overflow = "auto";
+		};
+	}, []);
+	//swiper 등등
+	const modal = modalData[type];
+	console.log("modal.type:", modal.type);
+	console.log("modal:", modal);
+
+	// console.log("🔥 모달 타입 확인:", modal.type);
+
+	// Swiper가 실제로 mount된 후 update를 보장
+
+	// 모바일: 스와이프
+	if (modal.type === "swiper") {
+		return (
+			<ModalReference onClick={onClose}>
+				<ModalReference.Header onClickClose={onClose} />
+				<ModalReference.Body>
+					<BodyPadding>
+						<ModalTitle>{modal.title}</ModalTitle>
+						<div style={{ width: 320, height: 320, margin: "0 auto" }}>
+							<SlickSlider {...sliderSettings}>
+								{Array.isArray(modal.content) &&
+									modal.content.map((item, i) => (
+										<div key={i}>
+											<Slide>
+												<NextImage
+													src={item.image}
+													alt={`guide-step-${i + 1}`}
+													width={240}
+													height={180}
+													style={{
+														width: "100%",
+														height: "180px",
+														objectFit: "contain",
+														borderRadius: "16px",
+													}}
+												/>
+												<Text>{item.text}</Text>
+											</Slide>
+										</div>
+									))}
+							</SlickSlider>
+						</div>
+					</BodyPadding>
+				</ModalReference.Body>
+			</ModalReference>
+		);
+	}
+>>>>>>> next.js
 
     return (
       <ModalReference onClick={onClose}>
@@ -94,6 +173,7 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 }
 
 const ModalTitle = styled.h4`
+<<<<<<< HEAD
   color: #0e0e0e;
   text-align: center;
   font-size: 36px;
@@ -147,6 +227,32 @@ const Image = styled.img`
   @media (max-width: 1024px) {
     width: 100%;
   }
+=======
+	color: #0e0e0e;
+	text-align: center;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 150%; /* 54px */
+	margin-bottom: 16px;
+	@media (max-width: 1024px) {
+		font-size: 1.125rem;
+		font-weight: 700;
+		text-align: center;
+		padding: 5px;
+	}
+`;
+
+const Slide = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+	height: 100%;
+	gap: 1rem;
+	background: transparent;
+>>>>>>> next.js
 `;
 
 const Text = styled.p`
@@ -160,17 +266,6 @@ const Text = styled.p`
     margin-bottom: 1rem;
   }
 `;
-// const TextDeco = styled.p`
-// 	@media (max-width: 1024px) {
-// 		font-size: 0.875rem;
-// 		margin-bottom: 1rem;
-// 		margin-top: 1rem;
-// 		background-color: #f7f7f7;
-// 		border-radius: 20px;
-// 		padding: 2rem;
-// 		line-height: 160%;
-// 	}
-// `;
 
 const GuideList = styled.div`
   display: grid;
@@ -192,17 +287,6 @@ const GuideItem = styled.div`
   font-size: 16px;
   gap: 24px;
 `;
-
-// const GuideImg = styled.img`
-// 	width: 322px;
-// 	height: 246px;
-// 	border-radius: 16px;
-
-// 	@media (max-width: 1320px) {
-// 		width: 246px;
-// 		height: 186px;
-// 	}
-// `;
 
 const GuideText = styled.div`
   color: #4e5053;
@@ -230,5 +314,11 @@ const GuideInfoText = styled.div`
 `;
 
 const BodyPadding = styled.div`
+<<<<<<< HEAD
   padding: 1rem 2rem;
+=======
+	padding: 1rem 2rem;
+	height: 100%;
+	box-sizing: border-box;
+>>>>>>> next.js
 `;

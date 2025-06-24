@@ -1,6 +1,3 @@
-@import "swiper/css";
-@import "swiper/css/pagination";
-
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -170,4 +167,19 @@ body {
 
 #root {
 	width: 100%;
+}
+
+.slick-dots {
+	bottom: -20% !important;
+}
+.slick-dots li {
+	width: 30px;
+}
+.slick-dots li button:before {
+	font-size: 16px;
+}
+.slick-slider {
+	background-color: #f7f7f7;
+	border-radius: 10px;
+	padding: 20px;
 }
