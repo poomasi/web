@@ -18,15 +18,16 @@ jobs:
       - name: 2. output
         run: sh ./build.sh
 
-      - name: 3. 디버그: output 디렉토리 목록 출력
+      - name: "3. 디버그: output 디렉토리 목록 출력"
         run: ls -al ./output
 
       - name: 4. push to mobile-test
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.POOMASI_TESTREPO_ACCOUNT_GH_TOKEN }}
-           # SHH Deploy Key로 “output 폴더”를 다른 리포(mobile-test)의 develop 브랜치로 푸쉬하는 역할
+          API_TOKEN_GITHUB:
+            ${{ secrets.POOMASI_TESTREPO_ACCOUNT_GH_TOKEN }}
+            # SHH Deploy Key로 “output 폴더”를 다른 리포(mobile-test)의 develop 브랜치로 푸쉬하는 역할
           # SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
           DEBUG: true
         with:
@@ -36,5 +37,3 @@ jobs:
           destination-repository-name: mobile-test
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: develop
-          
-
