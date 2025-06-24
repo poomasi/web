@@ -33,3 +33,9 @@ jobs:
           destination-repository-name: mobile-test
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: develop
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.POOMASI_TESTREPO_ACCOUNT_GH_TOKEN }}
+          DEBUG: true
+
+      - name: 디버그: output 디렉토리 목록 출력
+        run: ls -al ./output
