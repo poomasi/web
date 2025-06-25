@@ -48,7 +48,7 @@ export function AnswerCard({ question, answerText, isMyAnswer, teacherName, answ
         </QnaHead>
         {isEditing ? (
           <>
-            <StyledTextarea minRows={3} maxRows={50} value={editedText} onChange={handleTextChange} />
+            <StyledTextarea minRows={50} maxRows={100} value={editedText} onChange={handleTextChange} />
             <EditActionButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
           </>
         ) : (
