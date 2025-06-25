@@ -71,8 +71,8 @@ export function AnswerCard({
 				{isEditing ? (
 					<>
 						<StyledTextarea
-							minRows={3}
-							maxRows={50}
+							minRows={50}
+							maxRows={100}
 							value={editedText}
 							onChange={handleTextChange}
 						/>
