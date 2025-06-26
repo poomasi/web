@@ -59,8 +59,8 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
         <QnaContentArea readOnly value={question.question_text} />
       )}
 
-      <div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <QnaWrapper>
+        <div style={{ display: 'flex' }}>
           <QnaContentCareer
             style={{
               padding: '6px 12px',
@@ -91,10 +91,17 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
         >
           {dayjs(question.created_at).format('YYYY-MM-DD')}
         </QnaContentDate>
-      </div>
+      </QnaWrapper>
     </QnaCard>
   )
 }
+
+const QnaWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`
+
 const StyledTextarea = styled(TextareaAutosize)`
   color: #28292a;
   font-size: 22px;
@@ -233,6 +240,6 @@ const QnaContentDate = styled.div`
     justify-content: flex-start !important;
     font-size: 0.75rem;
     color: ${colors.gray500};
-    margin-top: -10px;
+    /* margin-top: -10px; */
   }
 `
