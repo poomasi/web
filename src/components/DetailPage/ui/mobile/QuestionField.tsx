@@ -22,7 +22,9 @@ const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
   const { isMobile } = useMobileStore()
-  const keyboardHeight = useKeyboardHeight(isMobile)
+  // const keyboardHeight = useKeyboardHeight(isMobile)
+  const { keyboardHeight, isTextareaFocused } = useKeyboardHeight(isMobile)
+
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accessToken } = useAccountStore()
@@ -170,10 +172,10 @@ export function QuestionField() {
               height: '48px',
               padding: '16px 20px',
             },
-            ...(isMobile && keyboardHeight > 0
+            ...(isMobile && isTextareaFocused && keyboardHeight > 0
               ? {
                   position: 'fixed',
-                  bottom: `${keyboardHeight + 10}px`, // 키보드 위 여유공간
+                  bottom: `${keyboardHeight + 6}px`, // 키보드 위 여유공간
                   // left: '16px',
                   right: '1px',
                   zIndex: 9999,
