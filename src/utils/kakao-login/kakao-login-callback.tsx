@@ -26,21 +26,21 @@ export default function KakaoLoginCallback() {
 			try {
 				// URL에서 'code' 파라미터 추출
 				/* code란?
-        - 사용자가 카카오 로그인 인증을 마치면 발급받는 일회용 인증 코드
-        - 최초로 access token 등을 받기 위한 '교환권' 역할.
-        
-        ① 사용자가 카카오 로그인 성공 →
-        ② 카카오가 redirect_uri로 이동시키면서 code를 URL에 붙여줌 →
-        ③ 프론트/서버가 이 코드를 사용해서 access_token 요청
-        */
+					- 사용자가 카카오 로그인 인증을 마치면 발급받는 일회용 인증 코드
+					- 최초로 access token 등을 받기 위한 '교환권' 역할.
+					
+					① 사용자가 카카오 로그인 성공 →
+					② 카카오가 redirect_uri로 이동시키면서 code를 URL에 붙여줌 →
+					③ 프론트/서버가 이 코드를 사용해서 access_token 요청
+				*/
 				const search = new URLSearchParams(window.location.search);
 				/*URLSearchParams란?
-        window.location.search
-        → 현재 브라우저 주소창의 URL에서 ? 뒤의 모든 쿼리 파라미터를 문자열로 반환
+					window.location.search
+					→ 현재 브라우저 주소창의 URL에서 ? 뒤의 모든 쿼리 파라미터를 문자열로 반환
 
-        new URLSearchParams(window.location.search)
-        → 그 문자열을 key-value 형식으로 쉽게 꺼낼 수 있게 변환
-        */
+					new URLSearchParams(window.location.search)
+					→ 그 문자열을 key-value 형식으로 쉽게 꺼낼 수 있게 변환
+				*/
 				const code = search.get("code");
 				const grantType = "authorization_code";
 
