@@ -132,7 +132,7 @@ const QnaCard = styled(Card)`
     border-radius: 20px;
     padding: 20px;
     box-shadow: none;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 `
 
