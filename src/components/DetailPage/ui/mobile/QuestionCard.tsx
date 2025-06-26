@@ -59,37 +59,39 @@ export function QuestionCard({ question, isSecret, onUpdateRequest }: QuestionCa
         <QnaContentArea readOnly value={question.question_text} />
       )}
 
-      <div style={{ display: 'flex' }}>
-        <QnaContentCareer
+      <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <QnaContentCareer
+            style={{
+              padding: '6px 12px',
+              borderRadius: '4px',
+              backgroundColor: '#EAEBED',
+              marginRight: '6px',
+            }}
+          >
+            {getCareerYearString(question.career_year)}
+          </QnaContentCareer>
+          <QnaContentMajor
+            style={{
+              padding: '6px 12px',
+              borderRadius: '4px',
+              backgroundColor: '#EAEBED',
+              marginRight: '12px',
+            }}
+          >
+            {question.is_major ? '전공' : '비전공'}
+          </QnaContentMajor>
+        </div>
+        <QnaContentDate
           style={{
-            padding: '6px 12px',
-            borderRadius: '4px',
-            backgroundColor: '#EAEBED',
-            marginRight: '6px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {getCareerYearString(question.career_year)}
-        </QnaContentCareer>
-        <QnaContentMajor
-          style={{
-            padding: '6px 12px',
-            borderRadius: '4px',
-            backgroundColor: '#EAEBED',
-            marginRight: '12px',
-          }}
-        >
-          {question.is_major ? '전공' : '비전공'}
-        </QnaContentMajor>
+          {dayjs(question.created_at).format('YYYY-MM-DD')}
+        </QnaContentDate>
       </div>
-      <QnaContentDate
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {dayjs(question.created_at).format('YYYY-MM-DD')}
-      </QnaContentDate>
     </QnaCard>
   )
 }
