@@ -21,7 +21,7 @@ const QUESTION_MAX_LENGTH: number = 500
 
 export function QuestionField() {
   const { isMobile } = useMobileStore()
-  const keyboardHeight = useKeyboardHeight(isMobile)
+  const { keyboardHeight } = useKeyboardHeight(isMobile)
   const { id } = useParams()
   const { setSuccessToastMessage, setErrorToastMessage } = useToastMessageStore()
   const { accessToken } = useAccountStore()
