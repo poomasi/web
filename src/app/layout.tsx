@@ -1,12 +1,14 @@
 import { Footer } from "@components/common/Footer/Footer";
 import { Header } from "@components/common/Header/Header";
-import { CommonProvider } from "@components/common/CommonProvider.tsx";
+// import { CommonProvider } from "@components/common/CommonProvider.tsx";
 import { suitFont } from "./font.ts";
 import "./globals.css";
 import { ServiceWorkerUnregister } from "../ServiceWorkerUnregister.tsx";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import ClientLayout from "./ClientLayout";
 
 export default function RootLayout({
 	children,
@@ -18,12 +20,12 @@ export default function RootLayout({
 			lang="ko"
 			className={`${suitFont.variable} ${suitFont.className}`}>
 			<body>
-				<CommonProvider>
+				<ClientLayout>
 					<ServiceWorkerUnregister />
-					<Header />
+					{/* <Header /> */}
 					{children}
-					<Footer />
-				</CommonProvider>
+					{/* <Footer /> */}
+				</ClientLayout>
 			</body>
 		</html>
 	);

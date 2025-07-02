@@ -12,7 +12,7 @@ import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";
 import iconDetailGuide from "@images/landingPage/icon-detailGuide.png";
 
-export function IntroduceSection() {
+export default function IntroduceSection() {
 	const [selectedModalKey, setSelectedModalKey] = useState<
 		null | keyof typeof modalData
 	>(null);
