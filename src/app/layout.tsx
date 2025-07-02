@@ -20,12 +20,12 @@ export default function RootLayout({
 			lang="ko"
 			className={`${suitFont.variable} ${suitFont.className}`}>
 			<body>
-				<ClientLayout>
-					<ServiceWorkerUnregister />
-					{/* <Header /> */}
-					{children}
-					{/* <Footer /> */}
-				</ClientLayout>
+				{/* <ClientLayout> */}
+				<ServiceWorkerUnregister />
+				{/* <Header /> */}
+				{children}
+				{/* <Footer /> */}
+				{/* </ClientLayout> */}
 			</body>
 		</html>
 	);

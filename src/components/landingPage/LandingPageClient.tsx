@@ -14,15 +14,27 @@ const IntroduceSection = dynamic(
 	{ ssr: false }
 );
 
-export default function LandingPageClient() {
+// 타입 정의
+interface PoomCount {
+	account_count: number;
+	post_count: number;
+}
+
+export default function LandingPageClient({
+	accountList,
+	poomCount,
+}: {
+	accountList: any[];
+	poomCount: PoomCount;
+}) {
 	return (
 		<>
 			<MobileLandingWrapper />
 			<PageContainer>
 				<TitleSection />
 				<IntroduceSection />
-				<PoomCounter />
-				<ProfilesSection />
+				<PoomCounter poomCount={poomCount} />
+				<ProfilesSection accountList={accountList} />
 			</PageContainer>
 		</>
 	);

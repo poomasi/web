@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
-import { usePoomCount } from "@hooks/landingPage/usePoomCount";
 import Image from "next/image";
 import poomCountIcon from "@images/landingPage/icon-poomCount.png";
 
-export function PoomCounter() {
-	const { qnaCount, accountCount } = usePoomCount();
+// 타입 정의
+interface PoomCount {
+	account_count: number;
+	post_count: number;
+}
 
+export function PoomCounter({ poomCount }: { poomCount: PoomCount }) {
 	return (
 		<CounterContainer>
 			{/* <PoomCountIconContainer src={poomCountIcon} /> */}
@@ -19,8 +22,9 @@ export function PoomCounter() {
 				/>
 			</IconWrapper>
 			<PoomExplainText>
-				현재, <HighlightText>{accountCount}</HighlightText>명과{" "}
-				<HighlightText>{qnaCount}</HighlightText>번의 품을 나누었어요.
+				현재, <HighlightText>{poomCount.account_count}</HighlightText>명과{" "}
+				<HighlightText>{poomCount.post_count}</HighlightText>번의 품을
+				나누었어요.
 			</PoomExplainText>
 		</CounterContainer>
 	);
