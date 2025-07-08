@@ -50,7 +50,9 @@ export function QuestionField() {
 		}
 	};
 	const handlePortfolioLinkChange = (
-		event: React.ChangeEvent<HTMLInputElement>
+		event:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.FocusEvent<HTMLInputElement>
 	) => {
 		setPortfolioLink(event.target.value);
 	};
@@ -62,6 +64,7 @@ export function QuestionField() {
 	const { mutate: postQuestionToServer } = usePostQuestion(
 		() => {
 			setQuestionText("");
+			setPortfolioLink("");
 			setIsSecret(false);
 			setCareerYear(CareerYearType.ACADEMIC);
 			setIsMajor(true);
@@ -150,8 +153,8 @@ export function QuestionField() {
 					type="url"
 					value={portfolioLink}
 					onChange={handlePortfolioLinkChange}
-					onBlur={(e) => setPortfolioLink(e.target.value)} // 추가
-					onInput={(e) => setPortfolioLink(e.currentTarget.value)} // 추가
+					onBlur={handlePortfolioLinkChange} // 추가
+					onInput={handlePortfolioLinkChange} // 추가
 					placeholder="포트폴리오 URL을 입력하세요 (선택)"
 				/>
 				<QuestionOption>
