@@ -32,7 +32,9 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
 		// 모달이 열릴 때 스크롤바 너비를 계산하고 body에 padding을 추가
 		const scrollbarWidth =
 			window.innerWidth - document.documentElement.clientWidth;
-		document.body.style.paddingRight = `${scrollbarWidth}px`;
+		if (scrollbarWidth > 0) {
+			document.body.style.paddingRight = `${scrollbarWidth}px`;
+		}
 		document.body.style.overflow = "hidden";
 
 		return () => {
