@@ -88,7 +88,7 @@ const ModalWrapper = styled.section`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 9999999999;
-	width: 30%;
+	width: 45%;
 	height: auto;
 	background-color: #fff;
 	display: flex;
@@ -97,6 +97,15 @@ const ModalWrapper = styled.section`
 	align-items: center;
 	padding: 1rem;
 	border-radius: 1rem;
+
+	@media (max-width: 990px) {
+		width: 55%;
+	}
+
+	@media (max-width: 675px) {
+		width: 70%;
+	}
+
 	@media (max-width: 520px) {
 		width: 90%;
 	}

@@ -150,13 +150,17 @@ const Text = styled.p`
 `;
 
 const GuideInfoText = styled.div`
-	font-size: 1.375rem;
+	font-size: 1.125rem;
 	text-align: center;
 	color: #333;
 	padding: 2rem;
 	border-radius: 16px;
 	background: #f7f7f7;
+	line-height: 150%;
 	@media (max-width: 1024px) {
+		font-size: 14px;
+	}
+	@media (max-width: 720px) {
 		font-size: 12px;
 	}
 `;
