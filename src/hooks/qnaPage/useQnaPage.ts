@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAccountStore } from "@store/index.ts";
 import { useToastMessageStore } from "@toast";
@@ -20,12 +20,15 @@ export function useQnaPage() {
 
 	const [isAnswerAuthority, setIsAnswerAuthority] = useState<boolean>(false);
 
-	const handleError = (message: string) => {
-		setErrorToastMessage(message);
-		router.push("/");
-	};
+	const handleError = useCallback(
+		(message: string) => {
+			setErrorToastMessage(message);
+			router.push("/");
+		},
+		[setErrorToastMessage, router]
+	);
 
-	const getTeacherData = async () => {
+	const getTeacherData = useCallback(async () => {
 		if (!id) {
 			handleError("잘못된 접근입니다.");
 			return;
@@ -42,7 +45,7 @@ export function useQnaPage() {
 				handleError("품앗이꾼 정보를 가져오는 데 실패했습니다.");
 			}
 		}
-	};
+	}, [id, handleError, setTeacherAccount, setPageLoading]);
 
 	useEffect(() => {
 		const switchStart = Number(localStorage.getItem("QnaPage_start_time"));
@@ -61,7 +64,7 @@ export function useQnaPage() {
 
 		scroll(0, 0);
 		getTeacherData();
-	}, [publicId]);
+	}, [publicId, getTeacherData, handleError]);
 
 	useEffect(() => {
 		if (teacherAccount) {
