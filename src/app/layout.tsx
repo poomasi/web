@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

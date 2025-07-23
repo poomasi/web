@@ -1,9 +1,37 @@
 /** @type {import('next').NextConfig} */
 
 import withBundleAnalyzer from "@next/bundle-analyzer";
-import TerserPlugin from "terser-webpack-plugin";
+import withPWA from "next-pwa";
+import TerserPlugin from "terser-webpack-plugin"; // PWA 설정 추가
 
-const nextConfig = {
+// PWA 설정 추가
+const nextConfig = withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  // disable: process.env.NODE_ENV === 'development', // 이 줄을 제거하거나 주석 처리
+  // 중복 생성 경고 방지를 위한 설정
+  buildExcludes: [/middleware-manifest\.json$/],
+  // 오래된 서비스 워커 정리
+  workboxOptions: {
+    cleanupOutdatedCaches: true,
+    // 경고 메시지 숨김 설정
+    mode: process.env.NODE_ENV === "development" ? "development" : "production",
+    clientsClaim: true,
+  },
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "offlineCache",
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
+})({
   distDir: "./.next",
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
@@ -40,7 +68,7 @@ const nextConfig = {
     );
     return config;
   },
-};
+});
 
 export default withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
