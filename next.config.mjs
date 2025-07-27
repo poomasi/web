@@ -1,17 +1,7 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 
-import withPWA from "next-pwa";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import TerserPlugin from "terser-webpack-plugin";
-
-const isProd = process.env.NODE_ENV === "production"; // 배포 버전에만 PWA 활성화
-
-const pwaConfig = withPWA({
-  dest: "public",
-  disable: !isProd,
-  register: true,
-  skipWaiting: true,
-});
 
 // PWA 설정 추가
 const nextConfig = {
@@ -29,16 +19,6 @@ const nextConfig = {
 
     // SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
-
-  eslint: {
-    // 빌드 시 ESLint 검사 비활성화
-    ignoreDuringBuilds: true,
-  },
-
-  // 타입 오류를 무시하도록 설정
-  typescript: {
-    ignoreBuildErrors: true,
   },
 
   // webpack을 compiler 밖으로 이동
@@ -63,8 +43,6 @@ const nextConfig = {
   },
 };
 
-const bundleAnalyzerConfig = withBundleAnalyzer({
+export default withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 })(nextConfig);
-
-export default pwaConfig(bundleAnalyzerConfig);
