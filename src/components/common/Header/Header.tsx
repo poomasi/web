@@ -7,13 +7,13 @@ import { KakaoLogin } from "@utils/kakao-login";
 import { useAccountStore } from "@store/account";
 
 export function Header() {
-  const { accessToken, resetaccessToken } = useAccountStore();
+  const { accessToken, resetAccessToken } = useAccountStore();
   const toHome = () => {
     window.location.href = "/";
   };
 
   const handleLogout = () => {
-    resetaccessToken();
+    resetAccessToken();
     window.location.reload();
   };
 
