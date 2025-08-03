@@ -350,15 +350,12 @@ const TextareaContainer = styled.div`
 `;
 
 const TextCounter = styled.div`
-	font-size: 0.875rem;
+	font-size: 12px;
 	color: #727478;
-
-	@media (max-width: 1024px) {
-		font-size: 10px;
-	}
 `;
 
 const TextCounterWrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
+	margin-top: 4px;
 `;
