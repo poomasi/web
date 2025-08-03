@@ -1,8 +1,9 @@
 import { AccountsApi } from "./accounts/accounts-api";
 import { PostsApi } from "./posts";
+import { CompaniesApi } from "./companies/companies-api";
 import { AccountListResponse } from "./types/account.types";
 
-//RequestApi는 두 개의 카테고리로 구성된 API 모듈 객체
+//RequestApi는 여러 카테고리로 구성된 API 모듈 객체
 export const RequestApi = {
 	accounts: {
 		...AccountsApi,
@@ -30,4 +31,6 @@ export const RequestApi = {
 		},
 	},
 	posts: { ...PostsApi },
+	// 회사 관련 API 추가
+	companies: { ...CompaniesApi },
 };
