@@ -3,8 +3,7 @@
 		"target": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
-		"ignoreDeprecations": "5.0",
-		// optional
+		"ignoreDeprecations": "5.0", // optional
 		"skipLibCheck": true,
 		"strict": true,
 		"allowImportingTsExtensions": true,
@@ -28,7 +27,7 @@
 			"@hooks/*": ["hooks/*"],
 			"@toast": ["toast/index.ts"],
 			"@types": ["types/index.ts"],
-			// "@types/*": ["types/*"],
+			"@types/*": ["types/*"],
 			"@public/*": ["public/*"],
 			"@images/*": ["assets/images/*"],
 			"@styles/*": ["styles/*"],

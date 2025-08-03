@@ -49,6 +49,18 @@ export default function JobsPage() {
 						/>
 					)}
 				</section>
+<<<<<<< HEAD
+=======
+
+				{/* 임시 선택된 회사 표시 */}
+				{selectedCompany && (
+					<div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+						<p className="text-blue-800">
+							선택된 회사: <strong>{selectedCompany.name}</strong>
+						</p>
+					</div>
+				)}
+>>>>>>> b0032f17 (chore: 컴포넌트명 변경)
 			</main>
 		</div>
 	);
