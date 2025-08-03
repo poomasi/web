@@ -48,13 +48,21 @@ export function QuestionCard({
 		toggleEditBtn,
 		handleEditClick,
 		handleCancelClick,
-		handleTextChange,
+		handleTextChange: originalHandleTextChange,
 		handleSaveClick,
 	} = useQuestionEdit(question, onUpdateRequest);
 
 	const [editedPortfolioLink, setEditedPortfolioLink] = useState(
 		question.portfolio_link ?? ""
 	);
+
+	// 500자 제한을 적용한 텍스트 변경 핸들러
+	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		const newText = e.target.value;
+		if (newText.length <= 500) {
+			originalHandleTextChange(e);
+		}
+	};
 
 	const handleSaveAll = () => {
 		handleSaveClick(editedPortfolioLink);
@@ -81,12 +89,23 @@ export function QuestionCard({
 			<QnaHead>Q</QnaHead>
 			{isEditing ? (
 				<>
-					<StyledTextarea
-						minRows={3}
-						maxRows={50}
-						value={editedText}
-						onChange={handleTextChange}
-					/>
+					<TextareaContainer>
+						<StyledTextarea
+							minRows={3}
+							maxRows={50}
+							value={editedText}
+							onChange={handleTextChange}
+						/>
+						<CharacterCounter>
+							<span
+								style={{
+									color: editedText.length > 450 ? "#ff4757" : "#727478",
+								}}>
+								{editedText.length}
+							</span>
+							/500
+						</CharacterCounter>
+					</TextareaContainer>
 					<PortfolioInput
 						type="url"
 						value={editedPortfolioLink}
@@ -322,4 +341,16 @@ const PortfolioInput = styled.input`
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 16px;
+`;
+
+const TextareaContainer = styled.div`
+	position: relative;
+`;
+
+const CharacterCounter = styled.div`
+	position: absolute;
+	bottom: 8px;
+	right: 12px;
+	font-size: 14px;
+	color: #727478;
 `;

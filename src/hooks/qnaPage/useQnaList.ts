@@ -9,12 +9,12 @@ QnA(질문-답변) 리스트 데이터를 서버에서 불러오고,
 이 데이터를 React 컴포넌트에서 쉽게 쓸 수 있도록 상태 관리와 에러 처리까지 자동으로 해주는 커스텀 React 훅.
 */
 export function useQnaList(
-  qnaAskerType: QnaAskerType,
-  teacherId: string | undefined,
+	qnaAskerType: QnaAskerType,
+	teacherId: string | undefined
 ) {
-  return useQuery<GetQnaListResponse[], Error>({
-    queryKey: ["qnaList", qnaAskerType, teacherId],
-    /*
+	return useQuery<GetQnaListResponse[], Error>({
+		queryKey: ["qnaList", qnaAskerType, teacherId],
+		/*
     queryKey
     -React Query가 서버에서 가져온 데이터를 구별하고 저장하는 고유한 이름/식별자
     -캐시(Cache), refetch, 상태 관리의 기준이 됨.
@@ -25,13 +25,14 @@ export function useQnaList(
     -qnaAskerType, teacherId가 바뀌면 자동으로 새로운 데이터를 요청
     */
 
-    //queryFn: 실제 데이터를 받아오는 함수.
-    queryFn: async () => {
-      const res = await RequestApi.posts.getQnaList(qnaAskerType, teacherId);
-      return res.data;
-    },
-    enabled: !!teacherId, // id가 있어야 쿼리 실행
-    staleTime: 1000 * 60, // 1분 캐싱
-    retry: 1,
-  });
+		//queryFn: 실제 데이터를 받아오는 함수.
+		queryFn: async () => {
+			const res = await RequestApi.posts.getQnaList(qnaAskerType, teacherId);
+			return res.data;
+		},
+		enabled: !!teacherId, // id가 있어야 쿼리 실행
+		staleTime: 0, // 캐시를 즉시 stale로 만들어 탭 전환 시 항상 최신 데이터 요청
+		gcTime: 1000 * 60 * 5, // 5분간 캐시 유지 (메모리에서 제거되지 않도록)
+		retry: 1,
+	});
 }

@@ -10,10 +10,7 @@ import { getMobileVw } from "@utils/responsive.ts";
 // import { PoomasiGuideModal } from "@components/landingPage/web/PoomasiGuideModal.tsx";
 // import { useMobileStore } from "@store/useMobileStore";
 import { ModalGuide } from "@components/common/modal";
-import { modalData } from "@components/common/modal/modalGuide-data";
 import { ProfileData } from "@types";
-import { useEffect } from "react";
-
 interface ProfileCardProps {
 	profileData: ProfileData;
 }
