@@ -1,8 +1,5 @@
 "use client";
 
-import styled from "@emotion/styled";
-import { getMobileVw } from "@utils/responsive";
-import { colors } from "@styles/foundation/color";
 import { useAccountStore, useAccountStoreData } from "@store/account";
 import { requestForToken } from "@utils/fcm/firebase.ts";
 import customAxios from "@api/customAxios.ts";
@@ -36,73 +33,27 @@ export function Footer() {
   };
 
   return (
-    <FooterContainer>
-      <FooterWrapper>
-        <InquireText>
-          <Mail href="mailto://poomasiofficial@gmail.com">
-            poomasiofficial@gmail.com
-          </Mail>
-        </InquireText>
-        <InquireText onClick={requestPermission}>
+    <div className="w-full h-[481px] overflow-hidden flex flex-col justify-center items-start gap-[80px] bg-black pl-[70px]">
+      <p className="text-[68px] font-bold text-left text-white">
+        <span className="font-bold text-left text-white">
+          We would love
+          <br />
+          to hear from you
+        </span>
+      </p>
+      <div className="flex flex-col justify-start items-start w-[322px] gap-4">
+        <div className="flex justify-start items-center h-[25px] gap-2 text-[#d9d9d9] text-lg">
+          <p className="font-medium border-r-[1px] border-[#8C8C8C] pr-[10px] hover:underline">
+            서비스 이용약관
+          </p>
+          <p className="font-medium hover:underline">개인정보처리방침</p>
+        </div>
+        <p className="self-stretch flex-grow-0 flex-shrink-0 text-lg text-left text-[#999] whitespace-nowrap hover:underline">
+          poomasiofficial@gmail.com
+          <br />
           Copyright ⓒ Poomasi. All Rights Reserved
-        </InquireText>
-      </FooterWrapper>
-    </FooterContainer>
+        </p>
+      </div>
+    </div>
   );
 }
-
-const FooterContainer = styled.div`
-  width: 100%;
-  margin-top: 60px;
-  border-top: 1px solid #eaebed;
-
-  @media (max-width: 1024px) {
-    padding: 30px ${getMobileVw(20)};
-    margin-top: 0;
-  }
-`;
-
-const FooterWrapper = styled.div`
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: ${colors.gray600};
-
-  @media (max-width: 1320px) {
-    padding: 0 5%;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 10px;
-    flex-direction: column;
-    gap: 12px;
-    padding-left: 0;
-    height: auto;
-  }
-`;
-
-const InquireText = styled.div`
-  color: ${colors.gray600};
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-  @media (max-width: 1024px) {
-    font-size: 12px;
-  }
-`;
-
-const Mail = styled.a`
-  text-decoration: none;
-  color: ${colors.gray600};
-
-  &:hover {
-    color: white;
-    background-color: gray;
-    transition: 0.5s ease;
-  }
-`;
