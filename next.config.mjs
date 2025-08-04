@@ -20,7 +20,6 @@ const nextConfig = {
 		// SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
-<<<<<<< HEAD
 		domains: ["poomasi-prod.s3.ap-northeast-2.amazonaws.com"],
 	},
 
@@ -48,30 +47,4 @@ const nextConfig = {
 
 export default withBundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
-=======
-  // webpack을 compiler 밖으로 이동
-  webpack: (config) => {
-    config.optimization.minimizer.push(
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: true, // console.log 제거
-            passes: 3, // 압축 최적화를 3번 반복 (압축률 증가)
-          },
-          mangle: true, // 변수 및 함수명을 난독화하여 크기 감소
-          format: {
-            comments: false, // 모든 주석 제거 (파일 크기 줄이기)
-          },
-        },
-        extractComments: false, // 주석을 별도 파일로 분리 X (파일 크기 줄이기)
-        parallel: true, // 병렬 실행 활성화 (빌드 속도 최적화)
-      }),
-    );
-    return config;
-  },
-};
-
-export default withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
->>>>>>> 6b710c0f (refactor: Next Js PWA 작업 완료)
 })(nextConfig);
