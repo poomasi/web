@@ -90,17 +90,8 @@ mark,
 textarea,
 audio,
 video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
 	font-family: var(--font-suit);
 	vertical-align: baseline;
-
-	/* padding box problem */
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box; /* Firefox, other Gecko */
-	box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -177,36 +168,28 @@ body {
 	bottom: -20% !important;
 	right: 0%;
 }
+
 .slick-dots li {
 	width: 30px;
 }
+
 .slick-dots li button:before {
 	font-size: 16px;
 }
+
 .slick-slider {
 	background-color: #f7f7f7;
 	border-radius: 10px;
 	padding: 20px;
 }
 
-/* 스크롤바 숨기기 유틸리티 */
-.scrollbar-hide {
-	-ms-overflow-style: none; /* Internet Explorer 10+ */
-	scrollbar-width: none; /* Firefox */
-}
-.scrollbar-hide::-webkit-scrollbar {
-	display: none; /* Safari and Chrome */
+.rolling-container {
+	display: flex;
+	gap: 200px;
+	height: 22px;
+	animation: rolling 5s linear infinite;
 }
 
-/* 스크린 리더 전용 텍스트 (시각적으로 숨김) */
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
