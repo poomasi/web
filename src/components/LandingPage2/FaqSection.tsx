@@ -25,12 +25,22 @@ export function FaqSection() {
   ];
 
   return (
-    <div className="w-full h-[994px] overflow-hidden bg-[#fcfcfc] flex justify-between items-center pl-[230px] pr-[80px]">
-      <div className={"flex justify-between items-center w-full"}>
-        <p className="text-[50px] font-bold text-left text-black self-start">
+    <div
+      className="w-full overflow-hidden bg-[#fcfcfc] flex justify-between items-center
+                  pl-[230px] max-xl:pl-[150px] max-md:pl-[64px] max-sm:pl-[20px]
+                  pr-[80px] max-xl:pr-[60px] max-md:pr-[60px] max-sm:pr-[24px]
+                  h-[994px] max-xl:h-[693px] max-md:h[465px] max-sm:h-[558px]
+                  "
+    >
+      <div
+        className={
+          "flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-[40px]"
+        }
+      >
+        <p className="text-[50px] max-xl:text-[36px] max-md:text-[22px] max-sm:text-[24px] font-bold text-left text-black self-start">
           품앗이 FAQ
         </p>
-        <div className="flex flex-col justify-start items-start w-[1039px] gap-[40px]">
+        <div className="flex flex-col justify-start items-start w-[1039px] max-xl:w-[760px] max-md:w-[420px] max-sm:w-[327px] gap-[40px]">
           {FaqList.map((faq, index) => (
             <FaqCard key={index} question={faq.question} answer={faq.answer} />
           ))}
@@ -49,7 +59,11 @@ function FaqCard({ question, answer }: { question: string; answer: string }) {
       onClick={() => setIsOpenSummary((prev) => !prev)}
     >
       <div className="flex justify-between items-center">
-        <p className="flex-grow-0 flex-shrink-0 w-[985px] text-[28px] font-bold text-left text-black">
+        <p
+          className="flex-grow-0 flex-shrink-0 font-bold text-left text-black
+                      w-[985px] max-xl:w-[720px] max-md:w-[364px] max-sm:w-[300px]
+                      text-[24px] max-xl:text-[20px] max-md:text-[16px] max-sm:text-[18px]"
+        >
           {question}
         </p>
         <NextImage
@@ -63,9 +77,11 @@ function FaqCard({ question, answer }: { question: string; answer: string }) {
         />
       </div>
       <div
-        className={`self-stretch flex-grow-0 flex-shrink-0 w-[1039px] text-2xl text-left text-[#595959] overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-          isOpenSummary ? "max-h-[500px]" : "max-h-0"
-        }`}
+        className={`self-stretch flex-grow-0 flex-shrink-0 w-[1039px] text-2xl text-left text-[#595959] overflow-hidden transition-[max-height] duration-300 ease-in-out 
+        ${isOpenSummary ? "max-h-[500px]" : "max-h-0"}
+        w-[1039px] max-xl:w-[760px] max-md:w-[420px] max-sm:w-[327px]
+        text-[24px] max-xl:text-[20px] max-md:text-[16px] max-sm:text-[18px]
+        `}
       >
         <p className="p-2">{answer}</p>
       </div>
