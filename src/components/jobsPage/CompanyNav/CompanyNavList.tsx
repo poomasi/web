@@ -38,6 +38,7 @@ export function CompanyNavList({
 		<section
 			className="w-full px-4"
 <<<<<<< HEAD
+<<<<<<< HEAD
 			aria-label="네카쿠배라 채용공고 필터">
 			<h3 className="sr-only">네카쿠배라 채용공고 필터 목록</h3>
 
@@ -49,12 +50,16 @@ export function CompanyNavList({
 =======
 			aria-label="회사별 채용공고 필터">
 			<h3 className="sr-only">회사별 채용공고 필터 목록</h3>
+=======
+			aria-label="네카쿠배라 채용공고 필터">
+			<h3 className="sr-only">네카쿠배라 채용공고 필터 목록</h3>
+>>>>>>> 3f439a79 (tailwind 재설정)
 
-			{/* 가로 스크롤 컨테이너 - 한 줄로 배치 */}
 			<nav
-				className="flex items-center gap-8 py-6 overflow-x-auto scrollbar-hide"
+				className="flex items-center gap-[46px] py-6 overflow-x-auto scrollbar-hide"
 				role="tablist"
 				aria-label="회사 선택 탭">
+<<<<<<< HEAD
 				{/* 전체 선택 버튼 */}
 				<button
 					onClick={() => onCompanySelect(null)}
@@ -69,6 +74,9 @@ export function CompanyNavList({
 
 				{/* 회사 목록 */}
 >>>>>>> b0032f17 (chore: 컴포넌트명 변경)
+=======
+				{/* 각 회사별 버튼들 */}
+>>>>>>> 3f439a79 (tailwind 재설정)
 				{companies.map((company) => (
 					<CompanyNav
 						key={company.public_id}

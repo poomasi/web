@@ -71,13 +71,14 @@ export function CompanyNav({
 					</CircleBorder>
 =======
 					<div
-						className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center shadow-md"
+						className="w-16 h-16 rounded-full bg-gray-100 border-2 border-gray-300 flex items-center justify-center shadow-sm"
 						aria-hidden="true">
 						<span className="text-gray-600 text-lg font-bold">
 							{company.name.charAt(0)}
 						</span>
 					</div>
 				) : (
+<<<<<<< HEAD
 					// 정상 이미지
 					<Image
 						src={company.logo_url}
@@ -88,6 +89,19 @@ export function CompanyNav({
 						onError={handleImageError}
 					/>
 >>>>>>> b0032f17 (chore: 컴포넌트명 변경)
+=======
+					// 정상 이미지 - 동그라미로 만들고 회색 테두리 추가
+					<div className="w-16 h-16 rounded-full border-2 border-gray-300 overflow-hidden shadow-sm">
+						<Image
+							src={company.logo_url}
+							alt={`${company.name} 로고`}
+							width={64}
+							height={64}
+							className="w-full h-full object-cover"
+							onError={handleImageError}
+						/>
+					</div>
+>>>>>>> 3f439a79 (tailwind 재설정)
 				)}
 			</figure>
 
