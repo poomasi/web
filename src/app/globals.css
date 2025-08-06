@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -131,6 +135,20 @@ button:hover {
 	cursor: pointer;
 }
 
+button {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	outline: none;
+	font: inherit;
+	color: inherit;
+	text-align: inherit;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
 input {
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -159,7 +177,3 @@ body {
 #root {
 	width: 100%;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

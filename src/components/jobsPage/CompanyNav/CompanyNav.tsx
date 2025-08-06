@@ -1,4 +1,4 @@
-import { CompanyParentResponse } from "@types";
+import { CompanyParentResponse } from "../../../types/company.types";
 import Image from "next/image";
 import { useState } from "react";
 import { CircleBorder } from "./CircleBorder";
@@ -10,6 +10,7 @@ interface CompanyCategoryProps {
 	hasNewJobs?: boolean; // 7일 이내 새 채용공고 여부
 }
 
+// SRP: 개별 회사 네비게이션 버튼만 담당
 export function CompanyNav({
 	company,
 	isSelected,
@@ -36,8 +37,10 @@ export function CompanyNav({
 			<figure className="relative w-16 h-16">
 				{imageError ? (
 					// 이미지 로드 실패 시 보여줄 기본 아이콘
-					<CircleBorder hasNewJobs={hasNewJobs}>
-						<div className="bg-gray-100 flex items-center justify-center w-full h-full">
+					<CircleBorder
+						hasNewJobs={hasNewJobs}
+						isSelected={isSelected}>
+						<div className="flex items-center justify-center w-full h-full">
 							<span className="text-gray-600 text-lg font-bold">
 								{company.name.charAt(0)}
 							</span>
@@ -45,7 +48,9 @@ export function CompanyNav({
 					</CircleBorder>
 				) : (
 					// 정상 이미지 - 동그라미 테두리로 감싸기
-					<CircleBorder hasNewJobs={hasNewJobs}>
+					<CircleBorder
+						hasNewJobs={hasNewJobs}
+						isSelected={isSelected}>
 						<Image
 							src={company.logo_url}
 							alt={`${company.name} 로고`}
@@ -53,12 +58,17 @@ export function CompanyNav({
 							height={64}
 							className="w-full h-full object-cover"
 							onError={handleImageError}
+							priority={isSelected} // 선택된 회사는 우선 로드
 						/>
 					</CircleBorder>
 				)}
 			</figure>
 
-			<span className="text-xs font-medium text-gray-700 text-center max-w-[64px] truncate">
+			<span
+				className={`
+				text-xs font-medium text-center max-w-[64px] truncate
+				${isSelected ? "text-gray-900 font-semibold" : "text-gray-700"}
+			`}>
 				{company.name}
 			</span>
 		</button>

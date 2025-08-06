@@ -1,5 +1,6 @@
 import { CompanyNav } from "./CompanyNav";
-import { CompanyParentResponse } from "@types";
+import { CircleBorder } from "./CircleBorder";
+import { CompanyParentResponse } from "../../../types/company.types";
 
 interface CompanyCategoryListProps {
 	companies: CompanyParentResponse[];
@@ -28,6 +29,41 @@ export function CompanyNavList({
 		);
 	}
 
+	// OCP: 전체 버튼 컴포넌트를 분리하여 확장 가능하도록 구성
+	const renderAllCompaniesButton = () => {
+		const isAllSelected = selectedCompany === null;
+
+		return (
+			<button
+				onClick={() => onCompanySelect(null)}
+				className={`
+					flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer 
+					transition-all duration-200 hover:scale-110
+					${isAllSelected ? "opacity-100" : "opacity-70"}
+				`}
+				role="tab"
+				aria-selected={isAllSelected}
+				aria-label="모든 회사 채용공고 보기">
+				{/* CircleBorder를 활용하여 일관성 있는 디자인 적용 */}
+				<CircleBorder
+					hasNewJobs={false}
+					isSelected={isAllSelected}
+					size="md">
+					<div className="bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center w-full h-full">
+						<span className="text-blue-600 text-lg font-bold">전체</span>
+					</div>
+				</CircleBorder>
+				<span
+					className={`
+					text-xs font-medium text-center
+					${isAllSelected ? "text-gray-900 font-semibold" : "text-gray-700"}
+				`}>
+					전체
+				</span>
+			</button>
+		);
+	};
+
 	return (
 		<section
 			className="w-full px-4"
@@ -38,24 +74,8 @@ export function CompanyNavList({
 				className="flex items-center gap-[46px] py-6 overflow-x-auto scrollbar-hide"
 				role="tablist"
 				aria-label="회사 선택 탭">
-				{/* 전체 선택 버튼 */}
-				<button
-					onClick={() => onCompanySelect(null)}
-					className={`
-						flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer 
-						transition-all duration-200 hover:scale-110
-						${selectedCompany === null ? "opacity-100" : "opacity-70"}
-					`}
-					role="tab"
-					aria-selected={selectedCompany === null}
-					aria-label="모든 회사 채용공고 보기">
-					<div className="w-16 h-16 rounded-full bg-gray-200 border-2 border-gray-300 flex items-center justify-center shadow-sm">
-						<span className="text-gray-600 text-lg font-bold">전체</span>
-					</div>
-					<span className="text-xs font-medium text-gray-700 text-center">
-						전체
-					</span>
-				</button>
+				{/* 전체 선택 버튼 - CircleBorder 활용 */}
+				{renderAllCompaniesButton()}
 
 				{/* 각 회사별 버튼들 */}
 				{companies.map((company) => (
