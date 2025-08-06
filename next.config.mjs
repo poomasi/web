@@ -11,7 +11,6 @@ const nextConfig = {
 
 	// 이미지 최적화 관련 설정 추가
 	images: {
-<<<<<<< HEAD
 		// SVG 이미지 형식을 허용 (보안 위험이 있으므로 'dangerous' 접두어 사용)
 		dangerouslyAllowSVG: true,
 
@@ -22,26 +21,6 @@ const nextConfig = {
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
 		domains: ["poomasi-prod.s3.ap-northeast-2.amazonaws.com"],
-=======
-		// 외부 도메인 허용
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "poomasi-prod.s3.ap-northeast-2.amazonaws.com",
-				port: "",
-				pathname: "/**",
-			},
-		],
-
-		// SVG 이미지 형식을 허용 (보안 위험이 있으므로 'dangerous' 접두어 사용)
-		dangerouslyAllowSVG: true,
-
-		// 이미지가 인라인 표시되지 않고 다운로드되도록 설정
-		contentDispositionType: "attachment",
-
-		// SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
-		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
->>>>>>> b0032f17 (chore: 컴포넌트명 변경)
 	},
 
 	// webpack을 compiler 밖으로 이동
