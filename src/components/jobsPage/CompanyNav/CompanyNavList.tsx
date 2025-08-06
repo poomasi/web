@@ -6,6 +6,8 @@ interface CompanyCategoryListProps {
 	selectedCompany: CompanyParentResponse | null;
 	onCompanySelect: (company: CompanyParentResponse | null) => void;
 	loading?: boolean;
+	// 각 회사별 새 채용공고 여부를 확인하는 함수 (나중에 구현)
+	getHasNewJobs?: (companyId: string) => boolean;
 }
 
 // SRP: 회사 카테고리 목록 관리만 담당
@@ -14,6 +16,7 @@ export function CompanyNavList({
 	selectedCompany,
 	onCompanySelect,
 	loading,
+	getHasNewJobs,
 }: CompanyCategoryListProps) {
 	if (loading) {
 		return (
@@ -42,6 +45,7 @@ export function CompanyNavList({
 						company={company}
 						isSelected={selectedCompany?.public_id === company.public_id}
 						onClick={onCompanySelect}
+						hasNewJobs={getHasNewJobs?.(company.public_id) || false}
 					/>
 				))}
 			</nav>
