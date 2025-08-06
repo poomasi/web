@@ -28,27 +28,14 @@ export function CompanyNavList({
 	return (
 		<section
 			className="w-full px-4"
-			aria-label="회사별 채용공고 필터">
-			<h3 className="sr-only">회사별 채용공고 필터 목록</h3>
+			aria-label="네카쿠배라 채용공고 필터">
+			<h3 className="sr-only">네카쿠배라 채용공고 필터 목록</h3>
 
-			{/* 가로 스크롤 컨테이너 - 한 줄로 배치 */}
 			<nav
-				className="flex items-center gap-8 py-6 overflow-x-auto scrollbar-hide"
+				className="flex items-center gap-[46px] py-6 overflow-x-auto scrollbar-hide"
 				role="tablist"
 				aria-label="회사 선택 탭">
-				{/* 전체 선택 버튼 */}
-				<button
-					onClick={() => onCompanySelect(null)}
-					className={`
-						flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer 
-						transition-all duration-200 hover:scale-110
-						${selectedCompany === null ? "opacity-100" : "opacity-70"}
-					`}
-					role="tab"
-					aria-selected={selectedCompany === null}
-					aria-label="모든 회사 채용공고 보기"></button>
-
-				{/* 회사 목록 */}
+				{/* 각 회사별 버튼들 */}
 				{companies.map((company) => (
 					<CompanyNav
 						key={company.public_id}
