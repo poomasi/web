@@ -1,8 +1,9 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import TerserPlugin from "terser-webpack-plugin";
 
+// PWA 설정 추가
 const nextConfig = {
 	distDir: "./.next",
 	poweredByHeader: false,
@@ -10,16 +11,6 @@ const nextConfig = {
 
 	// 이미지 최적화 관련 설정 추가
 	images: {
-		// 외부 도메인 허용
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "poomasi-prod.s3.ap-northeast-2.amazonaws.com",
-				port: "",
-				pathname: "/**",
-			},
-		],
-
 		// SVG 이미지 형식을 허용 (보안 위험이 있으므로 'dangerous' 접두어 사용)
 		dangerouslyAllowSVG: true,
 
@@ -28,6 +19,8 @@ const nextConfig = {
 
 		// SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+
+		domains: ["poomasi-prod.s3.ap-northeast-2.amazonaws.com"],
 	},
 
 	// webpack을 compiler 밖으로 이동
