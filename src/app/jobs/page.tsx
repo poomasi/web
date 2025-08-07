@@ -45,13 +45,11 @@ export default function JobsPage() {
 	};
 
 	return (
-		<div className="w-full min-h-screen bg-gray-50">
-			<main className="max-w-7xl mx-auto px-4 pb-16">
-				{/* 회사별 카테고리 섹션 */}
-				<section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-					{renderContent()}
-				</section>
-			</main>
-		</div>
+		<main className="max-w-7xl mx-auto px-4 pb-16">
+			{/* 회사별 카테고리 섹션 */}
+			<section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+				{renderContent()}
+			</section>
+		</main>
 	);
 }
