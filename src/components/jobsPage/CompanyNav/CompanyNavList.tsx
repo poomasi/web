@@ -1,6 +1,5 @@
-import { CompanyNav } from "./CompanyNav";
-import { CircleBorder } from "./CircleBorder";
-import { CompanyParentResponse } from "../../../types/company.types";
+import { CompanyNavIcon } from "@jobsPage/companyNav/CompanyNavIcon";
+import { CompanyParentResponse } from "@types";
 
 interface CompanyCategoryListProps {
 	companies: CompanyParentResponse[];
@@ -44,15 +43,6 @@ export function CompanyNavList({
 				role="tab"
 				aria-selected={isAllSelected}
 				aria-label="모든 회사 채용공고 보기">
-				{/* CircleBorder를 활용하여 일관성 있는 디자인 적용 */}
-				<CircleBorder
-					hasNewJobs={false}
-					isSelected={isAllSelected}
-					size="md">
-					<div className="bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center w-full h-full">
-						<span className="text-blue-600 text-lg font-bold">전체</span>
-					</div>
-				</CircleBorder>
 				<span
 					className={`
 					text-xs font-medium text-center
@@ -79,7 +69,7 @@ export function CompanyNavList({
 
 				{/* 각 회사별 버튼들 */}
 				{companies.map((company) => (
-					<CompanyNav
+					<CompanyNavIcon
 						key={company.public_id}
 						company={company}
 						isSelected={selectedCompany?.public_id === company.public_id}

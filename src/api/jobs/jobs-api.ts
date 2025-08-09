@@ -1,14 +1,14 @@
 import customAxios from "../customAxios";
-import { RecruitmentApiResponse, RecruitmentFilters } from "@types";
+import { RecruitmentResponse, RecruitmentFilters } from "@types";
 
-const PATH = "/api/v1/companies-recruitments";
+const PATH = "v1/companies-recruitments";
 
 // 채용공고 API 호출
 export const JobsApi = {
 	// 채용공고 목록 조회 (필터 옵션 포함)
 	getRecruitments: async (
 		filters?: RecruitmentFilters
-	): Promise<RecruitmentApiResponse> => {
+	): Promise<RecruitmentResponse[]> => {
 		try {
 			const params = new URLSearchParams();
 
@@ -28,12 +28,14 @@ export const JobsApi = {
 
 			const queryString = params.toString();
 			const url = queryString ? `${PATH}?${queryString}` : PATH;
-			//?는 URL 쿼리 문자열의 시작 기호
 
-			const response = await customAxios.get<RecruitmentApiResponse>(url);
+			// 첫 번째 제네릭은 data의 타입, 두 번째 제네릭은 응답 래퍼 전체 타입
+			const response = await customAxios.get<
+				RecruitmentResponse[],
+				{ status_code: number; message: string; data: RecruitmentResponse[] }
+			>(url);
 			return response.data;
 		} catch (error) {
-			console.error("채용공고 조회 실패:", error);
 			throw new Error("채용공고를 불러오는데 실패했습니다.");
 		}
 	},

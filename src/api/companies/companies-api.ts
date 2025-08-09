@@ -2,7 +2,7 @@ import customAxios from "@api/customAxios.ts";
 import { CompanyParentResponse } from "../../types/company.types";
 import { DefaultApiResponse } from "../types/DefaultApiResponse";
 
-const PATH = "/companies";
+const PATH = "v1/companies";
 
 export const CompaniesApi = {
 	// 모회사 목록 조회 (동그라미 이미지용)

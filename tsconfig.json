@@ -32,7 +32,8 @@
 			"@images/*": ["assets/images/*"],
 			"@styles/*": ["styles/*"],
 			"@landingPage/*": ["components/landingPage/*"],
-			"@qnaPage/*": ["components/qnaPage/*"]
+			"@qnaPage/*": ["components/qnaPage/*"],
+			"@jobsPage/*": ["components/jobsPage/*"]
 		},
 		"plugins": [
 			{

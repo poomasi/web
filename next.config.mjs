@@ -9,6 +9,16 @@ const nextConfig = {
 	poweredByHeader: false,
 	productionBrowserSourceMaps: false,
 
+	// CORS 문제 해결을 위한 API 프록시 설정
+	async rewrites() {
+		return [
+			{
+				source: "/api/proxy/:path*",
+				destination: "https://api.poomasi.kr/api/:path*",
+			},
+		];
+	},
+
 	// 이미지 최적화 관련 설정 추가
 	images: {
 		// SVG 이미지 형식을 허용 (보안 위험이 있으므로 'dangerous' 접두어 사용)

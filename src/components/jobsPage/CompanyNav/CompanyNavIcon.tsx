@@ -1,7 +1,7 @@
-import { CompanyParentResponse } from "../../../types/company.types";
+import { CompanyParentResponse } from "@types";
 import Image from "next/image";
 import { useState } from "react";
-import { CircleBorder } from "./CircleBorder";
+import { CircleBorder } from "@jobsPage/companyNav/CircleBorder";
 
 interface CompanyCategoryProps {
 	company: CompanyParentResponse;
@@ -11,7 +11,7 @@ interface CompanyCategoryProps {
 }
 
 // SRP: 개별 회사 네비게이션 버튼만 담당
-export function CompanyNav({
+export function CompanyNavIcon({
 	company,
 	isSelected,
 	onClick,

@@ -21,6 +21,12 @@ export function CommonProvider({ children }: CommonLayoutProps) {
 	const queryClient = new QueryClient({
 		defaultOptions: {
 			queries: {},
+			// queries: {
+			// 	staleTime: 5 * 60 * 1000, // 5분 기본 캐시
+			// 	gcTime: 10 * 60 * 1000, // 10분 가비지 컬렉션
+			// 	retry: 1, // 실패 시 1번 재시도
+			// 	refetchOnWindowFocus: false, // 윈도우 포커스 시 리패치 비활성화
+			// },
 		},
 		//queryCache: 모든 쿼리의 캐시 상태를 관리하는 객체
 		queryCache: new QueryCache({
