@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CompanyParentResponse } from "../../types/company.types";
+import { CompanyParentResponse } from "@api/types/company.types";
 import { useCompaniesQuery } from "../queries/useCompaniesQuery";
 
 // SRP: 모회사 카테고리 관련 로직만 담당

@@ -1,4 +1,4 @@
-import { RecruitmentFilters } from "@types";
+import { RecruitmentFilters } from "@api/types/job.types";
 import { useJobsQuery } from "../queries/useJobsQuery";
 
 // React Query 버전 - 서버 상태 관리 전용

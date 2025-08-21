@@ -1,5 +1,9 @@
 import { useMemo, useState, useEffect, useRef } from "react";
-import { RecruitmentResponse, RecruitmentFilters, JobSkill } from "@types";
+import {
+	RecruitmentResponse,
+	RecruitmentFilters,
+	JobSkill,
+} from "@api/types/job.types";
 import { useJobs } from "./useJobs";
 
 interface UseJobsWithFiltersReturn {

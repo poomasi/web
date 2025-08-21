@@ -5,7 +5,8 @@ import { useJobsWithFilters } from "@hooks/jobsPage/useJobsWithFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
 import { JobList } from "@components/jobsPage/jobList";
 import { PositionFilter } from "@components/jobsPage/filterButtons/PositionFilter";
-import { CompanyParentResponse, RecruitmentResponse } from "@types";
+import { RecruitmentResponse } from "@api/types/job.types";
+import { CompanyParentResponse } from "@api/types/company.types";
 
 export default function JobsPage() {
 	const {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { JobsApi } from "@api/jobs";
-import { RecruitmentResponse, RecruitmentFilters } from "@types";
+import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 
 export function useJobsQuery(filters?: RecruitmentFilters) {
 	return useQuery<RecruitmentResponse[]>({

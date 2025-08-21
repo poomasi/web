@@ -1,5 +1,5 @@
 import customAxios from "../customAxios";
-import { RecruitmentResponse, RecruitmentFilters } from "@types";
+import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 
 const PATH = "v1/companies-recruitments";
 
