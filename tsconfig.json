@@ -32,6 +32,7 @@
 			"@public/*": ["public/*"],
 			"@images/*": ["assets/images/*"],
 			"@styles/*": ["styles/*"],
+			"@constants/*": ["constants/*"],
 			"@landingPage/*": ["components/landingPage/*"],
 			"@qnaPage/*": ["components/qnaPage/*"],
 			"@jobsPage/*": ["components/jobsPage/*"]

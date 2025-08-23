@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { RequestApi } from "@api/request-api";
-import { CompanyParentResponse } from "@types";
+import { CompanyParentResponse } from "@api/types/company.types";
 
 export function useCompaniesQuery() {
 	return useQuery<CompanyParentResponse[]>({

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useFilterStore } from "@store/filters";
 
 interface FilterButtonsRowProps {
 	totalJobsCount: number;
@@ -11,7 +11,7 @@ export function FilterButtonsRow({
 	totalJobsCount,
 	onResetFilters,
 }: FilterButtonsRowProps) {
-	const [activeModals, setActiveModals] = useState<string[]>([]);
+	const { openModal } = useFilterStore();
 
 	const filterButtons = [
 		{ id: "all", label: "전체필터", hasDropdown: false },
@@ -22,13 +22,8 @@ export function FilterButtonsRow({
 	];
 
 	const handleFilterClick = (filterId: string) => {
-		if (filterId === "all") {
-			// 전체필터는 드롭다운 없음
-			return;
-		}
-
-		// 나중에 모달 열기 로직 추가
-		console.log(`${filterId} 필터 클릭됨 - 모달 열기 예정`);
+		// 모달 열기
+		openModal(filterId);
 	};
 
 	const handleResetClick = () => {

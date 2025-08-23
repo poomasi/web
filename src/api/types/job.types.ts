@@ -67,4 +67,6 @@ export interface RecruitmentFilters {
 	skill_ids?: number[];
 	experience_years?: ExperienceLevel[];
 	position_titles?: string[]; // 포지션 타이틀 필터 추가
+	company_names?: string[]; // 회사명 필터 추가
+	locations?: string[]; // 위치 필터 추가
 }
