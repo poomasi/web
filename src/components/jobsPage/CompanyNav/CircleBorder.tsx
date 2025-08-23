@@ -29,7 +29,7 @@ export function CircleBorder({
 		if (isSelected) {
 			return "border-blue-500 shadow-blue-200"; // 선택된 상태면 파란색
 		}
-		return "border-gray-800 shadow-gray-200"; // 기본은 진한 회색
+		return "border-gray-300 shadow-gray-200"; // 기본은 회색
 	};
 
 	// 새 채용공고 알림 점
@@ -48,10 +48,14 @@ export function CircleBorder({
 			<div
 				className={`
 				${sizeStyles[size]} rounded-full
-				overflow-hidden transition-all duration-200
+				transition-all duration-200
+				border-2 ${getBorderStyle()}
+				p-1
 				${isSelected ? "scale-110" : ""}
 			`}>
-				{children}
+				<div className="w-full h-full rounded-full overflow-hidden">
+					{children}
+				</div>
 			</div>
 			{renderNewJobsIndicator()}
 		</div>

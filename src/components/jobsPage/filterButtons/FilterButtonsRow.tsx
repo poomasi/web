@@ -79,13 +79,13 @@ export function FilterButtonsRow({
 			</div>
 
 			{/* 총 건수 표시 */}
-			<div className="flex items-center justify-between">
+			{/* <div className="flex items-center justify-between">
 				<div className="text-sm text-gray-600">
 					총 <span className="font-medium text-gray-900">{totalJobsCount}</span>
 					건
 				</div>
-				{/* 리스트뷰 버튼은 나중에 추가 예정 */}
-			</div>
+	
+			</div> */}
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import { CompanyNavIcon } from "@jobsPage/CompanyNav/CompanyNavIcon";
+import { CircleBorder } from "@jobsPage/CompanyNav/CircleBorder";
 import { CompanyParentResponse } from "@api/types/company.types";
 
 interface CompanyCategoryListProps {
@@ -28,32 +29,6 @@ export function CompanyNavList({
 		);
 	}
 
-	// OCP: 전체 버튼 컴포넌트를 분리하여 확장 가능하도록 구성
-	const renderAllCompaniesButton = () => {
-		const isAllSelected = selectedCompany === null;
-
-		return (
-			<button
-				onClick={() => onCompanySelect(null)}
-				className={`
-					flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer 
-					transition-all duration-200 hover:scale-110
-					${isAllSelected ? "opacity-100" : "opacity-70"}
-				`}
-				role="tab"
-				aria-selected={isAllSelected}
-				aria-label="모든 회사 채용공고 보기">
-				<span
-					className={`
-					text-xs font-medium text-center
-					${isAllSelected ? "text-gray-900 font-semibold" : "text-gray-700"}
-				`}>
-					전체
-				</span>
-			</button>
-		);
-	};
-
 	return (
 		<section
 			className="w-full px-4"
@@ -61,12 +36,9 @@ export function CompanyNavList({
 			<h3 className="sr-only">네카쿠배라 채용공고 필터 목록</h3>
 
 			<nav
-				className="flex items-center gap-[46px] py-6 overflow-x-auto scrollbar-hide"
+				className="flex items-center gap-[46px] py-6 overflow-x-auto scrollbar-hide mt-[80px] max-sm:mt-[46px]"
 				role="tablist"
 				aria-label="회사 선택 탭">
-				{/* 전체 선택 버튼 - CircleBorder 활용 */}
-				{renderAllCompaniesButton()}
-
 				{/* 각 회사별 버튼들 */}
 				{companies.map((company) => (
 					<CompanyNavIcon
