@@ -1,5 +1,5 @@
 import { CompanyNavIcon } from "@jobsPage/CompanyNav/CompanyNavIcon";
-import { CompanyParentResponse } from "@types";
+import { CompanyParentResponse } from "@api/types/company.types";
 
 interface CompanyCategoryListProps {
 	companies: CompanyParentResponse[];

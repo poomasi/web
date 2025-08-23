@@ -1,4 +1,4 @@
-import { CompanyParentResponse } from "@types";
+import { CompanyParentResponse } from "@api/types/company.types";
 import Image from "next/image";
 import { useState } from "react";
 import { CircleBorder } from "@jobsPage/CompanyNav/CircleBorder";

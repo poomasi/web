@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { JobSkill } from "@types";
+import { JobSkill } from "@api/types/job.types";
 
 interface SkillIconProps {
 	skill: JobSkill;

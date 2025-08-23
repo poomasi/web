@@ -4,9 +4,14 @@ import { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
 import { useJobsWithFilters } from "@hooks/jobsPage/useJobsWithFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
 import { JobList } from "@components/jobsPage/jobList";
-import { PositionFilter } from "@components/jobsPage/filterButtons/PositionFilter";
+import {
+	BasicFilter,
+	FilterButtonsRow,
+} from "@components/jobsPage/filterButtons";
+import { usePositionsStore } from "@store/positions";
 import { RecruitmentResponse } from "@api/types/job.types";
 import { CompanyParentResponse } from "@api/types/company.types";
+import { useEffect } from "react";
 
 export default function JobsPage() {
 	const {
@@ -28,14 +33,12 @@ export default function JobsPage() {
 		refetch,
 	} = useJobsWithFilters();
 
-	const handleCompanySelection = (company: CompanyParentResponse | null) => {
-		handleCompanySelect(company);
-		console.log("선택된 회사:", company?.name || "전체");
-	};
+	const { selectedPositions } = usePositionsStore();
 
-	const handlePositionChange = (positions: string[]) => {
-		updateFilters({ position_titles: positions });
-	};
+	// zustand 스토어의 선택된 포지션을 필터에 동기화
+	useEffect(() => {
+		updateFilters({ position_titles: selectedPositions });
+	}, [selectedPositions, updateFilters]);
 
 	const handleRefresh = () => {
 		refetch();
@@ -43,6 +46,16 @@ export default function JobsPage() {
 
 	const handleClearFilters = () => {
 		clearFilters();
+	};
+
+	const handleResetAllFilters = () => {
+		// 기존 필터 초기화
+		clearFilters();
+		// 포지션 스토어 초기화 후 Web Frontend로 재설정
+		const { clearSelectedPositions, initializeWithWebFrontend } =
+			usePositionsStore.getState();
+		clearSelectedPositions();
+		initializeWithWebFrontend();
 	};
 
 	const handleJobClick = (job: RecruitmentResponse) => {
@@ -69,7 +82,7 @@ export default function JobsPage() {
 			<CompanyNavList
 				companies={companies}
 				selectedCompany={selectedCompany}
-				onCompanySelect={handleCompanySelection}
+				onCompanySelect={handleCompanySelect}
 				loading={companiesLoading}
 			/>
 		);
@@ -88,28 +101,13 @@ export default function JobsPage() {
 					</p>
 				</div>
 
-				{/* 필터 UI */}
-				<div className="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-					<PositionFilter
-						jobs={allJobs}
-						selectedPositions={filters.position_titles || []}
-						onPositionChange={handlePositionChange}
+				{/* 기본 필터 UI */}
+				<div className="py-6 space-y-6">
+					<BasicFilter />
+					<FilterButtonsRow
+						totalJobsCount={filteredJobs.length}
+						onResetFilters={handleResetAllFilters}
 					/>
-
-					{filters.position_titles && filters.position_titles.length > 0 && (
-						<button
-							onClick={handleClearFilters}
-							className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded transition-colors"
-							aria-label="모든 필터 초기화">
-							필터 초기화
-						</button>
-					)}
-
-					{filters.position_titles && filters.position_titles.length > 0 && (
-						<div className="ml-auto text-sm text-gray-600">
-							{filteredJobs.length}개 공고 필터링됨 (총 {allJobs.length}개 중)
-						</div>
-					)}
 				</div>
 
 				<JobList

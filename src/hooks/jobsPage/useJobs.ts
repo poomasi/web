@@ -11,6 +11,10 @@ export function useJobs(filters?: RecruitmentFilters) {
 		isError,
 	} = useJobsQuery(filters);
 
+	// 에러 없음 → null
+	// 에러 있음 + Error 객체임 → error.message
+	// 에러 있음 + 다른 값(string, object 등) → "채용공고를 불러오는데 실패했습니다."
+
 	const errorMessage =
 		isError && error
 			? error instanceof Error
@@ -23,9 +27,5 @@ export function useJobs(filters?: RecruitmentFilters) {
 		loading: isLoading,
 		error: errorMessage,
 		refetch,
-		// 필터 적용은 이제 queryKey 변경으로 자동 처리됨
-		applyFilters: (newFilters?: RecruitmentFilters) => {
-			console.log("새로운 필터 적용:", newFilters);
-		},
 	};
 }

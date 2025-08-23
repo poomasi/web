@@ -1,5 +1,5 @@
 import customAxios from "@api/customAxios.ts";
-import { CompanyParentResponse } from "../../types/company.types";
+import { CompanyParentResponse } from "@api/types/company.types";
 import { DefaultApiResponse } from "../types/DefaultApiResponse";
 
 const PATH = "v1/companies";
