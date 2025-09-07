@@ -11,6 +11,9 @@ export function Header() {
   const toHome = () => {
     window.location.href = "/";
   };
+  const toBooks = () => {
+    window.location.href = "/books";
+  };
 
   const handleLogout = () => {
     resetAccessToken();
@@ -31,13 +34,17 @@ export function Header() {
             />
           </LogoButtonWrapper>
 
-          {accessToken ? (
-            <KakaoLoginBtn onClick={() => handleLogout()}>
-              로그아웃
-            </KakaoLoginBtn>
-          ) : (
-            <KakaoLogin />
-          )}
+          <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+            <MenuButtonWrapper onClick={toBooks}>추천도서</MenuButtonWrapper>
+
+            {accessToken ? (
+              <KakaoLoginBtn onClick={() => handleLogout()}>
+                로그아웃
+              </KakaoLoginBtn>
+            ) : (
+              <KakaoLogin />
+            )}
+          </div>
         </HeaderContent>
       </HeaderContainer>
     </>
@@ -54,6 +61,16 @@ const LogoButtonWrapper = styled.button`
   @media (max-width: 1024px) {
     font-size: 0;
   }
+`;
+
+const MenuButtonWrapper = styled.button`
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  padding: 0;
+  color: black;
 `;
 
 const LogoImage = styled(Image)`
