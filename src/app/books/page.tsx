@@ -5,7 +5,7 @@ import { Global, css } from "@emotion/react";
 import React, { useState } from "react";
 
 // src/components/books/bookListData.ts
-export const bookListData = [
+const bookListData = [
   {
     theme: "성장을 고민하는 모든 개발자를 위하여",
     books: [
