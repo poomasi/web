@@ -4,7 +4,7 @@ import {
 	RecruitmentFilters,
 	JobSkill,
 } from "@api/types/job.types";
-import { useJobs } from "./useJobs";
+import { useJobs, findFrontendSkillId } from "@hooks/jobsPage";
 import { useFilterStore } from "@store/filters";
 
 interface UseJobsWithFiltersReturn {
@@ -24,11 +24,11 @@ export function useJobsWithFilters(): UseJobsWithFiltersReturn {
 	const { jobs: allJobs, loading, error, refetch } = useJobs();
 	const { skills } = useFilterStore();
 
-	// 최초 1회: 데이터의 skill_name 기반으로 "프론트엔드/Frontend" 스킬을 찾아 기본 필터 적용
+	//기본필터 = 프론트엔드
 	const didSetDefaultSkill = useRef(false);
 	useEffect(() => {
-		if (didSetDefaultSkill.current) return;
-		if (allJobs.length === 0) return;
+		if (didSetDefaultSkill.current) return; // 이미 실행했으면 패스
+		if (allJobs.length === 0) return; // 데이터 없으면 패스
 
 		const frontSkillId = findFrontendSkillId(allJobs);
 		const hasNoActiveFilter =
@@ -120,34 +120,4 @@ export function useJobsWithFilters(): UseJobsWithFiltersReturn {
 		clearFilters,
 		refetch,
 	};
-}
-
-function findFrontendSkillId(jobs: RecruitmentResponse[]): number | null {
-	// 전체 스킬 풀에서 프론트엔드 후보 탐색
-	const candidates = flattenSkills(jobs);
-	const target = candidates.find((s) => isFrontendSkillName(s.skill_name));
-	return target ? target.skill_id : null;
-}
-
-function flattenSkills(jobs: RecruitmentResponse[]): JobSkill[] {
-	const map = new Map<number, JobSkill>();
-	for (const job of jobs) {
-		for (const skill of job.skills) {
-			if (!map.has(skill.skill_id)) {
-				map.set(skill.skill_id, skill);
-			}
-		}
-	}
-	return Array.from(map.values());
-}
-
-function isFrontendSkillName(name: string): boolean {
-	const lowered = name.toLowerCase();
-	return (
-		lowered === "frontend" ||
-		lowered === "front-end" ||
-		lowered === "front end" ||
-		lowered.includes("프론트엔드") ||
-		lowered === "fe"
-	);
 }
