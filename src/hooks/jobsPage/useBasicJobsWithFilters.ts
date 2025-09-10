@@ -7,7 +7,7 @@ import {
 import { useJobs, findFrontendSkillId } from "@hooks/jobsPage";
 import { useFilterStore } from "@store/filters";
 
-interface UseJobsWithFiltersReturn {
+interface UseBasicJobsWithFiltersReturn {
 	allJobs: RecruitmentResponse[];
 	filteredJobs: RecruitmentResponse[];
 	loading: boolean;
@@ -18,7 +18,7 @@ interface UseJobsWithFiltersReturn {
 	refetch: () => void;
 }
 
-export function useJobsWithFilters(): UseJobsWithFiltersReturn {
+export function useBasicJobsWithFilters(): UseBasicJobsWithFiltersReturn {
 	const [filters, setFilters] = useState<RecruitmentFilters>({});
 
 	const { jobs: allJobs, loading, error, refetch } = useJobs();
