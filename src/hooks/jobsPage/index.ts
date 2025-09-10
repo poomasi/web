@@ -2,4 +2,5 @@
 export { findFrontendSkillId } from "@hooks/jobsPage/findFrontendSkillId";
 export { useBasicJobsWithFilters } from "@hooks/jobsPage/useBasicJobsWithFilters";
 export { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
+export { useDetailJobsFilters } from "@hooks/jobsPage/useDetailJobsFilters";
 export { useJobs } from "@hooks/jobsPage/useJobs";
