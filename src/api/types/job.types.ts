@@ -67,6 +67,7 @@ export interface RecruitmentFilters {
 	skill_ids?: number[];
 	experience_years?: ExperienceLevel[];
 	position_titles?: string[];
+	position_ids?: number[];
 	company_names?: string[];
 	locations?: string[];
 }

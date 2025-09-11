@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 import { useFilterStore } from "@store/filters";
+import { POSITION_IDS } from "@types";
 
 interface UseDetailJobsFiltersProps {
 	allJobs: RecruitmentResponse[];
@@ -11,69 +12,69 @@ interface UseDetailJobsFiltersReturn {
 	filteredJobs: RecruitmentResponse[];
 }
 
+// 제네릭으로 number와 string 모두 지원
+function useSetFromArray<T extends string | number>(arr?: T[]): Set<T> | null {
+	const ref = useRef<{ key: string; set: Set<T> | null }>({
+		key: "",
+		set: null,
+	});
+	const key = arr && arr.length ? [...arr].sort().join(",") : "";
+
+	if (ref.current.key !== key) {
+		ref.current = { key, set: key ? new Set(arr!) : null };
+	}
+
+	return ref.current.set;
+}
+
 /**
  * 상세한 필터링 로직을 담당하는 훅
- * 스킬, 포지션, 경력, 회사, 위치 등 다양한 필터를 적용하여 채용공고를 필터링합니다.
+ * position_id 기반으로 필터링하여 성능과 안정성을 보장합니다.
  */
 export function useDetailJobsFilters({
 	allJobs,
 	filters,
 }: UseDetailJobsFiltersProps): UseDetailJobsFiltersReturn {
-	const { skills } = useFilterStore();
+	// Set으로 변환하여 O(1) 조회 성능 확보
+	const positionIdSet = useSetFromArray(filters.position_ids);
+	const experienceYearsSet = useSetFromArray(filters.experience_years);
+	const companyNamesSet = useSetFromArray((filters as any).company_names);
+	const locationsSet = useSetFromArray((filters as any).locations);
 
 	const filteredJobs = useMemo(() => {
 		return allJobs.filter((job) => {
-			if (filters.skill_ids && filters.skill_ids.length > 0) {
-				// JobSkill에는 skill_id가 없고 skill_name만 있으므로 이름으로 매칭
-				const hasMatchingSkill = job.skills.some((jobSkill) => {
-					// skill_ids 배열의 각 ID에 대해 해당하는 스킬명 찾기
-					return filters.skill_ids!.some((skillId) => {
-						// Skills API 데이터에서 해당 ID의 스킬 정보 찾기
-						const skillFromApi = skills.find((s) => s.skill_id === skillId);
-						if (!skillFromApi) return false;
-
-						const jobSkillName = jobSkill.skill_name.toLowerCase();
-						const apiSkillName = skillFromApi.name.toLowerCase();
-
-						// 정확한 이름 매칭 또는 포함 관계 확인
-						return (
-							jobSkillName.includes(apiSkillName) ||
-							apiSkillName.includes(jobSkillName)
-						);
-					});
-				});
-				if (!hasMatchingSkill) return false;
-			}
-
-			// 포지션 필터
-			if (filters.position_titles && filters.position_titles.length > 0) {
-				if (!filters.position_titles.includes(job.position_title)) return false;
+			// 포지션 필터 (position_id 기반)
+			if (positionIdSet && !positionIdSet.has(job.position_id)) {
+				return false;
 			}
 
 			// 경력 필터
-			if (filters.experience_years && filters.experience_years.length > 0) {
-				if (!filters.experience_years.includes(job.experience_years as any))
-					return false;
+			if (
+				experienceYearsSet &&
+				!experienceYearsSet.has(job.experience_years as any)
+			) {
+				return false;
 			}
 
 			// 회사 필터
-			if (
-				(filters as any).company_names &&
-				(filters as any).company_names.length > 0
-			) {
-				if (!(filters as any).company_names.includes(job.parent_company_name))
-					return false;
+			if (companyNamesSet && !companyNamesSet.has(job.parent_company_name)) {
+				return false;
 			}
 
 			// 위치 필터
-			if ((filters as any).locations && (filters as any).locations.length > 0) {
-				if (!(filters as any).locations.includes(job.company_address_depth1))
-					return false;
+			if (locationsSet && !locationsSet.has(job.company_address_depth1)) {
+				return false;
 			}
 
 			return true;
 		});
-	}, [allJobs, filters, skills]);
+	}, [
+		allJobs,
+		positionIdSet,
+		experienceYearsSet,
+		companyNamesSet,
+		locationsSet,
+	]);
 
 	return {
 		filteredJobs,
