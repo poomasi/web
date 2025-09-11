@@ -23,7 +23,6 @@ export function useDetailJobsFilters({
 
 	const filteredJobs = useMemo(() => {
 		return allJobs.filter((job) => {
-			// 스킬 필터
 			if (filters.skill_ids && filters.skill_ids.length > 0) {
 				// JobSkill에는 skill_id가 없고 skill_name만 있으므로 이름으로 매칭
 				const hasMatchingSkill = job.skills.some((jobSkill) => {

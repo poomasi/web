@@ -40,3 +40,15 @@ export enum QnaAskerType {
 	ALL = "ALL",
 	ME = "ME",
 }
+
+export const POSITION_IDS = {
+	WEB_FRONTEND: 1,
+	BACKEND: 2,
+	FULLSTACK: 3,
+	ANDROID: 4,
+	IOS: 5,
+	DATA_ENGINEER: 6,
+	DATA_SCIENTIST: 7,
+	AI_ML: 8,
+	DEVOPS: 9,
+};
