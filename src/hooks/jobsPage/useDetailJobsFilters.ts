@@ -20,6 +20,7 @@ function useSetFromArray<T extends string | number>(arr?: T[]): Set<T> | null {
 	});
 	const key = arr && arr.length ? [...arr].sort().join(",") : "";
 
+	//캐시 갱신 조건
 	if (ref.current.key !== key) {
 		ref.current = { key, set: key ? new Set(arr!) : null };
 	}

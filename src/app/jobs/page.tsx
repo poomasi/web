@@ -1,7 +1,7 @@
 "use client";
 
 import { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
-import { useJobsWithFilters } from "@hooks/jobsPage/useJobsWithFilters";
+import { useBasicJobsFilters } from "@hooks/jobsPage/useBasicJobsFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
 import { JobList } from "@components/jobsPage/jobList";
 import {
@@ -33,7 +33,7 @@ export default function JobsPage() {
 		updateFilters,
 		clearFilters,
 		refetch,
-	} = useJobsWithFilters();
+	} = useBasicJobsFilters();
 
 	const { selectedPositions } = usePositionsStore();
 	const {

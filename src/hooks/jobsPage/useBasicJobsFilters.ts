@@ -14,7 +14,7 @@ interface UseBasicJobsWithFiltersReturn {
 	refetch: () => void;
 }
 
-export function useBasicJobsWithFilters(): UseBasicJobsWithFiltersReturn {
+export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 	const [filters, setFilters] = useState<RecruitmentFilters>({});
 
 	const { jobs: allJobs, loading, error, refetch } = useJobs();
