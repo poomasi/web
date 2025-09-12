@@ -33,4 +33,5 @@ export interface PopularSkillData {
 	skill_id: number;
 	name: string; // API에서 가져온 실제 이름
 	designed_logo_url: string;
+	logo_url: string;
 }

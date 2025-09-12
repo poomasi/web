@@ -27,6 +27,12 @@ export function PopularSkillsSection({
 			<div className="grid grid-cols-5 gap-3">
 				{skills.map((skill) => {
 					const isSelected = selectedSkills.includes(skill.displayName);
+
+					// ✅ 절대경로 보정
+					const logoSrc = skill.logo_url
+						? `/${skill.logo_url.replace(/^\/+/, "")}`
+						: "/images/skill-fallback.svg";
+
 					return (
 						<button
 							key={skill.skill_id}
@@ -38,7 +44,7 @@ export function PopularSkillsSection({
 							}`}>
 							<div className="w-6 h-6 relative flex-shrink-0">
 								<Image
-									src={skill.designed_logo_url}
+									src={logoSrc}
 									alt={skill.displayName}
 									width={24}
 									height={24}
