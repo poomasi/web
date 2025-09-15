@@ -1,1 +1,1 @@
-export { useBasicPositionsStore } from "./positions-store";
+export { useBasicPositionsStore } from "./basicPositions-store";

@@ -67,21 +67,23 @@ export const useBasicPositionsStore = create<PositionsState>((set, get) => ({
 		// 최신 상태 가져오기 (await 이후 보장)
 		const current = get().positions;
 
-		// 1순위: WEB_FRONTEND 정확 매칭
+		// 1순위: WEB_FRONTEND 매칭
 		const webFrontend = current.find(
 			(p) => p.position_id === POSITION_IDS.WEB_FRONTEND
 		);
+
 		if (webFrontend) {
 			set({ selectedPositions: [webFrontend.title] });
-			return;
+		} else {
+			// 2순위: 연관 포지션들(FULLSTACK 등)
+			const fullstack = current.find(
+				(p) => p.position_id === POSITION_IDS.FULLSTACK
+			);
+			if (fullstack) {
+				set({ selectedPositions: [fullstack.title] });
+			} else {
+				set({ selectedPositions: [] });
+			}
 		}
-
-		// 2순위: 연관 포지션들(FULLSTACK 등)
-		const frontendPositions = current
-			.filter((p) => FRONTEND_RELATED_IDS.includes(p.position_id))
-			.map((p) => p.title);
-
-		// 관련 포지션 없으면 빈 배열로 초기화(의도적으로 허용)
-		set({ selectedPositions: frontendPositions });
 	},
 }));
