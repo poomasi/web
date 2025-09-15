@@ -129,19 +129,19 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 		});
 	},
 
-	// 데이터 로딩 - usePositionsStore에서 데이터 가져오기 (중복 호출 방지)
+	// 데이터 로딩 - useBasicPositionsStore에서 데이터 가져오기 (중복 호출 방지)
 	fetchPositions: async () => {
 		set({ loading: true, error: null });
 		try {
-			// usePositionsStore에서 이미 로드된 데이터 가져오기
-			const positionsStore = await import("@store/positions");
+			// useBasicPositionsStore에서 이미 로드된 데이터 가져오기
+			const positionsStore = await import("@store/basicPositions");
 			const { positions: existingPositions, fetchPositions: fetchFromStore } =
-				positionsStore.usePositionsStore.getState();
+				positionsStore.useBasicPositionsStore.getState();
 
 			if (existingPositions.length === 0) {
 				// 데이터가 없으면 positions 스토어에서 가져오기
 				await fetchFromStore();
-				const { positions } = positionsStore.usePositionsStore.getState();
+				const { positions } = positionsStore.useBasicPositionsStore.getState();
 				set({ positions, loading: false });
 			} else {
 				// 이미 있는 데이터 사용

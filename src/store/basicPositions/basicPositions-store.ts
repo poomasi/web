@@ -1,22 +1,27 @@
 import { create } from "zustand";
 import { PositionResponse } from "@api/types";
 import { PositionsApi } from "@api/positions";
+import { POSITION_IDS } from "@types";
+
+// 1) 모듈 상단에 연관 ID 상수 분리
+const FRONTEND_RELATED_IDS: number[] = [
+	POSITION_IDS.WEB_FRONTEND,
+	POSITION_IDS.FULLSTACK,
+];
 
 interface PositionsState {
-	// 상태
 	positions: PositionResponse[];
 	selectedPositions: string[];
 	loading: boolean;
 	error: string | null;
 
-	// 액션
 	fetchPositions: () => Promise<void>;
 	setSelectedPositions: (positions: string[]) => void;
 	clearSelectedPositions: () => void;
 	initializeWithWebFrontend: () => Promise<void>;
 }
 
-export const usePositionsStore = create<PositionsState>((set, get) => ({
+export const useBasicPositionsStore = create<PositionsState>((set, get) => ({
 	// 초기 상태
 	positions: [],
 	selectedPositions: [],
@@ -54,33 +59,29 @@ export const usePositionsStore = create<PositionsState>((set, get) => ({
 	initializeWithWebFrontend: async () => {
 		const { positions, fetchPositions } = get();
 
-		// 포지션 데이터가 없으면 먼저 가져오기
+		// 포지션 없으면 먼저 로드
 		if (positions.length === 0) {
 			await fetchPositions();
 		}
 
-		const currentPositions = get().positions;
-		// Web Frontend 포지션 찾기
-		const webFrontendPosition = currentPositions.find(
-			(position) =>
-				position.title.toLowerCase().includes("web frontend") ||
-				position.title.toLowerCase().includes("웹 프론트엔드") ||
-				position.title.toLowerCase().includes("프론트엔드")
+		// 최신 상태 가져오기 (await 이후 보장)
+		const current = get().positions;
+
+		// 1순위: WEB_FRONTEND 정확 매칭
+		const webFrontend = current.find(
+			(p) => p.position_id === POSITION_IDS.WEB_FRONTEND
 		);
-
-		if (webFrontendPosition) {
-			set({ selectedPositions: [webFrontendPosition.title] });
-		} else {
-			// Web Frontend가 없으면 프론트엔드 관련 포지션들 선택
-			const frontendPositions = currentPositions
-				.filter(
-					(position) =>
-						position.title.toLowerCase().includes("frontend") ||
-						position.title.toLowerCase().includes("프론트엔드")
-				)
-				.map((position) => position.title);
-
-			set({ selectedPositions: frontendPositions });
+		if (webFrontend) {
+			set({ selectedPositions: [webFrontend.title] });
+			return;
 		}
+
+		// 2순위: 연관 포지션들(FULLSTACK 등)
+		const frontendPositions = current
+			.filter((p) => FRONTEND_RELATED_IDS.includes(p.position_id))
+			.map((p) => p.title);
+
+		// 관련 포지션 없으면 빈 배열로 초기화(의도적으로 허용)
+		set({ selectedPositions: frontendPositions });
 	},
 }));

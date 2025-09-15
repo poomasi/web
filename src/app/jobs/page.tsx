@@ -9,7 +9,7 @@ import {
 	FilterButtonsRow,
 	FilterModal,
 } from "@components/jobsPage/filterButtons";
-import { usePositionsStore } from "@store/positions";
+import { useBasicPositionsStore } from "@store/basicPositions";
 import { useFilterStore } from "@store/filters";
 import { RecruitmentResponse } from "@api/types/job.types";
 import { CompanyParentResponse } from "@api/types/company.types";
@@ -35,7 +35,7 @@ export default function JobsPage() {
 		refetch,
 	} = useBasicJobsFilters();
 
-	const { selectedPositions } = usePositionsStore();
+	const { selectedPositions } = useBasicPositionsStore();
 	const {
 		setJobs,
 		selectedPositions: modalSelectedPositions,
@@ -137,7 +137,7 @@ export default function JobsPage() {
 		clearAllFilters();
 		// 포지션 스토어 초기화 후 Web Frontend로 재설정
 		const { clearSelectedPositions, initializeWithWebFrontend } =
-			usePositionsStore.getState();
+			useBasicPositionsStore.getState();
 		clearSelectedPositions();
 		initializeWithWebFrontend();
 	};

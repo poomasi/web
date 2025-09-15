@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePositionsStore } from "@store/positions";
+import { useBasicPositionsStore } from "@store/basicPositions";
 
 export function BasicFilter() {
 	const {
@@ -11,7 +11,7 @@ export function BasicFilter() {
 		error,
 		initializeWithWebFrontend,
 		setSelectedPositions,
-	} = usePositionsStore();
+	} = useBasicPositionsStore();
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
