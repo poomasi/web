@@ -2,23 +2,47 @@
 
 import { useEffect, useState } from "react";
 import { useBasicPositionsStore } from "@store/basicPositions";
+import { usePositionsQuery } from "@queries/usePositionsQuery";
+import { POSITION_IDS } from "@types";
 
 export function BasicFilter() {
 	const {
-		positions,
-		selectedPositions,
-		loading,
-		error,
-		initializeWithWebFrontend,
-		setSelectedPositions,
-	} = useBasicPositionsStore();
+		data: positions = [],
+		isLoading: loading,
+		error: queryError,
+	} = usePositionsQuery();
+
+	const { selectedPositions, setSelectedPositions } = useBasicPositionsStore();
+
+	const error = queryError
+		? queryError instanceof Error
+			? queryError.message
+			: "포지션 목록을 불러오는데 실패했습니다."
+		: null;
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 	// 컴포넌트 마운트 시 Web Frontend로 초기화
 	useEffect(() => {
-		initializeWithWebFrontend();
-	}, [initializeWithWebFrontend]);
+		if (positions.length > 0 && selectedPositions.length === 0) {
+			// 1순위: WEB_FRONTEND 매칭
+			const webFrontend = positions.find(
+				(p) => p.position_id === POSITION_IDS.WEB_FRONTEND
+			);
+
+			if (webFrontend) {
+				setSelectedPositions([webFrontend.title]);
+			} else {
+				// 2순위: 연관 포지션들(FULLSTACK 등)
+				const fullstack = positions.find(
+					(p) => p.position_id === POSITION_IDS.FULLSTACK
+				);
+				if (fullstack) {
+					setSelectedPositions([fullstack.title]);
+				}
+			}
+		}
+	}, [positions, selectedPositions.length, setSelectedPositions]);
 
 	const handlePositionClick = (positionTitle: string) => {
 		// 단일 선택만 가능
