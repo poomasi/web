@@ -2,11 +2,14 @@
 
 import { useFilterStore } from "@store/filters";
 import { useBasicPositionsStore } from "@store/basicPositions";
-import { useCompaniesQuery } from "@queries/useCompaniesQuery";
-import { usePopularSkillsQuery } from "@queries/useSkillsQuery";
-import { FilterSection } from "./FilterSection";
-import { PopularSkillsSection } from "./PopularSkillsSection";
-
+import { FilterSection } from "@components/jobsPage/Filter/FilterSection";
+import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
+import {
+	usePositionsQuery,
+	useSkillsQuery,
+	useCompaniesQuery,
+} from "@queries/index";
+import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 interface FilterModalProps {
 	onFiltersApplied?: () => void;
 }
@@ -33,20 +36,24 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 	} = useFilterStore();
 
 	// React Query로 데이터 가져오기
-	const { positions } = useBasicPositionsStore();
+	const {
+		data: positions = [],
+		isLoading: positionsLoading,
+		error: positionsError,
+	} = usePositionsQuery();
 	const {
 		data: companies = [],
 		isLoading: companiesLoading,
 		error: companiesError,
 	} = useCompaniesQuery();
 	const {
-		data: popularSkills = [],
+		data: skills = [],
 		isLoading: skillsLoading,
 		error: skillsError,
-	} = usePopularSkillsQuery();
+	} = useSkillsQuery();
 
-	const loading = companiesLoading || skillsLoading;
-	const error = companiesError || skillsError;
+	const loading = positionsLoading || companiesLoading || skillsLoading;
+	const error = positionsError || companiesError || skillsError;
 
 	if (!isModalOpen) return null;
 
@@ -152,7 +159,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								/>
 								<PopularSkillsSection
 									title="인기스택"
-									skills={popularSkills}
+									skills={POPULAR_SKILLS_CONFIG}
 									selectedSkills={selectedSkills}
 									onToggle={toggleSkill}
 								/>
