@@ -1,22 +1,22 @@
 import { create } from "zustand";
 
 interface PositionsState {
-	selectedPositions: string[];
-	setSelectedPositions: (positions: string[]) => void;
-	clearSelectedPositions: () => void;
+	selectedPositionIds: number[];
+	setSelectedPositionIds: (positionIds: number[]) => void;
+	clearSelectedPositionIds: () => void;
 }
 
 export const useBasicPositionsStore = create<PositionsState>((set) => ({
 	// 초기 상태
-	selectedPositions: [],
+	selectedPositionIds: [],
 
-	// 선택된 포지션 설정
-	setSelectedPositions: (selectedPositions: string[]) => {
-		set({ selectedPositions });
+	// 선택된 포지션 ID 설정
+	setSelectedPositionIds: (selectedPositionIds: number[]) => {
+		set({ selectedPositionIds });
 	},
 
-	// 선택된 포지션 초기화
-	clearSelectedPositions: () => {
-		set({ selectedPositions: [] });
+	// 선택된 포지션 ID 초기화
+	clearSelectedPositionIds: () => {
+		set({ selectedPositionIds: [] });
 	},
 }));

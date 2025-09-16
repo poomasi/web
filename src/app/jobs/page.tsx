@@ -36,7 +36,7 @@ export default function JobsPage() {
 		refetch,
 	} = useBasicJobsFilters();
 
-	const { selectedPositions } = useBasicPositionsStore();
+	const { selectedPositionIds } = useBasicPositionsStore();
 	const {
 		extractFilterOptions,
 		selectedPositions: modalSelectedPositions,
@@ -51,8 +51,8 @@ export default function JobsPage() {
 
 	// zustand 스토어의 선택된 포지션을 필터에 동기화
 	useEffect(() => {
-		updateFilters({ position_titles: selectedPositions });
-	}, [selectedPositions, updateFilters]);
+		updateFilters({ position_ids: selectedPositionIds });
+	}, [selectedPositionIds, updateFilters]);
 
 	// jobs 데이터가 로드되면 필터 옵션 추출
 	useEffect(() => {
@@ -129,8 +129,8 @@ export default function JobsPage() {
 		const { clearAllFilters } = useFilterStore.getState();
 		clearAllFilters();
 		// 포지션 스토어 초기화
-		const { clearSelectedPositions } = useBasicPositionsStore.getState();
-		clearSelectedPositions();
+		const { clearSelectedPositionIds } = useBasicPositionsStore.getState();
+		clearSelectedPositionIds();
 	};
 
 	const handleJobClick = (job: RecruitmentResponse) => {
