@@ -37,13 +37,12 @@ export default function JobsPage() {
 
 	const { selectedPositions } = useBasicPositionsStore();
 	const {
-		setJobs,
+		extractFilterOptions,
 		selectedPositions: modalSelectedPositions,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
 		selectedSkills,
-		popularSkills,
 	} = useFilterStore();
 
 	// zustand 스토어의 선택된 포지션을 필터에 동기화
@@ -51,12 +50,12 @@ export default function JobsPage() {
 		updateFilters({ position_titles: selectedPositions });
 	}, [selectedPositions, updateFilters]);
 
-	// jobs 데이터가 로드되면 필터 스토어에 전달
+	// jobs 데이터가 로드되면 필터 옵션 추출
 	useEffect(() => {
 		if (allJobs.length > 0) {
-			setJobs(allJobs);
+			extractFilterOptions(allJobs);
 		}
-	}, [allJobs, setJobs]);
+	}, [allJobs, extractFilterOptions]);
 
 	// 모달 필터가 적용되면 실제 필터에 반영
 	useEffect(() => {

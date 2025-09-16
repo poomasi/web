@@ -1,37 +1,10 @@
-import { FilterStore } from "./types";
+// import { FilterStore } from "./types"; // 더 이상 필요하지 않음
 
-export const createModalActions = (set: any, get: () => FilterStore) => ({
+export const createModalActions = (set: any, get: () => any) => ({
 	// 모달 제어
 	openModal: (type: string) => {
 		set({ isModalOpen: true, activeModalType: type });
-
-		const {
-			positions,
-			companies,
-			skills,
-			fetchPositions,
-			fetchCompanies,
-			fetchSkills,
-		} = get();
-
-		// 필요한 데이터 로딩
-		if (companies.length === 0) {
-			fetchCompanies();
-		}
-
-		if (
-			(type === "all" ||
-				type === "company" ||
-				type === "experience" ||
-				type === "location") &&
-			positions.length === 0
-		) {
-			fetchPositions();
-		}
-
-		if (skills.length === 0) {
-			fetchSkills();
-		}
+		// 데이터 로딩은 React Query 훅에서 자동으로 처리됨
 	},
 
 	closeModal: () => {

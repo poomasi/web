@@ -6,13 +6,8 @@ import { createFilterActions } from "./filter-actions";
 
 export const useFilterStore = create<FilterStore>((set, get) => ({
 	// 초기 상태
-	jobs: [],
-	positions: [],
-	companies: [],
-	skills: [],
 	experienceOptions: [],
 	locationOptions: [],
-	popularSkills: [],
 	selectedPositions: [],
 	selectedCompanies: [],
 	selectedExperience: [],
@@ -20,8 +15,6 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 	selectedSkills: [],
 	isModalOpen: false,
 	activeModalType: null,
-	loading: false,
-	error: null,
 
 	// 액션들을 각각의 모듈에서 가져와서 합치기
 	...createDataActions(set, get),

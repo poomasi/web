@@ -1,6 +1,9 @@
 "use client";
 
 import { useFilterStore } from "@store/filters";
+import { useBasicPositionsStore } from "@store/basicPositions";
+import { useCompaniesQuery } from "@queries/useCompaniesQuery";
+import { usePopularSkillsQuery } from "@queries/useSkillsQuery";
 import { FilterSection } from "./FilterSection";
 import { PopularSkillsSection } from "./PopularSkillsSection";
 
@@ -12,18 +15,13 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 	const {
 		isModalOpen,
 		activeModalType,
-		positions,
-		companies,
 		experienceOptions,
 		locationOptions,
-		popularSkills,
 		selectedPositions,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
 		selectedSkills,
-		loading,
-		error,
 		closeModal,
 		togglePosition,
 		toggleCompany,
@@ -33,6 +31,22 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		clearAllFilters,
 		applyFilters,
 	} = useFilterStore();
+
+	// React Query로 데이터 가져오기
+	const { positions } = useBasicPositionsStore();
+	const {
+		data: companies = [],
+		isLoading: companiesLoading,
+		error: companiesError,
+	} = useCompaniesQuery();
+	const {
+		data: popularSkills = [],
+		isLoading: skillsLoading,
+		error: skillsError,
+	} = usePopularSkillsQuery();
+
+	const loading = companiesLoading || skillsLoading;
+	const error = companiesError || skillsError;
 
 	if (!isModalOpen) return null;
 
@@ -102,7 +116,11 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 						{error && (
 							<div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
-								<p className="text-red-600 text-sm">{error}</p>
+								<p className="text-red-600 text-sm">
+									{error instanceof Error
+										? error.message
+										: "데이터를 불러오는데 실패했습니다."}
+								</p>
 							</div>
 						)}
 
