@@ -16,7 +16,7 @@ export const createModalActions = (set: any, get: () => any) => ({
 		const state = get();
 
 		console.log("필터 적용됨:", {
-			positions: state.selectedPositions,
+			positionIds: state.selectedPositionIds,
 			companies: state.selectedCompanies,
 			experience: state.selectedExperience,
 			locations: state.selectedLocations,

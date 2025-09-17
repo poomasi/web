@@ -39,7 +39,7 @@ export default function JobsPage() {
 	const { selectedPositionIds } = useBasicPositionsStore();
 	const {
 		extractFilterOptions,
-		selectedPositions: modalSelectedPositions,
+		selectedPositionIds: modalSelectedPositionIds,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
@@ -65,9 +65,9 @@ export default function JobsPage() {
 	useEffect(() => {
 		const modalFilters: any = {};
 
-		// 모달에서 선택된 포지션들을 position_titles에 적용
-		if (modalSelectedPositions.length > 0) {
-			modalFilters.position_titles = modalSelectedPositions;
+		// 모달에서 선택된 포지션들을 position_ids에 적용
+		if (modalSelectedPositionIds.length > 0) {
+			modalFilters.position_ids = modalSelectedPositionIds;
 		}
 
 		// 회사 필터 적용
@@ -92,7 +92,7 @@ export default function JobsPage() {
 
 		// 모든 필터가 비어있는 경우 명시적으로 빈 객체로 설정하여 필터 초기화
 		const hasAnyFilter =
-			modalSelectedPositions.length > 0 ||
+			modalSelectedPositionIds.length > 0 ||
 			selectedCompanies.length > 0 ||
 			(selectedExperience.length > 0 && !selectedExperience.includes("전체")) ||
 			(selectedLocations.length > 0 && !selectedLocations.includes("전체")) ||
@@ -106,7 +106,7 @@ export default function JobsPage() {
 			updateFilters(modalFilters);
 		}
 	}, [
-		modalSelectedPositions,
+		modalSelectedPositionIds,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,

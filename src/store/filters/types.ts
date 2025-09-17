@@ -6,7 +6,7 @@ export interface FilterState {
 	locationOptions: string[];
 
 	// 선택된 필터들
-	selectedPositions: string[];
+	selectedPositionIds: number[];
 	selectedCompanies: string[];
 	selectedExperience: string[];
 	selectedLocations: string[];
@@ -26,11 +26,11 @@ export interface FilterActions {
 	closeModal: () => void;
 
 	// 필터 선택
-	togglePosition: (position: string) => void;
-	toggleCompany: (company: string) => void;
-	toggleExperience: (experience: string) => void;
-	toggleLocation: (location: string) => void;
-	toggleSkill: (skill: string) => void;
+	togglePosition: (positionId: number | string) => void;
+	toggleCompany: (company: string | number) => void;
+	toggleExperience: (experience: string | number) => void;
+	toggleLocation: (location: string | number) => void;
+	toggleSkill: (skill: string | number) => void;
 
 	// 필터 초기화
 	clearAllFilters: () => void;

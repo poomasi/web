@@ -8,7 +8,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 	// 초기 상태
 	experienceOptions: [],
 	locationOptions: [],
-	selectedPositions: [],
+	selectedPositionIds: [],
 	selectedCompanies: [],
 	selectedExperience: [],
 	selectedLocations: [],

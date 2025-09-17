@@ -3,8 +3,8 @@
 interface FilterSectionProps {
 	title: string;
 	options: Array<{ id: string | number; name: string }>;
-	selectedItems: string[];
-	onToggle: (item: string) => void;
+	selectedItems: (string | number)[];
+	onToggle: (item: string | number) => void;
 }
 
 export function FilterSection({
@@ -21,11 +21,11 @@ export function FilterSection({
 			</div>
 			<div className="flex flex-wrap gap-2">
 				{options.map((option) => {
-					const isSelected = selectedItems.includes(option.name);
+					const isSelected = selectedItems.includes(option.id);
 					return (
 						<button
 							key={option.id}
-							onClick={() => onToggle(option.name)}
+							onClick={() => onToggle(option.id)}
 							className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
 								isSelected
 									? "bg-blue-50 text-blue-700 border-blue-300"
