@@ -1,18 +1,18 @@
 "use client";
 
-interface FilterSectionProps {
+interface FilterSectionProps<T extends string | number = string | number> {
 	title: string;
-	options: Array<{ id: string | number; name: string }>;
-	selectedItems: (string | number)[];
-	onToggle: (item: string | number) => void;
+	options: Array<{ id: T; name: string }>;
+	selectedItems: T[];
+	onToggle: (item: T) => void;
 }
 
-export function FilterSection({
+export function FilterButton<T = string | number>({
 	title,
 	options,
 	selectedItems,
 	onToggle,
-}: FilterSectionProps) {
+}: FilterSectionProps<T>) {
 	return (
 		<div className="mb-8">
 			<div className="flex items-center justify-between mb-4">

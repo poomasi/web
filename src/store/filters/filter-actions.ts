@@ -1,7 +1,7 @@
 import { FilterStore } from "./types";
 
 export const createFilterActions = (set: any, get: () => FilterStore) => ({
-	// 필터 토글
+	// 선택 상태 배열 관리
 	togglePosition: (positionId: number) => {
 		const { selectedPositionIds } = get();
 		const newSelected = selectedPositionIds.includes(positionId)
@@ -34,12 +34,12 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 		set({ selectedLocations: newSelected });
 	},
 
-	toggleSkill: (skill: string) => {
-		const { selectedSkills } = get();
-		const newSelected = selectedSkills.includes(skill)
-			? selectedSkills.filter((s) => s !== skill)
-			: [...selectedSkills, skill];
-		set({ selectedSkills: newSelected });
+	toggleSkill: (skillId: number) => {
+		const { selectedSkillIds } = get();
+		const newSelected = selectedSkillIds.includes(skillId)
+			? selectedSkillIds.filter((s) => s !== skillId)
+			: [...selectedSkillIds, skillId];
+		set({ selectedSkillIds: newSelected });
 	},
 
 	// 필터 초기화
@@ -49,7 +49,7 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 			selectedCompanies: [],
 			selectedExperience: [],
 			selectedLocations: [],
-			selectedSkills: [],
+			selectedSkillIds: [],
 		});
 	},
 
@@ -57,5 +57,29 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 	clearCompanies: () => set({ selectedCompanies: [] }),
 	clearExperience: () => set({ selectedExperience: [] }),
 	clearLocations: () => set({ selectedLocations: [] }),
-	clearSkills: () => set({ selectedSkills: [] }),
+	clearSkills: () => set({ selectedSkillIds: [] }),
+
+	// 최종 필터 저장
+	setActiveFilters: (filters: any) => {
+		set({ activeFilters: filters });
+	},
+
+	// 적용 시 문자열→ID 변환 + activeFilters 저장
+	applyFilters: (ctx: any) => {
+		const state = get();
+
+		// 필터 적용 로직 (필요시 구현)
+		console.log("필터 적용됨:", {
+			positionIds: state.selectedPositionIds,
+			companies: state.selectedCompanies,
+			experience: state.selectedExperience,
+			locations: state.selectedLocations,
+			skillIds: state.selectedSkillIds,
+		});
+
+		// 모달 닫기
+		setTimeout(() => {
+			set({ isModalOpen: false, activeModalType: null });
+		}, 0);
+	},
 });

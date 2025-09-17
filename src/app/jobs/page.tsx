@@ -43,7 +43,7 @@ export default function JobsPage() {
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
-		selectedSkills,
+		selectedSkillIds,
 	} = useFilterStore();
 
 	// 인기 스킬은 하드코딩된 설정 사용
@@ -85,9 +85,9 @@ export default function JobsPage() {
 			modalFilters.locations = selectedLocations;
 		}
 
-		// 스킬 필터 적용 - 스킬명을 그대로 사용 (API에서 스킬명으로 검색)
-		if (selectedSkills.length > 0) {
-			modalFilters.skill_names = selectedSkills;
+		// 스킬 필터 적용 - skill_ids 사용
+		if (selectedSkillIds.length > 0) {
+			modalFilters.skill_ids = selectedSkillIds;
 		}
 
 		// 모든 필터가 비어있는 경우 명시적으로 빈 객체로 설정하여 필터 초기화
@@ -96,7 +96,7 @@ export default function JobsPage() {
 			selectedCompanies.length > 0 ||
 			(selectedExperience.length > 0 && !selectedExperience.includes("전체")) ||
 			(selectedLocations.length > 0 && !selectedLocations.includes("전체")) ||
-			selectedSkills.length > 0;
+			selectedSkillIds.length > 0;
 
 		if (!hasAnyFilter) {
 			// 모든 필터가 비어있으면 명시적으로 빈 필터 적용
@@ -110,7 +110,7 @@ export default function JobsPage() {
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
-		selectedSkills,
+		selectedSkillIds,
 		updateFilters,
 	]);
 

@@ -4,7 +4,7 @@ import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 const PATH = "v1/companies-recruitments";
 
 // 채용공고 API 호출
-export const JobsApi = {
+export const RecruitmentApi = {
 	// 채용공고 목록 조회 (필터 옵션 포함)
 	getRecruitments: async (
 		filters?: RecruitmentFilters
@@ -43,4 +43,4 @@ export const JobsApi = {
 
 // 편의 함수들
 export const getRecruitments = (filters?: RecruitmentFilters) =>
-	JobsApi.getRecruitments(filters);
+	RecruitmentApi.getRecruitments(filters);

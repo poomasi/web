@@ -2,7 +2,7 @@
 
 import { useFilterStore } from "@store/filters";
 import { useBasicPositionsStore } from "@store/basicPositions";
-import { FilterSection } from "@components/jobsPage/Filter/FilterSection";
+import { FilterButton } from "@components/jobsPage/Filter/FilterButton";
 import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
 import {
 	usePositionsQuery,
@@ -20,7 +20,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		activeModalType,
 		experienceOptions,
 		locationOptions,
-		selectedPositions,
+		selectedPositionIds,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
@@ -133,25 +133,25 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 						{!loading && !error && (
 							<>
-								<FilterSection
+								<FilterButton
 									title="직군선택"
 									options={positionOptions}
-									selectedItems={selectedPositions}
+									selectedItems={selectedPositionIds}
 									onToggle={togglePosition}
 								/>
-								<FilterSection
+								<FilterButton
 									title="회사 선택"
 									options={companyOptions}
 									selectedItems={selectedCompanies}
 									onToggle={toggleCompany}
 								/>
-								<FilterSection
+								<FilterButton
 									title="경력"
 									options={experienceOptionsList}
 									selectedItems={selectedExperience}
 									onToggle={toggleExperience}
 								/>
-								<FilterSection
+								<FilterButton
 									title="위치"
 									options={locationOptionsList}
 									selectedItems={selectedLocations}
@@ -183,7 +183,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								}
 							}}
 							className="px-6 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors">
-							{selectedPositions.length +
+							{selectedPositionIds.length +
 								selectedCompanies.length +
 								selectedExperience.length +
 								selectedLocations.length +
