@@ -11,14 +11,14 @@ import {
 interface PopularSkillsSectionProps {
 	title: string;
 	skills: PopularSkillConfig[];
-	selectedSkills: string[];
-	onToggle: (skill: string) => void;
+	selectedSkillIds: number[];
+	onToggle: (skillId: number) => void;
 }
 
 export function PopularSkillsSection({
 	title,
 	skills,
-	selectedSkills,
+	selectedSkillIds,
 	onToggle,
 }: PopularSkillsSectionProps) {
 	return (
@@ -29,12 +29,12 @@ export function PopularSkillsSection({
 			</div>
 			<div className="grid grid-cols-5 gap-3">
 				{skills.map((skill) => {
-					const isSelected = selectedSkills.includes(skill.displayName);
+					const isSelected = selectedSkillIds.includes(skill.skill_id);
 
 					return (
 						<button
 							key={skill.skill_id}
-							onClick={() => onToggle(skill.displayName)}
+							onClick={() => onToggle(skill.skill_id)}
 							className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg border transition-colors ${
 								isSelected
 									? "bg-blue-50 text-blue-700 border-blue-300"

@@ -24,7 +24,7 @@ export function FilterButton<T = string | number>({
 					const isSelected = selectedItems.includes(option.id);
 					return (
 						<button
-							key={option.id}
+							key={option.id as Key}
 							onClick={() => onToggle(option.id)}
 							className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
 								isSelected

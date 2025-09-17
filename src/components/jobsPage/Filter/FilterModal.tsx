@@ -24,7 +24,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
-		selectedSkills,
+		selectedSkillIds,
 		closeModal,
 		togglePosition,
 		toggleCompany,
@@ -133,25 +133,25 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 						{!loading && !error && (
 							<>
-								<FilterButton
+								<FilterButton<number>
 									title="직군선택"
 									options={positionOptions}
 									selectedItems={selectedPositionIds}
 									onToggle={togglePosition}
 								/>
-								<FilterButton
+								<FilterButton<string>
 									title="회사 선택"
 									options={companyOptions}
 									selectedItems={selectedCompanies}
 									onToggle={toggleCompany}
 								/>
-								<FilterButton
+								<FilterButton<string>
 									title="경력"
 									options={experienceOptionsList}
 									selectedItems={selectedExperience}
 									onToggle={toggleExperience}
 								/>
-								<FilterButton
+								<FilterButton<string>
 									title="위치"
 									options={locationOptionsList}
 									selectedItems={selectedLocations}
@@ -160,7 +160,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								<PopularSkillsSection
 									title="인기스택"
 									skills={POPULAR_SKILLS_CONFIG}
-									selectedSkills={selectedSkills}
+									selectedSkillIds={selectedSkillIds}
 									onToggle={toggleSkill}
 								/>
 							</>
@@ -176,7 +176,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 						</button>
 						<button
 							onClick={() => {
-								applyFilters();
+								applyFilters({ positions, companies, skills });
 								// 필터 적용 후 콜백 실행
 								if (onFiltersApplied) {
 									onFiltersApplied();
@@ -187,7 +187,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								selectedCompanies.length +
 								selectedExperience.length +
 								selectedLocations.length +
-								selectedSkills.length}
+								selectedSkillIds.length}
 							개의 필터 적용하기
 						</button>
 					</div>
