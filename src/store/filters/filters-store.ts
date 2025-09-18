@@ -1,27 +1,53 @@
 import { create } from "zustand";
-import { FilterStore } from "./types";
-import { createDataActions } from "./data-actions";
-import { createModalActions } from "./modal-actions";
-import { createFilterActions } from "./filter-actions";
+import { RecruitmentFilters } from "@api/types/job.types";
 
-export const useFilterStore = create<FilterStore>((set, get) => ({
-	// 초기 상태
-	experienceOptions: [],
-	locationOptions: [],
-	selectedPositionIds: [],
-	selectedCompanies: [],
-	selectedExperience: [],
-	selectedLocations: [],
-	selectedSkillIds: [],
+// 1. 상태(State)의 타입을 정의합니다.
+interface FilterState {
+	/** 사용자가 선택한 모든 필터 값을 담는 단일 객체 */
+	selectedFilters: RecruitmentFilters;
+	/** 필터 모달의 열림/닫힘 상태 */
+	isModalOpen: boolean;
+}
+
+// 2. 액션(Actions)의 타입을 정의합니다.
+interface FilterActions {
+	/** selectedFilters의 일부 또는 전체를 업데이트하는 함수 */
+	setFilters: (newFilters: Partial<RecruitmentFilters>) => void;
+	/** 모든 필터를 초기 상태로 리셋하는 함수 */
+	clearAllFilters: () => void;
+	/** 모달을 여는 함수 */
+	openModal: () => void;
+	/** 모달을 닫는 함수 */
+	closeModal: () => void;
+}
+
+// 3. 필터의 초기 상태를 상수로 정의합니다.
+const INITIAL_FILTERS: RecruitmentFilters = {
+	position_ids: [1], // 페이지 최초 진입 시 기본값 'webfront' (ID: 1)
+	company_names: [],
+	experience_years: [],
+	locations: [],
+	skill_ids: [],
+};
+
+// 4. Zustand 스토어를 생성합니다.
+export const useFilterStore = create<FilterState & FilterActions>((set) => ({
+	// --- 초기 상태 ---
+	selectedFilters: INITIAL_FILTERS,
 	isModalOpen: false,
-	activeModalType: null,
-	activeFilters: {},
 
-	// 액션들을 각각의 모듈에서 가져와서 합치기
-	...createDataActions(set, get),
-	...createModalActions(set, get),
-	...createFilterActions(set, get),
+	// --- 액션 구현 ---
+	setFilters: (newFilters) =>
+		set((state) => ({
+			selectedFilters: { ...state.selectedFilters, ...newFilters },
+		})),
+
+	clearAllFilters: () =>
+		set({
+			selectedFilters: INITIAL_FILTERS,
+		}),
+
+	openModal: () => set({ isModalOpen: true }),
+
+	closeModal: () => set({ isModalOpen: false }),
 }));
-
-// 타입과 함께 export
-export type { FilterState, FilterActions, FilterStore } from "./types";
