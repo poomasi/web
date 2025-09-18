@@ -29,12 +29,8 @@ export const RecruitmentApi = {
 			const queryString = params.toString();
 			const url = queryString ? `${PATH}?${queryString}` : PATH;
 
-			// 첫 번째 제네릭은 data의 타입, 두 번째 제네릭은 응답 래퍼 전체 타입
-			const response = await customAxios.get<
-				RecruitmentResponse[],
-				{ status_code: number; message: string; data: RecruitmentResponse[] }
-			>(url);
-			return response.data;
+			const response = await customAxios.get<RecruitmentResponse[]>(url);
+			return response;
 		} catch (error) {
 			throw new Error("채용공고를 불러오는데 실패했습니다.");
 		}

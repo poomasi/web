@@ -3,22 +3,19 @@ import { DefaultApiResponse } from "api/types/DefaultApiResponse";
 import { useAccountStore } from "@store/account";
 
 export interface CustomInstance extends AxiosInstance {
-	get<T = any, R = DefaultApiResponse<T>>(
-		url: string,
-		config?: AxiosRequestConfig
-	): Promise<R>;
+	get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
 
-	post<T = any, R = DefaultApiResponse<T>>(
+	post<T = any>(
 		url: string,
 		data?: any,
 		config?: AxiosRequestConfig
-	): Promise<R>;
+	): Promise<T>;
 
-	patch<T = any, R = DefaultApiResponse<T>>(
+	patch<T = any>(
 		url: string,
 		data?: any,
 		config?: AxiosRequestConfig
-	): Promise<R>;
+	): Promise<T>;
 }
 
 /* 기본 axios

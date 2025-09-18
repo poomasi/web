@@ -3,14 +3,11 @@
 import React from "react";
 import Image from "next/image";
 
-import {
-	POPULAR_SKILLS_CONFIG,
-	PopularSkillConfig,
-} from "@constants/popularSkills";
+import type { PopularSkillData } from "@constants/popularSkills";
 
 interface PopularSkillsSectionProps {
 	title: string;
-	skills: PopularSkillConfig[];
+	skills: PopularSkillData[];
 	selectedSkillIds: number[];
 	onToggle: (skillId: number) => void;
 }
@@ -29,30 +26,51 @@ export function PopularSkillsSection({
 			</div>
 			<div className="grid grid-cols-5 gap-3">
 				{skills.map((skill) => {
-					const isSelected = selectedSkillIds.includes(skill.skill_id);
+					const skillId = skill.skill_id;
+					const isAvailable = skill.isAvailable && typeof skillId === "number";
+					const isSelected =
+						isAvailable && typeof skillId === "number"
+							? selectedSkillIds.includes(skillId)
+							: false;
+					const buttonKey = skillId ?? skill.displayName;
 
 					return (
 						<button
-							key={skill.skill_id}
-							onClick={() => onToggle(skill.skill_id)}
+							type="button"
+							key={buttonKey}
+							onClick={() => {
+								if (isAvailable && typeof skillId === "number") {
+									onToggle(skillId);
+								}
+							}}
+							disabled={!isAvailable}
 							className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg border transition-colors ${
-								isSelected
+								!isAvailable
+									? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+									: isSelected
 									? "bg-blue-50 text-blue-700 border-blue-300"
 									: "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
 							}`}>
 							<div className="w-6 h-6 relative flex-shrink-0">
-								<Image
-									src={skill.logo_url}
-									alt={skill.displayName}
-									width={24}
-									height={24}
-									className="object-contain"
-									onError={(e) => {
-										console.error(`이미지 로드 실패: ${skill.displayName}`);
-									}}
-								/>
+								{skill.logo_url ? (
+									<Image
+										src={skill.logo_url}
+										alt={skill.displayName}
+										width={24}
+										height={24}
+										className="object-contain"
+										onError={() => {
+											console.warn(`이미지 로드 실패: ${skill.displayName}`);
+										}}
+									/>
+								) : (
+									<div className="w-full h-full rounded bg-gray-200" aria-hidden />
+								)}
 							</div>
-							<span>{skill.displayName}</span>
+							<span>
+								{skill.displayName}
+								{!isAvailable ? " (준비중)" : ""}
+							</span>
 						</button>
 					);
 				})}

@@ -9,10 +9,3 @@ export interface SkillResponse {
 	created_at: string;
 	updated_at: string;
 }
-
-// Skills API 응답 래퍼
-export interface SkillsApiResponse {
-	status_code: number;
-	message: string;
-	data: SkillResponse[];
-}

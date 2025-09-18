@@ -1,7 +1,8 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { useFilterStore } from "@store/filters";
-import { useBasicPositionsStore } from "@store/basicPositions";
 import { FilterButton } from "@components/jobsPage/Filter/FilterButton";
 import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
 import {
@@ -10,6 +11,7 @@ import {
 	useCompaniesQuery,
 } from "@queries/index";
 import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
+import type { PopularSkillData } from "@constants/popularSkills";
 interface FilterModalProps {
 	onFiltersApplied?: () => void;
 }
@@ -47,13 +49,40 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		error: companiesError,
 	} = useCompaniesQuery();
 	const {
-		data: skills = [],
+		data: skillsLookup,
 		isLoading: skillsLoading,
 		error: skillsError,
 	} = useSkillsQuery();
 
 	const loading = positionsLoading || companiesLoading || skillsLoading;
 	const error = positionsError || companiesError || skillsError;
+
+	const popularSkillsData = useMemo<PopularSkillData[]>(() => {
+		return POPULAR_SKILLS_CONFIG.map((config) => {
+			if (!skillsLookup) {
+				return {
+					displayName: config.displayName,
+					skill_id: null,
+					name: config.displayName,
+					logo_url: null,
+					designed_logo_url: null,
+					isAvailable: false,
+				};
+			}
+
+			const skillId = skillsLookup.toId(config.displayName) ?? null;
+			const matchedSkill = skillId ? skillsLookup.byId.get(skillId) : undefined;
+
+			return {
+				displayName: config.displayName,
+				skill_id: skillId,
+				name: matchedSkill?.name ?? config.displayName,
+				logo_url: matchedSkill?.logo_url ?? null,
+				designed_logo_url: matchedSkill?.designed_logo_url ?? null,
+				isAvailable: Boolean(skillId && matchedSkill),
+			};
+		});
+	}, [skillsLookup]);
 
 	if (!isModalOpen) return null;
 
@@ -159,7 +188,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								/>
 								<PopularSkillsSection
 									title="인기스택"
-									skills={POPULAR_SKILLS_CONFIG}
+									skills={popularSkillsData}
 									selectedSkillIds={selectedSkillIds}
 									onToggle={toggleSkill}
 								/>
@@ -176,7 +205,11 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 						</button>
 						<button
 							onClick={() => {
-								applyFilters({ positions, companies, skills });
+							applyFilters({
+								positions,
+								companies,
+								skills: skillsLookup?.list ?? [],
+							});
 								// 필터 적용 후 콜백 실행
 								if (onFiltersApplied) {
 									onFiltersApplied();

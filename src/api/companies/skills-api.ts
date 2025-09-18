@@ -1,5 +1,5 @@
 import customAxios from "../customAxios";
-import { SkillResponse, SkillsApiResponse } from "../types/skill.types";
+import { SkillResponse } from "../types/skill.types";
 
 const PATH = "v1/capability/skills";
 
@@ -9,14 +9,11 @@ export const SkillsApi = {
 	getSkills: async (): Promise<SkillResponse[]> => {
 		try {
 			console.log("Skills API 호출 시작:", PATH);
-			const response = await customAxios.get<
-				SkillResponse[],
-				SkillsApiResponse
-			>(PATH);
+			const response = await customAxios.get<SkillResponse[]>(PATH);
 			console.log("Skills API 응답:", response);
 
-			// PositionsApi와 동일하게 response.data 반환
-			return response.data;
+			// 인터셉터에서 이미 response.data를 반환하므로 response 자체가 data입니다
+			return response;
 		} catch (error) {
 			console.error("Skills API 에러:", error);
 			throw new Error("기술 스택 목록을 불러오는데 실패했습니다.");

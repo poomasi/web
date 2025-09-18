@@ -7,10 +7,3 @@ export interface PositionResponse {
 	updated_at: string;
 	position_id: number;
 }
-
-// API 응답 래퍼
-export interface PositionsApiResponse {
-	status_code: number;
-	message: string;
-	data: PositionResponse[];
-}

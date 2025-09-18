@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { RecruitmentApi } from "@api/companies/Recruitment-api";
+import { RecruitmentApi } from "@api/companies/recruitment-api";
 import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 
 //채용공고 API를 React Query로 불러오고 캐시/에러/재시도 등을 관리
