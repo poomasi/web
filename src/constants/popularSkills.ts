@@ -45,10 +45,11 @@ export const POPULAR_SKILLS_CONFIG: PopularSkillConfig[] = [
 ];
 
 // 매칭된 인기 스택 데이터 타입
-// export interface PopularSkillData {
-// 	displayName: string;
-// 	skill_id: number;
-// 	name: string; // API에서 가져온 실제 이름
-// 	designed_logo_url: string;
-// 	logo_url: string;
-// }
+export interface PopularSkillData {
+	displayName: string;
+	skill_id: number | null;
+	name: string; // API에서 가져온 실제 이름
+	designed_logo_url: string | null;
+	logo_url: string | null;
+	isAvailable: boolean;
+}

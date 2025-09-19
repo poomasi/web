@@ -59,27 +59,33 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 	const popularSkillsData = useMemo<PopularSkillData[]>(() => {
 		return POPULAR_SKILLS_CONFIG.map((config) => {
-			if (!skillsLookup) {
+			if (!skillsLookup || !Array.isArray(skillsLookup)) {
 				return {
 					displayName: config.displayName,
 					skill_id: null,
 					name: config.displayName,
-					logo_url: null,
+					logo_url: config.logo_url,
 					designed_logo_url: null,
 					isAvailable: false,
 				};
 			}
 
-			const skillId = skillsLookup.toId(config.displayName) ?? null;
-			const matchedSkill = skillId ? skillsLookup.byId.get(skillId) : undefined;
+			// skillsLookup 배열에서 displayName과 일치하는 스킬 찾기
+			const matchedSkill = skillsLookup.find(
+				(skill) =>
+					skill.name.toLowerCase() === config.displayName.toLowerCase() ||
+					config.apiSearchTerms.some((term) =>
+						skill.name.toLowerCase().includes(term.toLowerCase())
+					)
+			);
 
 			return {
 				displayName: config.displayName,
-				skill_id: skillId,
+				skill_id: matchedSkill?.skill_id ?? null,
 				name: matchedSkill?.name ?? config.displayName,
-				logo_url: matchedSkill?.logo_url ?? null,
+				logo_url: matchedSkill?.logo_url ?? config.logo_url,
 				designed_logo_url: matchedSkill?.designed_logo_url ?? null,
-				isAvailable: Boolean(skillId && matchedSkill),
+				isAvailable: Boolean(matchedSkill),
 			};
 		});
 	}, [skillsLookup]);
@@ -205,11 +211,11 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 						</button>
 						<button
 							onClick={() => {
-							applyFilters({
-								positions,
-								companies,
-								skills: skillsLookup?.list ?? [],
-							});
+								applyFilters({
+									positions,
+									companies,
+									skills: skillsLookup ?? [],
+								});
 								// 필터 적용 후 콜백 실행
 								if (onFiltersApplied) {
 									onFiltersApplied();

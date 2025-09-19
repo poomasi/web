@@ -39,6 +39,9 @@ export function useDetailJobsFilters({
 	const locationsSet = useSetFromArray((filters as any).locations);
 
 	const filteredJobs = useMemo(() => {
+		if (!Array.isArray(allJobs)) {
+			return [];
+		}
 		return allJobs.filter((job) => {
 			// 포지션 필터 (position_id 기반)
 			if (positionIdSet && !positionIdSet.has(job.position_id)) {

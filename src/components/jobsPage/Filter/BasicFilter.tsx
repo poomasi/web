@@ -25,7 +25,11 @@ export function BasicFilter() {
 
 	// 컴포넌트 마운트 시 Web Frontend로 초기화
 	useEffect(() => {
-		if (positions.length > 0 && selectedPositionIds.length === 0) {
+		if (
+			Array.isArray(positions) &&
+			positions.length > 0 &&
+			selectedPositionIds.length === 0
+		) {
 			// 1순위: WEB_FRONTEND 매칭
 			const webFrontend = positions.find(
 				(p) => p.position_id === POSITION_IDS.WEB_FRONTEND
@@ -53,6 +57,9 @@ export function BasicFilter() {
 
 	const getDisplayText = () => {
 		if (selectedPositionIds.length === 0) {
+			return "포지션 선택";
+		}
+		if (!Array.isArray(positions)) {
 			return "포지션 선택";
 		}
 		const selectedPosition = positions.find(
@@ -99,21 +106,22 @@ export function BasicFilter() {
 				<div className="absolute z-10 mt-2 min-w-[200px] bg-white border border-gray-200 rounded-lg shadow-lg">
 					{/* 포지션 목록 */}
 					<div className="max-h-60 overflow-y-auto py-1">
-						{positions.map((position) => {
-							const isSelected = selectedPositionIds.includes(
-								position.position_id
-							);
-							return (
-								<div
-									key={position.position_id}
-									onClick={() => handlePositionClick(position.position_id)}
-									className={`px-4 py-2 text-base cursor-pointer hover:bg-gray-50 ${
-										isSelected ? "bg-blue-50 text-blue-700" : "text-gray-700"
-									}`}>
-									{position.title}
-								</div>
-							);
-						})}
+						{Array.isArray(positions) &&
+							positions.map((position) => {
+								const isSelected = selectedPositionIds.includes(
+									position.position_id
+								);
+								return (
+									<div
+										key={position.position_id}
+										onClick={() => handlePositionClick(position.position_id)}
+										className={`px-4 py-2 text-base cursor-pointer hover:bg-gray-50 ${
+											isSelected ? "bg-blue-50 text-blue-700" : "text-gray-700"
+										}`}>
+										{position.title}
+									</div>
+								);
+							})}
 					</div>
 				</div>
 			)}

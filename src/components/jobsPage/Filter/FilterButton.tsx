@@ -1,13 +1,15 @@
 "use client";
 
-interface FilterSectionProps<T extends string | number = string | number> {
+import { Key } from "react";
+
+interface FilterSectionProps<T extends string | number> {
 	title: string;
 	options: Array<{ id: T; name: string }>;
 	selectedItems: T[];
 	onToggle: (item: T) => void;
 }
 
-export function FilterButton<T = string | number>({
+export function FilterButton<T extends string | number>({
 	title,
 	options,
 	selectedItems,
