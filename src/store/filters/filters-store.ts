@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { RecruitmentFilters } from "@api/types/job.types";
 
-// 1. 상태(State)의 타입을 정의합니다.
+// 상태(State)의 타입 정의
 interface FilterState {
 	/** 사용자가 선택한 모든 필터 값을 담는 단일 객체 */
 	selectedFilters: RecruitmentFilters;
@@ -9,7 +9,7 @@ interface FilterState {
 	isModalOpen: boolean;
 }
 
-// 2. 액션(Actions)의 타입을 정의합니다.
+// 액션(Actions)의 타입 정의
 interface FilterActions {
 	/** selectedFilters의 일부 또는 전체를 업데이트하는 함수 */
 	setFilters: (newFilters: Partial<RecruitmentFilters>) => void;
@@ -21,7 +21,7 @@ interface FilterActions {
 	closeModal: () => void;
 }
 
-// 3. 필터의 초기 상태를 상수로 정의합니다.
+// 기본 필터값 설정
 const INITIAL_FILTERS: RecruitmentFilters = {
 	position_ids: [1], // 페이지 최초 진입 시 기본값 'webfront' (ID: 1)
 	company_names: [],
@@ -30,7 +30,7 @@ const INITIAL_FILTERS: RecruitmentFilters = {
 	skill_ids: [],
 };
 
-// 4. Zustand 스토어를 생성합니다.
+// Zustand 스토어 생성.
 export const useFilterStore = create<FilterState & FilterActions>((set) => ({
 	// --- 초기 상태 ---
 	selectedFilters: INITIAL_FILTERS,

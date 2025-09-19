@@ -1,7 +1,7 @@
 "use client";
 
+import React, { useMemo } from "react";
 import { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
-import { useBasicJobsFilters } from "@hooks/jobsPage/useBasicJobsFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
 import { JobList } from "@components/jobsPage/JobList";
 import {
@@ -9,14 +9,17 @@ import {
 	FilterButtonsRow,
 	FilterModal,
 } from "@components/jobsPage/Filter";
-import { useBasicPositionsStore } from "@store/basicPositions";
-import { useFilterStore } from "@store/filters";
-import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
+import { useFilterStore } from "@store/filters"; // 1단계: 새로 만든 통합 스토어
+import { useJobsQuery } from "@queries/useJobsQuery"; // 2단계: 쿼리 훅 직접 사용
 import { RecruitmentResponse } from "@api/types/job.types";
-import { CompanyParentResponse } from "@api/types/company.types";
-import { useEffect } from "react";
 
 export default function JobsPage() {
+	// --- 데이터 로딩 (Hooks) ---
+
+	// 1. 통합 Zustand 스토어에서 '선택된 필터'와 '액션' 가져오기
+	const { selectedFilters, setFilters, clearAllFilters } = useFilterStore();
+
+	// 2. 회사 카테고리 데이터 가져오기
 	const {
 		companies,
 		loading: companiesLoading,
@@ -25,148 +28,56 @@ export default function JobsPage() {
 		handleCompanySelect,
 	} = useCompanyCategories();
 
+	// 3. '선택된 필터'를 React Query 훅에 직접 전달하여 화면에 보여줄 채용 공고를 가져오기
 	const {
-		allJobs,
-		filteredJobs,
-		loading: jobsLoading,
+		data: filteredJobs = [],
+		isLoading: jobsLoading,
 		error: jobsError,
-		filters,
-		updateFilters,
-		clearFilters,
 		refetch,
-	} = useBasicJobsFilters();
+	} = useJobsQuery(selectedFilters);
 
-	const { selectedPositionIds } = useBasicPositionsStore();
-	const {
-		extractFilterOptions,
-		selectedPositionIds: modalSelectedPositionIds,
-		selectedCompanies,
-		selectedExperience,
-		selectedLocations,
-		selectedSkillIds,
-	} = useFilterStore();
+	// 4. (3단계 전략) '경력/위치' 등 필터 옵션 생성을 위해, 필터 없이 모든 공고를 가져옵니다.
+	const { data: allJobsForOptions = [] } = useJobsQuery({});
 
-	// 인기 스킬은 하드코딩된 설정 사용
-	const popularSkills = POPULAR_SKILLS_CONFIG;
+	// --- 데이터 가공 (Memoization) ---
 
-	// zustand 스토어의 선택된 포지션을 필터에 동기화
-	useEffect(() => {
-		updateFilters({ position_ids: selectedPositionIds });
-	}, [selectedPositionIds, updateFilters]);
+	// 5. 'useMemo'를 사용해 '경력', '위치', '회사' 옵션 목록을 효율적으로 계산합니다.
+	const filterOptions = useMemo(() => {
+		const experienceSet = new Set<string>(["전체"]);
+		const locationSet = new Set<string>(["전체"]);
+		const companyNameSet = new Set<string>(["전체"]);
 
-	// jobs 데이터가 로드되면 필터 옵션 추출
-	useEffect(() => {
-		if (allJobs.length > 0) {
-			extractFilterOptions(allJobs);
-		}
-	}, [allJobs, extractFilterOptions]);
+		allJobsForOptions.forEach((job) => {
+			if (job.experience_years) experienceSet.add(job.experience_years);
+			if (job.company_address_depth1)
+				locationSet.add(job.company_address_depth1);
+			if (job.parent_company_name) companyNameSet.add(job.parent_company_name);
+		});
 
-	// 모달 필터가 적용되면 실제 필터에 반영
-	useEffect(() => {
-		const modalFilters: any = {};
+		return {
+			experienceOptions: Array.from(experienceSet).sort(),
+			locationOptions: Array.from(locationSet).sort(),
+			companyNameOptions: Array.from(companyNameSet).sort(),
+		};
+	}, [allJobsForOptions]); // allJobsForOptions 데이터가 준비되었을 때만 재계산됩니다.
 
-		// 모달에서 선택된 포지션들을 position_ids에 적용
-		if (modalSelectedPositionIds.length > 0) {
-			modalFilters.position_ids = modalSelectedPositionIds;
-		}
-
-		// 회사 필터 적용
-		if (selectedCompanies.length > 0) {
-			modalFilters.company_names = selectedCompanies;
-		}
-
-		// 경력 필터 적용
-		if (selectedExperience.length > 0 && !selectedExperience.includes("전체")) {
-			modalFilters.experience_years = selectedExperience;
-		}
-
-		// 위치 필터 적용
-		if (selectedLocations.length > 0 && !selectedLocations.includes("전체")) {
-			modalFilters.locations = selectedLocations;
-		}
-
-		// 스킬 필터 적용 - skill_ids 사용
-		if (selectedSkillIds.length > 0) {
-			modalFilters.skill_ids = selectedSkillIds;
-		}
-
-		// 모든 필터가 비어있는 경우 명시적으로 빈 객체로 설정하여 필터 초기화
-		const hasAnyFilter =
-			modalSelectedPositionIds.length > 0 ||
-			selectedCompanies.length > 0 ||
-			(selectedExperience.length > 0 && !selectedExperience.includes("전체")) ||
-			(selectedLocations.length > 0 && !selectedLocations.includes("전체")) ||
-			selectedSkillIds.length > 0;
-
-		if (!hasAnyFilter) {
-			// 모든 필터가 비어있으면 명시적으로 빈 필터 적용
-			updateFilters({});
-		} else {
-			// 필터가 있으면 해당 필터 적용
-			updateFilters(modalFilters);
-		}
-	}, [
-		modalSelectedPositionIds,
-		selectedCompanies,
-		selectedExperience,
-		selectedLocations,
-		selectedSkillIds,
-		updateFilters,
-	]);
-
-	const handleRefresh = () => {
-		refetch();
-	};
-
-	const handleClearFilters = () => {
-		clearFilters();
-	};
-
-	const handleResetAllFilters = () => {
-		// 기존 필터 초기화
-		clearFilters();
-		// 모달 필터 스토어 초기화
-		const { clearAllFilters } = useFilterStore.getState();
-		clearAllFilters();
-		// 포지션 스토어 초기화
-		const { clearSelectedPositionIds } = useBasicPositionsStore.getState();
-		clearSelectedPositionIds();
-	};
+	// --- 이벤트 핸들러 ---
 
 	const handleJobClick = (job: RecruitmentResponse) => {
 		console.log("선택된 채용공고:", job.title);
 	};
 
-	const renderErrorState = () => (
-		<div className="text-center py-8">
-			<div
-				className="text-red-500 bg-red-50 border border-red-200 rounded-lg p-4"
-				role="alert"
-				aria-live="polite">
-				{companiesError}
-			</div>
-		</div>
-	);
-
-	const renderCompanyNav = () => {
-		if (companiesError) {
-			return renderErrorState();
-		}
-
-		return (
-			<CompanyNavList
-				companies={companies}
-				selectedCompany={selectedCompany}
-				onCompanySelect={handleCompanySelect}
-				loading={companiesLoading}
-			/>
-		);
-	};
+	// --- UI 렌더링 ---
 
 	return (
 		<main className="max-w-7xl mx-auto px-4 pb-16">
 			<section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-				{renderCompanyNav()}
+				<CompanyNavList
+					companies={companies}
+					selectedCompany={selectedCompany}
+					onCompanySelect={handleCompanySelect}
+					loading={companiesLoading}
+				/>
 			</section>
 
 			<section className="bg-white rounded-lg shadow-sm p-6">
@@ -176,29 +87,27 @@ export default function JobsPage() {
 					</p>
 				</div>
 
-				{/* 기본 필터 UI */}
 				<div className="py-6 space-y-6">
 					<BasicFilter />
 					<FilterButtonsRow
 						totalJobsCount={filteredJobs.length}
-						onResetFilters={handleResetAllFilters}
+						onResetFilters={clearAllFilters} // 스토어의 액션을 직접 연결
 					/>
 				</div>
 
 				<JobList
 					jobs={filteredJobs}
 					loading={jobsLoading}
-					error={jobsError}
+					error={jobsError ? "채용공고를 불러오는데 실패했습니다." : null}
 					onJobClick={handleJobClick}
 				/>
 			</section>
 
 			{/* 필터 모달 */}
 			<FilterModal
-				onFiltersApplied={() => {
-					// 필터 적용 후 강제로 useEffect 트리거
-					console.log("필터가 적용되었습니다.");
-				}}
+				options={filterOptions}
+				currentFilters={selectedFilters}
+				onApplyFilters={setFilters}
 			/>
 		</main>
 	);
