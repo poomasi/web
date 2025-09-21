@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
-import { useJobs, findFrontendSkillId } from "@hooks/jobsPage";
+import { useRecruitmentQuery } from "@queries/useRecruitmentQuery";
+import { findFrontendSkillId } from "@hooks/jobsPage";
 import { useDetailJobsFilters } from "./useDetailJobsFilters";
 
 interface UseBasicJobsWithFiltersReturn {
@@ -17,7 +18,21 @@ interface UseBasicJobsWithFiltersReturn {
 export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 	const [filters, setFilters] = useState<RecruitmentFilters>({});
 
-	const { jobs: allJobs, loading, error, refetch } = useJobs();
+	const {
+		data: allJobs = [],
+		isLoading: loading,
+		error,
+		refetch,
+		isError,
+	} = useRecruitmentQuery();
+
+	// 에러 메시지 변환
+	const errorMessage =
+		isError && error
+			? error instanceof Error
+				? error.message
+				: "채용공고를 불러오는데 실패했습니다."
+			: null;
 
 	//기본필터 = 프론트엔드
 	const didSetDefaultPosition = useRef(false);
@@ -59,7 +74,7 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 		allJobs,
 		filteredJobs,
 		loading,
-		error,
+		error: errorMessage,
 		filters,
 		updateFilters,
 		clearFilters,
