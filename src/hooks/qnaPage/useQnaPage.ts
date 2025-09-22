@@ -57,10 +57,10 @@ export function useQnaPage() {
 	}, []);
 
 	useEffect(() => {
-		if (!publicId) {
-			handleError("로그인을 먼저 진행해주세요.");
-			return;
-		}
+		// if (!publicId) {
+		// 	handleError("로그인을 먼저 진행해주세요.");
+		// 	return;
+		// }
 
 		scroll(0, 0);
 		getTeacherData();
