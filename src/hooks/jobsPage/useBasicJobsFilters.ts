@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 import { useRecruitmentQuery } from "@queries/useRecruitmentQuery";
-import { findFrontendSkillId } from "@hooks/jobsPage";
-import { useDetailJobsFilters } from "./useDetailJobsFilters";
+import { useFilterStore } from "@store/filters";
 
 interface UseBasicJobsWithFiltersReturn {
 	allJobs: RecruitmentResponse[];
@@ -10,14 +9,12 @@ interface UseBasicJobsWithFiltersReturn {
 	loading: boolean;
 	error: string | null;
 	filters: RecruitmentFilters;
-	updateFilters: (newFilters: Partial<RecruitmentFilters>) => void;
 	clearFilters: () => void;
 	refetch: () => void;
 }
 
 export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
-	const [filters, setFilters] = useState<RecruitmentFilters>({});
-
+	// 1. 쿼리에서 데이터 가져오기
 	const {
 		data: allJobs = [],
 		isLoading: loading,
@@ -26,7 +23,11 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 		isError,
 	} = useRecruitmentQuery();
 
-	// 에러 메시지 변환
+	// 2. 통합된 스토어에서 필터 가져오기
+	const { getAppliedFilters, clearAllFilters } = useFilterStore();
+	const filters = getAppliedFilters();
+
+	// 3. 에러 메시지 변환
 	const errorMessage =
 		isError && error
 			? error instanceof Error
@@ -34,49 +35,75 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 				: "채용공고를 불러오는데 실패했습니다."
 			: null;
 
-	//기본필터 = 프론트엔드
-	const didSetDefaultPosition = useRef(false);
-	useEffect(() => {
-		if (didSetDefaultPosition.current) return; // 이미 실행했으면 패스
-		if (allJobs.length === 0) return; // 데이터 없으면 패스
+	// 4. 필터링 로직 (useDetailJobsFilters에서 이동)
+	const filteredJobs = useMemo(() => {
+		return allJobs.filter((job) => {
+			// 포지션 ID 필터 (기본 필터)
+			if (
+				filters.position_ids &&
+				!filters.position_ids.includes(job.position_id)
+			) {
+				return false;
+			}
 
-		const hasNoActiveFilter =
-			(!filters.position_ids || filters.position_ids.length === 0) &&
-			(!filters.position_titles || filters.position_titles.length === 0) &&
-			(!filters.experience_years || filters.experience_years.length === 0);
+			// 포지션 타이틀 필터 (모달에서 추가 선택된 포지션들)
+			if (
+				filters.position_titles &&
+				!filters.position_titles.includes(job.position_title)
+			) {
+				return false;
+			}
 
-		if (hasNoActiveFilter) {
-			// Web Frontend 포지션 ID로 기본 필터 설정
-			setFilters((prev) => ({ ...prev, position_ids: [1] })); // POSITION_IDS.WEB_FRONTEND = 1
-			didSetDefaultPosition.current = true;
-		}
-	}, [allJobs]);
+			// 경력 필터
+			if (
+				filters.experience_years &&
+				!filters.experience_years.includes(job.experience_years as any)
+			) {
+				return false;
+			}
 
-	const { filteredJobs } = useDetailJobsFilters({
-		allJobs,
-		filters,
-	});
+			// 회사 필터
+			if (
+				filters.company_names &&
+				!filters.company_names.includes(job.parent_company_name)
+			) {
+				return false;
+			}
 
-	const updateFilters = useCallback(
-		(newFilters: Partial<RecruitmentFilters>) => {
-			setFilters((prev) => ({ ...prev, ...newFilters }));
-		},
-		[]
-	);
+			// 위치 필터
+			if (
+				filters.locations &&
+				!filters.locations.includes(job.company_address_depth1)
+			) {
+				return false;
+			}
 
+			// 스킬 필터 - 스킬명으로 검색
+			if (filters.skill_names && filters.skill_names.length > 0) {
+				const jobSkills = (job as any).skill_names || [];
+				const hasMatchingSkill = filters.skill_names.some((skillName: string) =>
+					jobSkills.includes(skillName)
+				);
+				if (!hasMatchingSkill) {
+					return false;
+				}
+			}
+
+			return true;
+		});
+	}, [allJobs, filters]);
+
+	// 5. 필터 초기화 함수
 	const clearFilters = useCallback(() => {
-		setFilters({});
-		// 기본값 다시 적용 가능하도록 플래그 리셋
-		didSetDefaultPosition.current = false;
-	}, []);
+		clearAllFilters(); // 통합된 초기화 함수 사용 (Web Frontend로 초기화됨)
+	}, [clearAllFilters]);
 
 	return {
 		allJobs,
 		filteredJobs,
 		loading,
 		error: errorMessage,
-		filters,
-		updateFilters,
+		filters, // 현재 적용된 필터 (스토어에서 계산)
 		clearFilters,
 		refetch,
 	};

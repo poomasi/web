@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useBasicPositionsStore } from "@store/basicPositions";
+import { useFilterStore } from "@store/filters";
 import { usePositionsQuery } from "@queries/usePositionsQuery";
 import { POSITION_IDS } from "@types";
 
@@ -12,8 +12,8 @@ export function BasicFilter() {
 		error: queryError,
 	} = usePositionsQuery();
 
-	const { selectedPositionIds, setSelectedPositionIds } =
-		useBasicPositionsStore();
+	const { basicPositionId, setBasicPositionId, getPositionDisplayText } =
+		useFilterStore();
 
 	const error = queryError
 		? queryError instanceof Error
@@ -23,43 +23,35 @@ export function BasicFilter() {
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	// 컴포넌트 마운트 시 Web Frontend로 초기화
+	// 컴포넌트 마운트 시 Web Frontend로 초기화 (이미 스토어에서 기본값 1로 설정됨)
+	// 포지션 데이터가 로드되면 유효성 검사만 수행
 	useEffect(() => {
-		if (positions.length > 0 && selectedPositionIds.length === 0) {
-			// 1순위: WEB_FRONTEND 매칭
+		if (positions.length > 0 && basicPositionId === 1) {
+			// Web Frontend가 실제로 존재하는지 확인
 			const webFrontend = positions.find(
 				(p) => p.position_id === POSITION_IDS.WEB_FRONTEND
 			);
 
-			if (webFrontend) {
-				setSelectedPositionIds([webFrontend.position_id]);
-			} else {
-				// 2순위: 연관 포지션들(FULLSTACK 등)
+			if (!webFrontend) {
+				// Web Frontend가 없으면 Fullstack으로 대체
 				const fullstack = positions.find(
 					(p) => p.position_id === POSITION_IDS.FULLSTACK
 				);
 				if (fullstack) {
-					setSelectedPositionIds([fullstack.position_id]);
+					setBasicPositionId(fullstack.position_id);
 				}
 			}
 		}
-	}, [positions, selectedPositionIds.length, setSelectedPositionIds]);
+	}, [positions, basicPositionId, setBasicPositionId]);
 
 	const handlePositionClick = (positionId: number) => {
 		// 단일 선택만 가능
-		setSelectedPositionIds([positionId]);
+		setBasicPositionId(positionId);
 		setIsDropdownOpen(false); // 선택 후 드롭다운 닫기
 	};
 
-	const getDisplayText = () => {
-		if (selectedPositionIds.length === 0) {
-			return "포지션 선택";
-		}
-		const selectedPosition = positions.find(
-			(p) => p.position_id === selectedPositionIds[0]
-		);
-		return selectedPosition ? selectedPosition.title : "포지션 선택";
-	};
+	// 표시 텍스트는 스토어의 계산 함수 사용
+	const displayText = getPositionDisplayText(positions);
 
 	if (error) {
 		return (
@@ -76,7 +68,7 @@ export function BasicFilter() {
 				onClick={() => !loading && setIsDropdownOpen(!isDropdownOpen)}
 				className={`flex items-center cursor-pointer ${loading ? "cursor-not-allowed opacity-50" : ""}`}>
 				<span className="text-gray-900 font-medium text-lg">
-					{loading ? "로딩중..." : getDisplayText()}
+					{loading ? "로딩중..." : displayText}
 				</span>
 				<svg
 					className={`ml-1 h-4 w-4 text-gray-600 transition-transform duration-200 ${
@@ -100,9 +92,7 @@ export function BasicFilter() {
 					{/* 포지션 목록 */}
 					<div className="max-h-60 overflow-y-auto py-1">
 						{positions.map((position) => {
-							const isSelected = selectedPositionIds.includes(
-								position.position_id
-							);
+							const isSelected = basicPositionId === position.position_id;
 							return (
 								<div
 									key={position.position_id}

@@ -1,61 +1,69 @@
 import { FilterStore } from "./types";
 
 export const createFilterActions = (set: any, get: () => FilterStore) => ({
-    // 필터 토글
-    togglePosition: (position: string) => {
-        const { selectedPositions } = get();
-        const newSelected = selectedPositions.includes(position)
-            ? selectedPositions.filter((p) => p !== position)
-            : [...selectedPositions, position];
-        set({ selectedPositions: newSelected });
-    },
+	// 기본 필터 액션
+	setBasicPositionId: (positionId: number) => {
+		set({ basicPositionId: positionId });
+	},
 
-    toggleCompany: (company: string) => {
-        const { selectedCompanies } = get();
-        const newSelected = selectedCompanies.includes(company)
-            ? selectedCompanies.filter((c) => c !== company)
-            : [...selectedCompanies, company];
-        set({ selectedCompanies: newSelected });
-    },
+	// 모달 필터 토글
+	togglePosition: (position: string) => {
+		const { selectedPositions } = get();
+		const newSelected = selectedPositions.includes(position)
+			? selectedPositions.filter((p) => p !== position)
+			: [...selectedPositions, position];
+		set({ selectedPositions: newSelected });
+	},
 
-    toggleExperience: (experience: string) => {
-        const { selectedExperience } = get();
-        const newSelected = selectedExperience.includes(experience)
-            ? selectedExperience.filter((e) => e !== experience)
-            : [...selectedExperience, experience];
-        set({ selectedExperience: newSelected });
-    },
+	toggleCompany: (company: string) => {
+		const { selectedCompanies } = get();
+		const newSelected = selectedCompanies.includes(company)
+			? selectedCompanies.filter((c) => c !== company)
+			: [...selectedCompanies, company];
+		set({ selectedCompanies: newSelected });
+	},
 
-    toggleLocation: (location: string) => {
-        const { selectedLocations } = get();
-        const newSelected = selectedLocations.includes(location)
-            ? selectedLocations.filter((l) => l !== location)
-            : [...selectedLocations, location];
-        set({ selectedLocations: newSelected });
-    },
+	toggleExperience: (experience: string) => {
+		const { selectedExperience } = get();
+		const newSelected = selectedExperience.includes(experience)
+			? selectedExperience.filter((e) => e !== experience)
+			: [...selectedExperience, experience];
+		set({ selectedExperience: newSelected });
+	},
 
-    toggleSkill: (skill: string) => {
-        const { selectedSkills } = get();
-        const newSelected = selectedSkills.includes(skill)
-            ? selectedSkills.filter((s) => s !== skill)
-            : [...selectedSkills, skill];
-        set({ selectedSkills: newSelected });
-    },
+	toggleLocation: (location: string) => {
+		const { selectedLocations } = get();
+		const newSelected = selectedLocations.includes(location)
+			? selectedLocations.filter((l) => l !== location)
+			: [...selectedLocations, location];
+		set({ selectedLocations: newSelected });
+	},
 
-    // 필터 초기화
-    clearAllFilters: () => {
-        set({
-            selectedPositions: [],
-            selectedCompanies: [],
-            selectedExperience: [],
-            selectedLocations: [],
-            selectedSkills: [],
-        });
-    },
+	toggleSkill: (skill: string) => {
+		const { selectedSkills } = get();
+		const newSelected = selectedSkills.includes(skill)
+			? selectedSkills.filter((s) => s !== skill)
+			: [...selectedSkills, skill];
+		set({ selectedSkills: newSelected });
+	},
 
-    clearPositions: () => set({ selectedPositions: [] }),
-    clearCompanies: () => set({ selectedCompanies: [] }),
-    clearExperience: () => set({ selectedExperience: [] }),
-    clearLocations: () => set({ selectedLocations: [] }),
-    clearSkills: () => set({ selectedSkills: [] }),
+	// 필터 초기화
+	clearAllFilters: () => {
+		set({
+			basicPositionId: 1, // Web Frontend로 초기화
+			selectedPositions: [],
+			selectedCompanies: [],
+			selectedExperience: [],
+			selectedLocations: [],
+			selectedSkills: [],
+		});
+	},
+
+	clearPositions: () => set({ selectedPositions: [] }),
+	clearCompanies: () => set({ selectedCompanies: [] }),
+	clearExperience: () => set({ selectedExperience: [] }),
+	clearLocations: () => set({ selectedLocations: [] }),
+	clearSkills: () => set({ selectedSkills: [] }),
+
+	// 기본값 초기화 없음 (원복 상태 유지)
 });
