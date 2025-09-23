@@ -59,9 +59,14 @@ export const createComputedActions = (get: () => FilterStore) => ({
 			? selectedPosition.title
 			: "Web Frontend";
 
-		// 모달에서 추가 선택된 포지션이 있으면 "외 N개" 표시
-		if (selectedPositions.length > 0) {
-			return `${basicText} 외 ${selectedPositions.length}개`;
+		// 기본 포지션과 다른 추가 선택된 포지션만 필터링
+		const additionalPositions = selectedPositions.filter(
+			(positionTitle) => positionTitle !== basicText
+		);
+
+		// 기본 포지션과 다른 추가 포지션이 있으면 "외 N개" 표시
+		if (additionalPositions.length > 0) {
+			return `${basicText} 외 ${additionalPositions.length}개`;
 		}
 
 		return basicText;
