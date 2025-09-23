@@ -1,12 +1,11 @@
 import { create } from "zustand";
 import { FilterStore } from "./types";
-import { createDataActions } from "./data-actions";
+import { createDataActions } from "./filter-extract";
 import { createModalActions } from "./modal-actions";
 import { createFilterActions } from "./filter-actions";
 import { createComputedActions } from "./computed-actions";
 
 export const useFilterStore = create<FilterStore>((set, get) => ({
-	// 초기 상태
 	basicPositionId: 1, // 기본값: Web Frontend
 	experienceOptions: [],
 	locationOptions: [],
