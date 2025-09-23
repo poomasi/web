@@ -137,25 +137,25 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 									title="직군선택"
 									options={positionOptions}
 									selectedItems={selectedPositions}
-									onToggle={togglePosition}
+									onToggle={(item) => togglePosition(item as number)}
 								/>
 								<FilterSection
 									title="회사 선택"
 									options={companyOptions}
 									selectedItems={selectedCompanies}
-									onToggle={toggleCompany}
+									onToggle={(item) => toggleCompany(item as string)}
 								/>
 								<FilterSection
 									title="경력"
 									options={experienceOptionsList}
 									selectedItems={selectedExperience}
-									onToggle={toggleExperience}
+									onToggle={(item) => toggleExperience(item as string)}
 								/>
 								<FilterSection
 									title="위치"
 									options={locationOptionsList}
 									selectedItems={selectedLocations}
-									onToggle={toggleLocation}
+									onToggle={(item) => toggleLocation(item as string)}
 								/>
 								<PopularSkillsSection
 									title="인기스택"
