@@ -1,12 +1,12 @@
 import { FilterStore } from "./types";
 
+//사용자가 선택한 필터 값들을 스토어에 저장하는 규칙
 export const createFilterActions = (set: any, get: () => FilterStore) => ({
 	// 기본 필터 액션
 	setBasicPositionId: (positionId: number) => {
 		set({ basicPositionId: positionId });
 	},
 
-	// 모달 필터 토글
 	togglePosition: (position: string) => {
 		const { selectedPositions } = get();
 		const newSelected = selectedPositions.includes(position)
@@ -39,11 +39,11 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 		set({ selectedLocations: newSelected });
 	},
 
-	toggleSkill: (skill: string) => {
+	toggleSkill: (skillId: number) => {
 		const { selectedSkills } = get();
-		const newSelected = selectedSkills.includes(skill)
-			? selectedSkills.filter((s) => s !== skill)
-			: [...selectedSkills, skill];
+		const newSelected = selectedSkills.includes(skillId)
+			? selectedSkills.filter((s) => s !== skillId) //선택값이 기존 목록에 잇으면, 기존 목록에서 제거
+			: [...selectedSkills, skillId]; //선택값이 기존 목록에 없으면, 새로운 선택값을 추가
 		set({ selectedSkills: newSelected });
 	},
 
@@ -64,6 +64,4 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 	clearExperience: () => set({ selectedExperience: [] }),
 	clearLocations: () => set({ selectedLocations: [] }),
 	clearSkills: () => set({ selectedSkills: [] }),
-
-	// 기본값 초기화 없음 (원복 상태 유지)
 });

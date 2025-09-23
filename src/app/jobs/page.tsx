@@ -1,7 +1,7 @@
 "use client";
 
 import { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
-import { useBasicJobsFilters } from "@hooks/jobsPage/useBasicJobsFilters";
+import { useModalFilters } from "@hooks/jobsPage/useModalFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
 import { JobList } from "@components/jobsPage/JobList";
 import {
@@ -31,7 +31,7 @@ export default function JobsPage() {
 		error: jobsError,
 		clearFilters,
 		refetch,
-	} = useBasicJobsFilters();
+	} = useModalFilters();
 
 	const { extractFilterOptions } = useFilterStore();
 

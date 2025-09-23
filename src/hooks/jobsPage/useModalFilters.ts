@@ -13,7 +13,8 @@ interface UseBasicJobsWithFiltersReturn {
 	refetch: () => void;
 }
 
-export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
+//createComputedActions에서 정의한 규칙을 사용해서 데이터를 '실제로' 필터링
+export function useModalFilters(): UseBasicJobsWithFiltersReturn {
 	// 1. 쿼리에서 데이터 가져오기
 	const {
 		data: allJobs = [],
@@ -23,7 +24,7 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 		isError,
 	} = useRecruitmentQuery();
 
-	// 2. 통합된 스토어에서 필터 가져오기
+	// 2. 통합 스토어에서 선택된 필터값 가져오기
 	const { getAppliedFilters, clearAllFilters } = useFilterStore();
 	const filters = getAppliedFilters();
 
@@ -35,7 +36,7 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 				: "채용공고를 불러오는데 실패했습니다."
 			: null;
 
-	// 4. 필터링 로직 (useDetailJobsFilters에서 이동)
+	// 4. 필터링 로직
 	const filteredJobs = useMemo(() => {
 		return allJobs.filter((job) => {
 			// 포지션 ID 필터 (기본 필터)
@@ -46,12 +47,12 @@ export function useBasicJobsFilters(): UseBasicJobsWithFiltersReturn {
 				return false;
 			}
 
-			// 포지션 타이틀 필터 (모달에서 추가 선택된 포지션들)
+			// 포지션 필터 (모달에서 추가 선택된 포지션들)
 			if (
 				filters.position_titles &&
 				!filters.position_titles.includes(job.position_title)
 			) {
-				return false;
+				return false; //새로운 배열에 포함되지 않음
 			}
 
 			// 경력 필터

@@ -2,10 +2,12 @@ import { FilterStore } from "./types";
 import { RecruitmentFilters } from "@api/types/job.types";
 import { PositionResponse } from "@api/types";
 
+//'무엇을' 필터링할지 규칙 정의
 export const createComputedActions = (get: () => FilterStore) => ({
-	// 현재 적용된 모든 필터 계산
+	//필터 조건을 정의한 규칙 = 서버에 보낼 API 요청문
+	//스토어의 원본 데이터를 아래와 같은 규칙에 따라 정리
 	getAppliedFilters: (): RecruitmentFilters => {
-		const state = get();
+		const state = get(); //사용자의 필터 선택 값들이 저장된 스토어의 현재 상태 or 초기값
 		const filters: RecruitmentFilters = {};
 
 		// 기본 포지션 필터 (항상 적용됨, 기본값: 1 = Web Frontend)
@@ -39,7 +41,7 @@ export const createComputedActions = (get: () => FilterStore) => ({
 
 		// 스킬 필터
 		if (state.selectedSkills.length > 0) {
-			filters.skill_names = state.selectedSkills;
+			filters.skill_ids = state.selectedSkills;
 		}
 
 		return filters;

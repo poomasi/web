@@ -13,7 +13,7 @@ export interface FilterState {
 	selectedCompanies: string[];
 	selectedExperience: string[];
 	selectedLocations: string[];
-	selectedSkills: string[];
+	selectedSkills: number[];
 
 	// UI 상태
 	isModalOpen: boolean;
@@ -36,7 +36,7 @@ export interface FilterActions {
 	toggleCompany: (company: string) => void;
 	toggleExperience: (experience: string) => void;
 	toggleLocation: (location: string) => void;
-	toggleSkill: (skill: string) => void;
+	toggleSkill: (skillId: number) => void;
 
 	// 필터 초기화
 	clearAllFilters: () => void;
