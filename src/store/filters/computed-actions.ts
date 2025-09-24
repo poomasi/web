@@ -1,7 +1,6 @@
 import { FilterStore } from "./types";
 import { RecruitmentFilters } from "@api/types/job.types";
 import { PositionResponse } from "@api/types";
-import { getSkillNameById } from "@utils/skill-mapping";
 
 //'무엇을' 필터링할지 규칙 정의
 export const createComputedActions = (get: () => FilterStore) => ({
@@ -38,9 +37,20 @@ export const createComputedActions = (get: () => FilterStore) => ({
 			filters.locations = state.selectedLocations;
 		}
 
-		// 스킬 필터
+		// 스킬 필터 - skill_ids를 skill_names로 변환
 		if (state.selectedSkills.length > 0) {
-			filters.skill_ids = state.selectedSkills;
+			const skillNames = state.selectedSkills
+				.map((skillId) => {
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === skillId
+					);
+					return skill ? skill.skill_name : null;
+				})
+				.filter(Boolean) as string[];
+
+			if (skillNames.length > 0) {
+				filters.skill_names = skillNames;
+			}
 		}
 
 		return filters;
@@ -99,10 +109,19 @@ export const createComputedActions = (get: () => FilterStore) => ({
 				if (state.selectedSkills.length === 0) {
 					return "기술 스택";
 				} else if (state.selectedSkills.length === 1) {
-					const skillName = getSkillNameById(state.selectedSkills[0]);
-					return skillName;
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === state.selectedSkills[0]
+					);
+					return skill
+						? skill.skill_name
+						: `Unknown Skill (${state.selectedSkills[0]})`;
 				} else {
-					const firstSkillName = getSkillNameById(state.selectedSkills[0]);
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === state.selectedSkills[0]
+					);
+					const firstSkillName = skill
+						? skill.skill_name
+						: `Unknown Skill (${state.selectedSkills[0]})`;
 					return `${firstSkillName} 외 ${state.selectedSkills.length - 1}개`;
 				}
 
