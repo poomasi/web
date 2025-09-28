@@ -37,6 +37,7 @@ export function FilterModal() {
 		toggleSkill,
 		setSearchQuery,
 		toggleSearchSkill,
+		clearSearchSkills,
 		clearAllFilters,
 		applyFilters,
 		extractAllSkills,
@@ -192,6 +193,7 @@ export function FilterModal() {
 									selectedSkills={selectedSearchSkills}
 									onSearchChange={setSearchQuery}
 									onSkillToggle={toggleSearchSkill}
+									onClearSearch={clearSearchSkills}
 								/>
 							</>
 						)}
