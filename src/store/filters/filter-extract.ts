@@ -10,7 +10,6 @@ export const createDataActions = (set: any, get: () => any) => ({
 	extractFilterOptions: (jobs: RecruitmentResponse[]) => {
 		// 경력 옵션 추출
 		const experienceSet = new Set<string>();
-		// experienceSet.add("경력무관");
 		jobs.forEach((job) => {
 			if (job.experience_years) {
 				experienceSet.add(job.experience_years);
@@ -25,12 +24,13 @@ export const createDataActions = (set: any, get: () => any) => ({
 			}
 		});
 
-		// 인기스킬 옵션 추출
+		// 인기스킬 내용물 추출
 		const popularSkillsMap = new Map<
 			number,
 			{ skill_id: number; skill_name: string; logo_url: string }
 		>();
 		jobs.forEach((job) => {
+			// job.skills이 배열이 맞는지를 확인
 			if (job.skills && Array.isArray(job.skills)) {
 				job.skills.forEach((skill) => {
 					// 인기스킬 목록에 포함된 스킬만 추가

@@ -18,6 +18,7 @@ export function FilterButton({
 	showSelectAllOption = false,
 }: FilterButtonProps) {
 	const isPositionType = title === "직군선택";
+	const isSkillType = title === "인기스택";
 
 	//전체 선택인지 확인
 	const isAllSelected =
@@ -43,7 +44,7 @@ export function FilterButton({
 		name: string;
 		logo_url?: string;
 	}) => {
-		if (isPositionType) {
+		if (isPositionType || isSkillType) {
 			onToggle(option.id, option.name);
 		} else {
 			onToggle(option.name);
