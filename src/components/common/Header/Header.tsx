@@ -3,6 +3,7 @@ import { useAccountStore } from "@store/account";
 import { KakaoLogin } from "@utils/kakao-login";
 import NextImage from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 export function Header() {
 	const { accessToken, resetAccessToken } = useAccountStore();
@@ -33,16 +34,20 @@ export function Header() {
 				<div className="flex justify-start items-center gap-8 max-sm:gap-[12px]">
 					<div
 						className={"max-sm:hidden flex justify-center items-center gap-8"}>
-						<div className="flex justify-center items-center gap-2.5">
-							<p className="flex-grow-0 flex-shrink-0 text-xl font-medium text-left text-black">
+						<Link
+							href="/jobs"
+							className="flex justify-center items-center gap-2.5">
+							<span className="text-xl font-medium text-left text-black">
 								채용공고
-							</p>
-						</div>
-						<div className="flex justify-center items-center gap-2.5">
-							<p className="flex-grow-0 flex-shrink-0 text-xl font-medium text-left text-black">
+							</span>
+						</Link>
+						<Link
+							href="/qna"
+							className="flex justify-center items-center gap-2.5">
+							<span className="text-xl font-medium text-left text-black hover:text-gray-600 transition-colors cursor-pointer">
 								질문하기
-							</p>
-						</div>
+							</span>
+						</Link>
 					</div>
 					<KakaoLogin />
 					<div onClick={() => setIsHamburgerOpen(true)}>
@@ -84,13 +89,13 @@ export function Header() {
 						홈
 					</a>
 					<a
-						href={"/"}
-						className="text-black text-[32px] text-bold">
+						href={"/jobs"}
+						className="text-black text-[32px] text-bold hover:text-gray-600 transition-colors">
 						채용공고
 					</a>
 					<a
-						href={"/"}
-						className="text-black text-[32px] text-bold">
+						href={"/qna"}
+						className="text-black text-[32px] text-bold hover:text-gray-600 transition-colors">
 						질문하기
 					</a>
 				</div>
