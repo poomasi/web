@@ -31,9 +31,10 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 	return (
 		<div>
 			<div
-				onClick={() => handleProfileClick(profileData)}
-				className={`bg-gradient-to-br from-gray-500 to-black shadow-2xl rounded-2xl w-full h-96 p-8 relative overflow-hidden flex flex-col justify-center text-white cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl ${profileData.is_vacation ? "filter blur-sm bg-gray-300/50 pointer-events-none" : ""}`}
+				className={`bg-gradient-to-br from-gray-500 to-black shadow-2xl rounded-2xl w-full h-96 p-8 relative overflow-hidden flex flex-col justify-center text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl group ${profileData.is_vacation ? "filter blur-sm bg-gray-300/50 pointer-events-none" : ""}`}
 				style={{ paddingTop: "12%" }}>
+				{/* 호버 시 회색 오버레이 */}
+				<div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
 				{profileData.is_vacation && (
 					<div className="text-6xl break-keep absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center font-bold z-10">
 						<div className="text-8xl">🏖</div>
@@ -93,6 +94,23 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 						)}
 					</div>
 				</div>
+
+				{/* 호버 시 나타나는 질문하기 버튼 */}
+				{!profileData.is_vacation && (
+					<div
+						className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+						style={{ width: "70%" }}>
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								handleProfileClick(profileData);
+							}}
+							className="bg-white hover:bg-gray-100 text-black px-8 py-4 rounded-full font-semibold shadow-xl transform hover:scale-105 transition-all duration-200 text-xl whitespace-nowrap w-50"
+							style={{ width: "100%" }}>
+							질문하기
+						</button>
+					</div>
+				)}
 			</div>
 			{selectedCardKey && (
 				<ModalGuide
