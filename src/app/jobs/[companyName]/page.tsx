@@ -4,7 +4,16 @@ import { useParams } from "next/navigation";
 import { useParentCompaniesQuery } from "@queries/useParentCompaniesQuery";
 import { CompanyInfo } from "@components/jobsPage/CompanyInfo";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
-import { useMemo } from "react";
+import { JobList } from "@components/jobsPage/JobList";
+import {
+	BasicFilter,
+	FilterButtonsRow,
+	FilterModal,
+} from "@components/jobsPage/Filter";
+import { useModalFilters } from "@hooks/jobsPage/useModalFilters";
+import { useFilterStore } from "@store/filters";
+import { RecruitmentResponse } from "@api/types/job.types";
+import { useMemo, useEffect } from "react";
 
 export default function CompanyJobsPage() {
 	const params = useParams();
@@ -24,6 +33,45 @@ export default function CompanyJobsPage() {
 			companies.find((company) => company.english_name === companyName) || null
 		);
 	}, [companyName, companies]);
+
+	// 필터링 및 채용공고 가져오기
+	const {
+		allJobs,
+		filteredJobs,
+		loading: jobsLoading,
+		error: jobsError,
+		clearFilters,
+		refetch,
+	} = useModalFilters();
+
+	const { extractFilterOptions, selectAllCompanies } = useFilterStore();
+
+	// jobs 데이터가 로드되면 필터 옵션 추출
+	useEffect(() => {
+		if (allJobs.length > 0) {
+			extractFilterOptions(allJobs);
+		}
+	}, [allJobs, extractFilterOptions]);
+
+	// URL 파라미터로 받은 회사를 필터에 초기 설정
+	useEffect(() => {
+		if (selectedCompany) {
+			// 회사 이름(한글)을 필터에 설정
+			selectAllCompanies([selectedCompany.name]);
+		}
+	}, [selectedCompany, selectAllCompanies]);
+
+	const handleResetAllFilters = () => {
+		clearFilters();
+		// 필터 초기화 후 다시 회사 필터 설정
+		if (selectedCompany) {
+			selectAllCompanies([selectedCompany.name]);
+		}
+	};
+
+	const handleJobClick = (job: RecruitmentResponse) => {
+		console.log("선택된 채용공고:", job.title);
+	};
 
 	const renderErrorState = () => (
 		<div className="text-center py-8">
@@ -102,8 +150,25 @@ export default function CompanyJobsPage() {
 							채용중인 공고 탐색하기
 						</h2>
 					</div>
+
+					{/* 기본 필터 UI */}
+					<div className="py-6 space-y-6">
+						<FilterButtonsRow
+							totalJobsCount={filteredJobs.length}
+							onResetFilters={handleResetAllFilters}
+						/>
+					</div>
+
+					<JobList
+						jobs={filteredJobs}
+						loading={jobsLoading}
+						error={jobsError}
+						onJobClick={handleJobClick}
+					/>
 				</section>
 			)}
+
+			<FilterModal />
 		</main>
 	);
 }
