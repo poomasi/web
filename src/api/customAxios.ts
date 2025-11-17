@@ -57,7 +57,7 @@ const baseURL =
 	process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "https://api.poomasi.kr/api";
 
 const customAxios: CustomInstance = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "/api/proxy",
+	baseURL: baseURL,
 	headers: {
 		"Content-Type": "application/json",
 	},
